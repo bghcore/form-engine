@@ -1,6 +1,6 @@
 {
   "name": "@bghcore/dynamic-forms-core",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Core business rules engine and form orchestration for dynamic React forms",
   "repository": {
     "type": "git",
@@ -30,9 +30,6 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     }
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
   },
   "files": ["dist"],
   "license": "MIT",
