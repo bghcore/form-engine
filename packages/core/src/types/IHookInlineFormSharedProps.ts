@@ -15,8 +15,8 @@ export interface IHookInlineFormSharedProps {
   customSaveKey?: string;
   customSaveCallbackKey?: string;
   enableFilter?: boolean;
-  /** Current user's UPN for value functions like setLoggedInUser */
-  currentUserUpn?: string;
+  /** Current user's identifier for value functions like setLoggedInUser */
+  currentUserId?: string;
   /** Callback when save error occurs */
   onSaveError?: (error: string) => void;
   /** Parent entity data for value functions like inheritFromParent */

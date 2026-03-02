@@ -40,7 +40,7 @@ const DocumentLink = (props: IDocumentLinkProps) => {
   });
 
   const onSubmit = (data: IHookDocumentLink) => {
-    saveLinks({ EntityTitle: data.title, DocumentLink: data.url }, addNewLink, index);
+    saveLinks({ title: data.title, url: data.url }, addNewLink, index);
     setEditingLink(false);
   };
 

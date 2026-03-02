@@ -25,7 +25,7 @@ export const HookInlineFormConstants = {
   "32kb": 32,
 };
 
-/** Component type constants (replaces ComponentTypes enum from @cxpui) */
+/** Component type constants */
 export const ComponentTypes = {
   Textbox: "Textbox",
   Dropdown: "Dropdown",

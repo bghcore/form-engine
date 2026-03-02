@@ -15,10 +15,11 @@ import { executeValueFunction } from "./ValueFunctionRegistry";
 export const GetChildEntity = (
   entityId?: string,
   entity?: IEntityData,
-  entityPath?: string
+  entityPath?: string,
+  idField: string = "id"
 ): IEntityData | undefined => {
   if (!entity || !entityPath) return undefined;
-  const childValues = (entity[entityPath] as IEntityData[])?.filter(child => child.EntityId === entityId);
+  const childValues = (entity[entityPath] as IEntityData[])?.filter(child => child[idField] === entityId);
   return childValues?.length === 1 ? { ...childValues[0], Parent: { ...entity } } : undefined;
 };
 
@@ -110,9 +111,9 @@ export const ExecuteValueFunction = (
   valueFunctionName: string,
   fieldValue?: SubEntityType,
   parentEntity?: IEntityData,
-  upn?: string
+  userId?: string
 ): SubEntityType => {
-  return executeValueFunction(fieldName, valueFunctionName, fieldValue, parentEntity, upn);
+  return executeValueFunction(fieldName, valueFunctionName, fieldValue, parentEntity, userId);
 };
 
 export const CheckFieldValidationRules = (
@@ -228,7 +229,7 @@ export const InitOnCreateBusinessRules = (
   fieldConfigs: Dictionary<IFieldConfig>,
   defaultValues: IEntityData,
   parentEntity: IEntityData,
-  upn: string,
+  userId: string,
   setValue: UseFormSetValue<IEntityData>,
   initBusinessRules: (
     configName: string,
@@ -249,7 +250,7 @@ export const InitOnCreateBusinessRules = (
         evf.valueFunction,
         undefined,
         parentEntity,
-        upn
+        userId
       );
       setValue(`${evf.fieldName}` as const, fieldValue);
       initEntityData[evf.fieldName] = fieldValue;
@@ -308,11 +309,11 @@ export const CombineSchemaConfig = (
   Object.keys(fieldConfigs).map(fieldName => {
     const fieldConfigSchema = schemaConfigs[fieldName];
 
-    const cxpDefault = fieldConfigSchema?.cxpDefault ? (fieldConfigSchema?.cxpDefault as string) : undefined;
+    const schemaDefault = fieldConfigSchema?.defaultValue ? (fieldConfigSchema?.defaultValue as string) : undefined;
     const defaultValue =
-      cxpDefault && /^\{[\S\s]*}$/.test(cxpDefault)
-        ? GetDefaultValue(cxpDefault.slice(1, -1), fieldConfigSchema.type)
-        : cxpDefault;
+      schemaDefault && /^\{[\S\s]*}$/.test(schemaDefault)
+        ? GetDefaultValue(schemaDefault.slice(1, -1), fieldConfigSchema.type)
+        : schemaDefault;
 
     results[fieldName].defaultValue = defaultValue;
 
@@ -321,41 +322,41 @@ export const CombineSchemaConfig = (
       : [];
 
     fieldConfigSchema?.depdendencyRules?.forEach((dependencyRule: ISchemaDepRule) => {
-      if (dependencyRule.cxpConditions?.length === 1) {
-        const { cxpFieldName, cxpFieldValue } = dependencyRule.cxpConditions[0];
-        const dropdownOptions = dependencyRule.cxpDependencyValues as string[];
+      if (dependencyRule.conditions?.length === 1) {
+        const { fieldName: condFieldName, fieldValue: condFieldValue } = dependencyRule.conditions[0];
+        const dropdownOptions = dependencyRule.dependencyValues as string[];
 
-        if (results[cxpFieldName]?.dropdownDependencies?.[cxpFieldValue]) {
-          results[cxpFieldName].dropdownDependencies[cxpFieldValue][fieldName] = [...dropdownOptions];
-        } else if (results[cxpFieldName]) {
-          results[cxpFieldName].dropdownDependencies = results[cxpFieldName].dropdownDependencies || {};
-          results[cxpFieldName].dropdownDependencies[cxpFieldValue] =
-            results[cxpFieldName].dropdownDependencies[cxpFieldValue] || {};
-          results[cxpFieldName].dropdownDependencies[cxpFieldValue][fieldName] = [...dropdownOptions];
+        if (results[condFieldName]?.dropdownDependencies?.[condFieldValue]) {
+          results[condFieldName].dropdownDependencies[condFieldValue][fieldName] = [...dropdownOptions];
+        } else if (results[condFieldName]) {
+          results[condFieldName].dropdownDependencies = results[condFieldName].dropdownDependencies || {};
+          results[condFieldName].dropdownDependencies[condFieldValue] =
+            results[condFieldName].dropdownDependencies[condFieldValue] || {};
+          results[condFieldName].dropdownDependencies[condFieldValue][fieldName] = [...dropdownOptions];
         }
       }
     });
 
-    results[fieldName].deprecatedDropdownOptions = fieldConfigSchema?.cxpDeprecatedEnum
-      ? [...fieldConfigSchema?.cxpDeprecatedEnum]
+    results[fieldName].deprecatedDropdownOptions = fieldConfigSchema?.deprecatedOptions
+      ? [...fieldConfigSchema?.deprecatedOptions]
       : [];
   });
 
   return results;
 };
 
-/** Schema types defined locally (were from ../../DataModelsSchema) */
+/** Schema types defined locally */
 export interface IPropertySchema {
-  cxpDefault?: unknown;
+  defaultValue?: unknown;
   type?: string[];
   values?: unknown[];
   depdendencyRules?: ISchemaDepRule[];
-  cxpDeprecatedEnum?: IDeprecatedOption[];
+  deprecatedOptions?: IDeprecatedOption[];
 }
 
 interface ISchemaDepRule {
-  cxpConditions?: Array<{ cxpFieldName: string; cxpFieldValue: string }>;
-  cxpDependencyValues?: string[];
+  conditions?: Array<{ fieldName: string; fieldValue: string }>;
+  dependencyValues?: string[];
 }
 
 const SchemaTypes = {

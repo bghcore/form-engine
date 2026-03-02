@@ -4,8 +4,8 @@ import { GetFieldDataTestId, DocumentLinksStrings } from "../../helpers";
 import DocumentLink from "./DocumentLink";
 
 export interface IDocumentLink {
-  EntityTitle: string;
-  DocumentLink: string;
+  title: string;
+  url: string;
 }
 
 interface IDocumentLinksProps {
@@ -36,9 +36,9 @@ const DocumentLinks = (props: IDocumentLinksProps) => {
     <div className={className}>
       {links?.length > 0 ? links.map((link, index) => (
         <DocumentLink
-          key={`${link.DocumentLink}-${index}`} fieldName={fieldName} programName={programName}
-          entityType={entityType} entityId={entityId} index={index} title={link.EntityTitle}
-          url={link.DocumentLink} saveLinks={saveLinks} onConfirmDeleteLink={onConfirmDeleteLink} readOnly={readOnly}
+          key={`${link.url}-${index}`} fieldName={fieldName} programName={programName}
+          entityType={entityType} entityId={entityId} index={index} title={link.title}
+          url={link.url} saveLinks={saveLinks} onConfirmDeleteLink={onConfirmDeleteLink} readOnly={readOnly}
         />
       )) : <></>}
       {addNewLink ? (
@@ -61,7 +61,7 @@ const DocumentLinks = (props: IDocumentLinksProps) => {
         dialogContentProps={{ title: DocumentLinksStrings.deleteLink, type: DialogType.normal }}
         modalProps={{ isBlocking: true }}
       >
-        <div>{`${DocumentLinksStrings.confirmDeleteLink} ${links?.[deleteLinkIndex]?.EntityTitle || ""}?`}</div>
+        <div>{`${DocumentLinksStrings.confirmDeleteLink} ${links?.[deleteLinkIndex]?.title || ""}?`}</div>
         <DialogFooter>
           <PrimaryButton text={DocumentLinksStrings.delete} onClick={commitDeleteLink} />
           <DefaultButton text={DocumentLinksStrings.cancel} onClick={onCloseDeleteDialog} />

@@ -1,10 +1,10 @@
-/** Generic dictionary type (replaces @cxpui/common Dictionary and lodash Dictionary) */
+/** Generic dictionary type */
 export type Dictionary<T> = Record<string, T>;
 
-/** Entity data type (replaces @cxpui/common IEntityData) */
+/** Entity data type */
 export type IEntityData = Record<string, unknown>;
 
-/** Sub-entity value type (replaces @cxpui/common SubEntityType) */
+/** Sub-entity value type */
 export type SubEntityType = string | number | boolean | Date | object | null | undefined;
 
 export function isEmpty(value: unknown): boolean {

@@ -43,7 +43,7 @@ export function formatDateTime(dateStr: string, options?: { hideTimestamp?: bool
   return date.toLocaleString(undefined, { year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" });
 }
 
-/** Local strings for document links (replaces CPJStrings) */
+/** Local strings for document links */
 export const DocumentLinksStrings = {
   link: "Link",
   addLink: "Add Link",

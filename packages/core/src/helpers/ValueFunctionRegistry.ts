@@ -4,13 +4,13 @@ export type ValueFunction = (context: {
   fieldName: string;
   fieldValue?: SubEntityType;
   parentEntity?: IEntityData;
-  currentUserUpn?: string;
+  currentUserId?: string;
 }) => SubEntityType;
 
 const defaultValueFunctions: Record<string, ValueFunction> = {
   setDate: () => new Date(),
   setDateIfNull: ({ fieldValue }) => fieldValue ? fieldValue : new Date(),
-  setLoggedInUser: ({ currentUserUpn }) => currentUserUpn ? { Upn: currentUserUpn } : undefined,
+  setLoggedInUser: ({ currentUserId }) => currentUserId ? { id: currentUserId } : undefined,
   inheritFromParent: ({ fieldName, parentEntity }) => parentEntity ? parentEntity[fieldName] as SubEntityType : undefined,
 };
 
@@ -29,11 +29,11 @@ export function executeValueFunction(
   valueFunction: string,
   fieldValue?: SubEntityType,
   parentEntity?: IEntityData,
-  currentUserUpn?: string
+  currentUserId?: string
 ): SubEntityType {
   const fn = valueFunctionRegistry[valueFunction];
   if (fn) {
-    return fn({ fieldName, fieldValue, parentEntity, currentUserUpn });
+    return fn({ fieldName, fieldValue, parentEntity, currentUserId });
   }
   return undefined;
 }

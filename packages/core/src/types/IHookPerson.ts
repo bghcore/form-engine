@@ -1,10 +1,8 @@
 export interface IHookPerson {
-  BusinessPhones?: string[];
-  CxpIsRef?: boolean;
-  Department?: string;
-  EmailAddress?: string;
-  FirstName?: string;
-  LastName?: string;
-  Title?: string;
-  Upn?: string;
+  email?: string;
+  businessPhones?: string[];
+  department?: string;
+  firstName?: string;
+  lastName?: string;
+  title?: string;
 }

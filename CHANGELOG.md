@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.0] - 2026-03-02
 
 First buildable release. Restructured from a single broken package (extracted from
-the `@cxpui` internal monorepo) into two independent, publishable packages.
+an internal monorepo) into two independent, publishable packages.
 
 ### Added
 
@@ -37,17 +37,17 @@ the `@cxpui` internal monorepo) into two independent, publishable packages.
 
 ### Changed
 
-- **`HookInlineForm`** now accepts `currentUserUpn` prop instead of reading from `CxpAuthContext`
-- **`HookInlineForm`** now accepts `onSaveError` callback instead of using `UseElxToastNotificationDispatch`
-- **`HookInlineForm`** now accepts `renderExpandButton`, `renderFilterInput`, and `renderDialog` render props instead of depending on Fluent UI `DefaultButton` and `@elixir/components` `ElxSearchBox`
-- **`HookRenderField`** no longer uses `UseEntitiesState` or `UseEntityDisabled` -- external entity sync is now the consumer's responsibility
+- **`HookInlineForm`** now accepts `currentUserUpn` prop instead of reading from a legacy auth context
+- **`HookInlineForm`** now accepts `onSaveError` callback instead of using a legacy notification system
+- **`HookInlineForm`** now accepts `renderExpandButton`, `renderFilterInput`, and `renderDialog` render props instead of depending on Fluent UI `DefaultButton` and legacy UI components
+- **`HookRenderField`** no longer uses external entity state hooks -- external entity sync is now the consumer's responsibility
 - **`HookFieldWrapper`** uses plain HTML elements for error/warning/saving icons instead of Fluent UI `Icon` and `Spinner`
-- **`HookConfirmInputsModal`** uses native `<dialog>` instead of `@elixir/components` `ElxDialog`
-- **`HookPopOutEditor`** simplified to Textarea-only mode (removed `ElxRichTextEditor` dependency)
-- **`HookMultiSelectSearch`** uses Fluent UI `ComboBox` instead of `@elixir/components` `ElxHierarchicalDropdown`
-- **`DocumentLinks`** uses Fluent UI `Dialog` instead of `@elixir/components` `ElxDialog`
-- **`DocumentLink`** uses `<a>` tag instead of `@cxpui/commoncontrols` `AnchorTag`
-- **`BusinessRulesReducer`** uses `structuredClone` instead of `@cxpui/common` `DeepCopy`
+- **`HookConfirmInputsModal`** uses native `<dialog>` instead of legacy UI components
+- **`HookPopOutEditor`** simplified to Textarea-only mode (removed rich text editor dependency)
+- **`HookMultiSelectSearch`** uses Fluent UI `ComboBox` instead of legacy UI components
+- **`DocumentLinks`** uses Fluent UI `Dialog` instead of legacy UI components
+- **`DocumentLink`** uses `<a>` tag instead of a legacy anchor component
+- **`BusinessRulesReducer`** uses `structuredClone` instead of a legacy `DeepCopy` utility
 - **`OrderDependencies`** recursive type uses `interface OrderDependencyMap` to avoid circular reference
 - Validation functions are now pluggable via `registerValidations()` instead of hardcoded switch/case
 - Value functions are now pluggable via `registerValueFunctions()` instead of hardcoded switch/case
@@ -55,20 +55,15 @@ the `@cxpui` internal monorepo) into two independent, publishable packages.
 
 ### Removed
 
-- All `@cxpui/common` imports (replaced with local `utils/`)
-- All `@cxpui/commoncontrols` imports (replaced with local implementations or props)
-- All `@cxpui/service` imports (ADO-specific)
-- All `@cxpui/generalapi` imports (Azure-specific)
-- All `@cxpui/dux` imports
-- All `@elixir/components` imports
-- All `@elixir/fx` imports
+- All legacy internal monorepo dependencies (replaced with local implementations or props)
+- All legacy UI component library imports
 - All `lodash` imports
 - `react-error-boundary` dependency
-- **14 domain-specific field components**: HookADOWorkItem, HookADOTemplates, HookChildEntitySearch, HookDataCenterRegion, HookPeoplePicker, HookPeoplePickerList, HookProductTaxonomy, HookStatusReasonDescription, HookSubscriptionsTextArea, HookReadOnlyACRImpactFields, HookCustomerNameField, HookMSXViewLink, HookReadOnlyListTable, HookReadOnlyPerson
-- **Host-app coupled components**: HookInlineFormWrapper (data fetching), HookFormPanel (slide-out panel), HookFormBoundary (error boundary with hardcoded ICM link)
+- **14 domain-specific field components**: removed components tightly coupled to the original host application's data models and APIs
+- **Host-app coupled components**: HookInlineFormWrapper (data fetching), HookFormPanel (slide-out panel), HookFormBoundary (error boundary with hardcoded internal link)
 - **Panel system**: HookInlineFormPanelProvider, IHookFormPanelActionProps, IHookPanelConfig
-- **Domain-specific helpers**: People picker rendering, Product taxonomy API, ADO work item creation, block status change processing, customer resolution
+- **Domain-specific helpers**: People picker rendering, product taxonomy API, work item creation, block status change processing, customer resolution
 - `InjectComponents.tsx` (replaced by `@brhanso/dynamic-forms-fluent` `createFluentFieldRegistry()`)
 - `HookInlineForm.scss` (broken -- used undefined SCSS variables)
 - `rollup.config.js` (replaced by tsup)
-- Domain-specific strings (ICM, MSX, ADO, playbook, data center regions)
+- Domain-specific strings and constants

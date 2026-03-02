@@ -53,7 +53,7 @@ export const HookInlineForm: React.FC<IHookInlineFormProps> = (props: IHookInlin
     parentEntity,
     isChildEntity,
     enableFilter,
-    currentUserUpn,
+    currentUserId,
     onSaveError,
     renderExpandButton,
     renderFilterInput,
@@ -107,7 +107,7 @@ export const HookInlineForm: React.FC<IHookInlineFormProps> = (props: IHookInlin
           fieldConfigs,
           entityData,
           parentEntity ?? {},
-          currentUserUpn ?? "",
+          currentUserId ?? "",
           setValue,
           initBusinessRules
         )
