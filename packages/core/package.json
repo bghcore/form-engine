@@ -1,6 +1,6 @@
 {
   "name": "@bghcore/dynamic-forms-core",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Core business rules engine and form orchestration for dynamic React forms",
   "repository": {
     "type": "git",
@@ -31,7 +31,7 @@
       "require": "./dist/index.cjs"
     }
   },
-  "files": ["dist"],
+  "files": ["dist", "README.md"],
   "license": "MIT",
   "sideEffects": false,
   "scripts": {
