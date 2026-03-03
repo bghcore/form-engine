@@ -15,14 +15,15 @@ Published as three npm packages:
 
 ```
 Config Name
-  -> HookInlineForm (form state via react-hook-form)
+  -> HookInlineForm (form state via react-hook-form, save with AbortController/retry)
     -> initBusinessRules() -> business rules state
     -> HookInlineFormFields (ordered field list)
-      -> HookRenderField (per field, wrapped in React.memo)
-        -> Looks up injectedFields[component] from context
-        -> Controller (react-hook-form integration)
-        -> HookFieldWrapper (label, error, status chrome, wrapped in React.memo)
-          -> React.cloneElement(InjectedFieldComponent, fieldProps)
+      -> HookFormErrorBoundary (per-field crash isolation)
+        -> HookRenderField (per field, useMemo for component resolution)
+          -> Looks up injectedFields[component] from context
+          -> Controller (react-hook-form integration, async validation wired)
+          -> HookFieldWrapper (label, error, status chrome, render props for theming)
+            -> React.cloneElement(InjectedFieldComponent, fieldProps)
 ```
 
 ### Provider Hierarchy
@@ -50,7 +51,7 @@ Rules are **declarative** -- defined as data in `IFieldConfig.dependencies`, not
 **Rule types supported:**
 - Required/Hidden/ReadOnly toggle
 - Component type swap
-- Validation rule changes (sync + async)
+- Validation rule changes (sync + async, wired into HookRenderField with AbortController)
 - Computed value functions
 - Dropdown option filtering
 - Field ordering
@@ -64,9 +65,12 @@ Fields are registered as a `Dictionary<JSX.Element>` via `InjectedHookFieldProvi
 ### Pluggable Registries
 
 Validation and value functions use pluggable registries instead of hardcoded switch/case:
-- `ValidationRegistry` -- 15 built-in sync validators + async validation support via `registerAsyncValidations()`
+- `ValidationRegistry` -- 15 built-in sync validators + async validation support via `registerAsyncValidations()` (async now wired into HookRenderField with AbortController)
 - `ValueFunctionRegistry` -- register custom value functions via `registerValueFunctions()`
 - `LocaleRegistry` -- i18n support via `registerLocale()` with partial overrides and English fallback
+- `formStateSerialization` -- Date-safe JSON round-trip for draft persistence
+- `jsonSchemaImport` -- Convert JSON Schema to `Dictionary<IFieldConfig>`
+- `lazyFieldRegistry` -- Create field registries with React.lazy for on-demand loading
 
 ## Key Directories
 
@@ -78,13 +82,15 @@ packages/
       constants.ts               -- Form constants + ComponentTypes (including FieldArray)
       strings.ts                 -- i18n-aware string literals (getters over LocaleRegistry)
       components/
-        HookInlineForm.tsx       -- Main form component (form state, auto-save, business rules)
+        HookInlineForm.tsx       -- Main form component (form state, auto-save with AbortController/retry, business rules)
         HookInlineFormFields.tsx -- Field list rendering
-        HookRenderField.tsx      -- Per-field routing + Controller (React.memo wrapped)
-        HookFieldWrapper.tsx     -- Field chrome: label, error, status (React.memo wrapped)
-        HookConfirmInputsModal.tsx -- Confirmation dialog using native <dialog>
-        HookWizardForm.tsx       -- Multi-step wizard (render props for nav/headers)
+        HookRenderField.tsx      -- Per-field routing + Controller (useMemo, no extra render cycle)
+        HookFieldWrapper.tsx     -- Field chrome: label, error, status (React.memo, render props for theming)
+        HookConfirmInputsModal.tsx -- Confirmation dialog using native <dialog> (focus trap, Escape closes)
+        HookWizardForm.tsx       -- Multi-step wizard (render props for nav/headers, step announcements)
         HookFieldArray.tsx       -- Repeating sections via react-hook-form useFieldArray
+        HookFormErrorBoundary.tsx -- Per-field error boundary (crash isolation, fallback render prop)
+        HookFormDevTools.tsx     -- Dev-only panel: business rules, form values, errors, dependency graph
       helpers/
         BusinessRulesHelper.ts   -- Rule evaluation logic (~700 lines, largest file)
         FieldHelper.ts           -- Dropdown sorting utility
@@ -112,9 +118,16 @@ packages/
         I*.ts                    -- Provider interfaces
       reducers/
         BusinessRulesReducer.ts  -- useReducer reducer for business rules
+      hooks/
+        useDraftPersistence.ts   -- Auto-save form state to localStorage, recover on mount
+        useBeforeUnload.ts       -- Browser warning on page leave with unsaved changes
       utils/
         index.ts                 -- isEmpty, isNull, deepCopy, Dictionary, etc.
-      __tests__/                 -- Vitest tests (348 tests, 11 files)
+        formStateSerialization.ts -- serializeFormState/deserializeFormState (Date-safe JSON)
+        jsonSchemaImport.ts      -- jsonSchemaToFieldConfig (JSON Schema -> IFieldConfig)
+        lazyFieldRegistry.ts     -- createLazyFieldRegistry (React.lazy field loading)
+      styles.css                 -- Optional CSS custom properties for theming
+      __tests__/                 -- Vitest tests (427 tests, 19 files)
         __fixtures__/            -- Shared test configs and entity data
         helpers/                 -- Tests for all helper modules
         reducers/                -- Tests for reducer
@@ -156,7 +169,7 @@ npm run test:coverage    # Run tests with coverage report
 - **Fluent UI v9** (`@fluentui/react-components`) for UI components (fluent package)
 - **MUI v5/v6** (`@mui/material`) for UI components (mui package)
 - **TypeScript** with `strict: true`
-- **Vitest** for testing (348 tests, 80%+ coverage on core helpers)
+- **Vitest** for testing (427 tests across 19 files, 80%+ coverage on core helpers)
 - **tsup** for bundling (CJS + ESM + .d.ts)
 - **npm workspaces** for monorepo management
 
@@ -164,6 +177,7 @@ npm run test:coverage    # Run tests with coverage report
 
 - `isReadonly` is deprecated in favor of `readOnly` (dev-mode warning emitted via `normalizeFieldConfig`)
 - `CombineBusinessRules` mutates its first argument in place
+- Hardcoded English strings in some older code paths (mostly migrated to `LocaleRegistry`)
 
 ## Coding Conventions
 

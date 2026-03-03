@@ -188,16 +188,180 @@ registerLocale({
 
 All strings in `HookInlineFormStrings` and validation error messages resolve through the locale registry.
 
+## Error Boundary
+
+Each field is individually wrapped in `HookFormErrorBoundary` so one crashing field does not take down the entire form:
+
+```tsx
+import { HookFormErrorBoundary } from "@bghcore/dynamic-forms-core";
+
+<HookFormErrorBoundary
+  fallback={(error, resetErrorBoundary) => (
+    <div>
+      <p>Field crashed: {error.message}</p>
+      <button onClick={resetErrorBoundary}>Retry</button>
+    </div>
+  )}
+  onError={(error, errorInfo) => logError(error)}
+>
+  <MyField />
+</HookFormErrorBoundary>
+```
+
+Built into the core rendering pipeline automatically.
+
+## Save Reliability
+
+HookInlineForm includes robust save handling:
+
+- **AbortController** cancels previous in-flight saves when a new save triggers
+- **Configurable timeout** via `saveTimeoutMs` prop (default 30 seconds)
+- **Retry with exponential backoff** via `maxSaveRetries` prop (default 3 retries)
+
+```tsx
+<HookInlineForm
+  saveTimeoutMs={15000}
+  maxSaveRetries={5}
+  saveData={async (data) => { /* ... */ }}
+/>
+```
+
+## Accessibility
+
+Built-in accessibility features:
+
+- **Focus trap** in `HookConfirmInputsModal` (Tab wraps, Escape closes, focus restored on close)
+- **Focus-to-first-error** on validation failure
+- **ARIA live regions** -- `<div role="status" aria-live="polite">` announces saving/saved/error
+- **aria-label** on filter inputs, **aria-busy** on fields during save
+- **Wizard step announcements** for screen readers ("Step 2 of 4: Details")
+
+## Draft Persistence
+
+Auto-save form state to localStorage and recover after page refresh:
+
+```tsx
+import { useDraftPersistence, useBeforeUnload } from "@bghcore/dynamic-forms-core";
+
+const { hasDraft, clearDraft } = useDraftPersistence({
+  formId: "my-form-123",
+  data: formValues,
+  saveIntervalMs: 5000,
+  enabled: isDirty,
+  storageKeyPrefix: "myApp",
+});
+
+// Browser warning on page leave
+useBeforeUnload(isDirty, "You have unsaved changes.");
+```
+
+Includes `serializeFormState` / `deserializeFormState` utilities for Date-safe JSON round-trips.
+
+## Theming & Customization
+
+### Render Props
+
+Customize field chrome via render props on `HookFieldWrapper`:
+
+```tsx
+<HookFieldWrapper
+  renderLabel={(label, required) => <CustomLabel text={label} required={required} />}
+  renderError={(error) => <CustomError message={error} />}
+  renderStatus={(status) => <CustomStatus type={status} />}
+/>
+```
+
+### CSS Custom Properties
+
+Import the optional `styles.css` and override CSS custom properties:
+
+```css
+:root {
+  --hook-form-error-color: #d32f2f;
+  --hook-form-warning-color: #ed6c02;
+  --hook-form-saving-color: #0288d1;
+  --hook-form-label-color: #333;
+  --hook-form-required-color: #d32f2f;
+  --hook-form-border-radius: 4px;
+  --hook-form-field-gap: 12px;
+  --hook-form-font-size: 14px;
+}
+```
+
+### Form-Level Errors
+
+Display a form-level error banner for cross-field validation:
+
+```tsx
+<HookInlineForm
+  formErrors={["End date must be after start date"]}
+  /* ... */
+/>
+```
+
+## DevTools
+
+Collapsible dev-only panel showing business rules, form values, errors, and the dependency graph:
+
+```tsx
+import { HookFormDevTools } from "@bghcore/dynamic-forms-core";
+
+<HookFormDevTools
+  configName="myForm"
+  configRules={businessRules}
+  formValues={formValues}
+  formErrors={formErrors}
+  dirtyFields={dirtyFields}
+  enabled={process.env.NODE_ENV === "development"}
+/>
+```
+
+## JSON Schema Import
+
+Convert JSON Schema to field configs:
+
+```tsx
+import { jsonSchemaToFieldConfig } from "@bghcore/dynamic-forms-core";
+
+const fieldConfigs = jsonSchemaToFieldConfig({
+  type: "object",
+  properties: {
+    name: { type: "string", minLength: 1 },
+    age: { type: "number", minimum: 0 },
+    role: { type: "string", enum: ["admin", "user"] },
+  },
+  required: ["name"],
+});
+```
+
+Maps JSON Schema types, enums, formats, and required fields to `Dictionary<IFieldConfig>`.
+
+## Lazy Field Registry
+
+Load field components on demand using `React.lazy()` for smaller initial bundles:
+
+```tsx
+import { createLazyFieldRegistry } from "@bghcore/dynamic-forms-core";
+
+const lazyFields = createLazyFieldRegistry({
+  Textbox: () => import("./fields/HookTextbox"),
+  Dropdown: () => import("./fields/HookDropdown"),
+});
+
+setInjectedFields(lazyFields);
+```
+
 ## Architecture
 
 ```
 <BusinessRulesProvider>          -- Owns rule state via useReducer (memoized)
   <InjectedHookFieldProvider>    -- Component injection registry (memoized)
-    <HookInlineForm>             -- Form state (react-hook-form), auto-save, business rules
+    <HookInlineForm>             -- Form state (react-hook-form), auto-save with retry, business rules
       <HookInlineFormFields>     -- Renders ordered field list
-        <HookRenderField>        -- Per-field: Controller + component lookup (React.memo)
-          <HookFieldWrapper>     -- Label, error, saving status (React.memo)
-            <InjectedField />    -- Your UI component via cloneElement
+        <HookFormErrorBoundary>  -- Per-field error boundary (crash isolation)
+          <HookRenderField>      -- Per-field: Controller + component lookup (useMemo)
+            <HookFieldWrapper>   -- Label, error, saving status (React.memo, render props)
+              <InjectedField />  -- Your UI component via cloneElement
 ```
 
 ## Building a Custom UI Adapter

@@ -36,12 +36,20 @@ BusinessRulesProvider (useReducer for rule state)
 | `src/helpers/LocaleRegistry.ts` | i18n locale registry. Exports `registerLocale`, `getLocaleString`, `resetLocale`, `getCurrentLocale`. Defaults to English. |
 | `src/helpers/WizardHelper.ts` | Pure functions for multi-step wizard logic. Exports `getVisibleSteps`, `getStepFields`, `getStepFieldOrder`, `validateStepFields`, `isStepValid`, `getStepIndex`. |
 | `src/helpers/FieldHelper.ts` | Dropdown sorting utility. Exports `SortDropdownOptions`. |
-| `src/components/HookInlineForm.tsx` | Main form component. Orchestrates react-hook-form, auto-save, expand/collapse, confirm modal. |
-| `src/components/HookWizardForm.tsx` | Multi-step wizard form component. Uses render props for step content, navigation, and header. |
+| `src/components/HookInlineForm.tsx` | Main form component. Orchestrates react-hook-form, auto-save (AbortController, timeout via `saveTimeoutMs`, retry via `maxSaveRetries`), expand/collapse, confirm modal. Supports `formErrors` prop for form-level error banner. |
+| `src/components/HookWizardForm.tsx` | Multi-step wizard form component. Uses render props for step content, navigation, and header. Screen reader step announcements. |
 | `src/components/HookFieldArray.tsx` | Repeatable field group component. Wraps react-hook-form's `useFieldArray` with min/max/reorder support. |
-| `src/components/HookRenderField.tsx` | Per-field rendering. Looks up component by string key from injection context. |
-| `src/components/HookFieldWrapper.tsx` | Field chrome (label, error, status) using plain HTML -- no UI library. |
-| `src/components/HookConfirmInputsModal.tsx` | Confirmation dialog using native `<dialog>` element. |
+| `src/components/HookRenderField.tsx` | Per-field rendering. Uses useMemo for component resolution (no extra render cycle). Async validation wired with AbortController -- sync runs first, async only if sync passes. |
+| `src/components/HookFieldWrapper.tsx` | Field chrome (label, error, status) using plain HTML. Render props: `renderLabel`, `renderError`, `renderStatus` for theming. Supports CSS custom properties via optional `styles.css`. |
+| `src/components/HookConfirmInputsModal.tsx` | Confirmation dialog using native `<dialog>` element. Focus trap (Tab wraps, Escape closes, focus restored on close). |
+| `src/components/HookFormErrorBoundary.tsx` | Per-field error boundary. Props: `children`, `fallback` (render function), `onError` callback. Each field is wrapped automatically in the rendering pipeline. |
+| `src/components/HookFormDevTools.tsx` | Collapsible dev-only panel showing business rules, form values, errors, dependency graph. Props: `configName`, `configRules`, `formValues`, `formErrors`, `dirtyFields`, `enabled`. |
+| `src/hooks/useDraftPersistence.ts` | Auto-save form state to localStorage on interval, recover draft on mount, clear after server save. Options: `formId`, `data`, `saveIntervalMs`, `enabled`, `storageKeyPrefix`. |
+| `src/hooks/useBeforeUnload.ts` | Browser warning on page leave with unsaved changes. Args: `shouldWarn` (boolean), `message?` (string). |
+| `src/utils/formStateSerialization.ts` | `serializeFormState` / `deserializeFormState` -- Date-safe JSON round-trip utilities. |
+| `src/utils/jsonSchemaImport.ts` | `jsonSchemaToFieldConfig(schema)` -- converts JSON Schema to `Dictionary<IFieldConfig>`. Maps types, enums, formats, required. |
+| `src/utils/lazyFieldRegistry.ts` | `createLazyFieldRegistry(imports)` -- creates field registry using `React.lazy()` for on-demand component loading. |
+| `src/styles.css` | Optional CSS custom properties for theming: `--hook-form-error-color`, `--hook-form-warning-color`, `--hook-form-saving-color`, `--hook-form-label-color`, `--hook-form-required-color`, `--hook-form-border-radius`, `--hook-form-field-gap`, `--hook-form-font-size`. |
 | `src/providers/BusinessRulesProvider.tsx` | React context provider owning business rules state via useReducer. |
 | `src/providers/InjectedHookFieldProvider.tsx` | React context provider for component injection registry. |
 | `src/reducers/BusinessRulesReducer.ts` | Reducer for business rules state mutations. |
@@ -56,17 +64,17 @@ BusinessRulesProvider (useReducer for rule state)
 
 ## Testing
 
-- **348 tests** using Vitest
+- **427 tests** across 19 test files using Vitest
 - Run: `npm test` (from monorepo root or `packages/core`)
 - Test files are in `src/__tests__/`
-- Coverage targets: helpers (BusinessRulesHelper, HookInlineFormHelper, ValidationRegistry, ValueFunctionRegistry, DependencyGraphValidator, ConfigValidator, LocaleRegistry, WizardHelper), reducers (BusinessRulesReducer), and extended validators
+- Coverage targets: helpers (BusinessRulesHelper, HookInlineFormHelper, ValidationRegistry, ValueFunctionRegistry, DependencyGraphValidator, ConfigValidator, LocaleRegistry, WizardHelper), reducers (BusinessRulesReducer), extended validators, hooks (useDraftPersistence, useBeforeUnload), utils (formStateSerialization, jsonSchemaImport, lazyFieldRegistry), components (HookFormErrorBoundary, HookFormDevTools)
 - All tests must pass before committing
 
 ## Known Issues
 
 - `isReadonly` is **deprecated** -- use `readOnly` instead. `normalizeFieldConfig()` auto-migrates and emits a console warning.
 - `CombineBusinessRules` mutates its first argument in place.
-- No memoization on provider context values.
+- Hardcoded English strings in some older code paths (mostly migrated to `LocaleRegistry`).
 
 ## Adding New Features
 

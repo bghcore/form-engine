@@ -119,6 +119,20 @@ The package also exports supporting components:
 - **`StatusMessage`** -- Error/warning/saving status messages
 - **`HookFormLoading`** -- Skeleton loading placeholder using MUI Skeleton
 
+## Works with Core v1.3.0
+
+When paired with `@bghcore/dynamic-forms-core` v1.3.0+, you automatically get:
+
+- **Error boundary** -- each field is individually wrapped in `HookFormErrorBoundary`, so one crashing field does not take down the form
+- **Save reliability** -- AbortController cancels in-flight saves, configurable timeout and retry with exponential backoff
+- **Accessibility** -- focus trap in modals, focus-to-first-error on validation failure, ARIA live regions for status announcements
+- **Draft persistence** -- `useDraftPersistence` hook auto-saves form state to localStorage; `useBeforeUnload` warns on page leave
+- **Theming render props** -- `HookFieldWrapper` accepts `renderLabel`, `renderError`, `renderStatus` for custom field chrome
+- **CSS custom properties** -- override `--hook-form-error-color`, `--hook-form-field-gap`, etc. via optional `styles.css`
+- **DevTools** -- `HookFormDevTools` component for debugging business rules, form values, and errors
+- **JSON Schema import** -- `jsonSchemaToFieldConfig()` converts JSON Schema to field configs
+- **Lazy field registry** -- `createLazyFieldRegistry()` for on-demand field component loading
+
 ## License
 
 MIT

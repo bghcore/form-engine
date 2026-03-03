@@ -16,11 +16,13 @@
 - `UseInjectedHookFieldContext` -- Hook to access injected field registry
 
 ### Components
-- `HookInlineForm` -- Main form component (react-hook-form, auto-save, business rules orchestration)
+- `HookInlineForm` -- Main form component (react-hook-form, auto-save with AbortController/retry/timeout, business rules orchestration). Props include `saveTimeoutMs` (default 30s), `maxSaveRetries` (default 3), `formErrors` (form-level error banner)
 - `HookInlineFormFields` -- Ordered field list rendering
-- `HookRenderField` -- Per-field routing with Controller integration
-- `HookFieldWrapper` -- Field chrome (label, error, status) using plain HTML
-- `HookConfirmInputsModal` -- Confirmation dialog using native `<dialog>`
+- `HookRenderField` -- Per-field routing with Controller integration (useMemo, async validation wired with AbortController)
+- `HookFieldWrapper` -- Field chrome (label, error, status) using plain HTML. Render props: `renderLabel`, `renderError`, `renderStatus` for theming customization
+- `HookConfirmInputsModal` -- Confirmation dialog using native `<dialog>` with focus trap (Tab wraps, Escape closes, focus restored)
+- `HookFormErrorBoundary` -- Per-field error boundary. Props: `children`, `fallback` (render function receiving error + reset), `onError` callback. Each field is wrapped automatically in the rendering pipeline
+- `HookFormDevTools` -- Collapsible dev-only panel showing business rules, form values, errors, dependency graph. Props: `configName`, `configRules`, `formValues`, `formErrors`, `dirtyFields`, `enabled`
 
 ### Wizard
 - `HookWizardForm` -- Multi-step wizard form component with step navigation
@@ -135,6 +137,26 @@
 - `ValueFunction` -- Value function signature
 - `IBusinessRulesProvider` -- Business rules provider interface
 - `IInjectedHookFieldProvider` -- Injected field provider interface
+- `IHookFormDevToolsProps` -- DevTools component props
+- `IDraftPersistenceOptions` -- useDraftPersistence options
+- `IDraftState` -- Stored draft state shape
+- `IUseDraftPersistenceResult` -- useDraftPersistence return type
+- `IJsonSchema` -- JSON Schema root type for jsonSchemaToFieldConfig
+- `IJsonSchemaProperty` -- JSON Schema property type
+
+### Hooks
+- `useDraftPersistence(options)` -- Auto-save form state to localStorage on interval, recover draft on mount, clear after server save. Options: `formId` (string), `data` (form values), `saveIntervalMs` (number), `enabled` (boolean), `storageKeyPrefix` (string). Returns: `{ hasDraft, draftData, clearDraft, lastSavedAt }`
+- `useBeforeUnload(shouldWarn, message?)` -- Browser warning on page leave with unsaved changes
+
+### Form State Serialization
+- `serializeFormState(data)` -- Date-safe JSON serialization (converts Date objects to tagged strings)
+- `deserializeFormState(json)` -- Deserialize back, restoring Date objects from tagged strings
+
+### JSON Schema Import
+- `jsonSchemaToFieldConfig(schema)` -- Convert JSON Schema to `Dictionary<IFieldConfig>`. Maps `type` to component, `enum` to dropdown options, `format` to validations, `required` to field required flag
+
+### Lazy Field Registry
+- `createLazyFieldRegistry(imports)` -- Create a field registry using `React.lazy()` for on-demand component loading. Accepts `Record<string, () => Promise<{ default: ComponentType }>>`, returns `Dictionary<JSX.Element>`
 
 ### Utilities
 - `Dictionary<T>` -- Generic dictionary type alias (`Record<string, T>`)
@@ -320,4 +342,96 @@ const lineItemConfig: IFieldArrayConfig = {
     <button disabled={!canAdd} onClick={append}>Add Item</button>
   )}
 />
+```
+
+### Error Boundary
+
+```tsx
+import { HookFormErrorBoundary } from "@bghcore/dynamic-forms-core";
+
+<HookFormErrorBoundary
+  fallback={(error, resetErrorBoundary) => (
+    <div>
+      <p>Field crashed: {error.message}</p>
+      <button onClick={resetErrorBoundary}>Retry</button>
+    </div>
+  )}
+  onError={(error, errorInfo) => logError(error)}
+>
+  <MyFieldComponent />
+</HookFormErrorBoundary>
+```
+
+### Draft Persistence
+
+```tsx
+import {
+  useDraftPersistence,
+  useBeforeUnload,
+  serializeFormState,
+  deserializeFormState,
+} from "@bghcore/dynamic-forms-core";
+
+function MyForm() {
+  const { hasDraft, draftData, clearDraft } = useDraftPersistence({
+    formId: "order-form-123",
+    data: formValues,
+    saveIntervalMs: 5000,
+    enabled: isDirty,
+    storageKeyPrefix: "myApp",
+  });
+
+  useBeforeUnload(isDirty, "You have unsaved changes.");
+
+  // Manual serialization for custom storage
+  const serialized = serializeFormState(formValues);    // Date-safe JSON string
+  const restored = deserializeFormState(serialized);     // Dates restored
+}
+```
+
+### DevTools
+
+```tsx
+import { HookFormDevTools } from "@bghcore/dynamic-forms-core";
+
+<HookFormDevTools
+  configName="orderForm"
+  configRules={businessRules}
+  formValues={watch()}
+  formErrors={errors}
+  dirtyFields={dirtyFields}
+  enabled={process.env.NODE_ENV === "development"}
+/>
+```
+
+### JSON Schema Import
+
+```tsx
+import { jsonSchemaToFieldConfig } from "@bghcore/dynamic-forms-core";
+
+const fieldConfigs = jsonSchemaToFieldConfig({
+  type: "object",
+  properties: {
+    name: { type: "string", minLength: 1 },
+    age: { type: "number", minimum: 0, maximum: 150 },
+    role: { type: "string", enum: ["admin", "user", "guest"] },
+    email: { type: "string", format: "email" },
+  },
+  required: ["name", "email"],
+});
+// Maps: string->Textbox, number->Number, enum->Dropdown, format:email->EmailValidation
+```
+
+### Lazy Field Registry
+
+```tsx
+import { createLazyFieldRegistry } from "@bghcore/dynamic-forms-core";
+
+const lazyFields = createLazyFieldRegistry({
+  Textbox: () => import("./fields/HookTextbox"),
+  Dropdown: () => import("./fields/HookDropdown"),
+  DateControl: () => import("./fields/HookDateControl"),
+});
+
+setInjectedFields(lazyFields);
 ```
