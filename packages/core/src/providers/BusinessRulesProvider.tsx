@@ -34,7 +34,7 @@ export const BusinessRulesProvider: React.FC<React.PropsWithChildren<{}>> = (
 ): React.JSX.Element => {
   const [businessRules, businessRulesDispatch] = React.useReducer(businessRulesReducer, defaultBusinessRulesState);
 
-  const initBusinessRules = (
+  const initBusinessRules = React.useCallback((
     configName: string,
     defaultValues: IEntityData,
     fieldConfigs: Dictionary<IFieldConfig>,
@@ -54,9 +54,9 @@ export const BusinessRulesProvider: React.FC<React.PropsWithChildren<{}>> = (
     });
 
     return configBusinessRules;
-  };
+  }, []);
 
-  const processBusinessRule = (
+  const processBusinessRule = React.useCallback((
     entityData: IEntityData,
     configName: string,
     fieldName: string,
@@ -149,13 +149,13 @@ export const BusinessRulesProvider: React.FC<React.PropsWithChildren<{}>> = (
         });
       }
     }
-  };
+  }, [businessRules]);
 
-  const providerValue: IBusinessRulesProvider = {
+  const providerValue: IBusinessRulesProvider = React.useMemo(() => ({
     businessRules,
     initBusinessRules,
     processBusinessRule
-  };
+  }), [businessRules, initBusinessRules, processBusinessRule]);
 
   return <BusinessRulesContext.Provider value={providerValue}>{props.children}</BusinessRulesContext.Provider>;
 };

@@ -40,6 +40,7 @@ export {
   GetValueFunctionsOnCreate,
   ExecuteValueFunction,
   CheckFieldValidationRules,
+  CheckAsyncFieldValidationRules,
   CheckValidDropdownOptions,
   CheckDeprecatedDropdownOptions,
   CheckDefaultValues,
@@ -53,11 +54,50 @@ export {
 
 export { SortDropdownOptions } from "./helpers/FieldHelper";
 
-export { registerValidations, getValidation, getValidationRegistry } from "./helpers/ValidationRegistry";
-export type { ValidationFunction } from "./helpers/ValidationRegistry";
+export {
+  detectDependencyCycles,
+  detectOrderDependencyCycles,
+  validateDependencyGraph,
+} from "./helpers/DependencyGraphValidator";
+export type { ICycleError } from "./helpers/DependencyGraphValidator";
+
+export {
+  registerValidations,
+  getValidation,
+  getValidationRegistry,
+  registerAsyncValidations,
+  getAsyncValidation,
+  getAsyncValidationRegistry,
+  createMinLengthValidation,
+  createMaxLengthValidation,
+  createNumericRangeValidation,
+  createPatternValidation,
+  createRequiredIfValidation,
+} from "./helpers/ValidationRegistry";
+export type { ValidationFunction, AsyncValidationFunction } from "./helpers/ValidationRegistry";
 
 export { registerValueFunctions, getValueFunction, executeValueFunction } from "./helpers/ValueFunctionRegistry";
 export type { ValueFunction } from "./helpers/ValueFunctionRegistry";
+
+export { validateFieldConfigs } from "./helpers/ConfigValidator";
+export type { IConfigValidationError } from "./helpers/ConfigValidator";
+
+// Locale
+export {
+  registerLocale,
+  getLocaleString,
+  resetLocale,
+  getCurrentLocale,
+} from "./helpers/LocaleRegistry";
+
+// Wizard
+export { HookWizardForm } from "./components/HookWizardForm";
+export type { IWizardNavigationProps, IWizardStepHeaderProps, IHookWizardFormProps } from "./components/HookWizardForm";
+export { getVisibleSteps, getStepFields, getStepFieldOrder, validateStepFields, isStepValid, getStepIndex } from "./helpers/WizardHelper";
+
+// Field Array
+export { HookFieldArray } from "./components/HookFieldArray";
+export type { IHookFieldArrayProps } from "./components/HookFieldArray";
 
 // Components
 export { HookInlineForm } from "./components/HookInlineForm";

@@ -9,6 +9,7 @@ export interface IBusinessRule {
   hidden?: boolean;
   readOnly?: boolean;
   validations?: string[];
+  asyncValidations?: string[];
   valueFunction?: string;
   confirmInput?: boolean;
   dropdownOptions?: IDropdownOption[];

@@ -17,10 +17,10 @@ export const InjectedHookFieldProvider: React.FC<React.PropsWithChildren<{}>> = 
 ): React.JSX.Element => {
   const [injectedFields, setInjectedFields] = React.useState<Dictionary<React.JSX.Element>>(undefined as unknown as Dictionary<React.JSX.Element>);
 
-  const providerValue: IInjectedHookFieldProvider = {
+  const providerValue: IInjectedHookFieldProvider = React.useMemo(() => ({
     injectedFields,
     setInjectedFields
-  };
+  }), [injectedFields]);
 
   return (
     <InjectedHookFieldContext.Provider value={providerValue}>

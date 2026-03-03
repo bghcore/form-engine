@@ -49,4 +49,5 @@ export const ComponentTypes = {
   ReadOnlyRichText: "ReadOnlyRichText",
   ReadOnlyWithButton: "ReadOnlyWithButton",
   ChoiceSet: "ChoiceSet",
+  FieldArray: "FieldArray",
 } as const;

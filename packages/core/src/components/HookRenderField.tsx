@@ -154,4 +154,4 @@ const HookRenderField = (props: IRenderFieldProps) => {
   return FieldComponent;
 };
 
-export default HookRenderField;
+export default React.memo(HookRenderField);

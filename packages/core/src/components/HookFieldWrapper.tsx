@@ -22,7 +22,7 @@ interface IHookFieldWrapperProps {
   isManualSave?: boolean;
 }
 
-export const HookFieldWrapper: React.FunctionComponent<React.PropsWithChildren<IHookFieldWrapperProps>> = (
+export const HookFieldWrapper: React.FunctionComponent<React.PropsWithChildren<IHookFieldWrapperProps>> = React.memo((
   props: React.PropsWithChildren<IHookFieldWrapperProps>
 ) => {
   const {
@@ -120,4 +120,4 @@ export const HookFieldWrapper: React.FunctionComponent<React.PropsWithChildren<I
       </div>
     </div>
   );
-};
+});

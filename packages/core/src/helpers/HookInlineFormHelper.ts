@@ -9,7 +9,7 @@ import { IDeprecatedOption, IFieldConfig } from "../types/IFieldConfig";
 import { IFieldToRender } from "../types/IFieldToRender";
 import { IDropdownOption } from "../types/IDropdownOption";
 import { GetDefaultBusinessRules, ProcessDropdownOptions } from "./BusinessRulesHelper";
-import { getValidation } from "./ValidationRegistry";
+import { getValidation, getAsyncValidation } from "./ValidationRegistry";
 import { executeValueFunction } from "./ValueFunctionRegistry";
 
 export const GetChildEntity = (
@@ -134,6 +134,23 @@ export const CheckFieldValidationRules = (
   });
 
   return errorMessage ? errorMessage : undefined;
+};
+
+export const CheckAsyncFieldValidationRules = async (
+  value: unknown,
+  entityData: IEntityData,
+  asyncValidations: string[],
+  signal?: AbortSignal
+): Promise<string | undefined> => {
+  for (const validationName of asyncValidations) {
+    if (signal?.aborted) return undefined;
+    const validationFn = getAsyncValidation(validationName);
+    if (validationFn) {
+      const result = await validationFn(value, entityData, signal);
+      if (result) return result;
+    }
+  }
+  return undefined;
 };
 
 export const CheckValidDropdownOptions = (

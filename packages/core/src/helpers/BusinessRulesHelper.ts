@@ -6,6 +6,7 @@ import { IFieldConfig } from "../types/IFieldConfig";
 import { IDropdownOption } from "../types/IDropdownOption";
 import { OrderDependencies, OrderDependencyMap } from "../types/IOrderDependencies";
 import { CheckDeprecatedDropdownOptions } from "./HookInlineFormHelper";
+import { validateDependencyGraph } from "./DependencyGraphValidator";
 
 /** Type alias for field dependencies (was IDynamicDependencies from DynamicLayout) */
 type FieldDependencies = Dictionary<Dictionary<IFieldConfig>>;
@@ -361,6 +362,9 @@ export const GetDefaultBusinessRules = (
       }
     });
   });
+
+  // Validate dependency graph for cycles (dev-mode only, logs warnings)
+  validateDependencyGraph(defaultBusinessRules);
 
   return defaultBusinessRules;
 };

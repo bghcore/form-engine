@@ -1,5 +1,6 @@
 import { Dictionary } from "../utils";
 import { IDropdownOption } from "./IDropdownOption";
+import { IFieldArrayConfig } from "./IFieldArrayConfig";
 import { OrderDependencies, OrderDependencyMap } from "./IOrderDependencies";
 
 export interface IFieldConfig {
@@ -23,10 +24,13 @@ export interface IFieldConfig {
   dropdownDependencies?: Dictionary<Dictionary<string[]>>;
   isValueFunction?: boolean;
   validations?: string[];
+  asyncValidations?: string[];
+  asyncValidationDebounceMs?: number;
   value?: string | number | boolean | Date;
   meta?: Dictionary<string | boolean | number | string[] | object>;
   dropdownOptions?: IDropdownOption[];
   deprecatedDropdownOptions?: IDeprecatedOption[];
+  fieldArray?: IFieldArrayConfig;
 }
 
 export interface IDependencyAndRules {

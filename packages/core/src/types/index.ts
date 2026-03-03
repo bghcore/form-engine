@@ -12,3 +12,6 @@ export * from "./IHookFieldSharedProps";
 export * from "./IHookInlineFormSharedProps";
 export * from "./IHookPerson";
 export * from "./IOrderDependencies";
+export * from "./ILocaleStrings";
+export * from "./IWizardConfig";
+export * from "./IFieldArrayConfig";
