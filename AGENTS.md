@@ -5,7 +5,7 @@
 ```bash
 npm install --legacy-peer-deps
 npm run build          # Build all packages (core, fluent, mui)
-npm run test           # Run 427 tests with Vitest
+npm run test           # Run 513 tests with Vitest
 npm run test:coverage  # Run tests with coverage report
 npm run clean          # Remove all dist/ directories
 ```
@@ -55,7 +55,7 @@ Build output per package: `dist/index.js` (ESM), `dist/index.cjs` (CJS), `dist/i
 
 ## Testing
 
-427 tests using Vitest across 19 test files. Coverage targets met on all core helpers (80%+, many at 100%).
+513 tests using Vitest across 24 test files. Coverage targets met on all core helpers (80%+, many at 100%).
 
 ```bash
 npm run test             # Run all tests
@@ -73,7 +73,7 @@ After any code change, verify:
 npm run build && npm run test
 ```
 
-All three packages should build cleanly and all 427 tests should pass.
+All three packages should build cleanly and all 513 tests should pass.
 
 ## Git Workflow
 

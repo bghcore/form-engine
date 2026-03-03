@@ -49,6 +49,10 @@ BusinessRulesProvider (useReducer for rule state)
 | `src/utils/formStateSerialization.ts` | `serializeFormState` / `deserializeFormState` -- Date-safe JSON round-trip utilities. |
 | `src/utils/jsonSchemaImport.ts` | `jsonSchemaToFieldConfig(schema)` -- converts JSON Schema to `Dictionary<IFieldConfig>`. Maps types, enums, formats, required. |
 | `src/utils/lazyFieldRegistry.ts` | `createLazyFieldRegistry(imports)` -- creates field registry using `React.lazy()` for on-demand component loading. |
+| `src/utils/zodSchemaImport.ts` | `zodSchemaToFieldConfig(zodSchema)` -- converts Zod object schemas to `Dictionary<IFieldConfig>`. Maps ZodString→Textbox, ZodNumber→Number, ZodBoolean→Toggle, ZodEnum→Dropdown, ZodDate→DateControl, ZodArray→Multiselect. No zod dependency. |
+| `src/types/TypedFieldConfig.ts` | `defineFieldConfigs()` -- zero-cost TypeScript utility for type-safe dependency references in field configs. `TypedFieldConfig<TFields>` generic type constrains dependency targets to known field names. |
+| `schemas/field-config.schema.json` | JSON Schema for `IFieldConfig` objects. Published in npm package for IDE autocompletion when writing form configs in JSON. |
+| `schemas/wizard-config.schema.json` | JSON Schema for `IWizardConfig` objects. Published in npm package for IDE autocompletion. |
 | `src/styles.css` | Optional CSS custom properties for theming: `--hook-form-error-color`, `--hook-form-warning-color`, `--hook-form-saving-color`, `--hook-form-label-color`, `--hook-form-required-color`, `--hook-form-border-radius`, `--hook-form-field-gap`, `--hook-form-font-size`. |
 | `src/providers/BusinessRulesProvider.tsx` | React context provider owning business rules state via useReducer. |
 | `src/providers/InjectedHookFieldProvider.tsx` | React context provider for component injection registry. |
@@ -64,7 +68,7 @@ BusinessRulesProvider (useReducer for rule state)
 
 ## Testing
 
-- **427 tests** across 19 test files using Vitest
+- **513 tests** across 24 test files using Vitest
 - Run: `npm test` (from monorepo root or `packages/core`)
 - Test files are in `src/__tests__/`
 - Coverage targets: helpers (BusinessRulesHelper, HookInlineFormHelper, ValidationRegistry, ValueFunctionRegistry, DependencyGraphValidator, ConfigValidator, LocaleRegistry, WizardHelper), reducers (BusinessRulesReducer), extended validators, hooks (useDraftPersistence, useBeforeUnload), utils (formStateSerialization, jsonSchemaImport, lazyFieldRegistry), components (HookFormErrorBoundary, HookFormDevTools)

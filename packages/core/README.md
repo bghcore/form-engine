@@ -336,6 +336,70 @@ const fieldConfigs = jsonSchemaToFieldConfig({
 
 Maps JSON Schema types, enums, formats, and required fields to `Dictionary<IFieldConfig>`.
 
+## Zod Schema Import
+
+Convert Zod object schemas to field configs without adding zod as a dependency. The adapter inspects Zod's internal type structure at runtime.
+
+```tsx
+import { zodSchemaToFieldConfig } from "@bghcore/dynamic-forms-core";
+import { z } from "zod";
+
+const UserSchema = z.object({
+  name: z.string().min(1),
+  age: z.number().min(0),
+  active: z.boolean(),
+  role: z.enum(["admin", "user", "guest"]),
+  email: z.string().email(),
+  startDate: z.date(),
+  tags: z.array(z.string()),
+});
+
+const fieldConfigs = zodSchemaToFieldConfig(UserSchema);
+// Maps: ZodString→Textbox, ZodNumber→Number, ZodBoolean→Toggle,
+//       ZodEnum→Dropdown, ZodDate→DateControl, ZodArray→Multiselect
+// Detects .email() and .url() checks for automatic validation
+```
+
+No `zod` peer dependency is required. If you do not use Zod, this function is tree-shaken out of your bundle.
+
+## Type-Safe Field Configs
+
+Use `defineFieldConfigs()` to get compile-time verification that dependency targets reference real field names:
+
+```tsx
+import { defineFieldConfigs } from "@bghcore/dynamic-forms-core";
+
+const configs = defineFieldConfigs({
+  name: { component: "Textbox", label: "Name", required: true },
+  status: {
+    component: "Dropdown",
+    label: "Status",
+    dropdownOptions: [
+      { key: "Active", text: "Active" },
+      { key: "Inactive", text: "Inactive" },
+    ],
+    dependencies: {
+      Active: {
+        name: { required: true },  // TypeScript verifies "name" exists
+        // typo: { required: true },  // ERROR: "typo" is not a field name
+      },
+    },
+  },
+});
+```
+
+This is a zero-cost utility -- at runtime it just returns the input object unchanged. The value is purely at compile time.
+
+## JSON Schema for IDE Autocompletion
+
+The package ships JSON Schema files for `IFieldConfig` and `IWizardConfig` at `schemas/field-config.schema.json` and `schemas/wizard-config.schema.json`. Reference them in your JSON config files for IDE autocompletion:
+
+```json
+{
+  "$schema": "node_modules/@bghcore/dynamic-forms-core/schemas/field-config.schema.json"
+}
+```
+
 ## Lazy Field Registry
 
 Load field components on demand using `React.lazy()` for smaller initial bundles:

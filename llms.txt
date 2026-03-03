@@ -31,6 +31,9 @@ UI-library agnostic engine built for React. Depends only on `react` and `react-h
 - **Hooks**: `useDraftPersistence()` (auto-save to localStorage, recover on mount), `useBeforeUnload()` (browser warning on unsaved changes)
 - **Serialization**: `serializeFormState()`, `deserializeFormState()` -- Date-safe JSON round-trip
 - **Schema Import**: `jsonSchemaToFieldConfig()` -- convert JSON Schema to `Dictionary<IFieldConfig>`
+- **Zod Import**: `zodSchemaToFieldConfig()` -- convert Zod object schemas to `Dictionary<IFieldConfig>` (no zod dependency). Maps ZodString→Textbox, ZodNumber→Number, ZodBoolean→Toggle, ZodEnum→Dropdown, ZodDate→DateControl, ZodArray→Multiselect
+- **Type Safety**: `defineFieldConfigs()` -- zero-cost TypeScript utility that verifies dependency field name references at compile time
+- **JSON Schemas**: `schemas/field-config.schema.json` and `schemas/wizard-config.schema.json` for IDE autocompletion
 - **Lazy Loading**: `createLazyFieldRegistry()` -- React.lazy field registry for code splitting
 - **Theming**: CSS custom properties (`--hook-form-error-color`, etc.) via optional `styles.css`, render props on `HookFieldWrapper`
 - **Accessibility**: Focus trap in modals, focus-to-first-error, ARIA live regions, wizard step announcements

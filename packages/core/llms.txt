@@ -158,6 +158,17 @@
 ### Lazy Field Registry
 - `createLazyFieldRegistry(imports)` -- Create a field registry using `React.lazy()` for on-demand component loading. Accepts `Record<string, () => Promise<{ default: ComponentType }>>`, returns `Dictionary<JSX.Element>`
 
+### Zod Schema Import
+- `zodSchemaToFieldConfig(zodSchema)` -- Convert a Zod object schema to `Dictionary<IFieldConfig>`. Maps ZodString→Textbox, ZodNumber→Number, ZodBoolean→Toggle, ZodEnum→Dropdown, ZodDate→DateControl, ZodArray→Multiselect. Detects `.email()` and `.url()` checks for automatic validation. No zod dependency required.
+
+### Type-Safe Field Configs
+- `defineFieldConfigs(configs)` -- Zero-cost TypeScript utility that returns the input unchanged but constrains dependency field name references to known field keys at compile time. Catches typos in `dependencies` and `dropdownDependencies` targets.
+- `TypedFieldConfig<TFields>` -- Generic type used internally by `defineFieldConfigs`. Constrains dependency/dropdownDependency keys to `TFields`.
+
+### JSON Schema Files
+- `schemas/field-config.schema.json` -- JSON Schema for `IFieldConfig` objects. Reference in JSON files for IDE autocompletion.
+- `schemas/wizard-config.schema.json` -- JSON Schema for `IWizardConfig` objects.
+
 ### Utilities
 - `Dictionary<T>` -- Generic dictionary type alias (`Record<string, T>`)
 - `IEntityData` -- Entity data type alias (`Record<string, unknown>`)
@@ -434,4 +445,39 @@ const lazyFields = createLazyFieldRegistry({
 });
 
 setInjectedFields(lazyFields);
+```
+
+### Zod Schema Import
+
+```tsx
+import { zodSchemaToFieldConfig } from "@bghcore/dynamic-forms-core";
+import { z } from "zod";
+
+const UserSchema = z.object({
+  name: z.string().min(1),
+  age: z.number().min(0),
+  email: z.string().email(),
+  role: z.enum(["admin", "user", "guest"]),
+  startDate: z.date(),
+});
+
+const fieldConfigs = zodSchemaToFieldConfig(UserSchema);
+// Maps: string->Textbox, number->Number, email->EmailValidation, enum->Dropdown, date->DateControl
+```
+
+### Type-Safe Field Configs
+
+```tsx
+import { defineFieldConfigs } from "@bghcore/dynamic-forms-core";
+
+const configs = defineFieldConfigs({
+  name: { component: "Textbox", label: "Name" },
+  status: {
+    component: "Dropdown",
+    label: "Status",
+    dependencies: {
+      Active: { name: { required: true } },  // "name" is type-checked
+    },
+  },
+});
 ```

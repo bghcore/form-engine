@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.0] - 2026-03-03
+
+Discovery and developer experience improvements.
+
+### Added
+
+- **Zod schema adapter** — `zodSchemaToFieldConfig()` converts Zod object schemas to `Dictionary<IFieldConfig>` without adding zod as a dependency. Maps ZodString→Textbox, ZodNumber→Number, ZodBoolean→Toggle, ZodEnum→Dropdown, ZodDate→DateControl, ZodArray→Multiselect. Detects `.email()` and `.url()` checks for automatic validation.
+- **Type-safe field configs** — `defineFieldConfigs()` is a zero-cost TypeScript utility that verifies dependency field name references at compile time, catching typos in `dependencies` and `dropdownDependencies` targets.
+- **JSON Schema files** — `schemas/field-config.schema.json` and `schemas/wizard-config.schema.json` published in the npm package for IDE autocompletion when writing form configs in JSON.
+- "When to Use This Library" section in README with clear positioning vs competitors.
+- 24 new tests (Zod adapter, TypedFieldConfig).
+
+### Changed
+
+- npm keywords expanded for all 3 packages to improve discoverability (added `json-forms`, `schema-forms`, `wizard-form`, `zod`, `conditional-logic`, `field-dependencies`, etc.).
+
 ## [1.4.0] - 2026-03-03
 
 Business rules engine audit — critical bug fixes, new features, and comprehensive documentation.

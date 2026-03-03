@@ -108,6 +108,7 @@ packages/
         ILocaleStrings.ts        -- ICoreLocaleStrings interface (~50 keys)
         IWizardConfig.ts         -- IWizardStep, IWizardConfig, IWizardStepCondition
         IFieldArrayConfig.ts     -- IFieldArrayConfig (itemFields, min/max, reorderable)
+        TypedFieldConfig.ts      -- defineFieldConfigs() type-safe field config builder
         IBusinessRulesState.ts, IConfigBusinessRules.ts, IBusinessRuleAction.ts,
         IBusinessRuleActionKeys.ts, IConfirmInputModalProps.ts, IExecuteValueFunction.ts,
         IFieldToRender.ts, IHookPerson.ts, IOrderDependencies.ts, IDropdownOption.ts,
@@ -125,12 +126,16 @@ packages/
         index.ts                 -- isEmpty, isNull, deepCopy, Dictionary, etc.
         formStateSerialization.ts -- serializeFormState/deserializeFormState (Date-safe JSON)
         jsonSchemaImport.ts      -- jsonSchemaToFieldConfig (JSON Schema -> IFieldConfig)
+        zodSchemaImport.ts       -- zodSchemaToFieldConfig (Zod schema -> IFieldConfig, no zod dep)
         lazyFieldRegistry.ts     -- createLazyFieldRegistry (React.lazy field loading)
       styles.css                 -- Optional CSS custom properties for theming
-      __tests__/                 -- Vitest tests (427 tests, 19 files)
+      __tests__/                 -- Vitest tests (513 tests, 24 files)
         __fixtures__/            -- Shared test configs and entity data
         helpers/                 -- Tests for all helper modules
         reducers/                -- Tests for reducer
+    schemas/
+      field-config.schema.json   -- JSON Schema for IFieldConfig (IDE autocompletion)
+      wizard-config.schema.json  -- JSON Schema for IWizardConfig (IDE autocompletion)
 
   fluent/                        -- @bghcore/dynamic-forms-fluent
     src/
@@ -169,14 +174,14 @@ npm run test:coverage    # Run tests with coverage report
 - **Fluent UI v9** (`@fluentui/react-components`) for UI components (fluent package)
 - **MUI v5/v6** (`@mui/material`) for UI components (mui package)
 - **TypeScript** with `strict: true`
-- **Vitest** for testing (427 tests across 19 files, 80%+ coverage on core helpers)
+- **Vitest** for testing (513 tests across 24 files, 80%+ coverage on core helpers)
 - **tsup** for bundling (CJS + ESM + .d.ts)
 - **npm workspaces** for monorepo management
 
 ## Known Issues
 
 - `isReadonly` is deprecated in favor of `readOnly` (dev-mode warning emitted via `normalizeFieldConfig`)
-- `CombineBusinessRules` mutates its first argument in place
+- `CombineBusinessRules` is now immutable (fixed in v1.4.0)
 - Hardcoded English strings in some older code paths (mostly migrated to `LocaleRegistry`)
 
 ## Coding Conventions
