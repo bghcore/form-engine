@@ -1,36 +1,54 @@
 # Dynamic React Business Forms
 
-> A React library for rendering complex, configuration-driven forms with a built-in business rules engine. Define forms as JSON configurations and the library handles rendering, validation, auto-save, and field interactions automatically. Published as `@bghcore/dynamic-forms-core` (framework-agnostic engine) and `@bghcore/dynamic-forms-fluent` (Fluent UI v9 field components).
+> A React library for rendering complex, configuration-driven forms with a built-in business rules engine. Define forms as JSON configurations and the library handles rendering, validation, auto-save, and field interactions automatically. UI-library agnostic -- works with Fluent UI, MUI, or any React component library. Published as three packages: `@bghcore/dynamic-forms-core` (engine + orchestration), `@bghcore/dynamic-forms-fluent` (Fluent UI v9 adapter), and `@bghcore/dynamic-forms-mui` (Material UI adapter).
 
-The library centers on three key concepts: a **declarative business rules engine** that evaluates field dependencies, visibility, required state, and computed values from JSON config; a **component injection system** where UI field implementations are registered by string key and rendered via `React.cloneElement`; and **pluggable registries** for custom validation and value functions referenced by name in field configs.
+The library centers on four key concepts: a **declarative business rules engine** that evaluates field dependencies, visibility, required state, and computed values from JSON config; a **component injection system** where UI field implementations are registered by string key and rendered via `React.cloneElement`; **pluggable registries** for custom sync/async validation and value functions referenced by name in field configs; and **i18n support** via a locale registry with partial overrides and English fallback.
 
 ## Docs
 
 - [README.md](https://github.com/bghcore/dynamic-react-business-forms/blob/main/README.md): Full usage guide with quick start, field types, architecture diagram, and examples
 - [CLAUDE.md](https://github.com/bghcore/dynamic-react-business-forms/blob/main/CLAUDE.md): Detailed architecture, rendering pipeline, key directories, and coding conventions
-- [CHANGELOG.md](https://github.com/bghcore/dynamic-react-business-forms/blob/main/CHANGELOG.md): Release history
+- [docs/creating-an-adapter.md](https://github.com/bghcore/dynamic-react-business-forms/blob/main/docs/creating-an-adapter.md): Guide for building custom UI library adapters
+- [packages/core/llms.txt](https://github.com/bghcore/dynamic-react-business-forms/blob/main/packages/core/llms.txt): Core package API reference for LLMs
+- [packages/fluent/llms.txt](https://github.com/bghcore/dynamic-react-business-forms/blob/main/packages/fluent/llms.txt): Fluent UI adapter API reference for LLMs
+- [packages/mui/llms.txt](https://github.com/bghcore/dynamic-react-business-forms/blob/main/packages/mui/llms.txt): MUI adapter API reference for LLMs
 
-## API
+## Packages
 
 ### @bghcore/dynamic-forms-core
 
-- **Providers**: `BusinessRulesProvider`, `InjectedHookFieldProvider` -- React context providers that must wrap the form tree
-- **Components**: `HookInlineForm` (entry point), `HookInlineFormFields`, `HookRenderField`, `HookFieldWrapper`, `HookConfirmInputsModal`
-- **Business Rules**: `ProcessAllBusinessRules`, `ProcessFieldBusinessRule`, `CombineBusinessRules`, `GetDefaultBusinessRules`
-- **Form Helpers**: `CombineSchemaConfig`, `GetFieldsToRender`, `CheckFieldValidationRules`, `ExecuteValueFunction`
-- **Registries**: `registerValidations()`, `registerValueFunctions()` -- plug in custom functions by name
-- **Types**: `IFieldConfig`, `IBusinessRule`, `IHookFieldSharedProps<T>`, `IBusinessRulesState`, `IDropdownOption`, `ComponentTypes`
+UI-library agnostic engine built for React. Depends only on `react` and `react-hook-form`.
+
+- **Providers**: `BusinessRulesProvider`, `InjectedHookFieldProvider` -- React context providers that must wrap the form tree (memoized)
+- **Components**: `HookInlineForm` (entry point), `HookInlineFormFields`, `HookRenderField` (React.memo), `HookFieldWrapper` (React.memo), `HookConfirmInputsModal`, `HookWizardForm` (multi-step wizard), `HookFieldArray` (repeating sections)
+- **Business Rules**: `ProcessAllBusinessRules`, `ProcessFieldBusinessRule`, `CombineBusinessRules`, `GetDefaultBusinessRules`, `normalizeFieldConfig`
+- **Validation**: 15 built-in sync validators + `registerAsyncValidations()` for server-side checks. Factory functions: `createMinLengthValidation`, `createMaxLengthValidation`, `createNumericRangeValidation`, `createPatternValidation`, `createRequiredIfValidation`
+- **Config Validation**: `validateFieldConfigs()` -- dev-mode checks for missing deps, unregistered components/validators, circular deps
+- **Cycle Detection**: `detectDependencyCycles()`, `validateDependencyGraph()` -- Kahn's algorithm on dependency graphs
+- **i18n**: `registerLocale()`, `getLocaleString()`, `resetLocale()` -- partial locale overrides with English fallback
+- **Wizard**: `getVisibleSteps()`, `getStepFields()`, `validateStepFields()`, `isStepValid()`, `getStepIndex()`
+- **Registries**: `registerValidations()`, `registerAsyncValidations()`, `registerValueFunctions()` -- plug in custom functions by name
+- **Types**: `IFieldConfig`, `IBusinessRule`, `IHookFieldSharedProps<T>`, `IWizardConfig`, `IFieldArrayConfig`, `ICoreLocaleStrings`, `IDropdownOption`, `ComponentTypes`
 
 ### @bghcore/dynamic-forms-fluent
+
+Fluent UI v9 adapter. Provides 19 field components (13 editable + 6 read-only).
 
 - **Registry**: `createFluentFieldRegistry()` -- returns a complete field map for `InjectedHookFieldProvider`
 - **Editable Fields**: HookTextbox, HookDropdown, HookToggle, HookNumber, HookMultiSelect, HookDateControl, HookSlider, HookSimpleDropdown, HookMultiSelectSearch, HookPopOutEditor, HookDocumentLinks, HookStatusDropdown, HookFragment
 - **Read-Only Fields**: HookReadOnly, HookReadOnlyArray, HookReadOnlyDateTime, HookReadOnlyCumulativeNumber, HookReadOnlyRichText, HookReadOnlyWithButton
-- **Helpers**: `FieldClassName`, `GetFieldDataTestId`, `formatDateTime`
+
+### @bghcore/dynamic-forms-mui
+
+Material UI (MUI) adapter. Provides 19 field components (13 editable + 6 read-only).
+
+- **Registry**: `createMuiFieldRegistry()` -- returns a complete field map for `InjectedHookFieldProvider`
+- **Editable Fields**: HookTextbox, HookDropdown, HookToggle, HookNumber, HookMultiSelect, HookDateControl, HookSlider, HookSimpleDropdown, HookMultiSelectSearch, HookPopOutEditor, HookDocumentLinks, HookStatusDropdown, HookFragment
+- **Read-Only Fields**: HookReadOnly, HookReadOnlyArray, HookReadOnlyDateTime, HookReadOnlyCumulativeNumber, HookReadOnlyRichText, HookReadOnlyWithButton
 
 ## Examples
 
-### Minimal Setup
+### Minimal Setup (Fluent UI)
 
 ```tsx
 import { BusinessRulesProvider, InjectedHookFieldProvider, UseInjectedHookFieldContext, HookInlineForm } from "@bghcore/dynamic-forms-core";
@@ -57,7 +75,14 @@ function FieldRegistrar({ children }) {
 </BusinessRulesProvider>
 ```
 
-### Business Rules (Declarative Dependencies)
+### Swap to MUI (one import change)
+
+```tsx
+import { createMuiFieldRegistry } from "@bghcore/dynamic-forms-mui";
+setInjectedFields(createMuiFieldRegistry()); // that's it
+```
+
+### Business Rules
 
 ```tsx
 const fieldConfigs = {
@@ -74,16 +99,49 @@ const fieldConfigs = {
 };
 ```
 
-### Custom Validation and Value Functions
+### Async Validation
 
 ```tsx
-import { registerValidations, registerValueFunctions } from "@bghcore/dynamic-forms-core";
+import { registerAsyncValidations } from "@bghcore/dynamic-forms-core";
 
-registerValidations({
-  maxLength100: (value) => typeof value === "string" && value.length > 100 ? "Max 100 chars" : undefined,
+registerAsyncValidations({
+  CheckUniqueEmail: async (value, entityData, signal) => {
+    const res = await fetch(`/api/check?email=${value}`, { signal });
+    const { exists } = await res.json();
+    return exists ? "Already in use" : undefined;
+  },
 });
 
-registerValueFunctions({
-  setTimestamp: () => new Date().toISOString(),
-});
+// In field config: asyncValidations: ["CheckUniqueEmail"]
+```
+
+### i18n
+
+```tsx
+import { registerLocale } from "@bghcore/dynamic-forms-core";
+registerLocale({ required: "Obligatoire", save: "Sauvegarder" });
+```
+
+### Wizard
+
+```tsx
+import { HookWizardForm } from "@bghcore/dynamic-forms-core";
+
+<HookWizardForm
+  wizardConfig={{
+    steps: [
+      { id: "basics", title: "Basics", fields: ["name", "type"] },
+      { id: "details", title: "Details", fields: ["description"], visibleWhen: { fieldName: "type", values: ["bug"] } },
+    ],
+    validateOnStepChange: true,
+  }}
+  entityData={formValues}
+  renderStepContent={(fields) => <FieldRenderer fields={fields} />}
+  renderStepNavigation={({ goNext, goPrev, canGoNext, canGoPrev }) => (
+    <nav>
+      <button onClick={goPrev} disabled={!canGoPrev}>Back</button>
+      <button onClick={goNext} disabled={!canGoNext}>Next</button>
+    </nav>
+  )}
+/>
 ```

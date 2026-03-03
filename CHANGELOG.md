@@ -29,7 +29,7 @@ an internal monorepo) into two independent, publishable packages.
 ### Added
 
 - **Monorepo structure** with npm workspaces (`packages/core`, `packages/fluent`)
-- **`@bghcore/dynamic-forms-core`** -- Framework-agnostic business rules engine
+- **`@bghcore/dynamic-forms-core`** -- UI-library agnostic business rules engine (React only, no UI library deps)
   - `BusinessRulesProvider` and `InjectedHookFieldProvider` React context providers
   - `ProcessAllBusinessRules`, `ProcessFieldBusinessRule`, and full rule evaluation pipeline
   - `HookInlineForm` component with auto-save, expand/collapse, and confirm-input modal

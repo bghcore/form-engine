@@ -1,0 +1,104 @@
+# @bghcore/dynamic-forms-mui
+
+> Material UI (MUI) field components for @bghcore/dynamic-forms-core. Provides 13 editable and 6 read-only field types plus a one-line registry setup.
+
+- Docs: [README](https://github.com/bghcore/dynamic-react-business-forms/tree/main/packages/mui/README.md)
+- Agent instructions: [AGENTS.md](https://github.com/bghcore/dynamic-react-business-forms/tree/main/packages/mui/AGENTS.md)
+- npm: [@bghcore/dynamic-forms-mui](https://www.npmjs.com/package/@bghcore/dynamic-forms-mui)
+- License: MIT
+- Peer dependencies: `react`, `react-dom`, `react-hook-form`, `@mui/material` (v5 or v6), `@bghcore/dynamic-forms-core`
+- Required runtime dependencies: `@emotion/react`, `@emotion/styled` (MUI peer deps)
+
+## API Surface
+
+### Registry
+- `createMuiFieldRegistry()` -- Creates the default Material UI field registry (`Dictionary<React.JSX.Element>`) for use with `InjectedHookFieldProvider`
+
+### Editable Field Components (13)
+- `HookTextbox` -- Single-line text input (MUI `TextField`)
+- `HookNumber` -- Numeric input
+- `HookToggle` -- Boolean toggle switch
+- `HookDropdown` -- Single-select dropdown
+- `HookSimpleDropdown` -- Simplified single-select dropdown
+- `HookMultiSelect` -- Multi-select checkboxes
+- `HookMultiSelectSearch` -- Multi-select with search/filter
+- `HookDateControl` -- Date picker
+- `HookSlider` -- Range slider
+- `HookFragment` -- Dynamic fragment container
+- `HookPopOutEditor` -- Expandable text editor / textarea
+- `HookDocumentLinks` -- URL link CRUD
+- `HookStatusDropdown` -- Status dropdown with color indicators
+
+### Read-Only Field Components (6)
+- `HookReadOnly` -- Read-only text display
+- `HookReadOnlyArray` -- Read-only array/list display
+- `HookReadOnlyDateTime` -- Read-only date/time display
+- `HookReadOnlyCumulativeNumber` -- Read-only cumulative number display
+- `HookReadOnlyRichText` -- Read-only rich text/HTML display
+- `HookReadOnlyWithButton` -- Read-only text with action button
+
+### Supporting Components
+- `ReadOnlyText` -- Shared read-only text display component
+- `StatusMessage` -- Error/warning/saving status display
+- `HookFormLoading` -- Shimmer/skeleton loading state
+
+### Helpers
+- `FieldClassName()` -- Build CSS class name with optional error state
+- `GetFieldDataTestId()` -- Build data-testid attribute from field metadata
+- `formatDateTime()` -- Format date string for display
+- `DocumentLinksStrings` -- Default string literals for document links UI
+
+### Types
+- `IReadOnlyFieldProps` -- Props for ReadOnlyText component
+- `IDocumentLink` -- Document link data type
+
+## Code Example
+
+### Minimal Setup with Material UI
+
+```tsx
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { CssBaseline } from "@mui/material";
+import {
+  BusinessRulesProvider,
+  InjectedHookFieldProvider,
+  HookInlineForm,
+  IFieldConfig,
+  Dictionary,
+} from "@bghcore/dynamic-forms-core";
+import { createMuiFieldRegistry } from "@bghcore/dynamic-forms-mui";
+
+const theme = createTheme();
+
+const fieldConfigs: Dictionary<IFieldConfig> = {
+  title: { component: "Textbox", required: true, label: "Title" },
+  status: {
+    component: "Dropdown",
+    label: "Status",
+    dropdownOptions: [
+      { key: "draft", text: "Draft" },
+      { key: "active", text: "Active" },
+    ],
+  },
+};
+
+function App() {
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <BusinessRulesProvider>
+        <InjectedHookFieldProvider injectedFields={createMuiFieldRegistry()}>
+          <HookInlineForm
+            programName="myApp"
+            configName="myForm"
+            fieldConfigs={fieldConfigs}
+            fieldOrder={["title", "status"]}
+            entityData={{ title: "", status: "draft" }}
+            onSave={(data) => console.log("Saved:", data)}
+          />
+        </InjectedHookFieldProvider>
+      </BusinessRulesProvider>
+    </ThemeProvider>
+  );
+}
+```

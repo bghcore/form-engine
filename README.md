@@ -6,7 +6,7 @@ A React library for rendering complex, configuration-driven forms with a built-i
 
 | Package | Description | Size |
 |---------|-------------|------|
-| [`@bghcore/dynamic-forms-core`](./packages/core) | Business rules engine, form orchestration, validation, i18n, wizard, field arrays. Framework-agnostic (React + react-hook-form only). | ~88 KB ESM |
+| [`@bghcore/dynamic-forms-core`](./packages/core) | Business rules engine, form orchestration, validation, i18n, wizard, field arrays. UI-library agnostic (React + react-hook-form only, no UI library dependency). | ~88 KB ESM |
 | [`@bghcore/dynamic-forms-fluent`](./packages/fluent) | Fluent UI v9 field components (19 field types). | ~40 KB ESM |
 | [`@bghcore/dynamic-forms-mui`](./packages/mui) | Material UI (MUI) field components (19 field types). | ~39 KB ESM |
 

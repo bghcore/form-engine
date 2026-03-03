@@ -13,7 +13,7 @@
 The library is a **configuration-driven React form engine** with a declarative business rules system. Forms are defined as JSON (field definitions, dependency rules, dropdown options, ordering) and the library handles rendering, validation, auto-save, and field interactions automatically.
 
 **Monorepo structure:**
-- `packages/core` — Framework-agnostic business rules engine + form orchestration (0 UI framework deps)
+- `packages/core` — UI-library agnostic business rules engine + form orchestration (React only, 0 UI library deps)
 - `packages/fluent` — Fluent UI v9 field component implementations (13 editable + 6 read-only fields)
 
 **Build pipeline:** tsup (CJS + ESM + .d.ts), npm workspaces, TypeScript 5.9

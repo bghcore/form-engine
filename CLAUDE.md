@@ -5,7 +5,7 @@
 A React library for rendering complex, configuration-driven forms with a built-in business rules engine. Forms are defined as JSON configurations (field definitions, dependency rules, dropdown options, ordering) and the library handles rendering, validation, auto-save, and field interactions automatically.
 
 Published as three npm packages:
-- `@bghcore/dynamic-forms-core` -- Framework-agnostic business rules engine and form orchestration
+- `@bghcore/dynamic-forms-core` -- UI-library agnostic business rules engine and form orchestration (React + react-hook-form only)
 - `@bghcore/dynamic-forms-fluent` -- Fluent UI v9 field component implementations
 - `@bghcore/dynamic-forms-mui` -- Material UI (MUI) field component implementations
 

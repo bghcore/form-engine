@@ -1,6 +1,6 @@
 # @bghcore/dynamic-forms-core
 
-Framework-agnostic business rules engine and form orchestration for configuration-driven React forms. Define forms as JSON -- field definitions, dependency rules, dropdown options, ordering -- and the library handles rendering, validation, auto-save, and field interactions automatically.
+UI-library agnostic business rules engine and form orchestration for configuration-driven React forms. Built for React — works with any component library (Fluent UI, MUI, Ant Design, or your own). Define forms as JSON -- field definitions, dependency rules, dropdown options, ordering -- and the library handles rendering, validation, auto-save, and field interactions automatically.
 
 ## Install
 
