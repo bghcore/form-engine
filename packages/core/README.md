@@ -51,7 +51,9 @@ function App() {
 }
 ```
 
-You'll also need a UI adapter to provide field components. See [`@bghcore/dynamic-forms-fluent`](https://www.npmjs.com/package/@bghcore/dynamic-forms-fluent) for a ready-made Fluent UI v9 implementation, or build your own.
+You'll also need a UI adapter to provide field components. See:
+- [`@bghcore/dynamic-forms-fluent`](https://www.npmjs.com/package/@bghcore/dynamic-forms-fluent) -- Fluent UI v9
+- [`@bghcore/dynamic-forms-mui`](https://www.npmjs.com/package/@bghcore/dynamic-forms-mui) -- Material UI
 
 ## Business Rules Engine
 
@@ -66,169 +68,141 @@ When a field value changes, the engine:
 5. Updates dropdown options based on dependency rules
 6. Reorders fields if order dependencies are defined
 
-```tsx
-const fieldConfigs = {
-  type: {
-    component: "Dropdown",
-    label: "Type",
-    dropdownOptions: [
-      { key: "bug", text: "Bug" },
-      { key: "feature", text: "Feature" },
-    ],
-    dependencies: {
-      bug: {
-        severity: { required: true, hidden: false },
-      },
-      feature: {
-        severity: { hidden: true },
-      },
-    },
-  },
-  severity: {
-    component: "Dropdown",
-    label: "Severity",
-    hidden: true,
-    dropdownOptions: [
-      { key: "low", text: "Low" },
-      { key: "high", text: "High" },
-    ],
-  },
-};
-```
+Includes **circular dependency detection** via Kahn's algorithm and **config validation** for catching misconfigurations early.
 
-## Component Injection
+## Validation
 
-Fields are registered as a `Dictionary<JSX.Element>` via `InjectedHookFieldProvider`. The core library looks up components by string key and passes standardized `IHookFieldSharedProps` via `React.cloneElement`.
+### 15 Built-in Sync Validators
+
+`EmailValidation`, `PhoneNumberValidation`, `YearValidation`, `Max150KbValidation`, `Max32KbValidation`, `isValidUrl`, `NoSpecialCharactersValidation`, `CurrencyValidation`, `UniqueInArrayValidation`
+
+### Factory Validators
 
 ```tsx
-import { UseInjectedHookFieldContext } from "@bghcore/dynamic-forms-core";
-
-const { setInjectedFields } = UseInjectedHookFieldContext();
-
-setInjectedFields({
-  Textbox: <MyTextbox />,
-  Dropdown: <MyDropdown />,
-  Toggle: <MyToggle />,
-});
-```
-
-Custom fields receive `IHookFieldSharedProps<T>`:
-
-```tsx
-interface IHookFieldSharedProps<T> {
-  fieldName?: string;
-  value?: unknown;
-  readOnly?: boolean;
-  required?: boolean;
-  error?: FieldError;
-  dropdownOptions?: IDropdownOption[];
-  setFieldValue?: (fieldName: string, value: unknown, skipSave?: boolean, timeout?: number) => void;
-  meta?: T;
-  // ... and more
-}
-```
-
-## Pluggable Validation & Value Functions
-
-Register custom validators and computed value functions:
-
-```tsx
-import { registerValidations, registerValueFunctions } from "@bghcore/dynamic-forms-core";
+import {
+  createMinLengthValidation,
+  createMaxLengthValidation,
+  createNumericRangeValidation,
+  createPatternValidation,
+  createRequiredIfValidation,
+} from "@bghcore/dynamic-forms-core";
 
 registerValidations({
-  maxLength100: (value) => {
-    if (typeof value === "string" && value.length > 100) {
-      return "Must be 100 characters or less";
-    }
-    return undefined;
-  },
-});
-
-registerValueFunctions({
-  setCurrentTimestamp: () => new Date().toISOString(),
+  MinLength3: createMinLengthValidation(3),
+  Max100Chars: createMaxLengthValidation(100),
+  Score1to10: createNumericRangeValidation(1, 10),
+  AlphaOnly: createPatternValidation(/^[a-zA-Z]+$/, "Letters only"),
+  RequiredIfActive: createRequiredIfValidation("status", ["Active"]),
 });
 ```
 
-Reference them by name in field configs:
+### Async Validators
 
 ```tsx
-const fieldConfigs = {
-  description: {
-    component: "Textarea",
-    label: "Description",
-    validations: ["maxLength100"],
+import { registerAsyncValidations } from "@bghcore/dynamic-forms-core";
+
+registerAsyncValidations({
+  CheckUniqueEmail: async (value, entityData, signal) => {
+    const res = await fetch(`/api/check?email=${value}`, { signal });
+    const { exists } = await res.json();
+    return exists ? "Already in use" : undefined;
   },
-  createdAt: {
-    component: "ReadOnly",
-    label: "Created",
-    value: "setCurrentTimestamp",
-    isValueFunction: true,
-    onlyOnCreate: true,
-  },
-};
+});
 ```
+
+Reference in field configs via `asyncValidations: ["CheckUniqueEmail"]`.
+
+### Config Validation
+
+```tsx
+import { validateFieldConfigs } from "@bghcore/dynamic-forms-core";
+
+const errors = validateFieldConfigs(fieldConfigs, registeredComponentTypes);
+// Checks: missing dep targets, unregistered components/validators, circular deps
+```
+
+## Multi-Step Wizard
+
+```tsx
+import { HookWizardForm } from "@bghcore/dynamic-forms-core";
+
+<HookWizardForm
+  wizardConfig={{
+    steps: [
+      { id: "basics", title: "Basics", fields: ["name", "type"] },
+      { id: "details", title: "Details", fields: ["description"],
+        visibleWhen: { fieldName: "type", values: ["bug"] } },
+    ],
+    validateOnStepChange: true,
+  }}
+  entityData={formValues}
+  renderStepContent={(fields) => <FieldRenderer fields={fields} />}
+  renderStepNavigation={({ goNext, goPrev, canGoNext, canGoPrev }) => (
+    <nav>
+      <button onClick={goPrev} disabled={!canGoPrev}>Back</button>
+      <button onClick={goNext} disabled={!canGoNext}>Next</button>
+    </nav>
+  )}
+/>
+```
+
+All fields stay in a single `react-hook-form` context. Steps just control which fields are visible. Cross-step business rules work automatically.
+
+## Field Arrays
+
+```tsx
+import { HookFieldArray } from "@bghcore/dynamic-forms-core";
+
+<HookFieldArray
+  fieldName="contacts"
+  config={{
+    itemFields: { name: { component: "Textbox", label: "Name" } },
+    minItems: 1,
+    maxItems: 5,
+    defaultItem: { name: "" },
+  }}
+  renderItem={(fieldNames, index, remove) => (
+    <div>
+      <FieldRenderer fields={fieldNames} />
+      <button onClick={remove}>Remove</button>
+    </div>
+  )}
+  renderAddButton={(append, canAdd) => (
+    <button onClick={append} disabled={!canAdd}>Add</button>
+  )}
+/>
+```
+
+## i18n / Localization
+
+```tsx
+import { registerLocale } from "@bghcore/dynamic-forms-core";
+
+registerLocale({
+  required: "Obligatoire",
+  save: "Sauvegarder",
+  invalidEmail: "Adresse e-mail invalide",
+  // Partial -- unspecified keys fall back to English
+});
+```
+
+All strings in `HookInlineFormStrings` and validation error messages resolve through the locale registry.
 
 ## Architecture
 
 ```
-<BusinessRulesProvider>          -- Owns rule state via useReducer
-  <InjectedHookFieldProvider>    -- Component injection registry
+<BusinessRulesProvider>          -- Owns rule state via useReducer (memoized)
+  <InjectedHookFieldProvider>    -- Component injection registry (memoized)
     <HookInlineForm>             -- Form state (react-hook-form), auto-save, business rules
       <HookInlineFormFields>     -- Renders ordered field list
-        <HookRenderField>        -- Per-field: Controller + component lookup
-          <HookFieldWrapper>     -- Label, error, saving status
+        <HookRenderField>        -- Per-field: Controller + component lookup (React.memo)
+          <HookFieldWrapper>     -- Label, error, saving status (React.memo)
             <InjectedField />    -- Your UI component via cloneElement
-```
-
-## Render Props
-
-`HookInlineForm` accepts render props for customization:
-
-```tsx
-<HookInlineForm
-  renderExpandButton={({ isExpanded, onToggle }) => (
-    <button onClick={onToggle}>{isExpanded ? "Show Less" : "Show More"}</button>
-  )}
-  renderFilterInput={({ onChange }) => (
-    <input placeholder="Search..." onChange={(e) => onChange(e.target.value)} />
-  )}
-  renderDialog={({ isOpen, onSave, onCancel, children }) => (
-    <MyDialog open={isOpen} onConfirm={onSave} onDismiss={onCancel}>
-      {children}
-    </MyDialog>
-  )}
-  onSaveError={(error) => toast.error(error)}
-/>
 ```
 
 ## Building a Custom UI Adapter
 
-To create fields for a different UI library (Material UI, Ant Design, etc.):
-
-1. Create field components that accept `IHookFieldSharedProps<T>`
-2. Build a registry mapping component keys to your field elements
-3. Pass the registry via `setInjectedFields()`
-
-```tsx
-import { IHookFieldSharedProps, ComponentTypes } from "@bghcore/dynamic-forms-core";
-
-const MaterialTextbox = (props: IHookFieldSharedProps<{}>) => {
-  const { fieldName, value, readOnly, error, setFieldValue } = props;
-  return (
-    <TextField
-      value={value as string}
-      disabled={readOnly}
-      error={!!error}
-      helperText={error?.message}
-      onChange={(e) => setFieldValue(fieldName, e.target.value, false, 3000)}
-    />
-  );
-};
-
-setInjectedFields({
-  [ComponentTypes.Textbox]: <MaterialTextbox />,
-});
-```
+See [docs/creating-an-adapter.md](https://github.com/bghcore/dynamic-react-business-forms/blob/main/docs/creating-an-adapter.md) for a complete guide.
 
 ## License
 

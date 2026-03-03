@@ -6,13 +6,18 @@ A React library for rendering complex, configuration-driven forms with a built-i
 
 | Package | Description | Size |
 |---------|-------------|------|
-| [`@bghcore/dynamic-forms-core`](./packages/core) | Business rules engine, form orchestration, providers, types. Framework-agnostic (React + react-hook-form only). | ~67 KB ESM |
-| [`@bghcore/dynamic-forms-fluent`](./packages/fluent) | Fluent UI v9 field components. One of potentially many UI adapter packages. | ~40 KB ESM |
+| [`@bghcore/dynamic-forms-core`](./packages/core) | Business rules engine, form orchestration, validation, i18n, wizard, field arrays. Framework-agnostic (React + react-hook-form only). | ~88 KB ESM |
+| [`@bghcore/dynamic-forms-fluent`](./packages/fluent) | Fluent UI v9 field components (19 field types). | ~40 KB ESM |
+| [`@bghcore/dynamic-forms-mui`](./packages/mui) | Material UI (MUI) field components (19 field types). | ~39 KB ESM |
 
 ## Quick Start
 
 ```bash
+# With Fluent UI
 npm install @bghcore/dynamic-forms-core @bghcore/dynamic-forms-fluent
+
+# Or with MUI
+npm install @bghcore/dynamic-forms-core @bghcore/dynamic-forms-mui @mui/material @emotion/react @emotion/styled
 ```
 
 ```tsx
@@ -23,9 +28,10 @@ import {
   HookInlineForm,
 } from "@bghcore/dynamic-forms-core";
 import { createFluentFieldRegistry } from "@bghcore/dynamic-forms-fluent";
+// Or: import { createMuiFieldRegistry } from "@bghcore/dynamic-forms-mui";
 import { useEffect } from "react";
 
-// Register Fluent UI fields
+// Register field components (swap adapters by changing one import)
 function FieldRegistrar({ children }: { children: React.ReactNode }) {
   const { setInjectedFields } = UseInjectedHookFieldContext();
   useEffect(() => {
@@ -84,8 +90,10 @@ Every form is defined by a dictionary of `IFieldConfig` objects. Each config spe
 - **`dependencyRules`** -- AND-condition rules across multiple fields
 - **`dropdownDependencies`** -- Dropdown options that change based on other fields
 - **`orderDependencies`** -- Dynamic field ordering rules
-- **`validations`** -- Validation function names from the registry
+- **`validations`** -- Sync validation function names from the registry
+- **`asyncValidations`** -- Async validation function names (server-side checks)
 - **`value`** + **`isValueFunction`** -- Computed values on create/change
+- **`fieldArray`** -- Repeating section configuration (min/max items, item fields)
 
 ### Business Rules Engine
 
@@ -97,6 +105,8 @@ Rules are **declarative** -- defined as data, not imperative code. When a field 
 4. Processes combo (AND) rules across multiple fields
 5. Updates dropdown options based on dependency rules
 6. Reorders fields if order dependencies are defined
+
+The engine includes **circular dependency detection** via Kahn's algorithm and **config validation** for dev-mode diagnostics.
 
 ```tsx
 const fieldConfigs = {
@@ -129,6 +139,69 @@ const fieldConfigs = {
 };
 ```
 
+### Multi-Step Wizard
+
+Split forms into wizard steps with conditional visibility and validation:
+
+```tsx
+import { HookWizardForm } from "@bghcore/dynamic-forms-core";
+
+const wizardConfig = {
+  steps: [
+    { id: "basics", title: "Basic Info", fields: ["name", "type"] },
+    { id: "details", title: "Details", fields: ["severity", "description"],
+      visibleWhen: { fieldName: "type", values: ["bug"] } },
+    { id: "review", title: "Review", fields: ["notes"] },
+  ],
+  validateOnStepChange: true,
+};
+
+<HookWizardForm
+  wizardConfig={wizardConfig}
+  entityData={formValues}
+  fieldRules={businessRules}
+  errors={formErrors}
+  renderStepContent={(fields) => <MyFieldRenderer fields={fields} />}
+  renderStepNavigation={({ goNext, goPrev, canGoNext, canGoPrev }) => (
+    <div>
+      <button onClick={goPrev} disabled={!canGoPrev}>Back</button>
+      <button onClick={goNext} disabled={!canGoNext}>Next</button>
+    </div>
+  )}
+/>
+```
+
+### Field Arrays (Repeating Sections)
+
+Add "add another" patterns for addresses, line items, etc.:
+
+```tsx
+import { HookFieldArray } from "@bghcore/dynamic-forms-core";
+
+<HookFieldArray
+  fieldName="contacts"
+  config={{
+    itemFields: {
+      name: { component: "Textbox", label: "Name", required: true },
+      email: { component: "Textbox", label: "Email", validations: ["EmailValidation"] },
+    },
+    minItems: 1,
+    maxItems: 5,
+    defaultItem: { name: "", email: "" },
+  }}
+  renderItem={(fieldNames, index, remove) => (
+    <div key={index}>
+      {/* fieldNames = ["contacts.0.name", "contacts.0.email"] */}
+      <MyFieldRenderer fields={fieldNames} />
+      <button onClick={remove}>Remove</button>
+    </div>
+  )}
+  renderAddButton={(append, canAdd) => (
+    <button onClick={append} disabled={!canAdd}>Add Contact</button>
+  )}
+/>
+```
+
 ### Component Injection
 
 The library uses a component injection system for field rendering. Core provides the orchestration, and UI packages provide the field implementations:
@@ -138,6 +211,10 @@ The library uses a component injection system for field rendering. Core provides
 import { createFluentFieldRegistry } from "@bghcore/dynamic-forms-fluent";
 setInjectedFields(createFluentFieldRegistry());
 
+// Or use MUI fields (swap with one line)
+import { createMuiFieldRegistry } from "@bghcore/dynamic-forms-mui";
+setInjectedFields(createMuiFieldRegistry());
+
 // Or mix in custom fields
 setInjectedFields({
   ...createFluentFieldRegistry(),
@@ -145,161 +222,118 @@ setInjectedFields({
 });
 ```
 
-Custom fields receive `IHookFieldSharedProps<T>` via `React.cloneElement`:
+### Pluggable Validation
+
+15 built-in validators plus support for custom sync and async validators:
 
 ```tsx
-interface IHookFieldSharedProps<T> {
-  fieldName?: string;
-  value?: unknown;
-  readOnly?: boolean;
-  required?: boolean;
-  error?: FieldError;
-  dropdownOptions?: IDropdownOption[];
-  setFieldValue?: (fieldName: string, value: unknown, skipSave?: boolean, timeout?: number) => void;
-  meta?: T; // custom metadata from IFieldConfig.meta
-  // ... and more
-}
-```
+import {
+  registerValidations,
+  registerAsyncValidations,
+  createMinLengthValidation,
+  createPatternValidation,
+} from "@bghcore/dynamic-forms-core";
 
-### Pluggable Validation & Value Functions
-
-Register custom validators and value functions:
-
-```tsx
-import { registerValidations, registerValueFunctions } from "@bghcore/dynamic-forms-core";
-
+// Use built-in factory validators
 registerValidations({
-  myCustomValidation: (value) => {
-    if (typeof value === "string" && value.length > 100) {
-      return "Must be 100 characters or less";
-    }
-    return undefined; // valid
-  },
+  MinLength5: createMinLengthValidation(5),
+  AlphaOnly: createPatternValidation(/^[a-zA-Z]+$/, "Letters only"),
 });
 
-registerValueFunctions({
-  setCurrentTimestamp: () => new Date().toISOString(),
-  computeTotal: ({ fieldName, parentEntity }) => {
-    return (parentEntity?.subtotal ?? 0) + (parentEntity?.tax ?? 0);
+// Add async validators (e.g., server-side uniqueness check)
+registerAsyncValidations({
+  CheckUniqueEmail: async (value, entityData, signal) => {
+    const response = await fetch(`/api/check-email?email=${value}`, { signal });
+    const { exists } = await response.json();
+    return exists ? "Email already in use" : undefined;
   },
 });
 ```
 
-Then reference them by name in field configs:
+Built-in validators: `EmailValidation`, `PhoneNumberValidation`, `YearValidation`, `Max150KbValidation`, `Max32KbValidation`, `isValidUrl`, `NoSpecialCharactersValidation`, `CurrencyValidation`, `UniqueInArrayValidation` + factory functions: `createMinLengthValidation`, `createMaxLengthValidation`, `createNumericRangeValidation`, `createPatternValidation`, `createRequiredIfValidation`
+
+### i18n / Localization
+
+All user-facing strings are localizable:
 
 ```tsx
-const fieldConfigs = {
-  description: {
-    component: "Textarea",
-    label: "Description",
-    validations: ["myCustomValidation"],
-  },
-  createdAt: {
-    component: "ReadOnly",
-    label: "Created",
-    value: "setCurrentTimestamp",
-    isValueFunction: true,
-    onlyOnCreate: true,
-  },
-};
+import { registerLocale } from "@bghcore/dynamic-forms-core";
+
+registerLocale({
+  required: "Obligatoire",
+  save: "Sauvegarder",
+  cancel: "Annuler",
+  saving: "Sauvegarde en cours...",
+  invalidEmail: "Adresse e-mail invalide",
+  // Partial registration -- unspecified keys fall back to English
+});
+```
+
+### Config Validation (Dev Mode)
+
+Catch configuration errors early:
+
+```tsx
+import { validateFieldConfigs } from "@bghcore/dynamic-forms-core";
+
+const errors = validateFieldConfigs(fieldConfigs, new Set(["Textbox", "Dropdown"]));
+// Returns: missing dependency targets, unregistered components,
+// unregistered validators, circular dependencies, missing dropdown options
 ```
 
 ## Available Field Types
 
-### Editable Fields (from `@bghcore/dynamic-forms-fluent`)
+All 19 field types are available in both the Fluent UI and MUI adapters:
 
-| Component Key | Component | Description |
-|---------------|-----------|-------------|
-| `Textbox` | `HookTextbox` | Single-line text input |
-| `Number` | `HookNumber` | Numeric input with validation |
-| `Toggle` | `HookToggle` | Boolean toggle switch |
-| `Dropdown` | `HookDropdown` | Single-select dropdown |
-| `Multiselect` | `HookMultiSelect` | Multi-select dropdown |
-| `DateControl` | `HookDateControl` | Date picker with clear button |
-| `Slider` | `HookSlider` | Numeric slider |
-| `SimpleDropdown` | `HookSimpleDropdown` | Dropdown from string array in meta |
-| `MultiSelectSearch` | `HookMultiSelectSearch` | Searchable multi-select (ComboBox) |
-| `Textarea` | `HookPopOutEditor` | Multiline text with expand-to-modal |
-| `DocumentLinks` | `HookDocumentLinks` | URL link CRUD |
-| `StatusDropdown` | `HookStatusDropdown` | Dropdown with color status indicator |
-| `DynamicFragment` | `HookFragment` | Hidden field (form state only) |
+### Editable Fields
+
+| Component Key | Description |
+|---------------|-------------|
+| `Textbox` | Single-line text input |
+| `Number` | Numeric input with validation |
+| `Toggle` | Boolean toggle switch |
+| `Dropdown` | Single-select dropdown |
+| `Multiselect` | Multi-select dropdown |
+| `DateControl` | Date picker with clear button |
+| `Slider` | Numeric slider |
+| `SimpleDropdown` | Dropdown from string array in meta |
+| `MultiSelectSearch` | Searchable multi-select |
+| `Textarea` | Multiline text with expand-to-modal |
+| `DocumentLinks` | URL link CRUD |
+| `StatusDropdown` | Dropdown with color status indicator |
+| `DynamicFragment` | Hidden field (form state only) |
+| `FieldArray` | Repeating section (add/remove items) |
 
 ### Read-Only Fields
 
-| Component Key | Component | Description |
-|---------------|-----------|-------------|
-| `ReadOnly` | `HookReadOnly` | Plain text display |
-| `ReadOnlyArray` | `HookReadOnlyArray` | Array of strings |
-| `ReadOnlyDateTime` | `HookReadOnlyDateTime` | Formatted date/time |
-| `ReadOnlyCumulativeNumber` | `HookReadOnlyCumulativeNumber` | Computed sum of other fields |
-| `ReadOnlyRichText` | `HookReadOnlyRichText` | Rendered HTML |
-| `ReadOnlyWithButton` | `HookReadOnlyWithButton` | Text with action button |
+| Component Key | Description |
+|---------------|-------------|
+| `ReadOnly` | Plain text display |
+| `ReadOnlyArray` | Array of strings |
+| `ReadOnlyDateTime` | Formatted date/time |
+| `ReadOnlyCumulativeNumber` | Computed sum of other fields |
+| `ReadOnlyRichText` | Rendered HTML |
+| `ReadOnlyWithButton` | Text with action button |
 
 ## Architecture
 
 ```
-<BusinessRulesProvider>          -- Owns rule state via useReducer
-  <InjectedHookFieldProvider>    -- Component injection registry
+<BusinessRulesProvider>          -- Owns rule state via useReducer (memoized)
+  <InjectedHookFieldProvider>    -- Component injection registry (memoized)
     <HookInlineForm>             -- Form state (react-hook-form), auto-save, business rules
       <HookInlineFormFields>     -- Renders ordered field list
-        <HookRenderField>        -- Per-field: Controller + component lookup
-          <HookFieldWrapper>     -- Label, error, saving status
+        <HookRenderField>        -- Per-field: Controller + component lookup (React.memo)
+          <HookFieldWrapper>     -- Label, error, saving status (React.memo)
             <InjectedField />    -- Your UI component via cloneElement
-```
-
-## Render Props for Customization
-
-`HookInlineForm` accepts render props to customize UI elements without depending on any specific component library:
-
-```tsx
-<HookInlineForm
-  // ... required props
-  renderExpandButton={({ isExpanded, onToggle }) => (
-    <button onClick={onToggle}>{isExpanded ? "Show Less" : "Show More"}</button>
-  )}
-  renderFilterInput={({ onChange }) => (
-    <input placeholder="Search..." onChange={(e) => onChange(e.target.value)} />
-  )}
-  renderDialog={({ isOpen, onSave, onCancel, children }) => (
-    <MyDialog open={isOpen} onConfirm={onSave} onDismiss={onCancel}>
-      {children}
-    </MyDialog>
-  )}
-  onSaveError={(error) => toast.error(error)}
-/>
 ```
 
 ## Building a Custom UI Adapter
 
-To create fields for a different UI library (e.g., Material UI, Ant Design):
+See [docs/creating-an-adapter.md](./docs/creating-an-adapter.md) for a complete guide. The short version:
 
 1. Create field components that accept `IHookFieldSharedProps<T>`
-2. Build a registry mapping component keys to your field elements
-3. Pass the registry to `InjectedHookFieldProvider` via `setInjectedFields()`
-
-```tsx
-import { IHookFieldSharedProps, ComponentTypes } from "@bghcore/dynamic-forms-core";
-
-const MaterialTextbox = (props: IHookFieldSharedProps<{}>) => {
-  const { fieldName, value, readOnly, error, setFieldValue } = props;
-  return (
-    <TextField
-      value={value as string}
-      disabled={readOnly}
-      error={!!error}
-      helperText={error?.message}
-      onChange={(e) => setFieldValue(fieldName, e.target.value, false, 3000)}
-    />
-  );
-};
-
-const materialFields = {
-  [ComponentTypes.Textbox]: <MaterialTextbox />,
-  // ... other fields
-};
-
-setInjectedFields(materialFields);
-```
+2. Build a registry mapping `ComponentTypes` to your field elements
+3. Pass the registry via `setInjectedFields()`
 
 ## Development
 
@@ -313,6 +347,12 @@ npm run build
 # Build individual packages
 npm run build:core
 npm run build:fluent
+npm run build:mui
+
+# Run tests
+npm run test
+npm run test:watch
+npm run test:coverage
 
 # Clean build output
 npm run clean
@@ -324,6 +364,10 @@ npm run clean
 packages/
   core/     -- @bghcore/dynamic-forms-core (React + react-hook-form only)
   fluent/   -- @bghcore/dynamic-forms-fluent (Fluent UI v9 adapter)
+  mui/      -- @bghcore/dynamic-forms-mui (Material UI adapter)
+docs/
+  FINDINGS.md              -- Codebase analysis and strategic plan
+  creating-an-adapter.md   -- Guide for building custom UI adapters
 ```
 
 ## License
