@@ -37,6 +37,10 @@ interface IHookInlineFormProps extends IHookInlineFormSharedProps {
   renderFilterInput?: (props: { onChange: (value: string) => void }) => React.JSX.Element;
   /** Render custom confirm dialog. Passed to HookConfirmInputsModal. */
   renderDialog?: (props: { isOpen: boolean; onSave: () => void; onCancel: () => void; children: React.ReactNode }) => React.JSX.Element;
+  /** When true, form does NOT auto-save on field change. Consumer must call the onSubmit callback or render a save button. Defaults to false (auto-save). */
+  isManualSave?: boolean;
+  /** Render a save/submit button area. Only meaningful when isManualSave is true. */
+  renderSaveButton?: (props: { onSave: () => void; isDirty: boolean; isValid: boolean; isSubmitting: boolean }) => React.ReactNode;
   /** Form-level errors to display above the fields (e.g., server-side cross-field validation errors). */
   formErrors?: string[];
   /** Custom render function for field labels, passed through to HookFieldWrapper via HookInlineFormFields. */
@@ -82,11 +86,13 @@ export const HookInlineForm: React.FC<IHookInlineFormProps> = (props: IHookInlin
     enableFilter,
     currentUserId,
     onSaveError,
+    isManualSave = false,
     saveTimeoutMs = 30000,
     maxSaveRetries = 3,
     renderExpandButton,
     renderFilterInput,
     renderDialog,
+    renderSaveButton,
     formErrors,
     renderLabel,
     renderError,
@@ -178,10 +184,15 @@ export const HookInlineForm: React.FC<IHookInlineFormProps> = (props: IHookInlin
     setValue(`${fieldName}` as const, fieldValue, { shouldDirty: !skipSave });
     trigger(fieldName);
     processBusinessRule(getValues(), configName, fieldName, previousValue, fieldConfigs);
-    if (!skipSave) {
+    if (!skipSave && !isManualSave) {
       attemptSave();
     }
   };
+
+  /** Manually trigger save — call this from renderSaveButton or external code when isManualSave is true */
+  const manualSave = React.useCallback(() => {
+    validateAndSave();
+  }, []);
 
   const saveConfirmInputFields = () => {
     trigger().then((valid: boolean) => {
@@ -445,7 +456,7 @@ export const HookInlineForm: React.FC<IHookInlineFormProps> = (props: IHookInlin
           configRules={businessRules?.configRules[configName]}
           fieldConfigs={fieldConfigs}
           setFieldValue={setFieldValue}
-          isManualSave={false}
+          isManualSave={isManualSave}
           isCreate={isCreate}
           filterText={filterText}
           fieldRenderLimit={
@@ -471,6 +482,30 @@ export const HookInlineForm: React.FC<IHookInlineFormProps> = (props: IHookInlin
             >
               {isExpanded ? HookInlineFormStrings.seeLess : HookInlineFormStrings.expand}
             </button>
+          )
+        )}
+        {isManualSave && (
+          renderSaveButton ? (
+            renderSaveButton({ onSave: manualSave, isDirty, isValid, isSubmitting })
+          ) : (
+            <div className="hook-inline-form-save-actions" style={{ marginTop: "16px", display: "flex", gap: "8px" }}>
+              <button
+                type="button"
+                className="save-button"
+                onClick={manualSave}
+                disabled={!isDirty || isSubmitting}
+              >
+                {isCreate ? HookInlineFormStrings.create : HookInlineFormStrings.save}
+              </button>
+              <button
+                type="button"
+                className="cancel-button"
+                onClick={() => { reset(); initForm(defaultValues); }}
+                disabled={!isDirty || isSubmitting}
+              >
+                {HookInlineFormStrings.cancel}
+              </button>
+            </div>
           )
         )}
       </div>

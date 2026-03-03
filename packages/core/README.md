@@ -188,6 +188,24 @@ registerLocale({
 
 All strings in `HookInlineFormStrings` and validation error messages resolve through the locale registry.
 
+## Manual Save vs Auto-Save
+
+```tsx
+// Auto-save (default) — saves on every field change with debounce
+<HookInlineForm saveData={async (data) => data} />
+
+// Manual save — shows Save/Cancel buttons, no auto-save
+<HookInlineForm isManualSave={true} saveData={async (data) => data} />
+
+// Manual save with custom buttons
+<HookInlineForm
+  isManualSave={true}
+  renderSaveButton={({ onSave, isDirty, isSubmitting }) => (
+    <button onClick={onSave} disabled={!isDirty || isSubmitting}>Submit</button>
+  )}
+/>
+```
+
 ## Error Boundary
 
 Each field is individually wrapped in `HookFormErrorBoundary` so one crashing field does not take down the entire form:

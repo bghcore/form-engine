@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.1] - 2026-03-03
+
+### Fixed
+
+- **Package entry points** — `package.json` referenced `dist/index.cjs` but tsup outputs `dist/index.js`. Fixed `main`, `module`, and `exports` in all 3 packages. Resolves "Module not found" errors in Next.js and other bundlers.
+
+### Added
+
+- **Manual save mode** — `isManualSave={true}` prop on `HookInlineForm` disables auto-save on field change. Shows Save/Cancel buttons by default, or use `renderSaveButton` for custom UI.
+
 ## [1.5.0] - 2026-03-03
 
 Discovery and developer experience improvements.

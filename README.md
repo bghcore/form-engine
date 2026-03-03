@@ -318,6 +318,40 @@ import { HookFormErrorBoundary } from "@bghcore/dynamic-forms-core";
 
 This is built into the core rendering pipeline -- you do not need to add it yourself unless you want custom error handling.
 
+### Manual Save vs Auto-Save
+
+By default, forms auto-save on every field change (debounced). Set `isManualSave={true}` for explicit save control:
+
+```tsx
+// Auto-save (default) — saves on every field change with debounce
+<HookInlineForm
+  configName="myForm"
+  fieldConfigs={fieldConfigs}
+  defaultValues={defaultValues}
+  saveData={async (data) => { await api.save(data); return data; }}
+/>
+
+// Manual save — shows Save/Cancel buttons, no auto-save
+<HookInlineForm
+  configName="myForm"
+  fieldConfigs={fieldConfigs}
+  defaultValues={defaultValues}
+  isManualSave={true}
+  saveData={async (data) => { await api.save(data); return data; }}
+/>
+
+// Manual save with custom button
+<HookInlineForm
+  isManualSave={true}
+  renderSaveButton={({ onSave, isDirty, isSubmitting }) => (
+    <button onClick={onSave} disabled={!isDirty || isSubmitting}>
+      Save Changes
+    </button>
+  )}
+  // ... other props
+/>
+```
+
 ### Save Reliability
 
 HookInlineForm now includes robust save handling:
