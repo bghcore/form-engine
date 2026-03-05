@@ -19,6 +19,8 @@ The library centers on four key concepts: a **declarative rules engine** that ev
 - [packages/fluent/llms.txt](https://github.com/bghcore/dynamic-react-business-forms/blob/main/packages/fluent/llms.txt): Fluent UI adapter API reference for LLMs
 - [packages/mui/llms.txt](https://github.com/bghcore/dynamic-react-business-forms/blob/main/packages/mui/llms.txt): MUI adapter API reference for LLMs
 - [packages/headless/llms.txt](https://github.com/bghcore/dynamic-react-business-forms/blob/main/packages/headless/llms.txt): Headless adapter API reference for LLMs
+- [packages/designer/llms.txt](https://github.com/bghcore/dynamic-react-business-forms/blob/main/packages/designer/llms.txt): Designer API reference for LLMs
+- [packages/headless/llms.txt](https://github.com/bghcore/dynamic-react-business-forms/blob/main/packages/headless/llms.txt): Headless adapter API reference for LLMs
 
 ## Packages
 

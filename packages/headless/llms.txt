@@ -1,0 +1,87 @@
+# @bghcore/dynamic-forms-headless
+
+> Unstyled semantic HTML field components for @bghcore/dynamic-forms-core. All 19 field types using native HTML elements only -- no UI framework dependency. Data attributes for CSS targeting, ARIA for accessibility.
+
+- Docs: [README](https://github.com/bghcore/dynamic-react-business-forms/tree/main/packages/headless/README.md)
+- Agent instructions: [AGENTS.md](https://github.com/bghcore/dynamic-react-business-forms/tree/main/packages/headless/AGENTS.md)
+- npm: [@bghcore/dynamic-forms-headless](https://www.npmjs.com/package/@bghcore/dynamic-forms-headless)
+- License: MIT
+- Peer dependencies: `react`, `react-dom`, `react-hook-form`, `@bghcore/dynamic-forms-core`
+
+## API Surface
+
+### Registry
+- `createHeadlessFieldRegistry()` -- Creates the default headless field registry (`Record<string, React.JSX.Element>`) for use with `InjectedFieldProvider`
+
+### Editable Field Components (13)
+- `HookTextbox` -- `<input type="text">`
+- `HookNumber` -- `<input type="number">`
+- `HookToggle` -- `<input type="checkbox" role="switch">`
+- `HookDropdown` -- `<select>` + `<option>`
+- `HookMultiSelect` -- `<select multiple>`
+- `HookDateControl` -- `<input type="date">` + clear button
+- `HookSlider` -- `<input type="range">` + `<output>`
+- `HookSimpleDropdown` -- `<select>` for string arrays
+- `HookMultiSelectSearch` -- `<input type="search">` + checkbox list
+- `HookTextarea` -- `<textarea>` + native `<dialog>` expand
+- `HookDocumentLinks` -- URL list with add/remove
+- `HookStatusDropdown` -- `<select>` with status color indicator
+- `HookDynamicFragment` -- `<input type="hidden">`
+
+### Read-Only Field Components (6)
+- `HookReadOnly` -- `<span>`
+- `HookReadOnlyArray` -- `<ul>` / `<li>`
+- `HookReadOnlyDateTime` -- `<time>`
+- `HookReadOnlyCumulativeNumber` -- `<span>`
+- `HookReadOnlyRichText` -- `<div dangerouslySetInnerHTML>`
+- `HookReadOnlyWithButton` -- `<span>` + `<button>`
+
+### Supporting Components
+- `ReadOnlyText` -- Shared read-only text display
+- `StatusMessage` -- Form status display
+- `HookFormLoading` -- Skeleton loading state
+
+### Helpers
+- `GetFieldDataTestId()` -- Build data-testid attribute
+- `getFieldState()` -- Compute data-field-state value from error/required/readOnly
+- `formatDateTime()` -- Format date string for display
+- `DocumentLinksStrings` -- Default string literals for document links UI
+
+### Data Attributes
+- `data-field-type` -- Field type key (e.g., "Textbox", "Dropdown")
+- `data-field-state` -- Field state ("error", "required", "readonly", "disabled")
+
+### CSS Custom Properties (in styles.css)
+- `--df-font-family`, `--df-font-size`
+- `--df-color-primary`, `--df-color-error`, `--df-color-border`, `--df-color-border-focus`
+- `--df-border-radius`, `--df-spacing-sm`, `--df-spacing-md`
+
+## Code Example
+
+```tsx
+import { RulesEngineProvider, InjectedFieldProvider, DynamicForm } from "@bghcore/dynamic-forms-core";
+import { createHeadlessFieldRegistry } from "@bghcore/dynamic-forms-headless";
+import "@bghcore/dynamic-forms-headless/styles.css";
+
+const formConfig = {
+  version: 2,
+  fields: {
+    name: { type: "Textbox", label: "Name", required: true },
+    role: { type: "Dropdown", label: "Role", options: [
+      { value: "admin", label: "Admin" },
+      { value: "user", label: "User" },
+    ]},
+  },
+  fieldOrder: ["name", "role"],
+};
+
+function App() {
+  return (
+    <RulesEngineProvider>
+      <InjectedFieldProvider injectedFields={createHeadlessFieldRegistry()}>
+        <DynamicForm formConfig={formConfig} saveData={async (data) => data} />
+      </InjectedFieldProvider>
+    </RulesEngineProvider>
+  );
+}
+```
