@@ -1,5 +1,14 @@
 # Dynamic React Business Forms
 
+[![npm core](https://img.shields.io/npm/v/@bghcore/dynamic-forms-core?label=core)](https://www.npmjs.com/package/@bghcore/dynamic-forms-core)
+[![npm fluent](https://img.shields.io/npm/v/@bghcore/dynamic-forms-fluent?label=fluent)](https://www.npmjs.com/package/@bghcore/dynamic-forms-fluent)
+[![npm mui](https://img.shields.io/npm/v/@bghcore/dynamic-forms-mui?label=mui)](https://www.npmjs.com/package/@bghcore/dynamic-forms-mui)
+[![npm headless](https://img.shields.io/npm/v/@bghcore/dynamic-forms-headless?label=headless)](https://www.npmjs.com/package/@bghcore/dynamic-forms-headless)
+[![npm designer](https://img.shields.io/npm/v/@bghcore/dynamic-forms-designer?label=designer)](https://www.npmjs.com/package/@bghcore/dynamic-forms-designer)
+[![CI](https://github.com/bghcore/dynamic-react-business-forms/actions/workflows/ci.yml/badge.svg)](https://github.com/bghcore/dynamic-react-business-forms/actions/workflows/ci.yml)
+
+[Storybook](https://bghcore.github.io/dynamic-react-business-forms/) | [Designer Demo](https://bghcore.github.io/dynamic-react-business-forms/designer/) | [npm](https://www.npmjs.com/org/bghcore)
+
 A React library for rendering complex, configuration-driven forms with a built-in rules engine. Define your forms as a single `IFormConfig` JSON object -- field definitions, declarative rules with rich conditions, validation, ordering -- and the library handles rendering, validation, auto-save, and field interactions automatically.
 
 ## When to Use This Library

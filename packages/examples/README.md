@@ -2,6 +2,8 @@
 
 Example applications demonstrating `@bghcore/dynamic-forms-core` and `@bghcore/dynamic-forms-mui`.
 
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/bghcore/dynamic-react-business-forms/tree/main/packages/examples?file=src/App.tsx)
+
 ## Getting Started
 
 ```bash
