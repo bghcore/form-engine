@@ -1,6 +1,6 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import HookReadOnlyCumulativeNumber from "@bghcore/dynamic-forms-fluent/fields/readonly/HookReadOnlyCumulativeNumber";
+import HookReadOnlyCumulativeNumber from "@bghcore/dynamic-forms-fluent/fields/readonly/ReadOnlyCumulativeNumber";
 import { FormDecorator, createFieldProps } from "../../helpers";
 
 /**

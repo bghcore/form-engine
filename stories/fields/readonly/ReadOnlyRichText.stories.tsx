@@ -1,6 +1,6 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import HookReadOnlyRichText from "@bghcore/dynamic-forms-fluent/fields/readonly/HookReadOnlyRichText";
+import HookReadOnlyRichText from "@bghcore/dynamic-forms-fluent/fields/readonly/ReadOnlyRichText";
 import { FormDecorator, createFieldProps } from "../../helpers";
 
 /**
