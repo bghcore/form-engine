@@ -1,6 +1,6 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import HookFragment from "@bghcore/dynamic-forms-fluent/fields/HookFragment";
+import HookFragment from "@bghcore/dynamic-forms-fluent/fields/DynamicFragment";
 import { FormDecorator, createFieldProps } from "../helpers";
 
 /**

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import HookMultiSelectSearch from "@bghcore/dynamic-forms-fluent/fields/HookMultiSelectSearch";
+import HookMultiSelectSearch from "@bghcore/dynamic-forms-fluent/fields/MultiSelectSearch";
 import { FormDecorator, createFieldProps } from "../helpers";
 
 /**

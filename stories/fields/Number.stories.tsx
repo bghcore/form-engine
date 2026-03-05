@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import HookNumber from "@bghcore/dynamic-forms-fluent/fields/HookNumber";
+import HookNumber from "@bghcore/dynamic-forms-fluent/fields/Number";
 import { FormDecorator, createFieldProps } from "../helpers";
 
 /**

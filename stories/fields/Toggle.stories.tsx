@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import HookToggle from "@bghcore/dynamic-forms-fluent/fields/HookToggle";
+import HookToggle from "@bghcore/dynamic-forms-fluent/fields/Toggle";
 import { FormDecorator, createFieldProps } from "../helpers";
 
 /**

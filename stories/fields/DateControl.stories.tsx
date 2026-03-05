@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import HookDateControl from "@bghcore/dynamic-forms-fluent/fields/HookDateControl";
+import HookDateControl from "@bghcore/dynamic-forms-fluent/fields/DateControl";
 import { FormDecorator, createFieldProps } from "../helpers";
 
 /**

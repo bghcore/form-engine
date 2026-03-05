@@ -1,46 +1,46 @@
 import { ComponentTypes, Dictionary } from "@bghcore/dynamic-forms-core";
-import HookTextbox from "./fields/HookTextbox";
-import HookNumber from "./fields/HookNumber";
-import HookToggle from "./fields/HookToggle";
-import HookDropdown from "./fields/HookDropdown";
-import HookMultiSelect from "./fields/HookMultiSelect";
-import HookDateControl from "./fields/HookDateControl";
-import HookSlider from "./fields/HookSlider";
-import HookFragment from "./fields/HookFragment";
-import HookSimpleDropdown from "./fields/HookSimpleDropdown";
-import HookMultiSelectSearch from "./fields/HookMultiSelectSearch";
-import HookPopOutEditor from "./fields/HookPopOutEditor";
-import HookDocumentLinks from "./fields/HookDocumentLinks";
-import HookStatusDropdown from "./fields/HookStatusDropdown";
-import HookReadOnly from "./fields/readonly/HookReadOnly";
-import HookReadOnlyArray from "./fields/readonly/HookReadOnlyArray";
-import HookReadOnlyDateTime from "./fields/readonly/HookReadOnlyDateTime";
-import HookReadOnlyCumulativeNumber from "./fields/readonly/HookReadOnlyCumulativeNumber";
-import HookReadOnlyRichText from "./fields/readonly/HookReadOnlyRichText";
-import HookReadOnlyWithButton from "./fields/readonly/HookReadOnlyWithButton";
+import Textbox from "./fields/Textbox";
+import Number from "./fields/Number";
+import Toggle from "./fields/Toggle";
+import Dropdown from "./fields/Dropdown";
+import MultiSelect from "./fields/MultiSelect";
+import DateControl from "./fields/DateControl";
+import Slider from "./fields/Slider";
+import DynamicFragment from "./fields/DynamicFragment";
+import SimpleDropdown from "./fields/SimpleDropdown";
+import MultiSelectSearch from "./fields/MultiSelectSearch";
+import PopOutEditor from "./fields/PopOutEditor";
+import DocumentLinks from "./fields/DocumentLinks";
+import StatusDropdown from "./fields/StatusDropdown";
+import ReadOnly from "./fields/readonly/ReadOnly";
+import ReadOnlyArray from "./fields/readonly/ReadOnlyArray";
+import ReadOnlyDateTime from "./fields/readonly/ReadOnlyDateTime";
+import ReadOnlyCumulativeNumber from "./fields/readonly/ReadOnlyCumulativeNumber";
+import ReadOnlyRichText from "./fields/readonly/ReadOnlyRichText";
+import ReadOnlyWithButton from "./fields/readonly/ReadOnlyWithButton";
 import React from "react";
 
 /** Creates the default Material UI field registry for use with InjectedFieldProvider */
 export function createMuiFieldRegistry(): Dictionary<React.JSX.Element> {
   return {
-    [ComponentTypes.Textbox]: React.createElement(HookTextbox),
-    [ComponentTypes.Number]: React.createElement(HookNumber),
-    [ComponentTypes.Toggle]: React.createElement(HookToggle),
-    [ComponentTypes.Dropdown]: React.createElement(HookDropdown),
-    [ComponentTypes.MultiSelect]: React.createElement(HookMultiSelect),
-    [ComponentTypes.DateControl]: React.createElement(HookDateControl),
-    [ComponentTypes.Slider]: React.createElement(HookSlider),
-    [ComponentTypes.Fragment]: React.createElement(HookFragment),
-    [ComponentTypes.SimpleDropdown]: React.createElement(HookSimpleDropdown),
-    [ComponentTypes.MultiSelectSearch]: React.createElement(HookMultiSelectSearch),
-    [ComponentTypes.Textarea]: React.createElement(HookPopOutEditor),
-    [ComponentTypes.DocumentLinks]: React.createElement(HookDocumentLinks),
-    [ComponentTypes.StatusDropdown]: React.createElement(HookStatusDropdown),
-    [ComponentTypes.ReadOnly]: React.createElement(HookReadOnly),
-    [ComponentTypes.ReadOnlyArray]: React.createElement(HookReadOnlyArray),
-    [ComponentTypes.ReadOnlyDateTime]: React.createElement(HookReadOnlyDateTime),
-    [ComponentTypes.ReadOnlyCumulativeNumber]: React.createElement(HookReadOnlyCumulativeNumber),
-    [ComponentTypes.ReadOnlyRichText]: React.createElement(HookReadOnlyRichText),
-    [ComponentTypes.ReadOnlyWithButton]: React.createElement(HookReadOnlyWithButton),
+    [ComponentTypes.Textbox]: React.createElement(Textbox),
+    [ComponentTypes.Number]: React.createElement(Number),
+    [ComponentTypes.Toggle]: React.createElement(Toggle),
+    [ComponentTypes.Dropdown]: React.createElement(Dropdown),
+    [ComponentTypes.MultiSelect]: React.createElement(MultiSelect),
+    [ComponentTypes.DateControl]: React.createElement(DateControl),
+    [ComponentTypes.Slider]: React.createElement(Slider),
+    [ComponentTypes.Fragment]: React.createElement(DynamicFragment),
+    [ComponentTypes.SimpleDropdown]: React.createElement(SimpleDropdown),
+    [ComponentTypes.MultiSelectSearch]: React.createElement(MultiSelectSearch),
+    [ComponentTypes.Textarea]: React.createElement(PopOutEditor),
+    [ComponentTypes.DocumentLinks]: React.createElement(DocumentLinks),
+    [ComponentTypes.StatusDropdown]: React.createElement(StatusDropdown),
+    [ComponentTypes.ReadOnly]: React.createElement(ReadOnly),
+    [ComponentTypes.ReadOnlyArray]: React.createElement(ReadOnlyArray),
+    [ComponentTypes.ReadOnlyDateTime]: React.createElement(ReadOnlyDateTime),
+    [ComponentTypes.ReadOnlyCumulativeNumber]: React.createElement(ReadOnlyCumulativeNumber),
+    [ComponentTypes.ReadOnlyRichText]: React.createElement(ReadOnlyRichText),
+    [ComponentTypes.ReadOnlyWithButton]: React.createElement(ReadOnlyWithButton),
   };
 }

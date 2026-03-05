@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import HookDocumentLinks from "@bghcore/dynamic-forms-fluent/fields/HookDocumentLinks";
+import HookDocumentLinks from "@bghcore/dynamic-forms-fluent/fields/DocumentLinks";
 import { FormDecorator, createFieldProps } from "../helpers";
 
 /**

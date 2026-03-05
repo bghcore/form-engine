@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import HookSimpleDropdown from "@bghcore/dynamic-forms-fluent/fields/HookSimpleDropdown";
+import HookSimpleDropdown from "@bghcore/dynamic-forms-fluent/fields/SimpleDropdown";
 import { FormDecorator, createFieldProps } from "../helpers";
 
 /**
