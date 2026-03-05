@@ -1,6 +1,6 @@
 # @bghcore/dynamic-forms-core
 
-> UI-library agnostic React library for rendering configuration-driven forms with a built-in business rules engine. Depends only on React and react-hook-form.
+> UI-library agnostic React library for rendering configuration-driven forms with a built-in rules engine. Depends only on React and react-hook-form.
 
 - Docs: [README](https://github.com/bghcore/dynamic-react-business-forms/tree/main/packages/core/README.md)
 - Agent instructions: [AGENTS.md](https://github.com/bghcore/dynamic-react-business-forms/tree/main/packages/core/AGENTS.md)
@@ -10,73 +10,51 @@
 ## API Surface
 
 ### Providers
-- `BusinessRulesProvider` -- React context provider owning business rules state via useReducer
-- `UseBusinessRulesContext` -- Hook to access business rules state
-- `InjectedHookFieldProvider` -- Component injection registry provider
-- `UseInjectedHookFieldContext` -- Hook to access injected field registry
+- `RulesEngineProvider` -- React context provider owning rules engine state via useReducer
+- `UseRulesEngineContext` -- Hook to access rules engine state
+- `InjectedFieldProvider` -- Component injection registry provider
+- `UseInjectedFieldContext` -- Hook to access injected field registry
 
 ### Components
-- `HookInlineForm` -- Main form component (react-hook-form, auto-save with AbortController/retry/timeout, business rules orchestration). Props include `saveTimeoutMs` (default 30s), `maxSaveRetries` (default 3), `formErrors` (form-level error banner)
-- `HookInlineFormFields` -- Ordered field list rendering
-- `HookRenderField` -- Per-field routing with Controller integration (useMemo, async validation wired with AbortController)
-- `HookFieldWrapper` -- Field chrome (label, error, status) using plain HTML. Render props: `renderLabel`, `renderError`, `renderStatus` for theming customization
-- `HookConfirmInputsModal` -- Confirmation dialog using native `<dialog>` with focus trap (Tab wraps, Escape closes, focus restored)
-- `HookFormErrorBoundary` -- Per-field error boundary. Props: `children`, `fallback` (render function receiving error + reset), `onError` callback. Each field is wrapped automatically in the rendering pipeline
-- `HookFormDevTools` -- Collapsible dev-only panel showing business rules, form values, errors, dependency graph. Props: `configName`, `configRules`, `formValues`, `formErrors`, `dirtyFields`, `enabled`
+- `DynamicForm` -- Main form component (react-hook-form, auto-save with AbortController/retry/timeout, rules engine orchestration). Props include `saveTimeoutMs` (default 30s), `maxSaveRetries` (default 3), `formErrors` (form-level error banner)
+- `FormFields` -- Ordered field list rendering
+- `RenderField` -- Per-field routing with Controller integration (useMemo, async validation wired with AbortController)
+- `FieldWrapper` -- Field chrome (label, error, status) using plain HTML. Render props: `renderLabel`, `renderError`, `renderStatus` for theming customization
+- `ConfirmInputsModal` -- Confirmation dialog using native `<dialog>` with focus trap (Tab wraps, Escape closes, focus restored)
+- `FormErrorBoundary` -- Per-field error boundary. Props: `children`, `fallback` (render function receiving error + reset), `onError` callback. Each field is wrapped automatically in the rendering pipeline
+- `FormDevTools` -- Collapsible dev-only panel with tabs: Rules, Values, Errors, Graph, Perf, Deps, Timeline
 
 ### Wizard
-- `HookWizardForm` -- Multi-step wizard form component with step navigation
-- `getVisibleSteps()` -- Filter wizard steps by visibility conditions
-- `getStepFields()` -- Get visible fields for a step (respects business rule hidden state)
+- `WizardForm` -- Multi-step wizard form component with step navigation
+- `getVisibleSteps()` -- Filter wizard steps by visibility conditions (uses ICondition)
+- `getStepFields()` -- Get visible fields for a step (respects rules engine hidden state)
 - `getStepFieldOrder()` -- Get flat field order across all visible steps
 - `validateStepFields()` -- Get fields with validation errors in a step
 - `isStepValid()` -- Check if a step has no validation errors
 - `getStepIndex()` -- Find step index by ID
 
 ### Field Arrays
-- `HookFieldArray` -- Repeatable field group component (add/remove/reorder items)
+- `FieldArray` -- Repeatable field group component (add/remove/reorder items). Items use full `IFieldConfig`.
 
-### Business Rules Helpers
-- `ProcessAllBusinessRules()` -- Full initialization: field configs + entity data -> dependency graph + initial rule state
-- `ProcessFieldBusinessRule()` -- Evaluate rules for a single field on value change
-- `ProcessPreviousFieldBusinessRule()` -- Re-evaluate a field that was previously processed
-- `RevertFieldBusinessRule()` -- Revert previously applied rules for a field
-- `ProcessComboFieldBusinessRule()` -- Process AND-combination multi-field conditions
-- `ProcessDropdownOptions()` -- Process dropdown option filtering dependencies
-- `ProcessFieldDropdownValues()` -- Resolve dropdown values from dependencies
-- `ProcessFieldOrderDepencendies()` -- Process field ordering dependencies
-- `CombineBusinessRules()` -- Merge two business rule states
-- `GetFieldValue()` -- Get the current value for a field from entity data
-- `SameFieldOrder()` -- Compare two field orderings for equality
-- `GetDefaultBusinessRules()` -- Build default business rule state from field configs
-- `normalizeFieldConfig()` -- Normalize deprecated `isReadonly` to `readOnly`
+### Rules Engine
+- `buildDependencyGraph()` -- Build field dependency graph from IFormConfig rules
+- `evaluateAllRules()` -- Full initialization: IFormConfig + entity data -> dependency graph + initial runtime state
+- `evaluateAffectedFields()` -- Incremental: only re-evaluate transitively affected fields after a change
+- `processFieldChange()` -- Trigger rule evaluation for a field value change
+- `topologicalSort()` -- Topological sort of dependency graph for evaluation order
+- `evaluateCondition()` -- Evaluate an ICondition against current form values (15 operators + AND/OR/NOT)
 
 ### Form Helpers
-- `GetChildEntity()` -- Extract child entity from parent
-- `IsExpandVisible()` -- Check if expand/collapse should be shown
-- `GetConfirmInputModalProps()` -- Build confirm modal props from dirty fields
-- `GetValueFunctionsOnDirtyFields()` -- Get value functions to run for dirty fields
-- `GetValueFunctionsOnCreate()` -- Get value functions to run on entity creation
-- `ExecuteValueFunction()` -- Execute a single value function
-- `CheckFieldValidationRules()` -- Run sync validation rules for a field
-- `CheckAsyncFieldValidationRules()` -- Run async validation rules for a field
-- `CheckValidDropdownOptions()` -- Validate dropdown option integrity
-- `CheckDeprecatedDropdownOptions()` -- Handle deprecated dropdown values
-- `CheckDefaultValues()` -- Apply default values from field configs
-- `CheckIsDeprecated()` -- Check if a field value is deprecated
-- `InitOnCreateBusinessRules()` -- Initialize business rules for new entity creation
-- `InitOnEditBusinessRules()` -- Initialize business rules for existing entity editing
-- `ShowField()` -- Determine if a field should be rendered
-- `CombineSchemaConfig()` -- Merge JSON schema with field configs
 - `GetFieldsToRender()` -- Get ordered list of fields to render
+- `CheckFieldValidationRules()` -- Run validation rules for a field
+- `ExecuteValueFunction()` -- Execute a single value function
+- `normalizeFieldConfig()` -- Normalize deprecated `isReadonly` to `readOnly`
 
 ### Validation Registry
-- `registerValidations()` -- Register custom sync validation functions
-- `getValidation()` -- Look up a validation by name
-- `getValidationRegistry()` -- Get all registered sync validations
-- `registerAsyncValidations()` -- Register custom async validation functions
-- `getAsyncValidation()` -- Look up an async validation by name
-- `getAsyncValidationRegistry()` -- Get all registered async validations
+- `registerValidators()` -- Register custom validators (unified sync + async + cross-field)
+- `getValidator()` -- Look up a validator by name
+- `getValidatorRegistry()` -- Get all registered validators
+- `runValidations()` -- Run validation rules for a field value
 - `createMinLengthValidation()` -- Factory for min-length validator
 - `createMaxLengthValidation()` -- Factory for max-length validator
 - `createNumericRangeValidation()` -- Factory for numeric range validator
@@ -92,9 +70,7 @@
 - `validateFieldConfigs()` -- Validate field configs for missing dependencies, unregistered components, circular deps
 
 ### Cycle Detection
-- `detectDependencyCycles()` -- Detect circular dependencies using Kahn's algorithm
-- `detectOrderDependencyCycles()` -- Detect circular order dependencies
-- `validateDependencyGraph()` -- Full dependency graph validation with dev-mode warnings
+- `validateDependencyGraph()` -- Full dependency graph validation with dev-mode warnings (Kahn's algorithm)
 
 ### i18n / Locale
 - `registerLocale()` -- Register partial or full locale string overrides (merges with defaults)
@@ -103,41 +79,41 @@
 - `getCurrentLocale()` -- Get the full current locale object
 
 ### Field Helpers
-- `SortDropdownOptions()` -- Sort dropdown options alphabetically
+- `SortOptions()` -- Sort options alphabetically
 
 ### Constants
-- `HookInlineFormConstants` -- Form constants (expand cutoff, shimmer config, panel actions, regex patterns)
+- `FormConstants` -- Form constants (expand cutoff, shimmer config, panel actions, regex patterns)
 - `ComponentTypes` -- Component type string keys (Textbox, Dropdown, Toggle, Number, etc.)
 - `FIELD_PARENT_PREFIX` -- Prefix for parent field references ("Parent.")
-- `HookInlineFormStrings` -- Default English string literals
+- `FormStrings` -- i18n-aware string literals (getters over LocaleRegistry)
 
 ### Types
-- `IFieldConfig` -- Primary consumer-facing type defining field configuration shape
-- `IHookFieldSharedProps<T>` -- Props contract all injected field components receive
+- `IFormConfig` -- Top-level form config wrapper (version: 2, fields, fieldOrder, wizard, settings)
+- `IFormSettings` -- Form-level settings (saveTimeoutMs, maxSaveRetries, etc.)
+- `IFieldConfig` -- Primary consumer-facing type defining field configuration shape (v2 schema)
+- `IRule` -- Declarative rule (when: ICondition, then: IFieldEffect, else?: IFieldEffect, priority?: number)
+- `ICondition` -- Union of IFieldCondition | ILogicalCondition
+- `IFieldCondition` -- Single field condition (field, operator, value?)
+- `ILogicalCondition` -- Logical composition (operator: "and"|"or"|"not", conditions: ICondition[])
+- `IFieldEffect` -- Rule effect (required, hidden, readOnly, type, options, validate, computedValue, order, label)
+- `IFieldProps<T>` -- Props contract all injected field components receive via React.cloneElement
+- `IOption` -- Option type (`{ value, label, disabled?, group?, icon?, color? }`)
+- `IValidationRule` -- Unified validation rule (name, params?, message?, async?, debounceMs?, when?)
+- `IRuntimeFieldState` -- Per-field runtime state from rules engine evaluation
+- `IRuntimeFormState` -- Full form runtime state (Record<string, IRuntimeFieldState>)
+- `IRulesEngineState` -- Top-level rules engine state container
+- `IRulesEngineAction` -- Reducer action types
+- `RulesEngineActionType` -- Action type enum
 - `IHookInlineFormSharedProps` -- Shared form props (entity IDs, program name, config name, etc.)
-- `IBusinessRule` -- Runtime business rule state per field
-- `IBusinessRulesState` -- Top-level rules state container
-- `IConfigBusinessRules` -- Rules for a single form config
-- `IBusinessRuleAction` -- Reducer action types
-- `IBusinessRuleActionKeys` -- Action type enum
 - `IConfirmInputModalProps` -- Confirm modal state
-- `IExecuteValueFunction` -- Value function execution DTO
 - `IFieldToRender` -- Field render instruction
-- `IDropdownOption` -- Dropdown option type (`{ key, text }`)
-- `IHookPerson` -- Person data model
-- `IOrderDependencies` / `OrderDependencyMap` -- Order dependency types
-- `ILocaleStrings` / `ICoreLocaleStrings` -- Localizable string keys
-- `IWizardConfig` / `IWizardStep` / `IWizardStepCondition` -- Wizard configuration types
-- `IFieldArrayConfig` -- Field array configuration type
-- `IDependencyAndRules` -- Combo dependency rule type
-- `IDeprecatedOption` -- Deprecated dropdown option type
+- `IWizardConfig` / `IWizardStep` -- Wizard configuration types (visibleWhen uses ICondition)
+- `ILocaleStrings` / `ICoreLocaleStrings` -- Localizable string keys (~50 keys)
+- `IAnalyticsCallbacks` -- Analytics/telemetry callback interface (8 event hooks)
 - `ICycleError` -- Cycle detection error type
 - `IConfigValidationError` -- Config validation error type
-- `ValidationFunction` / `AsyncValidationFunction` -- Validation function signatures
+- `ValidatorFn` -- Unified validation function signature
 - `ValueFunction` -- Value function signature
-- `IBusinessRulesProvider` -- Business rules provider interface
-- `IInjectedHookFieldProvider` -- Injected field provider interface
-- `IHookFormDevToolsProps` -- DevTools component props
 - `IDraftPersistenceOptions` -- useDraftPersistence options
 - `IDraftState` -- Stored draft state shape
 - `IUseDraftPersistenceResult` -- useDraftPersistence return type
@@ -147,23 +123,27 @@
 ### Hooks
 - `useDraftPersistence(options)` -- Auto-save form state to localStorage on interval, recover draft on mount, clear after server save. Options: `formId` (string), `data` (form values), `saveIntervalMs` (number), `enabled` (boolean), `storageKeyPrefix` (string). Returns: `{ hasDraft, draftData, clearDraft, lastSavedAt }`
 - `useBeforeUnload(shouldWarn, message?)` -- Browser warning on page leave with unsaved changes
+- `useFormAnalytics(callbacks)` -- Analytics callback wrapper hook. Accepts `IAnalyticsCallbacks`, returns `IFormAnalytics`
 
 ### Form State Serialization
 - `serializeFormState(data)` -- Date-safe JSON serialization (converts Date objects to tagged strings)
 - `deserializeFormState(json)` -- Deserialize back, restoring Date objects from tagged strings
 
 ### JSON Schema Import
-- `jsonSchemaToFieldConfig(schema)` -- Convert JSON Schema to `Dictionary<IFieldConfig>`. Maps `type` to component, `enum` to dropdown options, `format` to validations, `required` to field required flag
+- `jsonSchemaToFieldConfig(schema)` -- Convert JSON Schema to `Record<string, IFieldConfig>`. Maps `type` to component, `enum` to dropdown options, `format` to validations, `required` to field required flag
 
 ### Lazy Field Registry
-- `createLazyFieldRegistry(imports)` -- Create a field registry using `React.lazy()` for on-demand component loading. Accepts `Record<string, () => Promise<{ default: ComponentType }>>`, returns `Dictionary<JSX.Element>`
+- `createLazyFieldRegistry(imports)` -- Create a field registry using `React.lazy()` for on-demand component loading. Accepts `Record<string, () => Promise<{ default: ComponentType }>>`, returns `Record<string, JSX.Element>`
 
 ### Zod Schema Import
-- `zodSchemaToFieldConfig(zodSchema)` -- Convert a Zod object schema to `Dictionary<IFieldConfig>`. Maps ZodString→Textbox, ZodNumber→Number, ZodBoolean→Toggle, ZodEnum→Dropdown, ZodDate→DateControl, ZodArray→Multiselect. Detects `.email()` and `.url()` checks for automatic validation. No zod dependency required.
+- `zodSchemaToFieldConfig(zodSchema)` -- Convert a Zod object schema to `Record<string, IFieldConfig>`. Maps ZodString->Textbox, ZodNumber->Number, ZodBoolean->Toggle, ZodEnum->Dropdown, ZodDate->DateControl, ZodArray->Multiselect. Detects `.email()` and `.url()` checks for automatic validation. No zod dependency required.
 
-### Type-Safe Field Configs
-- `defineFieldConfigs(configs)` -- Zero-cost TypeScript utility that returns the input unchanged but constrains dependency field name references to known field keys at compile time. Catches typos in `dependencies` and `dropdownDependencies` targets.
-- `TypedFieldConfig<TFields>` -- Generic type used internally by `defineFieldConfigs`. Constrains dependency/dropdownDependency keys to `TFields`.
+### Type-Safe Form Configs
+- `defineFormConfig(config)` -- Zero-cost TypeScript utility for type-safe form configuration. Constrains field references in rules to known field keys at compile time.
+
+### Performance Helpers
+- `RenderTracker` -- Per-field render count tracking. Used by DevTools Perf tab.
+- `EventTimeline` -- Chronological event log. Used by DevTools Timeline tab.
 
 ### JSON Schema Files
 - `schemas/field-config.schema.json` -- JSON Schema for `IFieldConfig` objects. Reference in JSON files for IDE autocompletion.
@@ -175,9 +155,6 @@
 - `SubEntityType` -- Sub-entity value union type
 - `isEmpty()` / `isNull()` / `isStringEmpty()` -- Null/empty check utilities
 - `deepCopy()` -- Deep clone via `structuredClone`
-- `getDropdownValue()` / `setDropdownValue()` / `buildDropdownOption()` -- Dropdown option utilities
-- `convertBooleanToYesOrNoText()` -- Boolean to "Yes"/"No" text
-- `sortDropdownOptions()` -- Sort dropdown options comparator
 
 ## Code Examples
 
@@ -185,77 +162,101 @@
 
 ```tsx
 import {
-  BusinessRulesProvider,
-  InjectedHookFieldProvider,
-  HookInlineForm,
-  IFieldConfig,
-  Dictionary,
+  RulesEngineProvider,
+  InjectedFieldProvider,
+  DynamicForm,
+  IFormConfig,
 } from "@bghcore/dynamic-forms-core";
 import { createFluentFieldRegistry } from "@bghcore/dynamic-forms-fluent";
 
-const fieldConfigs: Dictionary<IFieldConfig> = {
-  title: { component: "Textbox", required: true, label: "Title" },
-  status: {
-    component: "Dropdown",
-    label: "Status",
-    dropdownOptions: [
-      { key: "draft", text: "Draft" },
-      { key: "active", text: "Active" },
-    ],
+const formConfig: IFormConfig = {
+  version: 2,
+  fields: {
+    title: { type: "Textbox", required: true, label: "Title" },
+    status: {
+      type: "Dropdown",
+      label: "Status",
+      options: [
+        { value: "draft", label: "Draft" },
+        { value: "active", label: "Active" },
+      ],
+    },
   },
+  fieldOrder: ["title", "status"],
 };
-
-const fieldOrder = ["title", "status"];
 
 function MyForm() {
   return (
-    <BusinessRulesProvider>
-      <InjectedHookFieldProvider injectedFields={createFluentFieldRegistry()}>
-        <HookInlineForm
+    <RulesEngineProvider>
+      <InjectedFieldProvider injectedFields={createFluentFieldRegistry()}>
+        <DynamicForm
           programName="myApp"
           configName="myForm"
-          fieldConfigs={fieldConfigs}
-          fieldOrder={fieldOrder}
+          formConfig={formConfig}
           entityData={{ title: "Hello", status: "draft" }}
           onSave={(data) => console.log("Saved:", data)}
         />
-      </InjectedHookFieldProvider>
-    </BusinessRulesProvider>
+      </InjectedFieldProvider>
+    </RulesEngineProvider>
   );
 }
 ```
 
-### Business Rules (Dependencies)
+### Rules Engine (Declarative Rules)
 
 ```tsx
-const fieldConfigs: Dictionary<IFieldConfig> = {
-  country: {
-    component: "Dropdown",
-    label: "Country",
-    dropdownOptions: [
-      { key: "US", text: "United States" },
-      { key: "CA", text: "Canada" },
-    ],
-    // When country = "US", make state required and visible
-    dependencies: {
-      US: { state: { required: true, hidden: false } },
-      CA: { state: { required: false, hidden: true } },
+const formConfig: IFormConfig = {
+  version: 2,
+  fields: {
+    country: {
+      type: "Dropdown",
+      label: "Country",
+      options: [
+        { value: "US", label: "United States" },
+        { value: "CA", label: "Canada" },
+      ],
+    },
+    state: {
+      type: "Textbox",
+      label: "State",
+      hidden: true,
+      rules: [
+        {
+          when: { field: "country", operator: "equals", value: "US" },
+          then: { required: true, hidden: false },
+          else: { required: false, hidden: true },
+          priority: 1,
+        },
+      ],
     },
   },
-  state: {
-    component: "Textbox",
-    label: "State",
-    hidden: true, // hidden by default until country dependency fires
-  },
+  fieldOrder: ["country", "state"],
 };
 ```
 
-### Async Validation
+### Complex Conditions (AND/OR/NOT)
 
 ```tsx
-import { registerAsyncValidations } from "@bghcore/dynamic-forms-core";
+rules: [
+  {
+    when: {
+      operator: "and",
+      conditions: [
+        { field: "country", operator: "equals", value: "US" },
+        { field: "priority", operator: "in", value: ["high", "critical"] },
+      ],
+    },
+    then: { required: true, hidden: false },
+  },
+]
+```
 
-registerAsyncValidations({
+### Validation (Unified Registry)
+
+```tsx
+import { registerValidators } from "@bghcore/dynamic-forms-core";
+
+registerValidators({
   uniqueUsername: async (value, entityData, signal) => {
     const response = await fetch(`/api/check-username?name=${value}`, { signal });
     const result = await response.json();
@@ -263,12 +264,15 @@ registerAsyncValidations({
   },
 });
 
-const fieldConfigs: Dictionary<IFieldConfig> = {
-  username: {
-    component: "Textbox",
-    label: "Username",
-    asyncValidations: ["uniqueUsername"],
-    asyncValidationDebounceMs: 500,
+// In field config:
+const formConfig: IFormConfig = {
+  version: 2,
+  fields: {
+    username: {
+      type: "Textbox",
+      label: "Username",
+      validate: [{ name: "uniqueUsername", async: true, debounceMs: 500 }],
+    },
   },
 };
 ```
@@ -290,31 +294,36 @@ registerLocale({
 ### Wizard Form
 
 ```tsx
-import {
-  HookWizardForm,
-  IWizardConfig,
-} from "@bghcore/dynamic-forms-core";
+import { WizardForm, IFormConfig } from "@bghcore/dynamic-forms-core";
 
-const wizardConfig: IWizardConfig = {
-  steps: [
-    { id: "basics", title: "Basics", fields: ["title", "description"] },
-    { id: "details", title: "Details", fields: ["status", "priority"] },
-    {
-      id: "advanced",
-      title: "Advanced",
-      fields: ["tags"],
-      visibleWhen: { fieldName: "priority", values: ["high", "critical"] },
-    },
-  ],
-  validateOnStepChange: true,
+const formConfig: IFormConfig = {
+  version: 2,
+  fields: {
+    title: { type: "Textbox", label: "Title" },
+    description: { type: "Textbox", label: "Description" },
+    status: { type: "Dropdown", label: "Status", options: [{ value: "draft", label: "Draft" }] },
+    priority: { type: "Dropdown", label: "Priority", options: [{ value: "high", label: "High" }, { value: "low", label: "Low" }] },
+    tags: { type: "MultiSelect", label: "Tags", options: [{ value: "urgent", label: "Urgent" }] },
+  },
+  wizard: {
+    steps: [
+      { id: "basics", title: "Basics", fields: ["title", "description"] },
+      { id: "details", title: "Details", fields: ["status", "priority"] },
+      {
+        id: "advanced",
+        title: "Advanced",
+        fields: ["tags"],
+        visibleWhen: { field: "priority", operator: "in", value: ["high"] },
+      },
+    ],
+    validateOnStepChange: true,
+  },
 };
 
-<HookWizardForm
-  wizardConfig={wizardConfig}
+<WizardForm
+  formConfig={formConfig}
   entityData={entityData}
-  fieldRules={fieldRules}
-  errors={errors}
-  renderStepContent={(fields) => <HookInlineFormFields fields={fields} />}
+  renderStepContent={(fields) => <FormFields fields={fields} />}
   renderStepNavigation={({ goNext, goPrev, canGoNext, canGoPrev }) => (
     <div>
       <button disabled={!canGoPrev} onClick={goPrev}>Back</button>
@@ -327,40 +336,32 @@ const wizardConfig: IWizardConfig = {
 ### Field Arrays
 
 ```tsx
-import { HookFieldArray, IFieldArrayConfig } from "@bghcore/dynamic-forms-core";
-
-const lineItemConfig: IFieldArrayConfig = {
-  itemFields: {
-    description: { component: "Textbox", label: "Description", required: true },
-    quantity: { component: "Number", label: "Qty" },
+const formConfig: IFormConfig = {
+  version: 2,
+  fields: {
+    lineItems: {
+      type: "FieldArray",
+      label: "Line Items",
+      items: {
+        description: { type: "Textbox", label: "Description", required: true },
+        quantity: { type: "Number", label: "Qty" },
+      },
+      config: {
+        minItems: 1,
+        maxItems: 10,
+        reorderable: true,
+      },
+    },
   },
-  minItems: 1,
-  maxItems: 10,
-  defaultItem: { description: "", quantity: 1 },
-  reorderable: true,
 };
-
-<HookFieldArray
-  fieldName="lineItems"
-  config={lineItemConfig}
-  renderItem={(itemFieldNames, index, remove) => (
-    <div>
-      {/* render fields for itemFieldNames[0], itemFieldNames[1], etc. */}
-      <button onClick={remove}>Remove</button>
-    </div>
-  )}
-  renderAddButton={(append, canAdd) => (
-    <button disabled={!canAdd} onClick={append}>Add Item</button>
-  )}
-/>
 ```
 
 ### Error Boundary
 
 ```tsx
-import { HookFormErrorBoundary } from "@bghcore/dynamic-forms-core";
+import { FormErrorBoundary } from "@bghcore/dynamic-forms-core";
 
-<HookFormErrorBoundary
+<FormErrorBoundary
   fallback={(error, resetErrorBoundary) => (
     <div>
       <p>Field crashed: {error.message}</p>
@@ -370,7 +371,7 @@ import { HookFormErrorBoundary } from "@bghcore/dynamic-forms-core";
   onError={(error, errorInfo) => logError(error)}
 >
   <MyFieldComponent />
-</HookFormErrorBoundary>
+</FormErrorBoundary>
 ```
 
 ### Draft Persistence
@@ -403,16 +404,32 @@ function MyForm() {
 ### DevTools
 
 ```tsx
-import { HookFormDevTools } from "@bghcore/dynamic-forms-core";
+import { FormDevTools } from "@bghcore/dynamic-forms-core";
 
-<HookFormDevTools
+<FormDevTools
   configName="orderForm"
-  configRules={businessRules}
+  configRules={rulesEngineState}
   formValues={watch()}
   formErrors={errors}
   dirtyFields={dirtyFields}
   enabled={process.env.NODE_ENV === "development"}
 />
+// Tabs: Rules, Values, Errors, Graph, Perf, Deps, Timeline
+```
+
+### Analytics
+
+```tsx
+import { useFormAnalytics, IAnalyticsCallbacks } from "@bghcore/dynamic-forms-core";
+
+const callbacks: IAnalyticsCallbacks = {
+  onFieldChange: (fieldName, oldValue, newValue) => track("field_change", { fieldName }),
+  onSaveStart: () => track("save_start"),
+  onSaveSuccess: (duration) => track("save_success", { duration }),
+  onSaveError: (error) => track("save_error", { error: error.message }),
+};
+
+const analytics = useFormAnalytics(callbacks);
 ```
 
 ### JSON Schema Import
@@ -463,21 +480,4 @@ const UserSchema = z.object({
 
 const fieldConfigs = zodSchemaToFieldConfig(UserSchema);
 // Maps: string->Textbox, number->Number, email->EmailValidation, enum->Dropdown, date->DateControl
-```
-
-### Type-Safe Field Configs
-
-```tsx
-import { defineFieldConfigs } from "@bghcore/dynamic-forms-core";
-
-const configs = defineFieldConfigs({
-  name: { component: "Textbox", label: "Name" },
-  status: {
-    component: "Dropdown",
-    label: "Status",
-    dependencies: {
-      Active: { name: { required: true } },  // "name" is type-checked
-    },
-  },
-});
 ```

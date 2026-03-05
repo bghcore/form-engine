@@ -7,7 +7,7 @@ Fluent UI v9 field component implementations for `@bghcore/dynamic-forms-core`. 
 ## Critical Constraints
 
 - **Fluent UI v9 only.** Use `@fluentui/react-components` and `@fluentui/react-icons`. Do NOT import from `@fluentui/react` (v8).
-- **All field components receive `IHookFieldSharedProps<T>`** via `React.cloneElement` -- this is the contract with core's `HookRenderField`.
+- **All field components receive `IFieldProps<T>`** via `React.cloneElement` -- this is the contract with core's `RenderField`.
 - **Import core types from `@bghcore/dynamic-forms-core`**, not from relative paths into the core package.
 - **Use `React.JSX.Element`** not bare `JSX.Element` for return types.
 
@@ -15,7 +15,7 @@ Fluent UI v9 field component implementations for `@bghcore/dynamic-forms-core`. 
 
 | File | Purpose |
 |------|---------|
-| `src/registry.ts` | `createFluentFieldRegistry()` -- maps `ComponentTypes` string keys to Fluent field JSX elements. Returns `Dictionary<React.JSX.Element>` for `InjectedHookFieldProvider`. |
+| `src/registry.ts` | `createFluentFieldRegistry()` -- maps `ComponentTypes` string keys to Fluent field JSX elements. Returns `Record<string, React.JSX.Element>` for `InjectedFieldProvider`. |
 | `src/helpers.ts` | Shared field helpers: `FieldClassName()` (CSS class with error state), `GetFieldDataTestId()` (data-testid builder), `formatDateTime()` (date string formatting), `DocumentLinksStrings` (link UI strings). |
 | `src/index.ts` | Public API barrel exports. All field components, supporting components, registry, helpers, and types. |
 | `src/fields/HookTextbox.tsx` | Text input using Fluent `Input`. |
@@ -47,7 +47,7 @@ Fluent UI v9 field component implementations for `@bghcore/dynamic-forms-core`. 
 
 ## Adding a New Field
 
-1. Create `src/fields/HookMyField.tsx` implementing `IHookFieldSharedProps<T>`
+1. Create `src/fields/HookMyField.tsx` implementing `IFieldProps<T>`
 2. Add `export { default as HookMyField } from "./fields/HookMyField"` to `src/index.ts`
 3. Add the component key to `ComponentTypes` in core's `src/constants.ts`
 4. Register it in `src/registry.ts` inside `createFluentFieldRegistry()`
@@ -55,7 +55,7 @@ Fluent UI v9 field component implementations for `@bghcore/dynamic-forms-core`. 
 ## Field Component Pattern
 
 ```tsx
-import { IHookFieldSharedProps } from "@bghcore/dynamic-forms-core";
+import { IFieldProps } from "@bghcore/dynamic-forms-core";
 import { Input } from "@fluentui/react-components";
 import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";
@@ -65,7 +65,7 @@ interface IHookMyFieldProps {
   customOption?: string;
 }
 
-const HookMyField = (props: IHookFieldSharedProps<IHookMyFieldProps>) => {
+const HookMyField = (props: IFieldProps<IHookMyFieldProps>) => {
   const { fieldName, programName, entityType, entityId, value, readOnly, error, setFieldValue } = props;
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -88,7 +88,7 @@ export default HookMyField;
 ```
 
 Key points:
-- Props type is `IHookFieldSharedProps<T>` where `T` is your custom meta props interface
+- Props type is `IFieldProps<T>` where `T` is your custom meta props interface
 - Use `setFieldValue(fieldName, newValue, skipSave, debounceMs)` to update the form
 - Handle `readOnly` state by rendering `ReadOnlyText` or a disabled variant
 - Use `FieldClassName()` for consistent error styling

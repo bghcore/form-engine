@@ -2,7 +2,7 @@
 
 ## Package Purpose
 
-UI-library agnostic React library for rendering configuration-driven forms with a built-in business rules engine. This package has **zero UI library dependencies** -- it depends only on React and react-hook-form. It is NOT "framework agnostic" (it is built for React); it is "UI-library agnostic" meaning it does not depend on any specific component library (Fluent UI, MUI, Ant Design, etc.).
+UI-library agnostic React library for rendering configuration-driven forms with a built-in rules engine. This package has **zero UI library dependencies** -- it depends only on React and react-hook-form. It is NOT "framework agnostic" (it is built for React); it is "UI-library agnostic" meaning it does not depend on any specific component library (Fluent UI, MUI, Ant Design, etc.).
 
 ## Critical Constraints
 
@@ -14,92 +14,108 @@ UI-library agnostic React library for rendering configuration-driven forms with 
 ## Architecture
 
 ```
-BusinessRulesProvider (useReducer for rule state)
-  -> InjectedHookFieldProvider (component registry)
-    -> HookInlineForm (react-hook-form, auto-save, business rules init)
-      -> HookInlineFormFields (ordered field list)
-        -> HookRenderField (Controller + component injection lookup)
-          -> HookFieldWrapper (label, error, status chrome -- plain HTML)
-            -> React.cloneElement(injectedField, IHookFieldSharedProps)
+RulesEngineProvider (useReducer for rules engine state)
+  -> InjectedFieldProvider (component registry)
+    -> DynamicForm (react-hook-form, auto-save, rules engine init)
+      -> FormFields (ordered field list)
+        -> FormErrorBoundary (per-field crash isolation)
+          -> RenderField (Controller + component injection lookup)
+            -> FieldWrapper (label, error, status chrome -- plain HTML)
+              -> React.cloneElement(injectedField, IFieldProps)
 ```
 
 ## Key Files
 
 | File | Purpose |
 |------|---------|
-| `src/helpers/BusinessRulesHelper.ts` | Core rule evaluation (~760 lines, largest file). Processes dependencies, combo rules, dropdown deps, order deps. Exports `ProcessAllBusinessRules`, `GetDefaultBusinessRules`, `normalizeFieldConfig`, etc. |
-| `src/helpers/HookInlineFormHelper.ts` | Form initialization, validation execution, value functions, schema merging. Exports `InitOnCreateBusinessRules`, `InitOnEditBusinessRules`, `GetFieldsToRender`, etc. |
-| `src/helpers/ValidationRegistry.ts` | Pluggable sync and async validation function registries. Register custom validators via `registerValidations()` / `registerAsyncValidations()`. Includes factory functions: `createMinLengthValidation`, `createMaxLengthValidation`, `createNumericRangeValidation`, `createPatternValidation`, `createRequiredIfValidation`. |
+| `src/helpers/RuleEngine.ts` | Core rules engine (~800 lines, largest file). Builds dependency graph via topological sort, evaluates all rules, evaluates affected fields incrementally, priority-based conflict resolution. Exports `buildDependencyGraph`, `evaluateAllRules`, `evaluateAffectedFields`, `processFieldChange`, `topologicalSort`. |
+| `src/helpers/ConditionEvaluator.ts` | Evaluates rule conditions. 15 operators (equals, notEquals, greaterThan, lessThan, greaterThanOrEqual, lessThanOrEqual, contains, notContains, startsWith, endsWith, in, notIn, isEmpty, isNotEmpty, matches) + AND/OR/NOT logical composition. Exports `evaluateCondition`. |
+| `src/helpers/HookInlineFormHelper.ts` | Form initialization, validation execution, value functions, schema merging. Exports `GetFieldsToRender`, `CheckFieldValidationRules`, `ExecuteValueFunction`, etc. |
+| `src/helpers/ValidationRegistry.ts` | Unified sync/async/cross-field validation registry. Register custom validators via `registerValidators()`. Includes factory functions: `createMinLengthValidation`, `createMaxLengthValidation`, `createNumericRangeValidation`, `createPatternValidation`, `createRequiredIfValidation`. |
 | `src/helpers/ValueFunctionRegistry.ts` | Pluggable value function registry. Register custom value functions via `registerValueFunctions()`. Built-in: `setDate`, `setDateIfNull`, `setLoggedInUser`, `inheritFromParent`. |
-| `src/helpers/DependencyGraphValidator.ts` | Cycle detection for field dependencies and order dependencies using Kahn's algorithm. Exports `detectDependencyCycles`, `detectOrderDependencyCycles`, `validateDependencyGraph`. |
-| `src/helpers/ConfigValidator.ts` | Dev-mode config validation. Checks missing dependency targets, unregistered components, unregistered validations, circular deps, missing dropdown options. Exports `validateFieldConfigs`. |
+| `src/helpers/ExpressionEngine.ts` | Expression evaluation for computed values. Handles `$values.field`, `$fn.name()`, `$parent.field`, `$root.field` syntax. |
+| `src/helpers/DependencyGraphValidator.ts` | Cycle detection for field dependencies using Kahn's algorithm. Exports `validateDependencyGraph`. |
+| `src/helpers/ConfigValidator.ts` | Dev-mode config validation. Checks missing dependency targets, unregistered components/validators, circular deps. Exports `validateFieldConfigs`. |
 | `src/helpers/LocaleRegistry.ts` | i18n locale registry. Exports `registerLocale`, `getLocaleString`, `resetLocale`, `getCurrentLocale`. Defaults to English. |
 | `src/helpers/WizardHelper.ts` | Pure functions for multi-step wizard logic. Exports `getVisibleSteps`, `getStepFields`, `getStepFieldOrder`, `validateStepFields`, `isStepValid`, `getStepIndex`. |
-| `src/helpers/FieldHelper.ts` | Dropdown sorting utility. Exports `SortDropdownOptions`. |
-| `src/components/HookInlineForm.tsx` | Main form component. Orchestrates react-hook-form, auto-save (AbortController, timeout via `saveTimeoutMs`, retry via `maxSaveRetries`), expand/collapse, confirm modal. Supports `formErrors` prop for form-level error banner. |
-| `src/components/HookWizardForm.tsx` | Multi-step wizard form component. Uses render props for step content, navigation, and header. Screen reader step announcements. |
-| `src/components/HookFieldArray.tsx` | Repeatable field group component. Wraps react-hook-form's `useFieldArray` with min/max/reorder support. |
-| `src/components/HookRenderField.tsx` | Per-field rendering. Uses useMemo for component resolution (no extra render cycle). Async validation wired with AbortController -- sync runs first, async only if sync passes. |
-| `src/components/HookFieldWrapper.tsx` | Field chrome (label, error, status) using plain HTML. Render props: `renderLabel`, `renderError`, `renderStatus` for theming. Supports CSS custom properties via optional `styles.css`. |
-| `src/components/HookConfirmInputsModal.tsx` | Confirmation dialog using native `<dialog>` element. Focus trap (Tab wraps, Escape closes, focus restored on close). |
-| `src/components/HookFormErrorBoundary.tsx` | Per-field error boundary. Props: `children`, `fallback` (render function), `onError` callback. Each field is wrapped automatically in the rendering pipeline. |
-| `src/components/HookFormDevTools.tsx` | Collapsible dev-only panel showing business rules, form values, errors, dependency graph. Props: `configName`, `configRules`, `formValues`, `formErrors`, `dirtyFields`, `enabled`. |
+| `src/helpers/FieldHelper.ts` | Option sorting utility. Exports `SortOptions`. |
+| `src/helpers/RuleTracer.ts` | Rule evaluation tracing/debugging. |
+| `src/helpers/RenderTracker.ts` | Per-field render count tracking for DevTools Perf tab. |
+| `src/helpers/EventTimeline.ts` | Chronological event log for DevTools Timeline tab. |
+| `src/components/HookInlineForm.tsx` | DynamicForm component. Orchestrates react-hook-form, auto-save (AbortController, timeout via `saveTimeoutMs`, retry via `maxSaveRetries`), expand/collapse, confirm modal. Supports `formErrors` prop for form-level error banner. |
+| `src/components/HookWizardForm.tsx` | WizardForm component. Multi-step wizard with render props for step content, navigation, and header. Screen reader step announcements. |
+| `src/components/HookFieldArray.tsx` | FieldArray component. Wraps react-hook-form's `useFieldArray` with min/max/reorder support. Items use full `IFieldConfig`. |
+| `src/components/HookRenderField.tsx` | RenderField component. Per-field rendering with useMemo for component resolution. Async validation wired with AbortController -- sync runs first, async only if sync passes. |
+| `src/components/HookFieldWrapper.tsx` | FieldWrapper component. Field chrome (label, error, status) using plain HTML. Render props: `renderLabel`, `renderError`, `renderStatus` for theming. Supports CSS custom properties via optional `styles.css`. |
+| `src/components/HookConfirmInputsModal.tsx` | ConfirmInputsModal component. Confirmation dialog using native `<dialog>` element. Focus trap (Tab wraps, Escape closes, focus restored on close). |
+| `src/components/HookFormErrorBoundary.tsx` | FormErrorBoundary component. Per-field error boundary. Props: `children`, `fallback` (render function), `onError` callback. Each field is wrapped automatically in the rendering pipeline. |
+| `src/components/HookFormDevTools.tsx` | FormDevTools component. Collapsible dev-only panel with tabs: Rules, Values, Errors, Graph, Perf, Deps, Timeline. |
 | `src/hooks/useDraftPersistence.ts` | Auto-save form state to localStorage on interval, recover draft on mount, clear after server save. Options: `formId`, `data`, `saveIntervalMs`, `enabled`, `storageKeyPrefix`. |
 | `src/hooks/useBeforeUnload.ts` | Browser warning on page leave with unsaved changes. Args: `shouldWarn` (boolean), `message?` (string). |
+| `src/hooks/useFormAnalytics.ts` | Analytics callback wrapper hook. Accepts `IAnalyticsCallbacks` (8 event hooks) and returns `IFormAnalytics`. |
 | `src/utils/formStateSerialization.ts` | `serializeFormState` / `deserializeFormState` -- Date-safe JSON round-trip utilities. |
-| `src/utils/jsonSchemaImport.ts` | `jsonSchemaToFieldConfig(schema)` -- converts JSON Schema to `Dictionary<IFieldConfig>`. Maps types, enums, formats, required. |
+| `src/utils/jsonSchemaImport.ts` | `jsonSchemaToFieldConfig(schema)` -- converts JSON Schema to `Record<string, IFieldConfig>`. Maps types, enums, formats, required. |
 | `src/utils/lazyFieldRegistry.ts` | `createLazyFieldRegistry(imports)` -- creates field registry using `React.lazy()` for on-demand component loading. |
-| `src/utils/zodSchemaImport.ts` | `zodSchemaToFieldConfig(zodSchema)` -- converts Zod object schemas to `Dictionary<IFieldConfig>`. Maps ZodString→Textbox, ZodNumber→Number, ZodBoolean→Toggle, ZodEnum→Dropdown, ZodDate→DateControl, ZodArray→Multiselect. No zod dependency. |
-| `src/types/TypedFieldConfig.ts` | `defineFieldConfigs()` -- zero-cost TypeScript utility for type-safe dependency references in field configs. `TypedFieldConfig<TFields>` generic type constrains dependency targets to known field names. |
-| `schemas/field-config.schema.json` | JSON Schema for `IFieldConfig` objects. Published in npm package for IDE autocompletion when writing form configs in JSON. |
-| `schemas/wizard-config.schema.json` | JSON Schema for `IWizardConfig` objects. Published in npm package for IDE autocompletion. |
+| `src/utils/zodSchemaImport.ts` | `zodSchemaToFieldConfig(zodSchema)` -- converts Zod object schemas to `Record<string, IFieldConfig>`. Maps ZodString->Textbox, ZodNumber->Number, ZodBoolean->Toggle, ZodEnum->Dropdown, ZodDate->DateControl, ZodArray->Multiselect. No zod dependency. |
+| `src/types/IFormConfig.ts` | `IFormConfig` (version 2 wrapper), `IFormSettings`. |
+| `src/types/IFieldConfig.ts` | `IFieldConfig` (v2 schema). Primary consumer-facing type. |
+| `src/types/IRule.ts` | `IRule` (when/then/else/priority). |
+| `src/types/ICondition.ts` | `ICondition`, `IFieldCondition`, `ILogicalCondition`. |
+| `src/types/IFieldEffect.ts` | `IFieldEffect` (required, hidden, readOnly, type, options, validate, computedValue, order, label). |
+| `src/types/IOption.ts` | `IOption` (`{ value, label, disabled?, group?, icon?, color? }`). |
+| `src/types/IValidationRule.ts` | `IValidationRule` (unified: name, params, message, async, debounceMs, when). |
+| `src/types/IFieldProps.ts` | `IFieldProps<T>` -- Props contract all injected field components receive via `React.cloneElement`. |
+| `src/types/IRuntimeFieldState.ts` | `IRuntimeFieldState`, `IRuntimeFormState`, `IRulesEngineState`. |
+| `src/types/IRulesEngineAction.ts` | `RulesEngineActionType` enum, action types for reducer. |
+| `src/types/IWizardConfig.ts` | `IWizardStep`, `IWizardConfig` (condition-based visibility using `ICondition`). |
+| `src/types/ILocaleStrings.ts` | `ICoreLocaleStrings` (~50 keys). |
+| `src/types/IAnalyticsCallbacks.ts` | `IAnalyticsCallbacks` (8 event hooks for analytics/telemetry). |
+| `src/types/TypedFieldConfig.ts` | `defineFormConfig()` type-safe builder. |
 | `src/styles.css` | Optional CSS custom properties for theming: `--hook-form-error-color`, `--hook-form-warning-color`, `--hook-form-saving-color`, `--hook-form-label-color`, `--hook-form-required-color`, `--hook-form-border-radius`, `--hook-form-field-gap`, `--hook-form-font-size`. |
-| `src/providers/BusinessRulesProvider.tsx` | React context provider owning business rules state via useReducer. |
-| `src/providers/InjectedHookFieldProvider.tsx` | React context provider for component injection registry. |
-| `src/reducers/BusinessRulesReducer.ts` | Reducer for business rules state mutations. |
-| `src/types/IFieldConfig.ts` | Primary consumer-facing type. Defines field configuration shape including dependencies, combo rules, dropdown deps, validations, async validations, field arrays. |
-| `src/types/IHookFieldSharedProps.ts` | Props contract that all injected field components receive via `React.cloneElement`. |
-| `src/types/IWizardConfig.ts` | Wizard step/config types: `IWizardConfig`, `IWizardStep`, `IWizardStepCondition`. |
-| `src/types/IFieldArrayConfig.ts` | Field array config type: `IFieldArrayConfig` with `itemFields`, `minItems`, `maxItems`, `defaultItem`, `reorderable`. |
-| `src/types/ILocaleStrings.ts` | Localizable string interface: `ICoreLocaleStrings`. |
-| `src/utils/index.ts` | Local utilities: `isEmpty`, `isNull`, `deepCopy` (structuredClone), `Dictionary<T>`, `IEntityData`, `SubEntityType`, dropdown helpers. |
-| `src/constants.ts` | `ComponentTypes` enum (all component type string keys), `HookInlineFormConstants`, `FIELD_PARENT_PREFIX`. |
-| `src/strings.ts` | Default English string literals (legacy, being replaced by `LocaleRegistry`). |
+| `src/providers/BusinessRulesProvider.tsx` | RulesEngineProvider (React context provider owning rules engine state via useReducer). |
+| `src/providers/InjectedHookFieldProvider.tsx` | InjectedFieldProvider (React context provider for component injection registry). |
+| `src/reducers/BusinessRulesReducer.ts` | Reducer for rules engine state mutations. |
+| `src/utils/index.ts` | Local utilities: `isEmpty`, `isNull`, `deepCopy` (structuredClone), `Dictionary<T>`, `IEntityData`, `SubEntityType`, option helpers. |
+| `src/constants.ts` | `ComponentTypes` enum (all component type string keys), `FormConstants`, `FIELD_PARENT_PREFIX`. |
+| `src/strings.ts` | `FormStrings` (i18n-aware, getters over LocaleRegistry). |
 
 ## Testing
 
-- **513 tests** across 24 test files using Vitest
+- **515 tests** across 25 test files using Vitest
 - Run: `npm test` (from monorepo root or `packages/core`)
 - Test files are in `src/__tests__/`
-- Coverage targets: helpers (BusinessRulesHelper, HookInlineFormHelper, ValidationRegistry, ValueFunctionRegistry, DependencyGraphValidator, ConfigValidator, LocaleRegistry, WizardHelper), reducers (BusinessRulesReducer), extended validators, hooks (useDraftPersistence, useBeforeUnload), utils (formStateSerialization, jsonSchemaImport, lazyFieldRegistry), components (HookFormErrorBoundary, HookFormDevTools)
+- Coverage targets: helpers (RuleEngine, ConditionEvaluator, HookInlineFormHelper, ValidationRegistry, ValueFunctionRegistry, DependencyGraphValidator, ConfigValidator, LocaleRegistry, WizardHelper), reducers (BusinessRulesReducer), hooks (useDraftPersistence, useBeforeUnload, useFormAnalytics), utils (formStateSerialization, jsonSchemaImport, lazyFieldRegistry, zodSchemaImport), components (FormErrorBoundary, FormDevTools)
 - All tests must pass before committing
 
 ## Known Issues
 
 - `isReadonly` is **deprecated** -- use `readOnly` instead. `normalizeFieldConfig()` auto-migrates and emits a console warning.
-- `CombineBusinessRules` mutates its first argument in place.
 - Hardcoded English strings in some older code paths (mostly migrated to `LocaleRegistry`).
 
 ## Adding New Features
 
-### Adding a New Business Rule Type
+### Adding a New Rule Effect
 
-1. Define the rule effect in `IFieldConfig` (new property or extension of `dependencies`)
-2. Add processing logic in `BusinessRulesHelper.ts` (inside `ProcessFieldBusinessRule` or as a new processor)
-3. Update `GetDefaultBusinessRules` to initialize the new rule state
-4. Add the rule state to `IBusinessRule` if it carries per-field state
-5. If it needs reducer support, add an action to `IBusinessRuleActionKeys` and handle in `BusinessRulesReducer`
-6. Write tests in `src/__tests__/helpers/`
+1. Add the effect property to `IFieldEffect` in `src/types/IFieldEffect.ts`
+2. Add evaluation logic in `RuleEngine.ts` (inside `applyRuleEffect` or as a new effect handler)
+3. Update `IRuntimeFieldState` if the effect carries per-field runtime state
+4. If it needs reducer support, add an action to `RulesEngineActionType` and handle in `BusinessRulesReducer`
+5. Write tests in `src/__tests__/helpers/`
+
+### Adding a New Condition Operator
+
+1. Add the operator string to the `operator` union type in `IFieldCondition` (`src/types/ICondition.ts`)
+2. Add evaluation logic in `ConditionEvaluator.ts` inside `evaluateFieldCondition`
+3. Write tests in `src/__tests__/helpers/`
 
 ### Adding a New Validation
 
 ```ts
-import { registerValidations, createPatternValidation } from "@bghcore/dynamic-forms-core";
+import { registerValidators } from "@bghcore/dynamic-forms-core";
 
-registerValidations({
-  ZipCodeValidation: createPatternValidation(/^\d{5}(-\d{4})?$/, "Invalid ZIP code"),
-  CustomCheck: (value, entityData) => {
-    if (someCondition(value)) return "Error message";
+registerValidators({
+  ZipCodeValidation: (value, entityData) => {
+    if (!/^\d{5}(-\d{4})?$/.test(value)) return "Invalid ZIP code";
     return undefined;
   },
 });

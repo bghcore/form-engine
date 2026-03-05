@@ -12,7 +12,7 @@
 ## API Surface
 
 ### Registry
-- `createMuiFieldRegistry()` -- Creates the default Material UI field registry (`Dictionary<React.JSX.Element>`) for use with `InjectedHookFieldProvider`
+- `createMuiFieldRegistry()` -- Creates the default Material UI field registry (`Record<string, React.JSX.Element>`) for use with `InjectedFieldProvider`
 
 ### Editable Field Components (13)
 - `HookTextbox` -- Single-line text input (MUI `TextField`)
@@ -60,44 +60,46 @@
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import {
-  BusinessRulesProvider,
-  InjectedHookFieldProvider,
-  HookInlineForm,
-  IFieldConfig,
-  Dictionary,
+  RulesEngineProvider,
+  InjectedFieldProvider,
+  DynamicForm,
+  IFormConfig,
 } from "@bghcore/dynamic-forms-core";
 import { createMuiFieldRegistry } from "@bghcore/dynamic-forms-mui";
 
 const theme = createTheme();
 
-const fieldConfigs: Dictionary<IFieldConfig> = {
-  title: { component: "Textbox", required: true, label: "Title" },
-  status: {
-    component: "Dropdown",
-    label: "Status",
-    dropdownOptions: [
-      { key: "draft", text: "Draft" },
-      { key: "active", text: "Active" },
-    ],
+const formConfig: IFormConfig = {
+  version: 2,
+  fields: {
+    title: { type: "Textbox", required: true, label: "Title" },
+    status: {
+      type: "Dropdown",
+      label: "Status",
+      options: [
+        { value: "draft", label: "Draft" },
+        { value: "active", label: "Active" },
+      ],
+    },
   },
+  fieldOrder: ["title", "status"],
 };
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <BusinessRulesProvider>
-        <InjectedHookFieldProvider injectedFields={createMuiFieldRegistry()}>
-          <HookInlineForm
+      <RulesEngineProvider>
+        <InjectedFieldProvider injectedFields={createMuiFieldRegistry()}>
+          <DynamicForm
             programName="myApp"
             configName="myForm"
-            fieldConfigs={fieldConfigs}
-            fieldOrder={["title", "status"]}
+            formConfig={formConfig}
             entityData={{ title: "", status: "draft" }}
             onSave={(data) => console.log("Saved:", data)}
           />
-        </InjectedHookFieldProvider>
-      </BusinessRulesProvider>
+        </InjectedFieldProvider>
+      </RulesEngineProvider>
     </ThemeProvider>
   );
 }
