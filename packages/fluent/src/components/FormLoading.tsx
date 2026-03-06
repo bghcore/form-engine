@@ -1,4 +1,4 @@
-import { FormConstants } from "@bghcore/dynamic-forms-core";
+import { FormConstants } from "@form-engine/core";
 import { Skeleton, SkeletonItem } from "@fluentui/react-components";
 import React from "react";
 

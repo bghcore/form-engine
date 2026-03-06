@@ -1,8 +1,8 @@
 # Codebase Analysis & Strategic Expansion Findings
 
-**Project:** dynamic-react-business-forms
+**Project:** form-engine
 **Date:** March 2, 2026
-**Packages:** `@bghcore/dynamic-forms-core` (v1.0.6), `@bghcore/dynamic-forms-fluent` (v1.0.6)
+**Packages:** `@form-engine/core` (v1.0.6), `@form-engine/fluent` (v1.0.6)
 
 ---
 
@@ -279,14 +279,14 @@ components/ (ReadOnlyText, StatusMessage, HookFormLoading, StatusDropdown, Docum
 ## Appendix B: Dependency Graph
 
 ```
-@bghcore/dynamic-forms-core
+@form-engine/core
   peerDeps: react ^18/19, react-hook-form ^7
   devDeps:  react 19.2, react-hook-form 7.71, typescript 5.9, tsup 8.5
 
-@bghcore/dynamic-forms-fluent
-  peerDeps: react, react-dom, react-hook-form, @fluentui/react-components ^9, @bghcore/dynamic-forms-core ^1
+@form-engine/fluent
+  peerDeps: react, react-dom, react-hook-form, @fluentui/react-components ^9, @form-engine/core ^1
   devDeps:  @fluentui/react-components 9.73, @fluentui/react-icons 2.0
 
-@bghcore/dynamic-forms-mui (planned)
-  peerDeps: react, react-dom, react-hook-form, @mui/material ^6, @bghcore/dynamic-forms-core ^1.1
+@form-engine/mui (planned)
+  peerDeps: react, react-dom, react-hook-form, @mui/material ^6, @form-engine/core ^1.1
 ```

@@ -1,4 +1,4 @@
-import { FormStrings, FormConstants } from "@bghcore/dynamic-forms-core";
+import { FormStrings, FormConstants } from "@form-engine/core";
 import { Input, Button, Tooltip } from "@fluentui/react-components";
 import { CheckmarkRegular, DismissRegular, EditRegular, DeleteRegular } from "@fluentui/react-icons";
 import React from "react";

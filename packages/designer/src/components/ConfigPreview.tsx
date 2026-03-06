@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useCallback } from "react";
-import type { IFormConfig } from "@bghcore/dynamic-forms-core";
+import type { IFormConfig } from "@form-engine/core";
 import { useDesigner } from "../state/useDesigner";
 
 export function ConfigPreview() {

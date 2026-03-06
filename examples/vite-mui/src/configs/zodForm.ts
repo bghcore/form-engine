@@ -1,4 +1,4 @@
-import { zodSchemaToFieldConfig } from "@bghcore/dynamic-forms-core";
+import { zodSchemaToFieldConfig } from "@form-engine/core";
 
 // This would normally be: import { z } from "zod";
 // For this example we construct a mock Zod-like schema

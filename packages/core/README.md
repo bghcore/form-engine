@@ -1,11 +1,11 @@
-# @bghcore/dynamic-forms-core
+# @form-engine/core
 
 UI-library agnostic business rules engine and form orchestration for configuration-driven React forms. Built for React -- works with any component library (Fluent UI, MUI, Ant Design, or your own). Define forms as JSON -- field definitions, dependency rules, dropdown options, ordering -- and the library handles rendering, validation, auto-save, and field interactions automatically.
 
 ## Install
 
 ```bash
-npm install @bghcore/dynamic-forms-core
+npm install @form-engine/core
 ```
 
 Peer dependencies: `react` (18 or 19), `react-hook-form` (v7)
@@ -17,7 +17,7 @@ import {
   RulesEngineProvider,
   InjectedFieldProvider,
   DynamicForm,
-} from "@bghcore/dynamic-forms-core";
+} from "@form-engine/core";
 
 const fieldConfigs = {
   name: { type: "Textbox", label: "Name", required: true },
@@ -52,9 +52,9 @@ function App() {
 ```
 
 You'll also need a UI adapter to provide field components. See:
-- [`@bghcore/dynamic-forms-fluent`](https://www.npmjs.com/package/@bghcore/dynamic-forms-fluent) -- Fluent UI v9
-- [`@bghcore/dynamic-forms-mui`](https://www.npmjs.com/package/@bghcore/dynamic-forms-mui) -- Material UI
-- [`@bghcore/dynamic-forms-headless`](https://www.npmjs.com/package/@bghcore/dynamic-forms-headless) -- Unstyled semantic HTML (Tailwind-friendly)
+- [`@form-engine/fluent`](https://www.npmjs.com/package/@form-engine/fluent) -- Fluent UI v9
+- [`@form-engine/mui`](https://www.npmjs.com/package/@form-engine/mui) -- Material UI
+- [`@form-engine/headless`](https://www.npmjs.com/package/@form-engine/headless) -- Unstyled semantic HTML (Tailwind-friendly)
 
 ## Business Rules Engine
 
@@ -86,7 +86,7 @@ import {
   createNumericRangeValidation,
   createPatternValidation,
   createRequiredIfValidation,
-} from "@bghcore/dynamic-forms-core";
+} from "@form-engine/core";
 
 registerValidators({
   MinLength3: createMinLengthValidation(3),
@@ -100,7 +100,7 @@ registerValidators({
 ### Async Validators
 
 ```tsx
-import { registerValidators } from "@bghcore/dynamic-forms-core";
+import { registerValidators } from "@form-engine/core";
 
 registerValidators({
   CheckUniqueEmail: async (value, entityData, signal) => {
@@ -116,7 +116,7 @@ Reference in field configs via `validate: [{ validator: "CheckUniqueEmail", asyn
 ### Config Validation
 
 ```tsx
-import { validateFieldConfigs } from "@bghcore/dynamic-forms-core";
+import { validateFieldConfigs } from "@form-engine/core";
 
 const errors = validateFieldConfigs(fieldConfigs, registeredComponentTypes);
 // Checks: missing dep targets, unregistered components/validators, circular deps
@@ -125,7 +125,7 @@ const errors = validateFieldConfigs(fieldConfigs, registeredComponentTypes);
 ## Multi-Step Wizard
 
 ```tsx
-import { WizardForm } from "@bghcore/dynamic-forms-core";
+import { WizardForm } from "@form-engine/core";
 
 <WizardForm
   wizardConfig={{
@@ -152,7 +152,7 @@ All fields stay in a single `react-hook-form` context. Steps just control which 
 ## Field Arrays
 
 ```tsx
-import { FieldArray } from "@bghcore/dynamic-forms-core";
+import { FieldArray } from "@form-engine/core";
 
 <FieldArray
   fieldName="contacts"
@@ -176,7 +176,7 @@ import { FieldArray } from "@bghcore/dynamic-forms-core";
 ## i18n / Localization
 
 ```tsx
-import { registerLocale } from "@bghcore/dynamic-forms-core";
+import { registerLocale } from "@form-engine/core";
 
 registerLocale({
   required: "Obligatoire",
@@ -211,7 +211,7 @@ All strings in `FormStrings` and validation error messages resolve through the l
 Each field is individually wrapped in `FormErrorBoundary` so one crashing field does not take down the entire form:
 
 ```tsx
-import { FormErrorBoundary } from "@bghcore/dynamic-forms-core";
+import { FormErrorBoundary } from "@form-engine/core";
 
 <FormErrorBoundary
   fallback={(error, resetErrorBoundary) => (
@@ -259,7 +259,7 @@ Built-in accessibility features:
 Auto-save form state to localStorage and recover after page refresh:
 
 ```tsx
-import { useDraftPersistence, useBeforeUnload } from "@bghcore/dynamic-forms-core";
+import { useDraftPersistence, useBeforeUnload } from "@form-engine/core";
 
 const { hasDraft, clearDraft } = useDraftPersistence({
   formId: "my-form-123",
@@ -340,14 +340,14 @@ const formConfig: IFormConfig = {
 };
 ```
 
-All callbacks are optional. Zero overhead when not provided. See [docs/analytics-telemetry.md](https://github.com/bghcore/dynamic-react-business-forms/blob/main/docs/analytics-telemetry.md).
+All callbacks are optional. Zero overhead when not provided. See [docs/analytics-telemetry.md](https://github.com/bghcore/form-engine/blob/main/docs/analytics-telemetry.md).
 
 ## DevTools
 
 Collapsible dev-only panel with 7 tabs: **Rules**, **Values**, **Errors**, **Graph**, **Perf**, **Deps**, **Timeline**.
 
 ```tsx
-import { FormDevTools } from "@bghcore/dynamic-forms-core";
+import { FormDevTools } from "@form-engine/core";
 
 <FormDevTools
   configName="myForm"
@@ -369,14 +369,14 @@ import { FormDevTools } from "@bghcore/dynamic-forms-core";
 | Deps | Dependency adjacency table, color-coded by effect type, cycle detection |
 | Timeline | Chronological event log via `EventTimeline`, filterable by field name |
 
-See [docs/performance-debugging.md](https://github.com/bghcore/dynamic-react-business-forms/blob/main/docs/performance-debugging.md).
+See [docs/performance-debugging.md](https://github.com/bghcore/form-engine/blob/main/docs/performance-debugging.md).
 
 ## JSON Schema Import
 
 Convert JSON Schema to field configs:
 
 ```tsx
-import { jsonSchemaToFieldConfig } from "@bghcore/dynamic-forms-core";
+import { jsonSchemaToFieldConfig } from "@form-engine/core";
 
 const fieldConfigs = jsonSchemaToFieldConfig({
   type: "object",
@@ -396,7 +396,7 @@ Maps JSON Schema types, enums, formats, and required fields to `Dictionary<IFiel
 Convert Zod object schemas to field configs without adding zod as a dependency. The adapter inspects Zod's internal type structure at runtime.
 
 ```tsx
-import { zodSchemaToFieldConfig } from "@bghcore/dynamic-forms-core";
+import { zodSchemaToFieldConfig } from "@form-engine/core";
 import { z } from "zod";
 
 const UserSchema = z.object({
@@ -422,7 +422,7 @@ No `zod` peer dependency is required. If you do not use Zod, this function is tr
 Use `defineFieldConfigs()` to get compile-time verification that dependency targets reference real field names:
 
 ```tsx
-import { defineFieldConfigs } from "@bghcore/dynamic-forms-core";
+import { defineFieldConfigs } from "@form-engine/core";
 
 const configs = defineFieldConfigs({
   name: { type: "Textbox", label: "Name", required: true },
@@ -454,7 +454,7 @@ The package ships JSON Schema files for `IFieldConfig` and `IWizardConfig` at `s
 
 ```json
 {
-  "$schema": "node_modules/@bghcore/dynamic-forms-core/schemas/field-config.schema.json"
+  "$schema": "node_modules/@form-engine/core/schemas/field-config.schema.json"
 }
 ```
 
@@ -463,7 +463,7 @@ The package ships JSON Schema files for `IFieldConfig` and `IWizardConfig` at `s
 Load field components on demand using `React.lazy()` for smaller initial bundles:
 
 ```tsx
-import { createLazyFieldRegistry } from "@bghcore/dynamic-forms-core";
+import { createLazyFieldRegistry } from "@form-engine/core";
 
 const lazyFields = createLazyFieldRegistry({
   Textbox: () => import("./fields/HookTextbox"),
@@ -488,11 +488,11 @@ setInjectedFields(lazyFields);
 
 ## SSR / Next.js
 
-All core components are SSR-safe with proper `typeof window` guards. See [docs/ssr-guide.md](https://github.com/bghcore/dynamic-react-business-forms/blob/main/docs/ssr-guide.md) for Next.js App Router and Pages Router integration guides.
+All core components are SSR-safe with proper `typeof window` guards. See [docs/ssr-guide.md](https://github.com/bghcore/form-engine/blob/main/docs/ssr-guide.md) for Next.js App Router and Pages Router integration guides.
 
 ## Building a Custom UI Adapter
 
-See [docs/creating-an-adapter.md](https://github.com/bghcore/dynamic-react-business-forms/blob/main/docs/creating-an-adapter.md) for a complete guide.
+See [docs/creating-an-adapter.md](https://github.com/bghcore/form-engine/blob/main/docs/creating-an-adapter.md) for a complete guide.
 
 ## License
 

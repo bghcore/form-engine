@@ -90,7 +90,7 @@ function printBundleSizeReport(): void {
     totalDTS += dts;
 
     console.log(
-      `| @bghcore/dynamic-forms-${pkg} | ${formatKB(cjs)} | ${formatKB(esm)} | ${formatKB(dts)} |`
+      `| @form-engine/${pkg} | ${formatKB(cjs)} | ${formatKB(esm)} | ${formatKB(dts)} |`
     );
   }
 

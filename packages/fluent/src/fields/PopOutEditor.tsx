@@ -1,4 +1,4 @@
-import { IFieldProps, FormStrings } from "@bghcore/dynamic-forms-core";
+import { IFieldProps, FormStrings } from "@form-engine/core";
 import { Button, Textarea, Dialog, DialogSurface, DialogBody, DialogTitle, DialogContent, DialogActions } from "@fluentui/react-components";
 import { FullScreenMaximizeRegular, DismissRegular } from "@fluentui/react-icons";
 import React, { useState } from "react";

@@ -1,4 +1,4 @@
-import { IFieldProps } from "@bghcore/dynamic-forms-core";
+import { IFieldProps } from "@form-engine/core";
 import React from "react";
 import { formatDateTime } from "../../helpers";
 

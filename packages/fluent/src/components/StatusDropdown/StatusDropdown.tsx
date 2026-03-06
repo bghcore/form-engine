@@ -1,4 +1,4 @@
-import { Dictionary, IOption } from "@bghcore/dynamic-forms-core";
+import { Dictionary, IOption } from "@form-engine/core";
 import { Dropdown, Option } from "@fluentui/react-components";
 import type { OptionOnSelectData } from "@fluentui/react-components";
 import React from "react";

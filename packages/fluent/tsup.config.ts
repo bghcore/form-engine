@@ -12,7 +12,7 @@ export default defineConfig({
     "react-hook-form",
     "@fluentui/react-components",
     "@fluentui/react-icons",
-    "@bghcore/dynamic-forms-core",
+    "@form-engine/core",
   ],
   jsx: "automatic",
 });

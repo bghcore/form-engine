@@ -1,4 +1,4 @@
-# AGENTS.md -- @bghcore/dynamic-forms-core
+# AGENTS.md -- @form-engine/core
 
 ## Package Purpose
 
@@ -111,7 +111,7 @@ RulesEngineProvider (useReducer for rules engine state)
 ### Adding a New Validation
 
 ```ts
-import { registerValidators } from "@bghcore/dynamic-forms-core";
+import { registerValidators } from "@form-engine/core";
 
 registerValidators({
   ZipCodeValidation: (value, entityData) => {
@@ -124,7 +124,7 @@ registerValidators({
 ### Adding a New Value Function
 
 ```ts
-import { registerValueFunctions } from "@bghcore/dynamic-forms-core";
+import { registerValueFunctions } from "@form-engine/core";
 
 registerValueFunctions({
   setDefaultPriority: ({ parentEntity }) => parentEntity?.defaultPriority ?? "Medium",
@@ -134,7 +134,7 @@ registerValueFunctions({
 ### Adding a New Locale
 
 ```ts
-import { registerLocale } from "@bghcore/dynamic-forms-core";
+import { registerLocale } from "@form-engine/core";
 
 registerLocale({
   saving: "Guardando...",

@@ -11,8 +11,8 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "paths": {
-      "@bghcore/dynamic-forms-core": ["../../packages/core/src"],
-      "@bghcore/dynamic-forms-fluent": ["../../packages/fluent/src"]
+      "@form-engine/core": ["../../packages/core/src"],
+      "@form-engine/fluent": ["../../packages/fluent/src"]
     }
   },
   "include": ["src/**/*"]

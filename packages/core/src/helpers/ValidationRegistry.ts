@@ -120,6 +120,36 @@ const maxKb: ValidatorFn = (value, params) => {
   return sizeKb > maxKbValue ? `Content exceeds maximum size of ${maxKbValue}KB` : undefined;
 };
 
+const exclusiveNumericRange: ValidatorFn = (value, params) => {
+  if (value == null || value === "") return undefined;
+  const num = typeof value === "number" ? value : Number(value);
+  if (isNaN(num)) return "Must be a number";
+  const exclMin = params?.exclusiveMin != null ? Number(params.exclusiveMin) : undefined;
+  const exclMax = params?.exclusiveMax != null ? Number(params.exclusiveMax) : undefined;
+  const min = params?.min != null ? Number(params.min) : undefined;
+  const max = params?.max != null ? Number(params.max) : undefined;
+  if (exclMin !== undefined && num <= exclMin) return `Must be greater than ${exclMin}`;
+  if (exclMax !== undefined && num >= exclMax) return `Must be less than ${exclMax}`;
+  if (min !== undefined && num < min) return `Must be at least ${min}`;
+  if (max !== undefined && num > max) return `Must be at most ${max}`;
+  return undefined;
+};
+
+const multipleOf: ValidatorFn = (value, params) => {
+  if (value == null || value === "") return undefined;
+  const num = typeof value === "number" ? value : Number(value);
+  if (isNaN(num)) return "Must be a number";
+  const factor = Number(params?.factor ?? 1);
+  if (factor === 0) return undefined;
+  // Use tolerance for floating-point arithmetic
+  const remainder = Math.abs(num % factor);
+  const tolerance = 1e-10;
+  if (remainder > tolerance && Math.abs(remainder - Math.abs(factor)) > tolerance) {
+    return `Must be a multiple of ${factor}`;
+  }
+  return undefined;
+};
+
 const requiredIf: ValidatorFn = (value, params, context) => {
   if (!params?.field || !params?.values) return undefined;
   const depValue = context.values[params.field as string];
@@ -146,6 +176,8 @@ const defaultValidators: Record<string, ValidatorFn> = {
   numericRange,
   pattern,
   maxKb,
+  exclusiveNumericRange,
+  multipleOf,
   requiredIf,
   // Legacy name aliases
   EmailValidation: email,

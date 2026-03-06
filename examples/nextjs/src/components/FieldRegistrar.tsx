@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect } from "react";
-import { UseInjectedHookFieldContext } from "@bghcore/dynamic-forms-core";
-import { createMuiFieldRegistry } from "@bghcore/dynamic-forms-mui";
+import { UseInjectedHookFieldContext } from "@form-engine/core";
+import { createMuiFieldRegistry } from "@form-engine/mui";
 
 export default function FieldRegistrar({ children }: { children: React.ReactNode }) {
   const { setInjectedFields } = UseInjectedHookFieldContext();

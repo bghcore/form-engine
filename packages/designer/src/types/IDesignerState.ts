@@ -2,7 +2,7 @@ import type {
   IFieldConfig,
   IWizardConfig,
   IFormSettings,
-} from "@bghcore/dynamic-forms-core";
+} from "@form-engine/core";
 
 /** Designer state managed by useReducer */
 export interface IDesignerState {

@@ -1,6 +1,6 @@
 # Dynamic Forms — Next.js Example
 
-A working Next.js app demonstrating [@bghcore/dynamic-forms-core](https://www.npmjs.com/package/@bghcore/dynamic-forms-core) with the MUI adapter.
+A working Next.js app demonstrating [@form-engine/core](https://www.npmjs.com/package/@form-engine/core) with the MUI adapter.
 
 ## Quick Start
 
@@ -21,4 +21,4 @@ Open [http://localhost:3000](http://localhost:3000) to see the examples.
 
 ## Deploy to Vercel
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/bghcore/dynamic-react-business-forms/tree/main/examples/nextjs)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/bghcore/form-engine/tree/main/examples/nextjs)

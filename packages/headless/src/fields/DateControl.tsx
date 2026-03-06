@@ -1,4 +1,4 @@
-import { IFieldProps, FormStrings } from "@bghcore/dynamic-forms-core";
+import { IFieldProps, FormStrings } from "@form-engine/core";
 import React from "react";
 import { GetFieldDataTestId, getFieldState, formatDateTime } from "../helpers";
 

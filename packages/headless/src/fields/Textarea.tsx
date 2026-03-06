@@ -1,4 +1,4 @@
-import { IFieldProps, FormStrings } from "@bghcore/dynamic-forms-core";
+import { IFieldProps, FormStrings } from "@form-engine/core";
 import React, { useState } from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";
 import { StatusMessage } from "../components/StatusMessage";

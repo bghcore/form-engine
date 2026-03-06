@@ -1,4 +1,4 @@
-import { IFieldProps } from "@bghcore/dynamic-forms-core";
+import { IFieldProps } from "@form-engine/core";
 import { Dropdown, Option } from "@fluentui/react-components";
 import type { OptionOnSelectData } from "@fluentui/react-components";
 import React from "react";

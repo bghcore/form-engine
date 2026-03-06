@@ -6,10 +6,10 @@ import {
   DynamicForm,
   WizardForm,
   useDraftPersistence,
-} from "@bghcore/dynamic-forms-core";
-import { createFluentFieldRegistry } from "@bghcore/dynamic-forms-fluent";
+} from "@form-engine/core";
+import { createFluentFieldRegistry } from "@form-engine/fluent";
 import { FluentProvider, webLightTheme } from "@fluentui/react-components";
-import type { IFormConfig } from "@bghcore/dynamic-forms-core";
+import type { IFormConfig } from "@form-engine/core";
 
 import { basicFormConfig, basicFormDefaults } from "./configs/basic-form";
 import { rulesFormConfig, rulesFormDefaults } from "./configs/rules-form";

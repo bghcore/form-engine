@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { Container, Typography, Paper, Button, Stack, Alert, Stepper, Step, StepLabel } from "@mui/material";
-import { HookWizardForm, getVisibleSteps } from "@bghcore/dynamic-forms-core";
-import type { IWizardStep } from "@bghcore/dynamic-forms-core";
+import { HookWizardForm, getVisibleSteps } from "@form-engine/core";
+import type { IWizardStep } from "@form-engine/core";
 
 const wizardConfig = {
   steps: [

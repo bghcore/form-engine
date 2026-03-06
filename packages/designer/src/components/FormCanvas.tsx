@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useRef } from "react";
-import type { IFieldConfig } from "@bghcore/dynamic-forms-core";
+import type { IFieldConfig } from "@form-engine/core";
 import { useDesigner } from "../state/useDesigner";
 
 export function FormCanvas() {

@@ -1,4 +1,4 @@
-import { IFieldProps } from "@bghcore/dynamic-forms-core";
+import { IFieldProps } from "@form-engine/core";
 import { Slider as MuiSlider } from "@mui/material";
 import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";

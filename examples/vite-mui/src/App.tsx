@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Container, Typography, Tabs, Tab, Box, Paper } from "@mui/material";
-import { UseInjectedHookFieldContext, HookInlineForm } from "@bghcore/dynamic-forms-core";
-import { createMuiFieldRegistry } from "@bghcore/dynamic-forms-mui";
+import { UseInjectedHookFieldContext, HookInlineForm } from "@form-engine/core";
+import { createMuiFieldRegistry } from "@form-engine/mui";
 import { basicFormConfig, basicDefaults } from "./configs/basicForm";
 import { businessRulesConfig, businessRulesDefaults } from "./configs/businessRulesForm";
 import { zodExampleConfig, zodExampleDefaults } from "./configs/zodForm";

@@ -12,7 +12,7 @@ import {
   getLocaleString,
   resetLocale,
   getCurrentLocale,
-} from "@bghcore/dynamic-forms-core";
+} from "@form-engine/core";
 
 // Register a partial locale override (unset keys fall back to English defaults)
 registerLocale({
@@ -226,7 +226,7 @@ Form Components                   <-- Read strings from FormStrings
 `FormStrings` maintains backward compatibility with code that reads string properties directly:
 
 ```typescript
-import { FormStrings } from "@bghcore/dynamic-forms-core";
+import { FormStrings } from "@form-engine/core";
 
 // This still works and automatically reflects locale overrides:
 const label = FormStrings.required; // "Obligatoire" if French locale registered
@@ -237,7 +237,7 @@ const label = FormStrings.required; // "Obligatoire" if French locale registered
 ## Full Locale Override Example
 
 ```typescript
-import { registerLocale } from "@bghcore/dynamic-forms-core";
+import { registerLocale } from "@form-engine/core";
 
 // Spanish locale (complete override)
 registerLocale({
@@ -332,7 +332,7 @@ registerLocale({
 Use `resetLocale()` in test setup/teardown to ensure clean state:
 
 ```typescript
-import { registerLocale, resetLocale, getLocaleString } from "@bghcore/dynamic-forms-core";
+import { registerLocale, resetLocale, getLocaleString } from "@form-engine/core";
 
 beforeEach(() => {
   resetLocale();

@@ -4,7 +4,7 @@ import type {
   IFormSettings,
   IRule,
   IWizardConfig,
-} from "@bghcore/dynamic-forms-core";
+} from "@form-engine/core";
 
 /** All designer action types */
 export enum DesignerActionType {

@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import type { IWizardConfig, IWizardStep } from "@bghcore/dynamic-forms-core";
+import type { IWizardConfig, IWizardStep } from "@form-engine/core";
 import { useDesigner } from "../state/useDesigner";
 
 export function WizardConfigurator() {

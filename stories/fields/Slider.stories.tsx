@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import SliderField from "@bghcore/dynamic-forms-fluent/fields/Slider";
+import SliderField from "@form-engine/fluent/fields/Slider";
 import { FormDecorator, createFieldProps } from "../helpers";
 
 /**

@@ -1,4 +1,4 @@
-import { FormConstants } from "@bghcore/dynamic-forms-core";
+import { FormConstants } from "@form-engine/core";
 import React from "react";
 
 interface IHookFormLoadingProps {

@@ -9,7 +9,7 @@ import type {
   IFormSettings,
   IRule,
   IWizardConfig,
-} from "@bghcore/dynamic-forms-core";
+} from "@form-engine/core";
 
 export interface IUseDesigner {
   state: IDesignerState;

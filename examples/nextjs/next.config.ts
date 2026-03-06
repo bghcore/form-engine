@@ -5,10 +5,10 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   // Prevent Next.js from resolving to the monorepo root node_modules
   outputFileTracingRoot: path.join(__dirname, "./"),
-  // Ensure @bghcore packages are transpiled from node_modules
+  // Ensure @form-engine packages are transpiled from node_modules
   transpilePackages: [
-    "@bghcore/dynamic-forms-core",
-    "@bghcore/dynamic-forms-mui",
+    "@form-engine/core",
+    "@form-engine/mui",
   ],
 };
 

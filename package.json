@@ -1,5 +1,5 @@
 {
-  "name": "dynamic-react-business-forms",
+  "name": "form-engine",
   "private": true,
   "workspaces": [
     "packages/*"
@@ -45,5 +45,5 @@
     "vite": "^7.3.1",
     "vitest": "^4.0.18"
   },
-  "version": "3.0.4"
+  "version": "1.0.0"
 }

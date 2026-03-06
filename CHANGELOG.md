@@ -63,9 +63,9 @@ Major release: new packages, tooling, and ecosystem expansion.
 
 ### Added
 
-- **`@bghcore/dynamic-forms-headless`** -- New unstyled adapter with all 19 field types using semantic HTML only. No UI framework dependency. `data-field-type` and `data-field-state` attributes for CSS targeting. Includes optional CSS custom properties and Tailwind CSS integration guide. (~36KB ESM)
-- **`@bghcore/dynamic-forms-designer`** -- Visual drag-and-drop form builder that outputs `IFormConfig` v2 JSON. Components: FieldPalette, FormCanvas, FieldConfigPanel, RuleBuilder (all 15 operators + AND/OR/NOT), WizardConfigurator, ConfigPreview, ImportExport. Undo/redo with 50-snapshot stack. HTML5 native drag-and-drop. (~65KB ESM)
-- **`@bghcore/dynamic-forms-examples`** -- Three complete example apps: Login+MFA (conditional visibility, dynamic labels), E-Commerce Checkout (wizard, dropdown dependencies, payment branching), Data Entry (field arrays, computed values, cross-field validation). Vite + React 19 + MUI.
+- **`@form-engine/headless`** -- New unstyled adapter with all 19 field types using semantic HTML only. No UI framework dependency. `data-field-type` and `data-field-state` attributes for CSS targeting. Includes optional CSS custom properties and Tailwind CSS integration guide. (~36KB ESM)
+- **`@form-engine/designer`** -- Visual drag-and-drop form builder that outputs `IFormConfig` v2 JSON. Components: FieldPalette, FormCanvas, FieldConfigPanel, RuleBuilder (all 15 operators + AND/OR/NOT), WizardConfigurator, ConfigPreview, ImportExport. Undo/redo with 50-snapshot stack. HTML5 native drag-and-drop. (~65KB ESM)
+- **`@form-engine/examples`** -- Three complete example apps: Login+MFA (conditional visibility, dynamic labels), E-Commerce Checkout (wizard, dropdown dependencies, payment branching), Data Entry (field arrays, computed values, cross-field validation). Vite + React 19 + MUI.
 - **Form analytics/telemetry** -- `IAnalyticsCallbacks` interface with 8 optional lifecycle callbacks (onFieldFocus, onFieldBlur, onFieldChange, onValidationError, onFormSubmit, onFormAbandonment, onWizardStepChange, onRuleTriggered). `useFormAnalytics` hook with memoized wrappers, focus time tracking, and form duration calculation. Zero overhead when not configured.
 - **FormDevTools: Performance tab** -- Per-field render count tracking via `RenderTracker` helper. Highlights "hot" fields rendering >1.5x average. Reset and refresh controls.
 - **FormDevTools: Dependency Graph tab** -- Visual adjacency table showing field dependencies. Color-coded by effect type (hidden/required/readOnly/options). Sortable by name or dependency count. Cycle detection.
@@ -199,7 +199,7 @@ TypeScript strict mode and MUI adapter.
 
 ### Added
 
-- **`@bghcore/dynamic-forms-mui`** — new package with 19 MUI field components (13 editable + 6 read-only), `createMuiFieldRegistry()`, supporting components, shared helpers.
+- **`@form-engine/mui`** — new package with 19 MUI field components (13 editable + 6 read-only), `createMuiFieldRegistry()`, supporting components, shared helpers.
 - **`normalizeFieldConfig()`** — maps deprecated `isReadonly` to `readOnly` with dev-mode console warning.
 - **`docs/creating-an-adapter.md`** — complete guide for building custom UI library adapters.
 - Better error messages: missing component lists available types, missing provider shows required hierarchy.
@@ -256,7 +256,7 @@ an internal monorepo) into two independent, publishable packages.
 ### Added
 
 - **Monorepo structure** with npm workspaces (`packages/core`, `packages/fluent`)
-- **`@bghcore/dynamic-forms-core`** -- UI-library agnostic business rules engine (React only, no UI library deps)
+- **`@form-engine/core`** -- UI-library agnostic business rules engine (React only, no UI library deps)
   - `BusinessRulesProvider` and `InjectedHookFieldProvider` React context providers
   - `ProcessAllBusinessRules`, `ProcessFieldBusinessRule`, and full rule evaluation pipeline
   - `HookInlineForm` component with auto-save, expand/collapse, and confirm-input modal
@@ -269,7 +269,7 @@ an internal monorepo) into two independent, publishable packages.
   - All TypeScript interfaces exported (`IFieldConfig`, `IBusinessRule`, `IHookFieldSharedProps`, etc.)
   - Local utility types replacing external dependencies (`Dictionary<T>`, `IEntityData`, `SubEntityType`)
   - Local utility functions (`isEmpty`, `isNull`, `deepCopy`, `sortDropdownOptions`, etc.)
-- **`@bghcore/dynamic-forms-fluent`** -- Fluent UI v8 field components
+- **`@form-engine/fluent`** -- Fluent UI v8 field components
   - 13 editable field components: Textbox, Number, Toggle, Dropdown, MultiSelect, DateControl, Slider, Fragment, SimpleDropdown, MultiSelectSearch, PopOutEditor, DocumentLinks, StatusDropdown
   - 6 read-only field components: ReadOnly, ReadOnlyArray, ReadOnlyDateTime, ReadOnlyCumulativeNumber, ReadOnlyRichText, ReadOnlyWithButton
   - Supporting components: ReadOnlyText, StatusMessage, HookFormLoading (Shimmer), StatusColor, StatusDropdown, DocumentLink, DocumentLinks
@@ -306,7 +306,7 @@ an internal monorepo) into two independent, publishable packages.
 - **Host-app coupled components**: HookInlineFormWrapper (data fetching), HookFormPanel (slide-out panel), HookFormBoundary (error boundary with hardcoded internal link)
 - **Panel system**: HookInlineFormPanelProvider, IHookFormPanelActionProps, IHookPanelConfig
 - **Domain-specific helpers**: People picker rendering, product taxonomy API, work item creation, block status change processing, customer resolution
-- `InjectComponents.tsx` (replaced by `@bghcore/dynamic-forms-fluent` `createFluentFieldRegistry()`)
+- `InjectComponents.tsx` (replaced by `@form-engine/fluent` `createFluentFieldRegistry()`)
 - `HookInlineForm.scss` (broken -- used undefined SCSS variables)
 - `rollup.config.js` (replaced by tsup)
 - Domain-specific strings and constants

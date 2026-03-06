@@ -1,4 +1,4 @@
-import { ComponentTypes, Dictionary } from "@bghcore/dynamic-forms-core";
+import { ComponentTypes, Dictionary } from "@form-engine/core";
 import Textbox from "./fields/Textbox";
 import Number from "./fields/Number";
 import Toggle from "./fields/Toggle";

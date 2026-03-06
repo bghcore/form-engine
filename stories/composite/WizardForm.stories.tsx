@@ -5,12 +5,12 @@ import {
   DynamicForm,
   UseInjectedFieldContext,
   IFormConfig,
-} from "@bghcore/dynamic-forms-core";
+} from "@form-engine/core";
 import type {
   IWizardNavigationProps,
   IWizardStepHeaderProps,
-} from "@bghcore/dynamic-forms-core";
-import { createFluentFieldRegistry } from "@bghcore/dynamic-forms-fluent";
+} from "@form-engine/core";
+import { createFluentFieldRegistry } from "@form-engine/fluent";
 import { Button } from "@fluentui/react-components";
 
 /**

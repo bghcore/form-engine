@@ -1,4 +1,4 @@
-import { FormConstants } from "@bghcore/dynamic-forms-core";
+import { FormConstants } from "@form-engine/core";
 import { Skeleton } from "@mui/material";
 import React from "react";
 

@@ -1,4 +1,4 @@
-import { IFieldProps, FormStrings } from "@bghcore/dynamic-forms-core";
+import { IFieldProps, FormStrings } from "@form-engine/core";
 import {
   TextField, Button, Dialog, DialogTitle, DialogContent, DialogActions, IconButton,
 } from "@mui/material";

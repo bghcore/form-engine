@@ -1,6 +1,6 @@
 # SSR / Next.js Integration Guide
 
-This guide covers server-side rendering (SSR) compatibility for `@bghcore/dynamic-forms-core` and the UI adapter packages (`dynamic-forms-fluent`, `dynamic-forms-mui`).
+This guide covers server-side rendering (SSR) compatibility for `@form-engine/core` and the UI adapter packages (`dynamic-forms-fluent`, `dynamic-forms-mui`).
 
 ## SSR Compatibility Status
 
@@ -38,8 +38,8 @@ import {
   DynamicForm,
   RulesEngineProvider,
   InjectedFieldProvider,
-} from "@bghcore/dynamic-forms-core";
-import { fluentFieldRegistry } from "@bghcore/dynamic-forms-fluent";
+} from "@form-engine/core";
+import { fluentFieldRegistry } from "@form-engine/fluent";
 
 const formConfig = {
   version: 2 as const,
@@ -95,8 +95,8 @@ export default async function Page() {
 ```tsx
 "use client";
 
-import { DynamicForm, useDraftPersistence, RulesEngineProvider, InjectedFieldProvider } from "@bghcore/dynamic-forms-core";
-import { fluentFieldRegistry } from "@bghcore/dynamic-forms-fluent";
+import { DynamicForm, useDraftPersistence, RulesEngineProvider, InjectedFieldProvider } from "@form-engine/core";
+import { fluentFieldRegistry } from "@form-engine/fluent";
 
 export function MyFormWithDrafts({ defaultValues }: { defaultValues: Record<string, unknown> }) {
   const { recoverDraft, clearDraft, hasDraft } = useDraftPersistence({
@@ -141,8 +141,8 @@ import {
   DynamicForm,
   RulesEngineProvider,
   InjectedFieldProvider,
-} from "@bghcore/dynamic-forms-core";
-import { fluentFieldRegistry } from "@bghcore/dynamic-forms-fluent";
+} from "@form-engine/core";
+import { fluentFieldRegistry } from "@form-engine/fluent";
 import type { GetServerSideProps } from "next";
 
 interface Props {
@@ -306,8 +306,8 @@ To verify your form renders without errors during SSR, you can test with `render
 
 ```tsx
 import { renderToString } from "react-dom/server";
-import { RulesEngineProvider, InjectedFieldProvider, DynamicForm } from "@bghcore/dynamic-forms-core";
-import { fluentFieldRegistry } from "@bghcore/dynamic-forms-fluent";
+import { RulesEngineProvider, InjectedFieldProvider, DynamicForm } from "@form-engine/core";
+import { fluentFieldRegistry } from "@form-engine/fluent";
 
 test("form renders without errors during SSR", () => {
   const html = renderToString(

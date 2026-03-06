@@ -1,4 +1,4 @@
-import { IFieldProps, isNull } from "@bghcore/dynamic-forms-core";
+import { IFieldProps, isNull } from "@form-engine/core";
 import { Input } from "@fluentui/react-components";
 import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";

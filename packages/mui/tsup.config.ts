@@ -13,7 +13,7 @@ export default defineConfig({
     "@mui/material",
     "@emotion/react",
     "@emotion/styled",
-    "@bghcore/dynamic-forms-core",
+    "@form-engine/core",
   ],
   jsx: "automatic",
 });

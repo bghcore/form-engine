@@ -10,7 +10,7 @@ export default defineConfig({
     "react",
     "react-dom",
     "react-hook-form",
-    "@bghcore/dynamic-forms-core",
+    "@form-engine/core",
   ],
   jsx: "automatic",
 });

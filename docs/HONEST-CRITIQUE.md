@@ -1,4 +1,4 @@
-# Honest Critique: dynamic-react-business-forms
+# Honest Critique: form-engine
 
 An unfiltered assessment of the library's design, code quality, and remaining technical debt. Updated to reflect the current state after the v0.1.0 restructure.
 

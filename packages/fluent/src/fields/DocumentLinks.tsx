@@ -1,4 +1,4 @@
-import { IFieldProps } from "@bghcore/dynamic-forms-core";
+import { IFieldProps } from "@form-engine/core";
 import React from "react";
 import { useFormContext } from "react-hook-form";
 import DocumentLinks, { IDocumentLink } from "../components/DocumentLinks/DocumentLinks";

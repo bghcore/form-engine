@@ -1,4 +1,4 @@
-import { IFormConfig } from "@bghcore/dynamic-forms-core";
+import { IFormConfig } from "@form-engine/core";
 
 /**
  * E-Commerce Checkout Configuration (Wizard Mode)

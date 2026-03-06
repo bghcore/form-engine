@@ -1,6 +1,6 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import ReadOnlyDateTime from "@bghcore/dynamic-forms-fluent/fields/readonly/ReadOnlyDateTime";
+import ReadOnlyDateTime from "@form-engine/fluent/fields/readonly/ReadOnlyDateTime";
 import { FormDecorator, createFieldProps } from "../../helpers";
 
 /**

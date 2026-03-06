@@ -1,5 +1,5 @@
-import { Dictionary } from "@bghcore/dynamic-forms-core";
-import type { IFieldConfig } from "@bghcore/dynamic-forms-core";
+import { Dictionary } from "@form-engine/core";
+import type { IFieldConfig } from "@form-engine/core";
 
 export const basicFormConfig: Dictionary<IFieldConfig> = {
   name: { component: "Textbox", label: "Full Name", required: true },

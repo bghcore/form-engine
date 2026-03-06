@@ -1,4 +1,4 @@
-import { IFieldProps, Dictionary } from "@bghcore/dynamic-forms-core";
+import { IFieldProps, Dictionary } from "@form-engine/core";
 import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";
 import { GetFieldDataTestId, getFieldState } from "../helpers";

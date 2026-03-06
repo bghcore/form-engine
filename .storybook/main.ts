@@ -21,11 +21,11 @@ const config: StorybookConfig = {
         ...config.resolve,
         alias: {
           ...config.resolve?.alias,
-          "@bghcore/dynamic-forms-core": resolve(
+          "@form-engine/core": resolve(
             __dirname_,
             "../packages/core/src"
           ),
-          "@bghcore/dynamic-forms-fluent": resolve(
+          "@form-engine/fluent": resolve(
             __dirname_,
             "../packages/fluent/src"
           ),

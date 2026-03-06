@@ -1,6 +1,6 @@
-# Accessibility (WCAG 2.1 AA) -- @bghcore/dynamic-forms
+# Accessibility (WCAG 2.1 AA) -- @form-engine
 
-This document covers the WCAG 2.1 Level AA compliance status of the dynamic-react-business-forms library, including what is supported, known gaps, and guidance for consumers.
+This document covers the WCAG 2.1 Level AA compliance status of the form-engine library, including what is supported, known gaps, and guidance for consumers.
 
 ## Compliance Summary
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { Container, Typography, Paper, Alert } from "@mui/material";
-import { HookInlineForm } from "@bghcore/dynamic-forms-core";
+import { HookInlineForm } from "@form-engine/core";
 import FieldRegistrar from "@/components/FieldRegistrar";
 
 const fieldConfigs = {

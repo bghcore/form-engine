@@ -15,9 +15,9 @@ import {
   DynamicForm,
   WizardForm,
   UseRulesEngineContext,
-} from "@bghcore/dynamic-forms-core";
-import type { IWizardNavigationProps } from "@bghcore/dynamic-forms-core";
-import { createMuiFieldRegistry } from "@bghcore/dynamic-forms-mui";
+} from "@form-engine/core";
+import type { IWizardNavigationProps } from "@form-engine/core";
+import { createMuiFieldRegistry } from "@form-engine/mui";
 import { checkoutFormConfig } from "./checkoutConfig";
 
 /**

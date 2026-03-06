@@ -1,4 +1,4 @@
-import type { IFormConfig } from "@bghcore/dynamic-forms-core";
+import type { IFormConfig } from "@form-engine/core";
 
 /**
  * Form with a repeating FieldArray section:

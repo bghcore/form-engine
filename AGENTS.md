@@ -29,12 +29,12 @@ Monorepo using npm workspaces. Six packages:
 
 ```
 packages/
-  core/      -- @bghcore/dynamic-forms-core (React + react-hook-form, NO UI library deps)
-  fluent/    -- @bghcore/dynamic-forms-fluent (Fluent UI v9 field components)
-  mui/       -- @bghcore/dynamic-forms-mui (Material UI field components)
-  headless/  -- @bghcore/dynamic-forms-headless (unstyled semantic HTML field components)
-  designer/  -- @bghcore/dynamic-forms-designer (visual drag-and-drop form builder)
-  examples/  -- @bghcore/dynamic-forms-examples (3 example apps: login+MFA, checkout wizard, data entry)
+  core/      -- @form-engine/core (React + react-hook-form, NO UI library deps)
+  fluent/    -- @form-engine/fluent (Fluent UI v9 field components)
+  mui/       -- @form-engine/mui (Material UI field components)
+  headless/  -- @form-engine/headless (unstyled semantic HTML field components)
+  designer/  -- @form-engine/designer (visual drag-and-drop form builder)
+  examples/  -- @form-engine/examples (3 example apps: login+MFA, checkout wizard, data entry)
 docs/
   creating-an-adapter.md      -- Guide for building custom UI library adapters
   ACCESSIBILITY.md            -- Accessibility guide (ARIA, keyboard, screen readers)

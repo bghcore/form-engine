@@ -1,13 +1,13 @@
 # Dynamic React Business Forms
 
-[![npm core](https://img.shields.io/npm/v/@bghcore/dynamic-forms-core?label=core)](https://www.npmjs.com/package/@bghcore/dynamic-forms-core)
-[![npm fluent](https://img.shields.io/npm/v/@bghcore/dynamic-forms-fluent?label=fluent)](https://www.npmjs.com/package/@bghcore/dynamic-forms-fluent)
-[![npm mui](https://img.shields.io/npm/v/@bghcore/dynamic-forms-mui?label=mui)](https://www.npmjs.com/package/@bghcore/dynamic-forms-mui)
-[![npm headless](https://img.shields.io/npm/v/@bghcore/dynamic-forms-headless?label=headless)](https://www.npmjs.com/package/@bghcore/dynamic-forms-headless)
-[![npm designer](https://img.shields.io/npm/v/@bghcore/dynamic-forms-designer?label=designer)](https://www.npmjs.com/package/@bghcore/dynamic-forms-designer)
-[![CI](https://github.com/bghcore/dynamic-react-business-forms/actions/workflows/ci.yml/badge.svg)](https://github.com/bghcore/dynamic-react-business-forms/actions/workflows/ci.yml)
+[![npm core](https://img.shields.io/npm/v/@form-engine/core?label=core)](https://www.npmjs.com/package/@form-engine/core)
+[![npm fluent](https://img.shields.io/npm/v/@form-engine/fluent?label=fluent)](https://www.npmjs.com/package/@form-engine/fluent)
+[![npm mui](https://img.shields.io/npm/v/@form-engine/mui?label=mui)](https://www.npmjs.com/package/@form-engine/mui)
+[![npm headless](https://img.shields.io/npm/v/@form-engine/headless?label=headless)](https://www.npmjs.com/package/@form-engine/headless)
+[![npm designer](https://img.shields.io/npm/v/@form-engine/designer?label=designer)](https://www.npmjs.com/package/@form-engine/designer)
+[![CI](https://github.com/bghcore/form-engine/actions/workflows/ci.yml/badge.svg)](https://github.com/bghcore/form-engine/actions/workflows/ci.yml)
 
-[Storybook](https://bghcore.github.io/dynamic-react-business-forms/storybook/) | [Designer Demo](https://bghcore.github.io/dynamic-react-business-forms/designer/) | [npm](https://www.npmjs.com/org/bghcore)
+[Storybook](https://bghcore.github.io/form-engine/storybook/) | [Designer Demo](https://bghcore.github.io/form-engine/designer/) | [npm](https://www.npmjs.com/org/bghcore)
 
 A React library for rendering complex, configuration-driven forms with a built-in rules engine. Define your forms as a single `IFormConfig` JSON object -- field definitions, declarative rules with rich conditions, validation, ordering -- and the library handles rendering, validation, auto-save, and field interactions automatically.
 
@@ -30,24 +30,24 @@ A React library for rendering complex, configuration-driven forms with a built-i
 
 | Package | Description | Size |
 |---------|-------------|------|
-| [`@bghcore/dynamic-forms-core`](./packages/core) | UI-agnostic rules engine, form orchestration, validation, analytics, devtools. React + react-hook-form only, no UI library dependency. | ~114 KB ESM |
-| [`@bghcore/dynamic-forms-fluent`](./packages/fluent) | Fluent UI v9 field components (19 field types). | ~39 KB ESM |
-| [`@bghcore/dynamic-forms-mui`](./packages/mui) | Material UI field components (19 field types). | ~39 KB ESM |
-| [`@bghcore/dynamic-forms-headless`](./packages/headless) | Unstyled semantic HTML field components (19 field types). | ~36 KB ESM |
-| [`@bghcore/dynamic-forms-designer`](./packages/designer) | Visual drag-and-drop form builder with rule editor and JSON export. | ~65 KB ESM |
-| [`@bghcore/dynamic-forms-examples`](./packages/examples) | 3 example apps (login+MFA, checkout wizard, data entry). | -- |
+| [`@form-engine/core`](./packages/core) | UI-agnostic rules engine, form orchestration, validation, analytics, devtools. React + react-hook-form only, no UI library dependency. | ~114 KB ESM |
+| [`@form-engine/fluent`](./packages/fluent) | Fluent UI v9 field components (19 field types). | ~39 KB ESM |
+| [`@form-engine/mui`](./packages/mui) | Material UI field components (19 field types). | ~39 KB ESM |
+| [`@form-engine/headless`](./packages/headless) | Unstyled semantic HTML field components (19 field types). | ~36 KB ESM |
+| [`@form-engine/designer`](./packages/designer) | Visual drag-and-drop form builder with rule editor and JSON export. | ~65 KB ESM |
+| [`@form-engine/examples`](./packages/examples) | 3 example apps (login+MFA, checkout wizard, data entry). | -- |
 
 ## Quick Start
 
 ```bash
 # With Fluent UI
-npm install @bghcore/dynamic-forms-core @bghcore/dynamic-forms-fluent
+npm install @form-engine/core @form-engine/fluent
 
 # Or with MUI
-npm install @bghcore/dynamic-forms-core @bghcore/dynamic-forms-mui @mui/material @emotion/react @emotion/styled
+npm install @form-engine/core @form-engine/mui @mui/material @emotion/react @emotion/styled
 
 # Or headless (no UI framework)
-npm install @bghcore/dynamic-forms-core @bghcore/dynamic-forms-headless
+npm install @form-engine/core @form-engine/headless
 ```
 
 ```tsx
@@ -55,10 +55,10 @@ import {
   RulesEngineProvider,
   InjectedFieldProvider,
   DynamicForm,
-} from "@bghcore/dynamic-forms-core";
-import { createFluentFieldRegistry } from "@bghcore/dynamic-forms-fluent";
-// Or: import { createMuiFieldRegistry } from "@bghcore/dynamic-forms-mui";
-// Or: import { createHeadlessFieldRegistry } from "@bghcore/dynamic-forms-headless";
+} from "@form-engine/core";
+import { createFluentFieldRegistry } from "@form-engine/fluent";
+// Or: import { createMuiFieldRegistry } from "@form-engine/mui";
+// Or: import { createHeadlessFieldRegistry } from "@form-engine/headless";
 
 const formConfig = {
   version: 2 as const,
@@ -210,7 +210,7 @@ fields: {
 Split forms into wizard steps with conditional visibility and per-step validation:
 
 ```tsx
-import { WizardForm } from "@bghcore/dynamic-forms-core";
+import { WizardForm } from "@form-engine/core";
 
 const formConfig = {
   version: 2 as const,
@@ -250,7 +250,7 @@ All fields stay in a single `react-hook-form` context. Steps control which field
 Add "add another" patterns for addresses, line items, etc.:
 
 ```tsx
-import { FieldArray } from "@bghcore/dynamic-forms-core";
+import { FieldArray } from "@form-engine/core";
 
 <FieldArray
   fieldName="contacts"
@@ -282,13 +282,13 @@ The library uses a component injection system for field rendering. Core provides
 
 ```tsx
 // Use built-in Fluent UI fields
-import { createFluentFieldRegistry } from "@bghcore/dynamic-forms-fluent";
+import { createFluentFieldRegistry } from "@form-engine/fluent";
 
 // Or use MUI fields (swap with one line)
-import { createMuiFieldRegistry } from "@bghcore/dynamic-forms-mui";
+import { createMuiFieldRegistry } from "@form-engine/mui";
 
 // Or use headless semantic HTML fields
-import { createHeadlessFieldRegistry } from "@bghcore/dynamic-forms-headless";
+import { createHeadlessFieldRegistry } from "@form-engine/headless";
 
 // Pass via the injectedFields prop
 <InjectedFieldProvider injectedFields={createFluentFieldRegistry()}>
@@ -309,7 +309,7 @@ import {
   registerValidators,
   createMinLengthValidation,
   createPatternValidation,
-} from "@bghcore/dynamic-forms-core";
+} from "@form-engine/core";
 
 // Register built-in factory validators
 registerValidators({
@@ -357,7 +357,7 @@ Built-in validators: `EmailValidation`, `PhoneNumberValidation`, `YearValidation
 All user-facing strings are localizable:
 
 ```tsx
-import { registerLocale } from "@bghcore/dynamic-forms-core";
+import { registerLocale } from "@form-engine/core";
 
 registerLocale({
   required: "Obligatoire",
@@ -409,7 +409,7 @@ A collapsible dev-only panel with 7 tabs for debugging form state at runtime:
 | **Timeline** | Chronological event log with filtering (via `EventTimeline`) |
 
 ```tsx
-import { FormDevTools } from "@bghcore/dynamic-forms-core";
+import { FormDevTools } from "@form-engine/core";
 
 <FormDevTools
   configName="myForm"
@@ -426,7 +426,7 @@ import { FormDevTools } from "@bghcore/dynamic-forms-core";
 Catch configuration errors early:
 
 ```tsx
-import { validateFieldConfigs } from "@bghcore/dynamic-forms-core";
+import { validateFieldConfigs } from "@form-engine/core";
 
 const errors = validateFieldConfigs(fieldConfigs, registeredComponentTypes);
 // Returns: missing dependency targets, unregistered components,
@@ -438,7 +438,7 @@ const errors = validateFieldConfigs(fieldConfigs, registeredComponentTypes);
 Each field is individually wrapped in a `FormErrorBoundary` so a single field crash does not take down the entire form:
 
 ```tsx
-import { FormErrorBoundary } from "@bghcore/dynamic-forms-core";
+import { FormErrorBoundary } from "@form-engine/core";
 
 <FormErrorBoundary
   fallback={(error, resetErrorBoundary) => (
@@ -520,7 +520,7 @@ Built-in accessibility features:
 Auto-save form state to localStorage for recovery after accidental page closures:
 
 ```tsx
-import { useDraftPersistence, useBeforeUnload } from "@bghcore/dynamic-forms-core";
+import { useDraftPersistence, useBeforeUnload } from "@form-engine/core";
 
 function MyForm() {
   const { isDirty, formValues } = useFormState();
@@ -585,8 +585,8 @@ Form-level error banner via `formErrors` prop on `DynamicForm`:
 The headless package renders all 19 field types using native HTML elements with `data-field-type` and `data-field-state` attributes for CSS targeting. No UI framework required.
 
 ```tsx
-import { createHeadlessFieldRegistry } from "@bghcore/dynamic-forms-headless";
-import "@bghcore/dynamic-forms-headless/styles.css"; // optional minimal styles
+import { createHeadlessFieldRegistry } from "@form-engine/headless";
+import "@form-engine/headless/styles.css"; // optional minimal styles
 
 <InjectedFieldProvider injectedFields={createHeadlessFieldRegistry()}>
 ```
@@ -611,8 +611,8 @@ See the [headless package README](./packages/headless/README.md) for full detail
 The designer package provides a drag-and-drop form builder that exports valid `IFormConfig` v2 JSON:
 
 ```tsx
-import { DesignerProvider, FormDesigner } from "@bghcore/dynamic-forms-designer";
-import "@bghcore/dynamic-forms-designer/dist/styles.css";
+import { DesignerProvider, FormDesigner } from "@form-engine/designer";
+import "@form-engine/designer/dist/styles.css";
 
 function Builder() {
   return (
@@ -640,7 +640,7 @@ See the [SSR / Next.js integration guide](./docs/ssr-guide.md) for full setup in
 Convert JSON Schema to field configs for rapid prototyping or schema-driven forms:
 
 ```tsx
-import { jsonSchemaToFieldConfig } from "@bghcore/dynamic-forms-core";
+import { jsonSchemaToFieldConfig } from "@form-engine/core";
 
 const fieldConfigs = jsonSchemaToFieldConfig({
   type: "object",
@@ -659,7 +659,7 @@ const fieldConfigs = jsonSchemaToFieldConfig({
 Convert Zod object schemas to field configs without adding zod as a dependency:
 
 ```tsx
-import { zodSchemaToFieldConfig } from "@bghcore/dynamic-forms-core";
+import { zodSchemaToFieldConfig } from "@form-engine/core";
 import { z } from "zod";
 
 const UserSchema = z.object({
@@ -685,7 +685,7 @@ No `zod` peer dependency is required. If you do not use Zod, this function is tr
 Load field components on demand using React.lazy for bundle optimization:
 
 ```tsx
-import { createLazyFieldRegistry } from "@bghcore/dynamic-forms-core";
+import { createLazyFieldRegistry } from "@form-engine/core";
 
 const lazyFields = createLazyFieldRegistry({
   Textbox: () => import("./fields/HookTextbox"),
@@ -789,11 +789,11 @@ npm run clean
 
 ```
 packages/
-  core/       -- @bghcore/dynamic-forms-core (React + react-hook-form only)
-  fluent/     -- @bghcore/dynamic-forms-fluent (Fluent UI v9 adapter)
-  mui/        -- @bghcore/dynamic-forms-mui (Material UI adapter)
-  headless/   -- @bghcore/dynamic-forms-headless (semantic HTML adapter)
-  designer/   -- @bghcore/dynamic-forms-designer (visual form builder)
+  core/       -- @form-engine/core (React + react-hook-form only)
+  fluent/     -- @form-engine/fluent (Fluent UI v9 adapter)
+  mui/        -- @form-engine/mui (Material UI adapter)
+  headless/   -- @form-engine/headless (semantic HTML adapter)
+  designer/   -- @form-engine/designer (visual form builder)
   examples/   -- 3 example apps (login+MFA, checkout wizard, data entry)
 e2e/          -- Playwright end-to-end tests
 benchmarks/   -- Vitest benchmarks for rules engine performance

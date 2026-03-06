@@ -63,7 +63,7 @@ import {
   disableRuleTracing,
   getRuleTraceLog,
   clearRuleTraceLog,
-} from "@bghcore/dynamic-forms-core";
+} from "@form-engine/core";
 
 // Enable tracing (starts recording all rule events)
 enableRuleTracing();
@@ -123,7 +123,7 @@ enableRuleTracing((event) => {
 ### Checking Tracing Status
 
 ```typescript
-import { isRuleTracingEnabled } from "@bghcore/dynamic-forms-core";
+import { isRuleTracingEnabled } from "@form-engine/core";
 
 if (isRuleTracingEnabled()) {
   console.log("Tracing is active");
@@ -139,7 +139,7 @@ The built-in DevTools panel provides a visual inspector for business rules, form
 ### Usage
 
 ```typescript
-import { FormDevTools } from "@bghcore/dynamic-forms-core";
+import { FormDevTools } from "@form-engine/core";
 
 function MyForm() {
   // Inside your form component, after useForm() and business rules init:
@@ -192,7 +192,7 @@ The `validateFieldConfigs()` function checks field configurations for common iss
 ### Usage
 
 ```typescript
-import { validateFieldConfigs } from "@bghcore/dynamic-forms-core";
+import { validateFieldConfigs } from "@form-engine/core";
 
 const errors = validateFieldConfigs(fieldConfigs, registeredComponents);
 
@@ -282,7 +282,7 @@ enableRuleTracing((event) => {
 The engine detects cycles at initialization time and logs a warning. To identify the cycle:
 
 ```typescript
-import { validateFieldConfigs } from "@bghcore/dynamic-forms-core";
+import { validateFieldConfigs } from "@form-engine/core";
 
 const errors = validateFieldConfigs(fieldConfigs);
 const cycles = errors.filter(e => e.type === "circular_dependency");

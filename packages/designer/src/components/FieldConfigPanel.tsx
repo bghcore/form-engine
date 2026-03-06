@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
-import { ComponentTypes } from "@bghcore/dynamic-forms-core";
-import type { IOption, IValidationRule } from "@bghcore/dynamic-forms-core";
+import { ComponentTypes } from "@form-engine/core";
+import type { IOption, IValidationRule } from "@form-engine/core";
 import { useDesigner } from "../state/useDesigner";
 
 /** All available component types */

@@ -5,7 +5,7 @@ import type {
   IFieldCondition,
   ILogicalCondition,
   IFieldEffect,
-} from "@bghcore/dynamic-forms-core";
+} from "@form-engine/core";
 import { useDesigner } from "../state/useDesigner";
 
 /** All field condition operators */

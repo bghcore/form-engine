@@ -34,7 +34,7 @@ function getBundleInfo(packageName: string): BundleInfo {
   const dtsBytes = getFileSize(path.join(distDir, "index.d.ts"));
 
   return {
-    name: `@bghcore/dynamic-forms-${packageName}`,
+    name: `@form-engine/${packageName}`,
     cjsBytes,
     esmBytes,
     dtsBytes,

@@ -8,7 +8,7 @@ import {
 import {
   RulesEngineProvider,
   InjectedFieldProvider,
-} from "@bghcore/dynamic-forms-core";
+} from "@form-engine/core";
 
 /** Wraps every story with Fluent UI theming + the required library providers */
 const withProviders: Decorator = (Story, context) => {

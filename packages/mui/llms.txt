@@ -1,12 +1,12 @@
-# @bghcore/dynamic-forms-mui
+# @form-engine/mui
 
-> Material UI (MUI) field components for @bghcore/dynamic-forms-core. Provides 13 editable and 6 read-only field types plus a one-line registry setup.
+> Material UI (MUI) field components for @form-engine/core. Provides 13 editable and 6 read-only field types plus a one-line registry setup.
 
-- Docs: [README](https://github.com/bghcore/dynamic-react-business-forms/tree/main/packages/mui/README.md)
-- Agent instructions: [AGENTS.md](https://github.com/bghcore/dynamic-react-business-forms/tree/main/packages/mui/AGENTS.md)
-- npm: [@bghcore/dynamic-forms-mui](https://www.npmjs.com/package/@bghcore/dynamic-forms-mui)
+- Docs: [README](https://github.com/bghcore/form-engine/tree/main/packages/mui/README.md)
+- Agent instructions: [AGENTS.md](https://github.com/bghcore/form-engine/tree/main/packages/mui/AGENTS.md)
+- npm: [@form-engine/mui](https://www.npmjs.com/package/@form-engine/mui)
 - License: MIT
-- Peer dependencies: `react`, `react-dom`, `react-hook-form`, `@mui/material` (v5 or v6), `@bghcore/dynamic-forms-core`
+- Peer dependencies: `react`, `react-dom`, `react-hook-form`, `@mui/material` (v5 or v6), `@form-engine/core`
 - Required runtime dependencies: `@emotion/react`, `@emotion/styled` (MUI peer deps)
 
 ## API Surface
@@ -64,8 +64,8 @@ import {
   InjectedFieldProvider,
   DynamicForm,
   IFormConfig,
-} from "@bghcore/dynamic-forms-core";
-import { createMuiFieldRegistry } from "@bghcore/dynamic-forms-mui";
+} from "@form-engine/core";
+import { createMuiFieldRegistry } from "@form-engine/mui";
 
 const theme = createTheme();
 

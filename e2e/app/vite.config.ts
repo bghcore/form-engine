@@ -6,8 +6,8 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      "@bghcore/dynamic-forms-core": path.resolve(__dirname, "../../packages/core/src"),
-      "@bghcore/dynamic-forms-fluent": path.resolve(__dirname, "../../packages/fluent/src"),
+      "@form-engine/core": path.resolve(__dirname, "../../packages/core/src"),
+      "@form-engine/fluent": path.resolve(__dirname, "../../packages/fluent/src"),
     },
   },
   server: {

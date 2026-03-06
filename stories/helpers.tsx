@@ -3,8 +3,8 @@ import { FormProvider, useForm } from "react-hook-form";
 import {
   UseInjectedFieldContext,
   IFieldProps,
-} from "@bghcore/dynamic-forms-core";
-import { createFluentFieldRegistry } from "@bghcore/dynamic-forms-fluent";
+} from "@form-engine/core";
+import { createFluentFieldRegistry } from "@form-engine/fluent";
 
 /**
  * Wraps a story in react-hook-form's FormProvider and registers the

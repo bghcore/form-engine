@@ -4,8 +4,8 @@ import {
   DynamicForm,
   UseInjectedFieldContext,
   IFormConfig,
-} from "@bghcore/dynamic-forms-core";
-import { createFluentFieldRegistry } from "@bghcore/dynamic-forms-fluent";
+} from "@form-engine/core";
+import { createFluentFieldRegistry } from "@form-engine/fluent";
 
 /**
  * **DynamicForm** is the main form component. It accepts an `IFormConfig`

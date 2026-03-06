@@ -1,6 +1,6 @@
 # Validators Reference
 
-This document covers all validation capabilities in `dynamic-react-business-forms`, including the 9 built-in sync validators, 5 factory functions for creating parameterized validators, async validation support, cross-field validation, and patterns for writing custom validators.
+This document covers all validation capabilities in `form-engine`, including the 9 built-in sync validators, 5 factory functions for creating parameterized validators, async validation support, cross-field validation, and patterns for writing custom validators.
 
 All validation infrastructure is in `packages/core/src/helpers/ValidationRegistry.ts`.
 
@@ -148,7 +148,7 @@ Creates a validator that checks whether the string value has at least `min` char
 
 **Example:**
 ```typescript
-import { registerValidators, createMinLengthValidation } from "@bghcore/dynamic-forms-core";
+import { registerValidators, createMinLengthValidation } from "@form-engine/core";
 
 registerValidators({
   MinLength5: createMinLengthValidation(5),
@@ -180,7 +180,7 @@ Creates a validator that checks whether the string value has at most `max` chara
 
 **Example:**
 ```typescript
-import { registerValidators, createMaxLengthValidation } from "@bghcore/dynamic-forms-core";
+import { registerValidators, createMaxLengthValidation } from "@form-engine/core";
 
 registerValidators({
   MaxLength50: createMaxLengthValidation(50),
@@ -212,7 +212,7 @@ Creates a validator that checks whether the value (parsed as a number) falls wit
 
 **Example:**
 ```typescript
-import { registerValidators, createNumericRangeValidation } from "@bghcore/dynamic-forms-core";
+import { registerValidators, createNumericRangeValidation } from "@form-engine/core";
 
 registerValidators({
   PercentageRange: createNumericRangeValidation(0, 100),
@@ -244,7 +244,7 @@ Creates a validator that tests the string value against a custom regex. Returns 
 
 **Example:**
 ```typescript
-import { registerValidators, createPatternValidation } from "@bghcore/dynamic-forms-core";
+import { registerValidators, createPatternValidation } from "@form-engine/core";
 
 registerValidators({
   AlphaOnly: createPatternValidation(/^[a-zA-Z]+$/, "Only letters are allowed"),
@@ -278,7 +278,7 @@ Creates a cross-field-aware sync validator that makes the current field required
 
 **Example:**
 ```typescript
-import { registerValidators, createRequiredIfValidation } from "@bghcore/dynamic-forms-core";
+import { registerValidators, createRequiredIfValidation } from "@form-engine/core";
 
 registerValidators({
   RequiredIfStatusActive: createRequiredIfValidation("status", ["Active", "InProgress"]),
@@ -305,7 +305,7 @@ Async validators are used for server-side validation (e.g., uniqueness checks, A
 ### Registration
 
 ```typescript
-import { registerValidators, ValidatorFn } from "@bghcore/dynamic-forms-core";
+import { registerValidators, ValidatorFn } from "@form-engine/core";
 
 const checkUniqueEmail: ValidatorFn = async (value, entityData, signal) => {
   if (!value || typeof value !== "string") return undefined;
@@ -398,7 +398,7 @@ import {
   registerValidators,
   createMinLengthValidation,
   ValidatorFn,
-} from "@bghcore/dynamic-forms-core";
+} from "@form-engine/core";
 
 // Register sync validators first (fast fail)
 registerValidators({
@@ -453,7 +453,7 @@ Cross-field validators receive all form values and can validate relationships be
 ### Registration
 
 ```typescript
-import { registerValidators, ValidatorFn } from "@bghcore/dynamic-forms-core";
+import { registerValidators, ValidatorFn } from "@form-engine/core";
 
 const dateRangeValidation: ValidatorFn = (value, allValues) => {
   const startDate = allValues?.["startDate"] as string;
@@ -546,7 +546,7 @@ const budgetLimitValidation: ValidatorFn = (value, allValues) => {
 A sync validator is a function that takes a value and optional entity data, and returns `undefined` for valid or a `string` error message for invalid.
 
 ```typescript
-import { registerValidators, ValidatorFn } from "@bghcore/dynamic-forms-core";
+import { registerValidators, ValidatorFn } from "@form-engine/core";
 
 // Simple value-only validator
 const noWhitespace: ValidatorFn = (value) => {
@@ -574,7 +574,7 @@ registerValidators({
 An async validator returns a `Promise<string | undefined>`. Always handle the `AbortSignal` parameter.
 
 ```typescript
-import { registerValidators, ValidatorFn } from "@bghcore/dynamic-forms-core";
+import { registerValidators, ValidatorFn } from "@form-engine/core";
 
 const validatePostalCode: ValidatorFn = async (value, entityData, signal) => {
   if (!value || typeof value !== "string") return undefined;

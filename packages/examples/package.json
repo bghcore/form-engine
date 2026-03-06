@@ -1,8 +1,8 @@
 {
-  "name": "@bghcore/dynamic-forms-examples",
-  "version": "3.0.4",
+  "name": "@form-engine/examples",
+  "version": "1.0.0",
   "private": true,
-  "description": "Example apps demonstrating @bghcore/dynamic-forms-core",
+  "description": "Example apps demonstrating @form-engine/core",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -12,8 +12,8 @@
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-hook-form": "^7.71.2",
-    "@bghcore/dynamic-forms-core": "*",
-    "@bghcore/dynamic-forms-mui": "*",
+    "@form-engine/core": "*",
+    "@form-engine/mui": "*",
     "@mui/material": "^6.4.11",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0"

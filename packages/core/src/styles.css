@@ -1,8 +1,8 @@
 /**
- * Optional CSS custom properties for @bghcore/dynamic-forms-core.
+ * Optional CSS custom properties for @form-engine/core.
  *
  * Import this stylesheet in your application to get default theming:
- *   import "@bghcore/dynamic-forms-core/src/styles.css";
+ *   import "@form-engine/core/src/styles.css";
  *
  * Override any variable on a parent element or :root to customize colors.
  */

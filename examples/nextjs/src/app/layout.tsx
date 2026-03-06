@@ -1,7 +1,7 @@
 "use client";
 
 import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
-import { BusinessRulesProvider, InjectedHookFieldProvider } from "@bghcore/dynamic-forms-core";
+import { BusinessRulesProvider, InjectedHookFieldProvider } from "@form-engine/core";
 
 const theme = createTheme({
   palette: {

@@ -5,7 +5,7 @@ The expression engine evaluates simple expressions against form values at runtim
 **Import:**
 
 ```typescript
-import { evaluateExpression, extractExpressionDependencies } from "@bghcore/dynamic-forms-core";
+import { evaluateExpression, extractExpressionDependencies } from "@form-engine/core";
 ```
 
 ---
@@ -146,7 +146,7 @@ const fieldConfigs = {
 The `extractExpressionDependencies()` function returns the field names referenced in an expression. This is used internally to auto-detect which fields trigger re-evaluation of computed values.
 
 ```typescript
-import { extractExpressionDependencies } from "@bghcore/dynamic-forms-core";
+import { extractExpressionDependencies } from "@form-engine/core";
 
 const deps = extractExpressionDependencies("$values.quantity * $values.unitPrice");
 // Returns: ["quantity", "unitPrice"]
@@ -171,7 +171,7 @@ const deps3 = extractExpressionDependencies(
 You can evaluate expressions directly using `evaluateExpression()`:
 
 ```typescript
-import { evaluateExpression } from "@bghcore/dynamic-forms-core";
+import { evaluateExpression } from "@form-engine/core";
 
 const result = evaluateExpression(
   "$values.quantity * $values.unitPrice",

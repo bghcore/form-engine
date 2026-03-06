@@ -1,4 +1,4 @@
-import { FormStrings } from "@bghcore/dynamic-forms-core";
+import { FormStrings } from "@form-engine/core";
 import { Spinner } from "@fluentui/react-components";
 import { ErrorCircleRegular, WarningRegular } from "@fluentui/react-icons";
 import React from "react";

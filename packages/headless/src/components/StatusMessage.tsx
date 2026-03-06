@@ -1,4 +1,4 @@
-import { FormStrings } from "@bghcore/dynamic-forms-core";
+import { FormStrings } from "@form-engine/core";
 import React from "react";
 import { FieldError } from "react-hook-form";
 

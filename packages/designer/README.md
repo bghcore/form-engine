@@ -1,18 +1,18 @@
-# @bghcore/dynamic-forms-designer
+# @form-engine/designer
 
-Visual form builder for `@bghcore/dynamic-forms-core`. Drag-and-drop fields, configure properties, build rules, and export valid `IFormConfig` v2 JSON.
+Visual form builder for `@form-engine/core`. Drag-and-drop fields, configure properties, build rules, and export valid `IFormConfig` v2 JSON.
 
 ## Installation
 
 ```bash
-npm install @bghcore/dynamic-forms-designer @bghcore/dynamic-forms-core react react-dom
+npm install @form-engine/designer @form-engine/core react react-dom
 ```
 
 ## Usage
 
 ```tsx
-import { DesignerProvider, FormDesigner } from "@bghcore/dynamic-forms-designer";
-import "@bghcore/dynamic-forms-designer/dist/styles.css"; // or import in your CSS
+import { DesignerProvider, FormDesigner } from "@form-engine/designer";
+import "@form-engine/designer/dist/styles.css"; // or import in your CSS
 
 function App() {
   return (
@@ -39,7 +39,7 @@ function App() {
 The designer produces a standard `IFormConfig` v2 object:
 
 ```tsx
-import { useDesigner } from "@bghcore/dynamic-forms-designer";
+import { useDesigner } from "@form-engine/designer";
 
 function SaveButton() {
   const { exportConfig } = useDesigner();

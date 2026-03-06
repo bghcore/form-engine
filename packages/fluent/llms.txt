@@ -1,12 +1,12 @@
-# @bghcore/dynamic-forms-fluent
+# @form-engine/fluent
 
-> Fluent UI v9 field components for @bghcore/dynamic-forms-core. Provides 13 editable and 6 read-only field types plus a one-line registry setup.
+> Fluent UI v9 field components for @form-engine/core. Provides 13 editable and 6 read-only field types plus a one-line registry setup.
 
-- Docs: [README](https://github.com/bghcore/dynamic-react-business-forms/tree/main/packages/fluent/README.md)
-- Agent instructions: [AGENTS.md](https://github.com/bghcore/dynamic-react-business-forms/tree/main/packages/fluent/AGENTS.md)
-- npm: [@bghcore/dynamic-forms-fluent](https://www.npmjs.com/package/@bghcore/dynamic-forms-fluent)
+- Docs: [README](https://github.com/bghcore/form-engine/tree/main/packages/fluent/README.md)
+- Agent instructions: [AGENTS.md](https://github.com/bghcore/form-engine/tree/main/packages/fluent/AGENTS.md)
+- npm: [@form-engine/fluent](https://www.npmjs.com/package/@form-engine/fluent)
 - License: MIT
-- Peer dependencies: `react`, `react-dom`, `react-hook-form`, `@fluentui/react-components`, `@bghcore/dynamic-forms-core`
+- Peer dependencies: `react`, `react-dom`, `react-hook-form`, `@fluentui/react-components`, `@form-engine/core`
 
 ## API Surface
 
@@ -66,8 +66,8 @@ import {
   InjectedFieldProvider,
   DynamicForm,
   IFormConfig,
-} from "@bghcore/dynamic-forms-core";
-import { createFluentFieldRegistry } from "@bghcore/dynamic-forms-fluent";
+} from "@form-engine/core";
+import { createFluentFieldRegistry } from "@form-engine/fluent";
 
 const formConfig: IFormConfig = {
   version: 2,

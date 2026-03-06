@@ -120,9 +120,9 @@ export { FormErrorBoundary } from "./components/HookFormErrorBoundary";
 export { FormDevTools } from "./components/HookFormDevTools";
 export type { IFormDevToolsProps } from "./components/HookFormDevTools";
 
-// Schema Import
-export { jsonSchemaToFieldConfig } from "./utils/jsonSchemaImport";
-export type { IJsonSchema, IJsonSchemaProperty } from "./utils/jsonSchemaImport";
+// RJSF Schema Import/Export
+export { fromRjsfSchema, toRjsfSchema } from "./utils/rjsf";
+export type { IJsonSchemaNode, IRjsfUiSchema, IRjsfConvertOptions } from "./utils/rjsf";
 
 // Zod Schema Import
 export { zodSchemaToFieldConfig } from "./utils/zodSchemaImport";

@@ -1,15 +1,15 @@
 # Creating a Custom UI Adapter Package
 
-This guide explains how to create a new UI adapter package for `@bghcore/dynamic-forms-core`. An adapter maps the core library's abstract field types to concrete UI components from a specific design system (MUI, Ant Design, Chakra UI, etc.).
+This guide explains how to create a new UI adapter package for `@form-engine/core`. An adapter maps the core library's abstract field types to concrete UI components from a specific design system (MUI, Ant Design, Chakra UI, etc.).
 
 ## Overview
 
-The core package (`@bghcore/dynamic-forms-core`) handles form state, business rules, validation, and field orchestration. It delegates rendering to "injected fields" -- a `Dictionary<JSX.Element>` that maps component type strings (like `"Textbox"`, `"Dropdown"`) to React elements. Your adapter package provides those elements.
+The core package (`@form-engine/core`) handles form state, business rules, validation, and field orchestration. It delegates rendering to "injected fields" -- a `Dictionary<JSX.Element>` that maps component type strings (like `"Textbox"`, `"Dropdown"`) to React elements. Your adapter package provides those elements.
 
 ## Architecture
 
 ```
-@bghcore/dynamic-forms-core
+@form-engine/core
   -> RenderField looks up injectedFields[componentType]
   -> React.cloneElement(element, IFieldProps)
   -> Your field component receives props and renders UI
@@ -62,19 +62,19 @@ packages/my-adapter/
 
 ```json
 {
-  "name": "@bghcore/dynamic-forms-my-adapter",
+  "name": "@form-engine/my-adapter",
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0",
     "react-dom": "^18.0.0 || ^19.0.0",
     "react-hook-form": "^7.0.0",
     "my-ui-library": "^X.0.0",
-    "@bghcore/dynamic-forms-core": "^2.0.0"
+    "@form-engine/core": "^2.0.0"
   }
 }
 ```
 
 Key points:
-- Your UI library and `@bghcore/dynamic-forms-core` are **peer dependencies**
+- Your UI library and `@form-engine/core` are **peer dependencies**
 - Use `"*"` for the core package in `devDependencies` to reference the local workspace version
 - Mark externals in `tsup.config.ts` to avoid bundling peer deps
 
@@ -94,7 +94,7 @@ export default defineConfig({
     "react-dom",
     "react-hook-form",
     "my-ui-library",          // Your UI library
-    "@bghcore/dynamic-forms-core",
+    "@form-engine/core",
   ],
   jsx: "automatic",
 });
@@ -102,7 +102,7 @@ export default defineConfig({
 
 ### 4. Understand IFieldProps
 
-Every field component receives these props (from `@bghcore/dynamic-forms-core`):
+Every field component receives these props (from `@form-engine/core`):
 
 ```ts
 interface IFieldProps<T> {
@@ -138,7 +138,7 @@ interface IFieldProps<T> {
 Each field component follows this pattern:
 
 ```tsx
-import { IFieldProps } from "@bghcore/dynamic-forms-core";
+import { IFieldProps } from "@form-engine/core";
 import React from "react";
 
 const HookMyField = (props: IFieldProps<IMyFieldConfig>) => {
@@ -180,7 +180,7 @@ Important patterns:
 The registry maps `ComponentTypes` constants to React elements:
 
 ```tsx
-import { ComponentTypes, Dictionary } from "@bghcore/dynamic-forms-core";
+import { ComponentTypes, Dictionary } from "@form-engine/core";
 import React from "react";
 
 export function createMyAdapterFieldRegistry(): Dictionary<React.JSX.Element> {
@@ -246,8 +246,8 @@ The following 19 component types should be implemented for a complete adapter:
 Consumers wire up the adapter like this:
 
 ```tsx
-import { RulesEngineProvider, InjectedFieldProvider, UseInjectedFieldContext, DynamicForm } from "@bghcore/dynamic-forms-core";
-import { createMyAdapterFieldRegistry } from "@bghcore/dynamic-forms-my-adapter";
+import { RulesEngineProvider, InjectedFieldProvider, UseInjectedFieldContext, DynamicForm } from "@form-engine/core";
+import { createMyAdapterFieldRegistry } from "@form-engine/my-adapter";
 
 function FieldRegistrar({ children }) {
   const { setInjectedFields } = UseInjectedFieldContext();
@@ -277,7 +277,7 @@ function App() {
 You do not have to implement all 19 fields. If your use case only needs a subset, register only those types. The core will render nothing for unregistered component types. You can also mix registries:
 
 ```tsx
-import { createFluentFieldRegistry } from "@bghcore/dynamic-forms-fluent";
+import { createFluentFieldRegistry } from "@form-engine/fluent";
 
 const fields = {
   ...createFluentFieldRegistry(),           // Base Fluent fields
@@ -299,5 +299,5 @@ These are generic and can be copied directly from the Fluent or MUI adapters.
 
 ## Existing Adapters
 
-- **`@bghcore/dynamic-forms-fluent`** -- Fluent UI v9 adapter
-- **`@bghcore/dynamic-forms-mui`** -- Material UI (MUI) adapter
+- **`@form-engine/fluent`** -- Fluent UI v9 adapter
+- **`@form-engine/mui`** -- Material UI (MUI) adapter

@@ -1,4 +1,4 @@
-import { Dictionary } from "@bghcore/dynamic-forms-core";
+import { Dictionary } from "@form-engine/core";
 import React from "react";
 
 interface IStatusColorProps {

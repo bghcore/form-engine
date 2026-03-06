@@ -1,6 +1,6 @@
 # Field Types Reference
 
-This document provides a comprehensive reference for every component type supported by `dynamic-react-business-forms`. Component types are defined in `packages/core/src/constants.ts` as the `ComponentTypes` object, and each maps to a string key used in `IFieldConfig.type`.
+This document provides a comprehensive reference for every component type supported by `form-engine`. Component types are defined in `packages/core/src/constants.ts` as the `ComponentTypes` object, and each maps to a string key used in `IFieldConfig.type`.
 
 There are **22 total component keys**: 13 editable, 6 read-only, and 3 structural/abstract types (Fragment, FieldArray, ChoiceSet).
 
@@ -749,7 +749,7 @@ There are **22 total component keys**: 13 editable, 6 read-only, and 3 structura
 
 **How to register:**
 ```tsx
-import { createFluentFieldRegistry } from "@bghcore/dynamic-forms-fluent";
+import { createFluentFieldRegistry } from "@form-engine/fluent";
 import MyCustomChoiceSet from "./MyCustomChoiceSet";
 
 const registry = createFluentFieldRegistry();

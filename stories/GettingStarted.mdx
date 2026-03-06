@@ -13,14 +13,14 @@ validation, auto-save, and field interactions automatically.
 
 | Package | Description |
 | --- | --- |
-| `@bghcore/dynamic-forms-core` | UI-agnostic rules engine and form orchestration (React + react-hook-form) |
-| `@bghcore/dynamic-forms-fluent` | Fluent UI v9 field component implementations |
-| `@bghcore/dynamic-forms-mui` | Material UI (MUI) field component implementations |
+| `@form-engine/core` | UI-agnostic rules engine and form orchestration (React + react-hook-form) |
+| `@form-engine/fluent` | Fluent UI v9 field component implementations |
+| `@form-engine/mui` | Material UI (MUI) field component implementations |
 
 ## Installation
 
 ```bash
-npm install @bghcore/dynamic-forms-core @bghcore/dynamic-forms-fluent
+npm install @form-engine/core @form-engine/fluent
 npm install react react-dom react-hook-form @fluentui/react-components
 ```
 
@@ -31,7 +31,7 @@ npm install react react-dom react-hook-form @fluentui/react-components
 Two context providers must wrap your form tree:
 
 ```tsx
-import { RulesEngineProvider, InjectedFieldProvider } from "@bghcore/dynamic-forms-core";
+import { RulesEngineProvider, InjectedFieldProvider } from "@form-engine/core";
 import { FluentProvider, webLightTheme } from "@fluentui/react-components";
 
 function App() {
@@ -52,8 +52,8 @@ function App() {
 Use `createFluentFieldRegistry()` to register all built-in Fluent UI fields:
 
 ```tsx
-import { UseInjectedFieldContext } from "@bghcore/dynamic-forms-core";
-import { createFluentFieldRegistry } from "@bghcore/dynamic-forms-fluent";
+import { UseInjectedFieldContext } from "@form-engine/core";
+import { createFluentFieldRegistry } from "@form-engine/fluent";
 import { useEffect } from "react";
 
 function FormContainer() {
@@ -72,7 +72,7 @@ function FormContainer() {
 Create an `IFormConfig` object with your field definitions:
 
 ```typescript
-import type { IFormConfig } from "@bghcore/dynamic-forms-core";
+import type { IFormConfig } from "@form-engine/core";
 
 const myFormConfig: IFormConfig = {
   version: 2,
@@ -107,7 +107,7 @@ const myFormConfig: IFormConfig = {
 ### 4. Render the Form
 
 ```tsx
-import { DynamicForm } from "@bghcore/dynamic-forms-core";
+import { DynamicForm } from "@form-engine/core";
 
 <DynamicForm
   configName="my-form"

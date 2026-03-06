@@ -4,8 +4,8 @@ import {
   RulesEngineProvider,
   InjectedFieldProvider,
   DynamicForm,
-} from "@bghcore/dynamic-forms-core";
-import { createMuiFieldRegistry } from "@bghcore/dynamic-forms-mui";
+} from "@form-engine/core";
+import { createMuiFieldRegistry } from "@form-engine/mui";
 import { loginMfaFormConfig } from "./loginMfaConfig";
 
 /**

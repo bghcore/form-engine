@@ -9,7 +9,7 @@ export default defineConfig({
   external: [
     "react",
     "react-dom",
-    "@bghcore/dynamic-forms-core",
+    "@form-engine/core",
   ],
   jsx: "automatic",
 });

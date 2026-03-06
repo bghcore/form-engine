@@ -1,8 +1,8 @@
-# @bghcore/dynamic-forms-examples
+# @form-engine/examples
 
-Example applications demonstrating `@bghcore/dynamic-forms-core` and `@bghcore/dynamic-forms-mui`.
+Example applications demonstrating `@form-engine/core` and `@form-engine/mui`.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/bghcore/dynamic-react-business-forms/tree/main/packages/examples?file=src/App.tsx)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/bghcore/form-engine/tree/main/packages/examples?file=src/App.tsx)
 
 ## Getting Started
 
@@ -40,8 +40,8 @@ A purchase order form with repeating line items (FieldArray), computed values (l
 - **React 19** + **TypeScript**
 - **Material UI (MUI)** for field components
 - **Vite** for dev server and build
-- **@bghcore/dynamic-forms-core** for form orchestration and rules engine
-- **@bghcore/dynamic-forms-mui** for MUI field implementations
+- **@form-engine/core** for form orchestration and rules engine
+- **@form-engine/mui** for MUI field implementations
 
 ## Project Structure
 

@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { ComponentTypes } from "@bghcore/dynamic-forms-core";
+import { ComponentTypes } from "@form-engine/core";
 
 /** Palette field types grouped by category */
 const PALETTE_GROUPS: { label: string; types: { key: string; label: string }[] }[] = [
