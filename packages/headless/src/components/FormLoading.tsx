@@ -8,7 +8,7 @@ interface IHookFormLoadingProps {
   hideTitleShimmer?: boolean;
 }
 
-export const HookFormLoading = (props: IHookFormLoadingProps) => {
+export const FormLoading = (props: IHookFormLoadingProps) => {
   const { loadingShimmerCount, loadingFieldShimmerHeight, inPanel, hideTitleShimmer } = props;
   const count = loadingShimmerCount || FormConstants.loadingShimmerCount;
   const height = loadingFieldShimmerHeight || FormConstants.loadingFieldShimmerHeight;
@@ -32,4 +32,7 @@ export const HookFormLoading = (props: IHookFormLoadingProps) => {
   );
 };
 
-export default HookFormLoading;
+/** @deprecated Use FormLoading instead */
+export const HookFormLoading = FormLoading;
+
+export default FormLoading;

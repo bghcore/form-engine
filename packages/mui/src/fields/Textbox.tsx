@@ -4,13 +4,13 @@ import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";
 import { FieldClassName, GetFieldDataTestId } from "../helpers";
 
-interface IHookTextboxProps {
+interface ITextboxProps {
   ellipsifyTextCharacters?: number;
   placeHolder?: string;
   multiline?: boolean;
 }
 
-const HookTextbox = (props: IFieldProps<IHookTextboxProps>) => {
+const Textbox = (props: IFieldProps<ITextboxProps>) => {
   const { fieldName, programName, entityType, entityId, value, readOnly, config, error, setFieldValue } = props;
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,4 +40,4 @@ const HookTextbox = (props: IFieldProps<IHookTextboxProps>) => {
   );
 };
 
-export default HookTextbox;
+export default Textbox;

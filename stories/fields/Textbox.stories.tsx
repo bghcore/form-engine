@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import HookTextbox from "@bghcore/dynamic-forms-fluent/fields/Textbox";
+import Textbox from "@bghcore/dynamic-forms-fluent/fields/Textbox";
 import { FormDecorator, createFieldProps } from "../helpers";
 
 /**
@@ -33,7 +33,7 @@ const TextboxStory = (args: Record<string, unknown>) => {
     value,
     setFieldValue: (_name, val) => setValue(val as string),
   });
-  return <HookTextbox {...props} />;
+  return <Textbox {...props} />;
 };
 
 export const Default: StoryObj = {

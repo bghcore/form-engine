@@ -14,7 +14,7 @@ interface IHookTextareaProps {
   renderExtraModalFooter?: () => React.ReactNode;
 }
 
-const HookTextarea = (props: IFieldProps<IHookTextareaProps>) => {
+const Textarea = (props: IFieldProps<IHookTextareaProps>) => {
   const {
     error, fieldName, programName, entityType, entityId, config, readOnly,
     required, savePending, saving, value, label, setFieldValue
@@ -158,4 +158,4 @@ const HookTextarea = (props: IFieldProps<IHookTextareaProps>) => {
   );
 };
 
-export default HookTextarea;
+export default Textarea;

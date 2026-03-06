@@ -5,7 +5,7 @@ import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";
 import { FieldClassName, GetFieldDataTestId } from "../helpers";
 
-export interface IHookStatusDropdownProps {
+export interface IStatusDropdownProps {
   placeHolder?: string;
   statusColors?: Dictionary<string>;
 }
@@ -25,7 +25,7 @@ const StatusDot = ({ color }: { color?: string }) => (
   />
 );
 
-const HookStatusDropdown = (props: IFieldProps<IHookStatusDropdownProps>) => {
+const StatusDropdown = (props: IFieldProps<IStatusDropdownProps>) => {
   const { fieldName, programName, entityType, entityId, value, readOnly, error, config, options, setFieldValue } = props;
 
   const statusColors = (config?.statusColors ?? {}) as Dictionary<string>;
@@ -65,4 +65,4 @@ const HookStatusDropdown = (props: IFieldProps<IHookStatusDropdownProps>) => {
   );
 };
 
-export default HookStatusDropdown;
+export default StatusDropdown;

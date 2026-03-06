@@ -2,7 +2,7 @@ import { IFieldProps, FormStrings } from "@bghcore/dynamic-forms-core";
 import React from "react";
 import { GetFieldDataTestId, getFieldState, formatDateTime } from "../helpers";
 
-const HookDateControl = (props: IFieldProps<{}>) => {
+const DateControl = (props: IFieldProps<{}>) => {
   const { fieldName, programName, entityType, entityId, value, readOnly, error, required, setFieldValue } = props;
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,4 +61,4 @@ const HookDateControl = (props: IFieldProps<{}>) => {
   );
 };
 
-export default HookDateControl;
+export default DateControl;

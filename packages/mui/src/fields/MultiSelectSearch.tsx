@@ -3,7 +3,7 @@ import { Autocomplete, TextField, Chip, Box } from "@mui/material";
 import React from "react";
 import { FieldClassName, GetFieldDataTestId } from "../helpers";
 
-const HookMultiSelectSearch = (props: IFieldProps<{}>) => {
+const MultiSelectSearch = (props: IFieldProps<{}>) => {
   const { fieldName, programName, entityType, entityId, value, readOnly, error, options: dropdownOptions, setFieldValue } = props;
 
   const selectedValues = (value as string[]) ?? [];
@@ -64,4 +64,4 @@ const HookMultiSelectSearch = (props: IFieldProps<{}>) => {
   );
 };
 
-export default HookMultiSelectSearch;
+export default MultiSelectSearch;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import HookDropdown from "@bghcore/dynamic-forms-fluent/fields/Dropdown";
+import DropdownField from "@bghcore/dynamic-forms-fluent/fields/Dropdown";
 import { FormDecorator, createFieldProps } from "../helpers";
 
 /**
@@ -40,7 +40,7 @@ const DropdownStory = (args: Record<string, unknown>) => {
     options: (args.options as typeof sampleOptions) ?? sampleOptions,
     setFieldValue: (_name, val) => setValue(val as string),
   });
-  return <HookDropdown {...props} />;
+  return <DropdownField {...props} />;
 };
 
 export const Default: StoryObj = {

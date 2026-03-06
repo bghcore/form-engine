@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import HookSimpleDropdown from "@bghcore/dynamic-forms-fluent/fields/SimpleDropdown";
+import SimpleDropdown from "@bghcore/dynamic-forms-fluent/fields/SimpleDropdown";
 import { FormDecorator, createFieldProps } from "../helpers";
 
 /**
@@ -34,7 +34,7 @@ const SimpleDropdownStory = (args: Record<string, unknown>) => {
     config: { dropdownOptions: ["Small", "Medium", "Large", "Extra Large"] },
     setFieldValue: (_name, val) => setValue(val as string),
   });
-  return <HookSimpleDropdown {...props} />;
+  return <SimpleDropdown {...props} />;
 };
 
 export const Default: StoryObj = {

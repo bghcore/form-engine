@@ -4,7 +4,7 @@ import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";
 import { GetFieldDataTestId } from "../helpers";
 
-const HookToggle = (props: IFieldProps<{}>) => {
+const Toggle = (props: IFieldProps<{}>) => {
   const { fieldName, programName, entityType, entityId, value, readOnly, setFieldValue } = props;
 
   const onChange = (_: React.ChangeEvent<HTMLInputElement>, data: { checked: boolean }) => {
@@ -23,4 +23,4 @@ const HookToggle = (props: IFieldProps<{}>) => {
   );
 };
 
-export default HookToggle;
+export default Toggle;

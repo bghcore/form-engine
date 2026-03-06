@@ -1,6 +1,6 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import HookReadOnlyArray from "@bghcore/dynamic-forms-fluent/fields/readonly/ReadOnlyArray";
+import ReadOnlyArray from "@bghcore/dynamic-forms-fluent/fields/readonly/ReadOnlyArray";
 import { FormDecorator, createFieldProps } from "../../helpers";
 
 /**
@@ -23,7 +23,7 @@ export default meta;
 export const Default: StoryObj = {
   render: (args) => {
     const props = createFieldProps({ ...args });
-    return <HookReadOnlyArray {...props} />;
+    return <ReadOnlyArray {...props} />;
   },
   args: {
     value: ["Frontend", "Backend", "DevOps"],
@@ -34,7 +34,7 @@ export const Default: StoryObj = {
 export const SingleItem: StoryObj = {
   render: (args) => {
     const props = createFieldProps({ ...args });
-    return <HookReadOnlyArray {...props} />;
+    return <ReadOnlyArray {...props} />;
   },
   args: {
     value: ["Only item"],
@@ -45,7 +45,7 @@ export const SingleItem: StoryObj = {
 export const Empty: StoryObj = {
   render: (args) => {
     const props = createFieldProps({ ...args });
-    return <HookReadOnlyArray {...props} />;
+    return <ReadOnlyArray {...props} />;
   },
   args: {
     value: [],

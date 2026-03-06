@@ -2,14 +2,14 @@ import { FormConstants } from "@bghcore/dynamic-forms-core";
 import { Skeleton } from "@mui/material";
 import React from "react";
 
-interface IHookFormLoadingProps {
+interface IFormLoadingProps {
   loadingShimmerCount?: number;
   loadingFieldShimmerHeight?: number;
   inPanel?: boolean;
   hideTitleShimmer?: boolean;
 }
 
-export const HookFormLoading = (props: IHookFormLoadingProps) => {
+export const FormLoading = (props: IFormLoadingProps) => {
   const { loadingShimmerCount, loadingFieldShimmerHeight, inPanel, hideTitleShimmer } = props;
   return (
     <div className={`hook-form-loading ${inPanel ? "in-panel" : ""}`}>
@@ -26,4 +26,6 @@ export const HookFormLoading = (props: IHookFormLoadingProps) => {
   );
 };
 
-export default HookFormLoading;
+/** @deprecated Use FormLoading instead */
+export const HookFormLoading = FormLoading;
+export default FormLoading;

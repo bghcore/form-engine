@@ -9,7 +9,7 @@ interface IHookTextboxProps {
   multiline?: boolean;
 }
 
-const HookTextbox = (props: IFieldProps<IHookTextboxProps>) => {
+const Textbox = (props: IFieldProps<IHookTextboxProps>) => {
   const { fieldName, programName, entityType, entityId, value, readOnly, config, error, required, placeholder, setFieldValue } = props;
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,4 +43,4 @@ const HookTextbox = (props: IFieldProps<IHookTextboxProps>) => {
   );
 };
 
-export default HookTextbox;
+export default Textbox;

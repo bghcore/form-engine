@@ -10,7 +10,7 @@ interface IHookSimpleDropdownProps {
   placeHolder?: string;
 }
 
-const HookSimpleDropdown = (props: IFieldProps<IHookSimpleDropdownProps>) => {
+const SimpleDropdown = (props: IFieldProps<IHookSimpleDropdownProps>) => {
   const { fieldName, programName, entityType, entityId, value, readOnly, config, error, setFieldValue } = props;
 
   const simpleOptions = config?.dropdownOptions ?? [];
@@ -36,4 +36,4 @@ const HookSimpleDropdown = (props: IFieldProps<IHookSimpleDropdownProps>) => {
   );
 };
 
-export default HookSimpleDropdown;
+export default SimpleDropdown;

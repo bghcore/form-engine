@@ -5,12 +5,12 @@ import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";
 import { FieldClassName, GetFieldDataTestId } from "../helpers";
 
-interface IHookDropdownProps {
+interface IDropdownProps {
   placeHolder?: string;
   setDefaultKeyIfOnlyOneOption?: boolean;
 }
 
-const HookDropdown = (props: IFieldProps<IHookDropdownProps>) => {
+const Dropdown = (props: IFieldProps<IDropdownProps>) => {
   const { fieldName, programName, entityType, entityId, value, readOnly, config, error, options, setFieldValue } = props;
 
   const onChange = (event: SelectChangeEvent<string>) => {
@@ -44,4 +44,4 @@ const HookDropdown = (props: IFieldProps<IHookDropdownProps>) => {
   );
 };
 
-export default HookDropdown;
+export default Dropdown;

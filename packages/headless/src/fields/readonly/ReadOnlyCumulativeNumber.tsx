@@ -7,7 +7,7 @@ interface IHookReadOnlyCumulativeNumberProps extends IReadOnlyFieldProps {
   dependencyFields?: string[];
 }
 
-const HookReadOnlyCumulativeNumber = (props: IFieldProps<IHookReadOnlyCumulativeNumberProps>) => {
+const ReadOnlyCumulativeNumber = (props: IFieldProps<IHookReadOnlyCumulativeNumberProps>) => {
   const { fieldName, config } = props;
   const { formState, getValues } = useFormContext();
   const [value, setValue] = React.useState<number>();
@@ -33,4 +33,4 @@ const HookReadOnlyCumulativeNumber = (props: IFieldProps<IHookReadOnlyCumulative
   );
 };
 
-export default HookReadOnlyCumulativeNumber;
+export default ReadOnlyCumulativeNumber;

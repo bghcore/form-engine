@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import HookToggle from "@bghcore/dynamic-forms-fluent/fields/Toggle";
+import Toggle from "@bghcore/dynamic-forms-fluent/fields/Toggle";
 import { FormDecorator, createFieldProps } from "../helpers";
 
 /**
@@ -32,7 +32,7 @@ const ToggleStory = (args: Record<string, unknown>) => {
     value,
     setFieldValue: (_name, val) => setValue(val as boolean),
   });
-  return <HookToggle {...props} />;
+  return <Toggle {...props} />;
 };
 
 export const Default: StoryObj = {

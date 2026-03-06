@@ -1,6 +1,6 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import HookFragment from "@bghcore/dynamic-forms-fluent/fields/DynamicFragment";
+import Fragment from "@bghcore/dynamic-forms-fluent/fields/DynamicFragment";
 import { FormDecorator, createFieldProps } from "../helpers";
 
 /**
@@ -32,7 +32,7 @@ export const Default: StoryObj = {
         <p>
           The DynamicFragment renders a hidden input. Inspect the DOM to see it.
         </p>
-        <HookFragment {...props} />
+        <Fragment {...props} />
       </div>
     );
   },

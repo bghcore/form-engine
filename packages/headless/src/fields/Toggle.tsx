@@ -3,7 +3,7 @@ import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";
 import { GetFieldDataTestId, getFieldState } from "../helpers";
 
-const HookToggle = (props: IFieldProps<{}>) => {
+const Toggle = (props: IFieldProps<{}>) => {
   const { fieldName, programName, entityType, entityId, value, readOnly, error, required, label, setFieldValue } = props;
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,4 +35,4 @@ const HookToggle = (props: IFieldProps<{}>) => {
   );
 };
 
-export default HookToggle;
+export default Toggle;

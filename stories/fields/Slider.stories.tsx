@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import HookSlider from "@bghcore/dynamic-forms-fluent/fields/Slider";
+import SliderField from "@bghcore/dynamic-forms-fluent/fields/Slider";
 import { FormDecorator, createFieldProps } from "../helpers";
 
 /**
@@ -34,7 +34,7 @@ const SliderStory = (args: Record<string, unknown>) => {
     config: { min: 0, max: 100, step: 1, ...(args.config as object) },
     setFieldValue: (_name, val) => setValue(val as number),
   });
-  return <HookSlider {...props} />;
+  return <SliderField {...props} />;
 };
 
 export const Default: StoryObj = {

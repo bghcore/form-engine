@@ -7,7 +7,7 @@ interface IHookReadOnlyDateTimeProps {
   hidetimeStamp?: boolean;
 }
 
-const HookReadOnlyDateTime = (props: IFieldProps<IHookReadOnlyDateTimeProps>) => {
+const ReadOnlyDateTime = (props: IFieldProps<IHookReadOnlyDateTimeProps>) => {
   const { config, value } = props;
 
   if (!value) {
@@ -26,4 +26,4 @@ const HookReadOnlyDateTime = (props: IFieldProps<IHookReadOnlyDateTimeProps>) =>
   );
 };
 
-export default HookReadOnlyDateTime;
+export default ReadOnlyDateTime;

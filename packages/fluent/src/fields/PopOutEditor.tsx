@@ -16,7 +16,7 @@ interface IHookPopOutEditorProps {
   renderExtraModalFooter?: () => React.ReactNode;
 }
 
-const HookPopOutEditor = (props: IFieldProps<IHookPopOutEditorProps>) => {
+const PopOutEditor = (props: IFieldProps<IHookPopOutEditorProps>) => {
   const {
     error, fieldName, programName, entityType, entityId, config, readOnly,
     required, savePending, saving, value, label, setFieldValue
@@ -143,4 +143,4 @@ const HookPopOutEditor = (props: IFieldProps<IHookPopOutEditorProps>) => {
   );
 };
 
-export default HookPopOutEditor;
+export default PopOutEditor;

@@ -2,7 +2,7 @@ import { IFieldProps } from "@bghcore/dynamic-forms-core";
 import React from "react";
 import { GetFieldDataTestId, getFieldState } from "../helpers";
 
-const HookMultiSelect = (props: IFieldProps<{}>) => {
+const MultiSelect = (props: IFieldProps<{}>) => {
   const { fieldName, programName, entityType, entityId, value, readOnly, error, required, options, setFieldValue } = props;
 
   const selectedValues = (value as string[]) ?? [];
@@ -49,4 +49,4 @@ const HookMultiSelect = (props: IFieldProps<{}>) => {
   );
 };
 
-export default HookMultiSelect;
+export default MultiSelect;

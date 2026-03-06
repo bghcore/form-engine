@@ -3,12 +3,12 @@ import { Typography } from "@mui/material";
 import React from "react";
 import { formatDateTime } from "../../helpers";
 
-interface IHookReadOnlyDateTimeProps {
+interface IReadOnlyDateTimeProps {
   isListView?: boolean;
   hidetimeStamp?: boolean;
 }
 
-const HookReadOnlyDateTime = (props: IFieldProps<IHookReadOnlyDateTimeProps>) => {
+const ReadOnlyDateTime = (props: IFieldProps<IReadOnlyDateTimeProps>) => {
   const { config, value } = props;
   return (
     <>{value ? (
@@ -19,4 +19,4 @@ const HookReadOnlyDateTime = (props: IFieldProps<IHookReadOnlyDateTimeProps>) =>
   );
 };
 
-export default HookReadOnlyDateTime;
+export default ReadOnlyDateTime;

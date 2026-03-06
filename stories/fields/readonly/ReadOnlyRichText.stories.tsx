@@ -1,6 +1,6 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import HookReadOnlyRichText from "@bghcore/dynamic-forms-fluent/fields/readonly/ReadOnlyRichText";
+import ReadOnlyRichText from "@bghcore/dynamic-forms-fluent/fields/readonly/ReadOnlyRichText";
 import { FormDecorator, createFieldProps } from "../../helpers";
 
 /**
@@ -26,7 +26,7 @@ export default meta;
 export const Default: StoryObj = {
   render: (args) => {
     const props = createFieldProps({ ...args });
-    return <HookReadOnlyRichText {...props} />;
+    return <ReadOnlyRichText {...props} />;
   },
   args: {
     value:
@@ -38,7 +38,7 @@ export const Default: StoryObj = {
 export const PlainText: StoryObj = {
   render: (args) => {
     const props = createFieldProps({ ...args });
-    return <HookReadOnlyRichText {...props} />;
+    return <ReadOnlyRichText {...props} />;
   },
   args: {
     value: "Just a plain text string with no HTML formatting.",
@@ -49,7 +49,7 @@ export const PlainText: StoryObj = {
 export const Empty: StoryObj = {
   render: (args) => {
     const props = createFieldProps({ ...args });
-    return <HookReadOnlyRichText {...props} />;
+    return <ReadOnlyRichText {...props} />;
   },
   args: {
     value: "",

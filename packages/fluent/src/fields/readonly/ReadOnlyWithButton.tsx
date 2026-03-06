@@ -9,7 +9,7 @@ interface HookReadOnlyWithButtonProps extends IReadOnlyFieldProps {
   onButtonClick?: () => void;
 }
 
-const HookReadOnlyWithButton = (props: IFieldProps<HookReadOnlyWithButtonProps>) => {
+const ReadOnlyWithButton = (props: IFieldProps<HookReadOnlyWithButtonProps>) => {
   const { fieldName, value, config } = props;
   return (
     <div style={{ display: "flex", alignItems: "center", gap: "8px" }} className={config?.containerClassName}>
@@ -19,4 +19,4 @@ const HookReadOnlyWithButton = (props: IFieldProps<HookReadOnlyWithButtonProps>)
   );
 };
 
-export default HookReadOnlyWithButton;
+export default ReadOnlyWithButton;

@@ -1,7 +1,7 @@
 import { IFieldProps } from "@bghcore/dynamic-forms-core";
 import React from "react";
 
-const HookReadOnlyRichText = (props: IFieldProps<{}>) => {
+const ReadOnlyRichText = (props: IFieldProps<{}>) => {
   const { value } = props;
   return (
     <div
@@ -11,4 +11,4 @@ const HookReadOnlyRichText = (props: IFieldProps<{}>) => {
   );
 };
 
-export default HookReadOnlyRichText;
+export default ReadOnlyRichText;

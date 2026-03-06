@@ -25,7 +25,7 @@ export { default as ReadOnlyWithButton } from "./fields/readonly/ReadOnlyWithBut
 export { ReadOnlyText } from "./components/ReadOnlyText";
 export type { IReadOnlyFieldProps } from "./components/ReadOnlyText";
 export { StatusMessage } from "./components/StatusMessage";
-export { HookFormLoading as FormLoading } from "./components/FormLoading";
+export { FormLoading } from "./components/FormLoading";
 
 // Document link types
 export type { IDocumentLink } from "./fields/DocumentLinks";

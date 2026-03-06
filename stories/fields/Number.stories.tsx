@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import HookNumber from "@bghcore/dynamic-forms-fluent/fields/Number";
+import NumberField from "@bghcore/dynamic-forms-fluent/fields/Number";
 import { FormDecorator, createFieldProps } from "../helpers";
 
 /**
@@ -33,7 +33,7 @@ const NumberStory = (args: Record<string, unknown>) => {
     value,
     setFieldValue: (_name, val) => setValue(val as number),
   });
-  return <HookNumber {...props} />;
+  return <NumberField {...props} />;
 };
 
 export const Default: StoryObj = {

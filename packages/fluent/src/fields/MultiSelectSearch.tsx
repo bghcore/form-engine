@@ -5,7 +5,7 @@ import React from "react";
 import { Dropdown } from "@fluentui/react-components";
 import { FieldClassName, GetFieldDataTestId } from "../helpers";
 
-const HookMultiSelectSearch = (props: IFieldProps<{}>) => {
+const MultiSelectSearch = (props: IFieldProps<{}>) => {
   const { fieldName, programName, entityType, entityId, value, readOnly, error, options, setFieldValue } = props;
 
   const onOptionSelect: ComboboxProps["onOptionSelect"] = (_, data) => {
@@ -46,4 +46,4 @@ const HookMultiSelectSearch = (props: IFieldProps<{}>) => {
   );
 };
 
-export default HookMultiSelectSearch;
+export default MultiSelectSearch;

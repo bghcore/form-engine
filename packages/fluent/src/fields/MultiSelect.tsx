@@ -5,7 +5,7 @@ import React from "react";
 import { useFormContext } from "react-hook-form";
 import { FieldClassName, GetFieldDataTestId } from "../helpers";
 
-const HookMultiSelect = (props: IFieldProps<{}>) => {
+const MultiSelect = (props: IFieldProps<{}>) => {
   const { fieldName, programName, entityType, entityId, value, readOnly, error, options, setFieldValue } = props;
 
   const { watch } = useFormContext();
@@ -48,4 +48,4 @@ const HookMultiSelect = (props: IFieldProps<{}>) => {
   );
 };
 
-export default HookMultiSelect;
+export default MultiSelect;

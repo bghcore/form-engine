@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import HookStatusDropdown from "@bghcore/dynamic-forms-fluent/fields/StatusDropdown";
+import StatusDropdownField from "@bghcore/dynamic-forms-fluent/fields/StatusDropdown";
 import { FormDecorator, createFieldProps } from "../helpers";
 
 /**
@@ -49,7 +49,7 @@ const StatusDropdownStory = (args: Record<string, unknown>) => {
     config: { statusColors },
     setFieldValue: (_name, val) => setValue(val as string),
   });
-  return <HookStatusDropdown {...props} />;
+  return <StatusDropdownField {...props} />;
 };
 
 export const Default: StoryObj = {

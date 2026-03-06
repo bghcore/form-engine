@@ -1,6 +1,6 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import HookReadOnlyCumulativeNumber from "@bghcore/dynamic-forms-fluent/fields/readonly/ReadOnlyCumulativeNumber";
+import ReadOnlyCumulativeNumber from "@bghcore/dynamic-forms-fluent/fields/readonly/ReadOnlyCumulativeNumber";
 import { FormDecorator, createFieldProps } from "../../helpers";
 
 /**
@@ -34,7 +34,7 @@ export const Default: StoryObj = {
         <p style={{ color: "#666", fontSize: "13px", marginBottom: "8px" }}>
           Sums hours1 (10) + hours2 (20) + hours3 (30):
         </p>
-        <HookReadOnlyCumulativeNumber {...props} />
+        <ReadOnlyCumulativeNumber {...props} />
       </div>
     );
   },

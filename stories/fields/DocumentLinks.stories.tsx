@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import HookDocumentLinks from "@bghcore/dynamic-forms-fluent/fields/DocumentLinks";
+import DocumentLinksField from "@bghcore/dynamic-forms-fluent/fields/DocumentLinks";
 import { FormDecorator, createFieldProps } from "../helpers";
 
 /**
@@ -42,7 +42,7 @@ const DocumentLinksStory = (args: Record<string, unknown>) => {
     value,
     setFieldValue: (_name, val) => setValue(val as typeof sampleLinks),
   });
-  return <HookDocumentLinks {...props} />;
+  return <DocumentLinksField {...props} />;
 };
 
 export const Default: StoryObj = {

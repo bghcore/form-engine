@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import HookMultiSelect from "@bghcore/dynamic-forms-fluent/fields/MultiSelect";
+import MultiSelect from "@bghcore/dynamic-forms-fluent/fields/MultiSelect";
 import { FormDecorator, createFieldProps } from "../helpers";
 
 /**
@@ -41,7 +41,7 @@ const MultiselectStory = (args: Record<string, unknown>) => {
     options: tagOptions,
     setFieldValue: (_name, val) => setValue(val as string[]),
   });
-  return <HookMultiSelect {...props} />;
+  return <MultiSelect {...props} />;
 };
 
 export const Default: StoryObj = {

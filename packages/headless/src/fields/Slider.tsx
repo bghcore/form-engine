@@ -9,7 +9,7 @@ interface IHookSliderProps {
   step?: number;
 }
 
-const HookSlider = (props: IFieldProps<IHookSliderProps>) => {
+const Slider = (props: IFieldProps<IHookSliderProps>) => {
   const { fieldName, programName, entityType, entityId, value, readOnly, config, error, required, setFieldValue } = props;
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,4 +46,4 @@ const HookSlider = (props: IFieldProps<IHookSliderProps>) => {
   );
 };
 
-export default HookSlider;
+export default Slider;

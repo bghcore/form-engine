@@ -12,7 +12,7 @@ export interface IHookStatusDropdownProps {
   statusColors?: Dictionary<string>;
 }
 
-const HookStatusDropdown = (props: IFieldProps<IHookStatusDropdownProps>) => {
+const StatusDropdownField = (props: IFieldProps<IHookStatusDropdownProps>) => {
   const { fieldName, programName, entityType, entityId, value, readOnly, error, config, options, setFieldValue } = props;
 
   const onOptionSelect = (_: unknown, data: OptionOnSelectData) => {
@@ -39,4 +39,4 @@ const HookStatusDropdown = (props: IFieldProps<IHookStatusDropdownProps>) => {
   );
 };
 
-export default HookStatusDropdown;
+export default StatusDropdownField;

@@ -1,6 +1,6 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import HookReadOnlyDateTime from "@bghcore/dynamic-forms-fluent/fields/readonly/ReadOnlyDateTime";
+import ReadOnlyDateTime from "@bghcore/dynamic-forms-fluent/fields/readonly/ReadOnlyDateTime";
 import { FormDecorator, createFieldProps } from "../../helpers";
 
 /**
@@ -26,7 +26,7 @@ export default meta;
 export const WithTimestamp: StoryObj = {
   render: (args) => {
     const props = createFieldProps({ ...args });
-    return <HookReadOnlyDateTime {...props} />;
+    return <ReadOnlyDateTime {...props} />;
   },
   args: {
     value: "2025-06-15T14:30:00.000Z",
@@ -40,7 +40,7 @@ export const DateOnly: StoryObj = {
       ...args,
       config: { hidetimeStamp: true },
     });
-    return <HookReadOnlyDateTime {...props} />;
+    return <ReadOnlyDateTime {...props} />;
   },
   args: {
     value: "2025-06-15T14:30:00.000Z",
@@ -51,7 +51,7 @@ export const DateOnly: StoryObj = {
 export const NoValue: StoryObj = {
   render: (args) => {
     const props = createFieldProps({ ...args });
-    return <HookReadOnlyDateTime {...props} />;
+    return <ReadOnlyDateTime {...props} />;
   },
   args: {
     value: null,

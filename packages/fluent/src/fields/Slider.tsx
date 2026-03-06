@@ -10,7 +10,7 @@ interface IHookSliderProps {
   step?: number;
 }
 
-const HookSlider = (props: IFieldProps<IHookSliderProps>) => {
+const SliderField = (props: IFieldProps<IHookSliderProps>) => {
   const { fieldName, programName, entityType, entityId, value, readOnly, config, error, setFieldValue } = props;
 
   const onChange = (_: unknown, data: { value: number }) => {
@@ -32,4 +32,4 @@ const HookSlider = (props: IFieldProps<IHookSliderProps>) => {
   );
 };
 
-export default HookSlider;
+export default SliderField;

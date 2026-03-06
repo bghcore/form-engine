@@ -4,7 +4,7 @@ import { useFormContext } from "react-hook-form";
 import DocumentLinks, { IDocumentLink } from "../components/DocumentLinks/DocumentLinks";
 import { FieldClassName } from "../helpers";
 
-const HookDocumentLinks = (props: IFieldProps<{}>) => {
+const DocumentLinksField = (props: IFieldProps<{}>) => {
   const { fieldName, programName, entityType, entityId, value, readOnly, error, setFieldValue } = props;
 
   const { watch } = useFormContext();
@@ -53,4 +53,4 @@ const HookDocumentLinks = (props: IFieldProps<{}>) => {
   );
 };
 
-export default HookDocumentLinks;
+export default DocumentLinksField;

@@ -1,6 +1,6 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import HookReadOnlyWithButton from "@bghcore/dynamic-forms-fluent/fields/readonly/ReadOnlyWithButton";
+import ReadOnlyWithButton from "@bghcore/dynamic-forms-fluent/fields/readonly/ReadOnlyWithButton";
 import { FormDecorator, createFieldProps } from "../../helpers";
 
 /**
@@ -33,7 +33,7 @@ export const Default: StoryObj = {
         onButtonClick: () => alert("Button clicked!"),
       },
     });
-    return <HookReadOnlyWithButton {...props} />;
+    return <ReadOnlyWithButton {...props} />;
   },
   args: {
     value: "PRJ-2025-001",
@@ -44,7 +44,7 @@ export const Default: StoryObj = {
 export const WithoutButton: StoryObj = {
   render: (args) => {
     const props = createFieldProps({ ...args, config: {} });
-    return <HookReadOnlyWithButton {...props} />;
+    return <ReadOnlyWithButton {...props} />;
   },
   args: {
     value: "PRJ-2025-002",

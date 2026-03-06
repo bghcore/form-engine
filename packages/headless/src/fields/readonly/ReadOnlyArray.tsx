@@ -1,7 +1,7 @@
 import { IFieldProps } from "@bghcore/dynamic-forms-core";
 import React from "react";
 
-const HookReadOnlyArray = (props: IFieldProps<{}>) => {
+const ReadOnlyArray = (props: IFieldProps<{}>) => {
   const { fieldName, value } = props;
   const items = (value as string[]) ?? [];
 
@@ -23,4 +23,4 @@ const HookReadOnlyArray = (props: IFieldProps<{}>) => {
   );
 };
 
-export default HookReadOnlyArray;
+export default ReadOnlyArray;

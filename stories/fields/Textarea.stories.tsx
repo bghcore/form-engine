@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import HookPopOutEditor from "@bghcore/dynamic-forms-fluent/fields/PopOutEditor";
+import PopOutEditor from "@bghcore/dynamic-forms-fluent/fields/PopOutEditor";
 import { FormDecorator, createFieldProps } from "../helpers";
 
 /**
@@ -34,7 +34,7 @@ const TextareaStory = (args: Record<string, unknown>) => {
     value,
     setFieldValue: (_name, val) => setValue(val as string),
   });
-  return <HookPopOutEditor {...props} />;
+  return <PopOutEditor {...props} />;
 };
 
 export const Default: StoryObj = {

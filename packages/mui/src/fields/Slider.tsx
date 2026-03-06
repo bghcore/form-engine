@@ -1,16 +1,16 @@
 import { IFieldProps } from "@bghcore/dynamic-forms-core";
-import { Slider } from "@mui/material";
+import { Slider as MuiSlider } from "@mui/material";
 import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";
 import { FieldClassName, GetFieldDataTestId } from "../helpers";
 
-interface IHookSliderProps {
+interface ISliderProps {
   max?: number;
   min?: number;
   step?: number;
 }
 
-const HookSlider = (props: IFieldProps<IHookSliderProps>) => {
+const Slider = (props: IFieldProps<ISliderProps>) => {
   const { fieldName, programName, entityType, entityId, value, readOnly, config, error, setFieldValue } = props;
 
   const onChange = (_: Event, newValue: number | number[]) => {
@@ -20,7 +20,7 @@ const HookSlider = (props: IFieldProps<IHookSliderProps>) => {
   return readOnly ? (
     <ReadOnlyText fieldName={fieldName} value={String(value)} />
   ) : (
-    <Slider
+    <MuiSlider
       className={FieldClassName("hook-slider", error)}
       value={(value as number) ?? 0}
       onChange={onChange}
@@ -33,4 +33,4 @@ const HookSlider = (props: IFieldProps<IHookSliderProps>) => {
   );
 };
 
-export default HookSlider;
+export default Slider;

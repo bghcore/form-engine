@@ -2,7 +2,7 @@ import { IFieldProps } from "@bghcore/dynamic-forms-core";
 import React, { useState, useMemo } from "react";
 import { GetFieldDataTestId, getFieldState } from "../helpers";
 
-const HookMultiSelectSearch = (props: IFieldProps<{}>) => {
+const MultiSelectSearch = (props: IFieldProps<{}>) => {
   const { fieldName, programName, entityType, entityId, value, readOnly, error, required, options, setFieldValue } = props;
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -74,4 +74,4 @@ const HookMultiSelectSearch = (props: IFieldProps<{}>) => {
   );
 };
 
-export default HookMultiSelectSearch;
+export default MultiSelectSearch;

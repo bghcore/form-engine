@@ -8,7 +8,7 @@ export interface IHookStatusDropdownProps {
   statusColors?: Dictionary<string>;
 }
 
-const HookStatusDropdown = (props: IFieldProps<IHookStatusDropdownProps>) => {
+const StatusDropdown = (props: IFieldProps<IHookStatusDropdownProps>) => {
   const { fieldName, programName, entityType, entityId, value, readOnly, error, required, config, options, placeholder, setFieldValue } = props;
 
   const onChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -68,4 +68,4 @@ const HookStatusDropdown = (props: IFieldProps<IHookStatusDropdownProps>) => {
   );
 };
 
-export default HookStatusDropdown;
+export default StatusDropdown;

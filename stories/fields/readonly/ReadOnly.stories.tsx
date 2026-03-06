@@ -1,6 +1,6 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import HookReadOnly from "@bghcore/dynamic-forms-fluent/fields/readonly/ReadOnly";
+import ReadOnly from "@bghcore/dynamic-forms-fluent/fields/readonly/ReadOnly";
 import { FormDecorator, createFieldProps } from "../../helpers";
 
 /**
@@ -26,7 +26,7 @@ export default meta;
 export const Default: StoryObj = {
   render: (args) => {
     const props = createFieldProps({ ...args });
-    return <HookReadOnly {...props} />;
+    return <ReadOnly {...props} />;
   },
   args: {
     value: "John Doe",
@@ -37,7 +37,7 @@ export const Default: StoryObj = {
 export const LongText: StoryObj = {
   render: (args) => {
     const props = createFieldProps({ ...args });
-    return <HookReadOnly {...props} />;
+    return <ReadOnly {...props} />;
   },
   args: {
     value: "This is a very long text value that demonstrates how read-only fields display extended content without any truncation by default.",
@@ -51,7 +51,7 @@ export const Truncated: StoryObj = {
       ...args,
       config: { ellipsifyTextCharacters: 30 },
     });
-    return <HookReadOnly {...props} />;
+    return <ReadOnly {...props} />;
   },
   args: {
     value: "This is a very long text value that will be truncated after 30 characters.",

@@ -8,7 +8,7 @@ export interface IDocumentLink {
   text?: string;
 }
 
-const HookDocumentLinks = (props: IFieldProps<{}>) => {
+const DocumentLinks = (props: IFieldProps<{}>) => {
   const { fieldName, programName, entityType, entityId, value, readOnly, error, required, setFieldValue } = props;
 
   const { watch } = useFormContext();
@@ -102,4 +102,4 @@ const HookDocumentLinks = (props: IFieldProps<{}>) => {
   );
 };
 
-export default HookDocumentLinks;
+export default DocumentLinks;

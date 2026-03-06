@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import HookDateControl from "@bghcore/dynamic-forms-fluent/fields/DateControl";
+import DateControl from "@bghcore/dynamic-forms-fluent/fields/DateControl";
 import { FormDecorator, createFieldProps } from "../helpers";
 
 /**
@@ -33,7 +33,7 @@ const DateControlStory = (args: Record<string, unknown>) => {
     value,
     setFieldValue: (_name, val) => setValue(val as string),
   });
-  return <HookDateControl {...props} />;
+  return <DateControl {...props} />;
 };
 
 export const Default: StoryObj = {

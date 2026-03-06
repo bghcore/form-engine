@@ -5,12 +5,12 @@ import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";
 import { FieldClassName, GetFieldDataTestId } from "../helpers";
 
-interface IHookSimpleDropdownProps {
+interface ISimpleDropdownProps {
   dropdownOptions?: string[];
   placeHolder?: string;
 }
 
-const HookSimpleDropdown = (props: IFieldProps<IHookSimpleDropdownProps>) => {
+const SimpleDropdown = (props: IFieldProps<ISimpleDropdownProps>) => {
   const { fieldName, programName, entityType, entityId, value, readOnly, config, error, setFieldValue } = props;
 
   const simpleOptions = config?.dropdownOptions ?? [];
@@ -38,4 +38,4 @@ const HookSimpleDropdown = (props: IFieldProps<IHookSimpleDropdownProps>) => {
   );
 };
 
-export default HookSimpleDropdown;
+export default SimpleDropdown;

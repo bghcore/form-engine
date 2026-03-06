@@ -4,7 +4,7 @@ import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";
 import { FieldClassName, GetFieldDataTestId } from "../helpers";
 
-const HookNumber = (props: IFieldProps<{}>) => {
+const NumberField = (props: IFieldProps<{}>) => {
   const { fieldName, programName, entityType, entityId, value, readOnly, config, error, setFieldValue } = props;
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,4 +34,4 @@ const HookNumber = (props: IFieldProps<{}>) => {
   );
 };
 
-export default HookNumber;
+export default NumberField;

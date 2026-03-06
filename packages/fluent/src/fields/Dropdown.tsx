@@ -10,7 +10,7 @@ interface IHookDropdownProps {
   setDefaultKeyIfOnlyOneOption?: boolean;
 }
 
-const HookDropdown = (props: IFieldProps<IHookDropdownProps>) => {
+const DropdownField = (props: IFieldProps<IHookDropdownProps>) => {
   const { fieldName, programName, entityType, entityId, value, readOnly, config, error, options, setFieldValue } = props;
 
   const onOptionSelect = (_: unknown, data: OptionOnSelectData) => {
@@ -44,4 +44,4 @@ const HookDropdown = (props: IFieldProps<IHookDropdownProps>) => {
   );
 };
 
-export default HookDropdown;
+export default DropdownField;

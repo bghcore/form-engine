@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import HookMultiSelectSearch from "@bghcore/dynamic-forms-fluent/fields/MultiSelectSearch";
+import MultiSelectSearch from "@bghcore/dynamic-forms-fluent/fields/MultiSelectSearch";
 import { FormDecorator, createFieldProps } from "../helpers";
 
 /**
@@ -44,7 +44,7 @@ const MultiSelectSearchStory = (args: Record<string, unknown>) => {
     options: countryOptions,
     setFieldValue: (_name, val) => setValue(val as string[]),
   });
-  return <HookMultiSelectSearch {...props} />;
+  return <MultiSelectSearch {...props} />;
 };
 
 export const Default: StoryObj = {
