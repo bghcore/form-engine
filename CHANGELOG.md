@@ -5,7 +5,51 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.0.4] - 2026-03-06
+## [1.0.0] - 2026-03-06
+
+First release under the `@form-engine` scope. Rebranded from `@bghcore/dynamic-forms-*` with a new RJSF-compatible schema import system.
+
+### Added
+
+- **RJSF-compatible schema import** -- `fromRjsfSchema(schema, uiSchema?, formData?, options?)` converts react-jsonschema-form schemas into `IFormConfig` v2 with full rules engine support. Lets RJSF users migrate with zero rewrite.
+  - **$ref resolution** -- Inlines `definitions` and `$defs` with circular reference detection
+  - **19 component type mappings** -- JSON Schema types/formats to `Textbox`, `Dropdown`, `DateControl`, `Toggle`, `Slider`, `Number`, `Textarea`, `Multiselect`, `FieldArray`, `DocumentLinks`, etc.
+  - **12 validation extractions** -- `minLength`, `maxLength`, `pattern`, `minimum`/`maximum`, `exclusiveMinimum`/`exclusiveMaximum`, `multipleOf`, `format` (email/uri), `uniqueItems`
+  - **Dependency → rule conversion** -- JSON Schema `dependencies` (both property and schema variants) converted to `IRule[]` with `isNotEmpty` conditions
+  - **if/then/else → rule conversion** -- Conditional schemas converted to visibility and required rules
+  - **oneOf/anyOf → rule conversion** -- Discriminator detection creates dropdown + visibility rules; synthetic `_variant` dropdown for non-discriminated unions
+  - **uiSchema application** -- All `ui:*` keys mapped (`ui:widget`, `ui:hidden`, `ui:readonly`, `ui:placeholder`, `ui:options`, `ui:enumDisabled`, `ui:order`, etc.)
+  - **formData merging** -- Existing form data applied as `defaultValue` on fields
+  - **Nested object handling** -- Flatten strategy (dot-notation keys) or fieldArray strategy
+  - **`allOf` merging** -- Combines multiple schema fragments before conversion
+- **Reverse converter** -- `toRjsfSchema(config)` exports `IFormConfig` back to JSON Schema + uiSchema (best-effort, structural fidelity only)
+- **`exclusiveNumericRange` validator** -- Handles JSON Schema `exclusiveMinimum`/`exclusiveMaximum` with strict inequality
+- **`multipleOf` validator** -- Handles JSON Schema `multipleOf` constraint with floating-point tolerance
+- 101 new tests across 5 test files (refResolver, fieldMapper, ruleConverter, converter, reverseConverter)
+
+### Changed
+
+- **Package scope** -- All packages renamed from `@bghcore/dynamic-forms-*` to `@form-engine/*`:
+  - `@form-engine/core` (was `@bghcore/dynamic-forms-core`)
+  - `@form-engine/fluent` (was `@bghcore/dynamic-forms-fluent`)
+  - `@form-engine/mui` (was `@bghcore/dynamic-forms-mui`)
+  - `@form-engine/headless` (was `@bghcore/dynamic-forms-headless`)
+  - `@form-engine/designer` (was `@bghcore/dynamic-forms-designer`)
+  - `@form-engine/examples` (was `@bghcore/dynamic-forms-examples`)
+- **Repository** -- Moved to [github.com/bghcore/form-engine](https://github.com/bghcore/form-engine)
+- **Version reset** -- Reset to 1.0.0 for the new scope (see pre-rebrand history below)
+
+### Removed
+
+- **`jsonSchemaToFieldConfig()`** -- Replaced by `fromRjsfSchema()` which returns a full `IFormConfig` (not just `Record<string, IFieldConfig>`) and supports dependencies, conditionals, uiSchema, and formData
+
+---
+
+## Pre-Rebrand History
+
+The following entries document the development history under the original `@bghcore/dynamic-forms-*` package names (versions 0.1.0 through 3.0.4).
+
+## [3.0.4] (pre-rebrand) - 2026-03-06
 
 Comprehensive bug-fix audit: 23 bugs fixed across 34 files spanning the rules engine, core components, validation, providers, and all three adapter packages.
 

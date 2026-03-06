@@ -1,4 +1,4 @@
-# Dynamic React Business Forms
+# Form Engine
 
 > A React library for rendering complex, configuration-driven forms with a built-in rules engine. Define forms as JSON configurations (IFormConfig v2) and the library handles rendering, validation, auto-save, and field interactions automatically. UI-library agnostic -- works with Fluent UI, MUI, headless HTML, or any React component library. Published as six packages: `@form-engine/core` (engine + orchestration), `@form-engine/fluent` (Fluent UI v9 adapter), `@form-engine/mui` (Material UI adapter), `@form-engine/headless` (unstyled semantic HTML adapter), `@form-engine/designer` (visual drag-and-drop form builder), and `@form-engine/examples` (3 example apps).
 

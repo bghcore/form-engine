@@ -76,7 +76,7 @@ Fields are registered as a `Record<string, JSX.Element>` via `InjectedFieldProvi
 - `ValueFunctionRegistry` -- Value functions via `$fn.name()` syntax in computed expressions. `registerValueFunctions()` for custom.
 - `LocaleRegistry` -- i18n support via `registerLocale()` with partial overrides and English fallback
 - `formStateSerialization` -- Date-safe JSON round-trip for draft persistence
-- `jsonSchemaImport` -- Convert JSON Schema to `Record<string, IFieldConfig>`
+- `rjsf/` -- RJSF-compatible schema import: `fromRjsfSchema()` converts JSON Schema + uiSchema + formData to `IFormConfig` with auto-generated `IRule[]` from dependencies/if-then-else/oneOf. `toRjsfSchema()` for reverse export.
 - `zodSchemaImport` -- Convert Zod schema to `Record<string, IFieldConfig>` (no zod dependency)
 - `lazyFieldRegistry` -- Create field registries with React.lazy for on-demand loading
 
@@ -173,11 +173,18 @@ packages/
       utils/
         index.ts                 -- isEmpty, isNull, deepCopy, Dictionary, etc.
         formStateSerialization.ts -- Date-safe JSON round-trip
-        jsonSchemaImport.ts      -- JSON Schema -> IFieldConfig
+        rjsf/                    -- RJSF-compatible schema import/export
+          types.ts               -- IJsonSchemaNode, IRjsfUiSchema, IRjsfConvertOptions
+          refResolver.ts         -- $ref / definitions / $defs resolution
+          fieldMapper.ts         -- JSON Schema node -> IFieldConfig, uiSchema application
+          ruleConverter.ts       -- dependencies, if/then/else, oneOf/anyOf -> IRule[]
+          converter.ts           -- fromRjsfSchema() orchestrator
+          reverseConverter.ts    -- toRjsfSchema() export
+          index.ts               -- Barrel export
         zodSchemaImport.ts       -- Zod schema -> IFieldConfig (no zod dep)
         lazyFieldRegistry.ts     -- React.lazy field loading
       styles.css                 -- Optional CSS custom properties for theming
-      __tests__/                 -- Vitest tests (478 tests, 24 files)
+      __tests__/                 -- Vitest tests (616 tests, 29 files)
         __fixtures__/            -- Shared test configs and entity data (v2 format)
 
   fluent/                        -- @form-engine/fluent

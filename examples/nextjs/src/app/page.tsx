@@ -30,7 +30,7 @@ export default function Home() {
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
       <Typography variant="h3" gutterBottom>
-        Dynamic React Business Forms
+        Form Engine
       </Typography>
       <Typography variant="subtitle1" color="text.secondary" sx={{ mb: 4 }}>
         Configuration-driven forms with a declarative business rules engine.

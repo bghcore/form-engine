@@ -1,4 +1,4 @@
-# Dynamic React Business Forms
+# Form Engine
 
 [![npm core](https://img.shields.io/npm/v/@form-engine/core?label=core)](https://www.npmjs.com/package/@form-engine/core)
 [![npm fluent](https://img.shields.io/npm/v/@form-engine/fluent?label=fluent)](https://www.npmjs.com/package/@form-engine/fluent)
@@ -7,7 +7,7 @@
 [![npm designer](https://img.shields.io/npm/v/@form-engine/designer?label=designer)](https://www.npmjs.com/package/@form-engine/designer)
 [![CI](https://github.com/bghcore/form-engine/actions/workflows/ci.yml/badge.svg)](https://github.com/bghcore/form-engine/actions/workflows/ci.yml)
 
-[Storybook](https://bghcore.github.io/form-engine/storybook/) | [Designer Demo](https://bghcore.github.io/form-engine/designer/) | [npm](https://www.npmjs.com/org/bghcore)
+[Storybook](https://bghcore.github.io/form-engine/storybook/) | [Designer Demo](https://bghcore.github.io/form-engine/designer/) | [npm](https://www.npmjs.com/org/form-engine)
 
 A React library for rendering complex, configuration-driven forms with a built-in rules engine. Define your forms as a single `IFormConfig` JSON object -- field definitions, declarative rules with rich conditions, validation, ordering -- and the library handles rendering, validation, auto-save, and field interactions automatically.
 
@@ -23,7 +23,7 @@ A React library for rendering complex, configuration-driven forms with a built-i
 
 **Don't use this if you need:**
 - Simple forms with 3-5 static fields -- use react-hook-form directly
-- JSON Schema compliance -- use [RJSF](https://github.com/rjsf-team/react-jsonschema-form)
+- Pure JSON Schema rendering with no rules engine -- use [RJSF](https://github.com/rjsf-team/react-jsonschema-form) (but if you want RJSF's schema format with our rules engine, use `fromRjsfSchema()` to migrate)
 - Headless form state with zero opinions -- use [TanStack Form](https://tanstack.com/form)
 
 ## Packages
@@ -635,24 +635,53 @@ For Next.js App Router, add `"use client"` to files containing form components. 
 
 See the [SSR / Next.js integration guide](./docs/ssr-guide.md) for full setup instructions covering App Router, Pages Router, draft persistence, lazy loading, and common pitfalls.
 
-### JSON Schema Import
+### RJSF Schema Import
 
-Convert JSON Schema to field configs for rapid prototyping or schema-driven forms:
+Migrate from [react-jsonschema-form](https://github.com/rjsf-team/react-jsonschema-form) with zero rewrite. Bring your existing `schema` + `uiSchema` + `formData` and get a full `IFormConfig` with our rules engine layered on top. JSON Schema `dependencies` and `if/then/else` are auto-converted to `IRule[]`.
 
 ```tsx
-import { jsonSchemaToFieldConfig } from "@form-engine/core";
+import { fromRjsfSchema } from "@form-engine/core";
 
-const fieldConfigs = jsonSchemaToFieldConfig({
+// Your existing RJSF schema
+const schema = {
   type: "object",
   properties: {
-    name: { type: "string", minLength: 1 },
-    age: { type: "number", minimum: 0 },
+    name: { type: "string", title: "Name", minLength: 1 },
+    age: { type: "integer", title: "Age", minimum: 0, maximum: 150 },
     role: { type: "string", enum: ["admin", "user", "guest"] },
+    email: { type: "string", format: "email" },
   },
   required: ["name"],
-});
-// Result: Dictionary<IFieldConfig> with Textbox, Number, and Dropdown fields
+  dependencies: {
+    role: {
+      oneOf: [
+        {
+          properties: {
+            role: { const: "admin" },
+            adminCode: { type: "string", title: "Admin Code" },
+          },
+          required: ["adminCode"],
+        },
+      ],
+    },
+  },
+};
+
+const uiSchema = {
+  age: { "ui:widget": "updown" },
+  email: { "ui:placeholder": "you@example.com" },
+  "ui:order": ["name", "email", "role", "age", "*"],
+};
+
+// Convert to IFormConfig -- dependencies become IRule[] automatically
+const formConfig = fromRjsfSchema(schema, uiSchema, existingFormData);
+// formConfig.fields.adminCode has rules for conditional visibility based on role
+
+// Use directly with DynamicForm
+<DynamicForm formConfig={formConfig} /* ... */ />
 ```
+
+Also exports `toRjsfSchema(config)` for converting back to JSON Schema + uiSchema (best-effort, structural fidelity only).
 
 ### Zod Schema Import
 

@@ -1,4 +1,4 @@
-# AGENTS.md -- Dynamic React Business Forms
+# AGENTS.md -- Form Engine
 
 ## Setup
 

@@ -24,7 +24,7 @@ export default function App() {
   return (
     <Container maxWidth="sm" sx={{ py: 4 }}>
       <Typography variant="h4" gutterBottom>
-        Dynamic React Business Forms
+        Form Engine
       </Typography>
       <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
         Configuration-driven forms with a declarative business rules engine.
