@@ -1,21 +1,7 @@
-import { IFieldProps } from "@form-eng/core";
+import { IFieldProps, IFileUploadConfig, MAX_FILE_SIZE_MB_DEFAULT, getFileNames } from "@form-eng/core";
 import React, { useRef } from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";
 import { GetFieldDataTestId, getFieldState } from "../helpers";
-
-interface IFileUploadConfig {
-  multiple?: boolean;
-  accept?: string;
-  maxSizeMb?: number;
-}
-
-const MAX_SIZE_MB_DEFAULT = 10;
-
-function getFileNames(value: unknown): string {
-  if (!value) return "";
-  if (Array.isArray(value)) return (value as File[]).map(f => f.name).join(", ");
-  return (value as File).name ?? "";
-}
 
 const FileUpload = (props: IFieldProps<IFileUploadConfig>) => {
   const { fieldName, programName, entityType, entityId, value, readOnly, error, required, config, setFieldValue } = props;
@@ -23,7 +9,7 @@ const FileUpload = (props: IFieldProps<IFileUploadConfig>) => {
 
   const multiple = config?.multiple ?? false;
   const accept = config?.accept;
-  const maxSizeMb = config?.maxSizeMb ?? MAX_SIZE_MB_DEFAULT;
+  const maxSizeMb = config?.maxSizeMb ?? MAX_FILE_SIZE_MB_DEFAULT;
   const maxSizeBytes = maxSizeMb * 1024 * 1024;
 
   const [sizeError, setSizeError] = React.useState<string | undefined>(undefined);

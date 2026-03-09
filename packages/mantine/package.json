@@ -1,0 +1,66 @@
+{
+  "name": "@form-eng/mantine",
+  "version": "1.1.1",
+  "description": "Mantine v7 field components for @form-eng/core",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bghcore/form-engine.git",
+    "directory": "packages/mantine"
+  },
+  "homepage": "https://github.com/bghcore/form-engine#readme",
+  "bugs": {
+    "url": "https://github.com/bghcore/form-engine/issues"
+  },
+  "keywords": [
+    "react",
+    "forms",
+    "mantine",
+    "dynamic-forms",
+    "react-hook-form",
+    "form-builder",
+    "field-components",
+    "business-forms"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "license": "MIT",
+  "author": "bghcore (https://github.com/bghcore)",
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsup",
+    "clean": "rimraf dist"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0",
+    "react-hook-form": "^7.0.0",
+    "@form-eng/core": "^1.0.0",
+    "@mantine/core": "^7.0.0",
+    "@mantine/dates": "^7.0.0"
+  },
+  "devDependencies": {
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-hook-form": "^7.71.2",
+    "@form-eng/core": "*",
+    "@mantine/core": "^7.17.2",
+    "@mantine/dates": "^7.17.2",
+    "dayjs": "^1.11.13",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3"
+  }
+}

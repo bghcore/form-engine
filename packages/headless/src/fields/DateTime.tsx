@@ -1,21 +1,7 @@
-import { IFieldProps } from "@form-eng/core";
+import { IFieldProps, IDateTimeConfig, formatDateTimeValue } from "@form-eng/core";
 import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";
-import { GetFieldDataTestId, getFieldState, formatDateTime } from "../helpers";
-
-interface IDateTimeConfig {
-  minDateTime?: string;
-  maxDateTime?: string;
-}
-
-function formatDateTimeValue(value: unknown): string {
-  if (!value) return "";
-  try {
-    return formatDateTime(value as string);
-  } catch {
-    return String(value);
-  }
-}
+import { GetFieldDataTestId, getFieldState } from "../helpers";
 
 const DateTime = (props: IFieldProps<IDateTimeConfig>) => {
   const { fieldName, programName, entityType, entityId, value, readOnly, error, required, config, setFieldValue } = props;

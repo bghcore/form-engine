@@ -1,0 +1,29 @@
+import { IFieldProps, convertBooleanToYesOrNoText } from "@form-eng/core";
+import { Switch } from "antd";
+import React from "react";
+import { ReadOnlyText } from "../components/ReadOnlyText";
+import { GetFieldDataTestId } from "../helpers";
+
+const Toggle = (props: IFieldProps<{}>) => {
+  const { fieldName, programName, entityType, entityId, value, readOnly, error, required, setFieldValue } = props;
+
+  const onChange = (checked: boolean) => {
+    setFieldValue(fieldName, checked);
+  };
+
+  if (readOnly) {
+    return <ReadOnlyText fieldName={fieldName} value={convertBooleanToYesOrNoText(value as boolean)} />;
+  }
+
+  return (
+    <Switch
+      checked={!!value}
+      onChange={onChange}
+      aria-invalid={!!error}
+      aria-required={required}
+      data-testid={GetFieldDataTestId(fieldName, programName, entityType, entityId)}
+    />
+  );
+};
+
+export default Toggle;

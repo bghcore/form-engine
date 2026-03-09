@@ -1,25 +1,7 @@
-import { IFieldProps } from "@form-eng/core";
+import { IFieldProps, IDateRangeConfig, IDateRangeValue, formatDateRange } from "@form-eng/core";
 import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";
 import { GetFieldDataTestId, getFieldState } from "../helpers";
-
-interface IDateRangeConfig {
-  minDate?: string;
-  maxDate?: string;
-}
-
-interface IDateRangeValue {
-  start: string;
-  end: string;
-}
-
-function formatDateRange(value: unknown): string {
-  if (!value) return "";
-  const v = value as IDateRangeValue;
-  if (!v.start && !v.end) return "";
-  if (v.start && v.end) return `${v.start} – ${v.end}`;
-  return v.start || v.end;
-}
 
 const DateRange = (props: IFieldProps<IDateRangeConfig>) => {
   const { fieldName, programName, entityType, entityId, value, readOnly, error, required, config, setFieldValue } = props;

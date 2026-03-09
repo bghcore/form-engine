@@ -1,13 +1,8 @@
-import { IFieldProps } from "@form-eng/core";
+import { IFieldProps, IRatingConfig } from "@form-eng/core";
 import { Rating as MuiRating } from "@mui/material";
 import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";
 import { FieldClassName, GetFieldDataTestId } from "../helpers";
-
-interface IRatingConfig {
-  max?: number;
-  allowHalf?: boolean;
-}
 
 const Rating = (props: IFieldProps<IRatingConfig>) => {
   const { fieldName, programName, entityType, entityId, value, readOnly, error, required, config, setFieldValue } = props;

@@ -144,6 +144,22 @@ export type { IFormAnalytics } from "./hooks/useFormAnalytics";
 // Form State Serialization
 export { serializeFormState, deserializeFormState } from "./utils/formStateSerialization";
 
+// Field Utilities (shared across adapter packages)
+export {
+  GetFieldDataTestId,
+  FieldClassName,
+  getFieldState,
+  formatDateTime,
+  formatDateTimeValue,
+  formatDateRange,
+  getFileNames,
+  extractDigits,
+  formatPhone,
+  ellipsifyText,
+  MAX_FILE_SIZE_MB_DEFAULT,
+  DocumentLinksStrings,
+} from "./helpers/FieldUtils";
+
 // Expression Engine
 export { evaluateExpression, extractExpressionDependencies, extractFunctionDependencies } from "./helpers/ExpressionEngine";
 

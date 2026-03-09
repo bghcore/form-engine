@@ -4,11 +4,14 @@
 
 A React library for rendering complex, configuration-driven forms with a built-in rules engine. Forms are defined as a single `IFormConfig` JSON object (field definitions, rules with rich conditions, validation, ordering) and the library handles rendering, validation, auto-save, and field interactions automatically.
 
-Published as six npm packages:
+Published as nine npm packages:
 - `@form-eng/core` -- UI-library agnostic rules engine and form orchestration (React + react-hook-form only)
 - `@form-eng/fluent` -- Fluent UI v9 field component implementations
 - `@form-eng/mui` -- Material UI (MUI) field component implementations
 - `@form-eng/headless` -- Unstyled semantic HTML field implementations (no UI framework dependency)
+- `@form-eng/antd` -- Ant Design v5 field component implementations
+- `@form-eng/chakra` -- Chakra UI v3 field component implementations
+- `@form-eng/mantine` -- Mantine v7 field component implementations
 - `@form-eng/designer` -- Visual drag-and-drop form builder that outputs IFormConfig v2
 - `@form-eng/examples` -- 3 example apps (login+MFA, checkout wizard, data entry)
 
@@ -206,6 +209,24 @@ packages/
       fields/ (13 editable + 6 read-only, semantic HTML, data-* attributes, ARIA)
       styles.css (optional CSS custom properties)
 
+  antd/                          -- @form-eng/antd
+    src/
+      index.ts, registry.ts, helpers.ts
+      components/ (ReadOnlyText, StatusMessage, FormLoading)
+      fields/ (13 Tier 1 editable + 1 read-only, Ant Design v5 components)
+
+  chakra/                        -- @form-eng/chakra
+    src/
+      index.ts, registry.ts, helpers.ts
+      components/ (ReadOnlyText, StatusMessage, FormLoading)
+      fields/ (13 Tier 1 editable + 1 read-only, Chakra UI v3 + semantic HTML)
+
+  mantine/                       -- @form-eng/mantine
+    src/
+      index.ts, registry.ts, helpers.ts
+      components/ (ReadOnlyText, StatusMessage, FormLoading)
+      fields/ (13 Tier 1 editable + 1 read-only, Mantine v7 components)
+
   designer/                      -- @form-eng/designer
     src/
       types/ (IDesignerState, IDesignerAction)
@@ -233,8 +254,11 @@ npm run build:core       # Build core package only
 npm run build:fluent     # Build fluent package only
 npm run build:mui        # Build MUI package only
 npm run build:headless   # Build headless package only
+npm run build:antd       # Build Ant Design package only
+npm run build:chakra     # Build Chakra UI package only
+npm run build:mantine    # Build Mantine package only
 npm run clean            # Remove all dist/ directories
-npm run test             # Run all tests (vitest, 515 tests)
+npm run test             # Run all tests (vitest, 745 tests)
 npm run test:watch       # Run tests in watch mode
 npm run test:coverage    # Run tests with coverage report
 npm run test:e2e         # Run Playwright E2E tests (54 tests)
@@ -245,7 +269,7 @@ npm run build-storybook  # Build static Storybook
 
 **Build output per package:** `dist/index.js` (CJS), `dist/index.mjs` (ESM), `dist/index.d.ts` (types)
 
-**Monorepo:** npm workspaces with `packages/core`, `packages/fluent`, `packages/mui`, `packages/headless`, `packages/designer`, `packages/examples`
+**Monorepo:** npm workspaces with `packages/core`, `packages/fluent`, `packages/mui`, `packages/headless`, `packages/antd`, `packages/chakra`, `packages/mantine`, `packages/designer`, `packages/examples`
 
 ## Tech Stack
 
@@ -254,7 +278,7 @@ npm run build-storybook  # Build static Storybook
 - **Fluent UI v9** (`@fluentui/react-components`) for UI components (fluent package)
 - **MUI v5/v6** (`@mui/material`) for UI components (mui package)
 - **TypeScript** with `strict: true`
-- **Vitest** for testing (515 tests across 25 files)
+- **Vitest** for testing (745 tests across 35 files)
 - **Playwright** for E2E testing (54 tests across 7 specs)
 - **Storybook 10** for visual component documentation (64 stories)
 - **tsup** for bundling (CJS + ESM + .d.ts)

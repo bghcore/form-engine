@@ -32,3 +32,6 @@ export * from "./IFormEngineSharedProps";
 
 // Analytics
 export * from "./IAnalyticsCallbacks";
+
+// Shared field config interfaces (used by adapter packages)
+export * from "./IFieldConfigs";

@@ -1,12 +1,7 @@
-import { IFieldProps } from "@form-eng/core";
+import { IFieldProps, IRatingConfig } from "@form-eng/core";
 import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";
 import { GetFieldDataTestId, getFieldState } from "../helpers";
-
-interface IRatingConfig {
-  max?: number;
-  allowHalf?: boolean;
-}
 
 const Rating = (props: IFieldProps<IRatingConfig>) => {
   const { fieldName, programName, entityType, entityId, value, readOnly, error, required, config, setFieldValue } = props;

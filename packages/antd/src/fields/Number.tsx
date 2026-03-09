@@ -1,0 +1,33 @@
+import { IFieldProps, isNull } from "@form-eng/core";
+import { InputNumber } from "antd";
+import React from "react";
+import { ReadOnlyText } from "../components/ReadOnlyText";
+import { FieldClassName, GetFieldDataTestId } from "../helpers";
+
+const NumberField = (props: IFieldProps<{}>) => {
+  const { fieldName, programName, entityType, entityId, value, readOnly, error, required, setFieldValue } = props;
+
+  const onChange = (val: number | null) => {
+    setFieldValue(fieldName, val, false, 1500);
+  };
+
+  if (readOnly) {
+    return <ReadOnlyText fieldName={fieldName} value={!isNull(value) ? String(value) : undefined} />;
+  }
+
+  return (
+    <InputNumber
+      className={FieldClassName("fe-number", error)}
+      autoComplete="off"
+      value={!isNull(value) ? (value as number) : null}
+      onChange={onChange}
+      status={error ? "error" : undefined}
+      style={{ width: "100%" }}
+      aria-invalid={!!error}
+      aria-required={required}
+      data-testid={GetFieldDataTestId(fieldName, programName, entityType, entityId)}
+    />
+  );
+};
+
+export default NumberField;

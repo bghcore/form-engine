@@ -5,11 +5,14 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "npm run build:core && npm run build --workspace=packages/fluent --workspace=packages/mui --workspace=packages/headless --workspace=packages/designer && npm run build --workspace=packages/examples",
+    "build": "npm run build:core && npm run build --workspace=packages/fluent --workspace=packages/mui --workspace=packages/headless --workspace=packages/antd --workspace=packages/chakra --workspace=packages/mantine --workspace=packages/designer && npm run build --workspace=packages/examples",
     "build:core": "npm run build --workspace=packages/core",
     "build:fluent": "npm run build --workspace=packages/fluent",
     "build:mui": "npm run build --workspace=packages/mui",
     "build:headless": "npm run build --workspace=packages/headless",
+    "build:antd": "npm run build --workspace=packages/antd",
+    "build:chakra": "npm run build --workspace=packages/chakra",
+    "build:mantine": "npm run build --workspace=packages/mantine",
     "clean": "rimraf packages/*/dist",
     "test": "vitest run",
     "test:watch": "vitest",
