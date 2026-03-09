@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-03-09
+
+### Added
+
+- **RadioGroup field type** -- Single-select radio button group; value: `string`. Available in Fluent, MUI, and Headless adapters.
+- **CheckboxGroup field type** -- Multi-select checkbox group; value: `string[]`. Available in Fluent, MUI, and Headless adapters.
+- **Rating field type** -- Star rating input; value: `number`. Configurable `max` stars and `allowHalf` via `config`. Available in Fluent, MUI, and Headless adapters.
+- **ColorPicker field type** -- Native `<input type="color">` returning hex string. Available in Fluent, MUI, and Headless adapters.
+- **Autocomplete field type** -- Searchable single-select with type-ahead filtering; value: `string`. Available in Fluent, MUI, and Headless adapters.
+- **FileUpload field type** -- File picker supporting single or multiple files (`File | File[] | string`). Drag-and-drop support, size validation via `config.maxSizeMb`. Available in Fluent, MUI, and Headless adapters.
+- **DateRange field type** -- Two date inputs (From / To); value: `{ start: string; end: string }` as ISO strings. Available in Fluent, MUI, and Headless adapters.
+- **DateTime field type** -- Combined date + time input; value: ISO datetime-local string. Available in Fluent, MUI, and Headless adapters.
+- **PhoneInput / MaskedInput field type** -- Phone number input with inline masking; supports `us`, `international`, and `raw` formats via `config`. Available in Fluent, MUI, and Headless adapters.
+- **`setValue` rule effect** -- `IFieldEffect` now supports `setValue` to programmatically set a field's value when a rule fires.
+- **Array condition operators** -- Three new condition operators for array-valued fields: `arrayContains`, `arrayNotContains`, `arrayLength`. Brings the total to 18 condition operators.
+- **`registerValidatorMetadata()`** -- New `ValidationRegistry` API for registering human-readable metadata (label, description, paramSchema) alongside validators. Used by `@form-eng/designer` to populate the RuleBuilder UI with friendly validator names and parameter forms.
+
+### Changed
+
+- All packages bumped from 1.0.1 to 1.1.0
+
 ## [1.0.1] - 2026-03-06
 
 ### Fixed

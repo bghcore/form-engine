@@ -1,6 +1,6 @@
 # @form-eng/fluent
 
-Fluent UI v9 field components for [`@form-eng/core`](https://www.npmjs.com/package/@form-eng/core). Provides 13 editable and 6 read-only field types that plug into the core form engine.
+Fluent UI v9 field components for [`@form-eng/core`](https://www.npmjs.com/package/@form-eng/core). Provides 22 editable and 6 read-only field types that plug into the core form engine.
 
 ## Install
 
@@ -81,6 +81,15 @@ function App() {
 | `DocumentLinks` | `HookDocumentLinks` | URL link CRUD |
 | `StatusDropdown` | `HookStatusDropdown` | Dropdown with color status indicator |
 | `DynamicFragment` | `HookFragment` | Hidden field (form state only) |
+| `RadioGroup` | `HookRadioGroup` | Single-select radio button group |
+| `CheckboxGroup` | `HookCheckboxGroup` | Multi-select checkbox group (value: `string[]`) |
+| `Rating` | `HookRating` | Star rating input (value: `number`; configurable `max`, `allowHalf`) |
+| `ColorPicker` | `HookColorPicker` | Native color picker returning hex string |
+| `Autocomplete` | `HookAutocomplete` | Searchable single-select with type-ahead |
+| `FileUpload` | `HookFileUpload` | File picker (single or multiple); validates size via `config.maxSizeMb` |
+| `DateRange` | `HookDateRange` | Two date inputs (From / To); value: `{ start, end }` ISO strings |
+| `DateTime` | `HookDateTime` | Combined date+time input; value: ISO datetime-local string |
+| `PhoneInput` | `HookPhoneInput` | Phone input with inline masking (`us`, `international`, `raw` formats) |
 
 ### Read-Only Fields
 

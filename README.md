@@ -31,9 +31,9 @@ A React library for rendering complex, configuration-driven forms with a built-i
 | Package | Description | Size |
 |---------|-------------|------|
 | [`@form-eng/core`](./packages/core) | UI-agnostic rules engine, form orchestration, validation, analytics, devtools. React + react-hook-form only, no UI library dependency. | ~114 KB ESM |
-| [`@form-eng/fluent`](./packages/fluent) | Fluent UI v9 field components (23 field types). | ~39 KB ESM |
-| [`@form-eng/mui`](./packages/mui) | Material UI field components (23 field types). | ~39 KB ESM |
-| [`@form-eng/headless`](./packages/headless) | Unstyled semantic HTML field components (23 field types). | ~36 KB ESM |
+| [`@form-eng/fluent`](./packages/fluent) | Fluent UI v9 field components (28 field types). | ~39 KB ESM |
+| [`@form-eng/mui`](./packages/mui) | Material UI field components (28 field types). | ~39 KB ESM |
+| [`@form-eng/headless`](./packages/headless) | Unstyled semantic HTML field components (28 field types). | ~36 KB ESM |
 | [`@form-eng/designer`](./packages/designer) | Visual drag-and-drop form builder with rule editor and JSON export. | ~65 KB ESM |
 | [`@form-eng/examples`](./packages/examples) | 3 example apps (login+MFA, checkout wizard, data entry). | -- |
 
@@ -122,12 +122,12 @@ When a field value changes, the engine:
 1. Identifies transitively affected fields via the dependency graph
 2. Re-evaluates rules for affected fields only (incremental evaluation)
 3. Resolves conflicts via priority (higher priority rule wins)
-4. Applies effects (required, hidden, readOnly, component swap, options, validation, computed value)
+4. Applies effects (required, hidden, readOnly, component swap, options, validation, computed value, setValue)
 5. Dispatches to the rules engine reducer for React re-render
 
 The engine includes **circular dependency detection** via Kahn's algorithm and **config validation** for dev-mode diagnostics.
 
-**15 condition operators:** `equals`, `notEquals`, `greaterThan`, `lessThan`, `greaterThanOrEqual`, `lessThanOrEqual`, `contains`, `notContains`, `startsWith`, `endsWith`, `in`, `notIn`, `isEmpty`, `isNotEmpty`, `matches`
+**18 condition operators:** `equals`, `notEquals`, `greaterThan`, `lessThan`, `greaterThanOrEqual`, `lessThanOrEqual`, `contains`, `notContains`, `startsWith`, `endsWith`, `in`, `notIn`, `isEmpty`, `isNotEmpty`, `matches`, `arrayContains`, `arrayNotContains`, `arrayLength`
 
 **Logical operators:** `and`, `or`, `not` (composable condition trees)
 
@@ -351,6 +351,17 @@ fields: {
 ```
 
 Built-in validators: `EmailValidation`, `PhoneNumberValidation`, `YearValidation`, `Max150KbValidation`, `Max32KbValidation`, `isValidUrl`, `NoSpecialCharactersValidation`, `CurrencyValidation`, `UniqueInArrayValidation` + factory functions: `createMinLengthValidation`, `createMaxLengthValidation`, `createNumericRangeValidation`, `createPatternValidation`, `createRequiredIfValidation`
+
+Use `registerValidatorMetadata()` to attach human-readable metadata (label, description, parameter schema) to validators for use in the visual form designer's RuleBuilder UI:
+
+```tsx
+import { registerValidatorMetadata } from "@form-eng/core";
+
+registerValidatorMetadata("CheckUniqueEmail", {
+  label: "Unique Email",
+  description: "Checks that the email address is not already in use",
+});
+```
 
 ### i18n / Localization
 
@@ -582,7 +593,7 @@ Form-level error banner via `formErrors` prop on `FormEngine`:
 
 ### Headless Adapter
 
-The headless package renders all 23 field types using native HTML elements with `data-field-type` and `data-field-state` attributes for CSS targeting. No UI framework required.
+The headless package renders all 28 field types using native HTML elements with `data-field-type` and `data-field-state` attributes for CSS targeting. No UI framework required.
 
 ```tsx
 import { createHeadlessFieldRegistry } from "@form-eng/headless";
@@ -727,7 +738,7 @@ const lazyFields = createLazyFieldRegistry({
 
 ## Available Field Types
 
-All 28 field types are available in the Fluent UI, MUI, and headless adapters:
+All 28 field types (22 editable + 6 read-only) are available in the Fluent UI, MUI, and headless adapters:
 
 ### Editable Fields
 

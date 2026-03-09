@@ -2,7 +2,7 @@
 
 Headless (unstyled) semantic HTML field components for [@form-eng/core](https://www.npmjs.com/package/@form-eng/core).
 
-This package renders all 19 field types using **only native HTML elements** -- no UI framework required. Every field outputs semantic HTML with `data-field-type` and `data-field-state` attributes for CSS targeting, ARIA attributes for accessibility, and CSS class names for styling.
+This package renders all 28 field types using **only native HTML elements** -- no UI framework required. Every field outputs semantic HTML with `data-field-type` and `data-field-state` attributes for CSS targeting, ARIA attributes for accessibility, and CSS class names for styling.
 
 ## Installation
 
@@ -38,7 +38,7 @@ function App() {
 
 ## Field Components
 
-### Editable Fields (13)
+### Editable Fields (22)
 
 | Component | HTML Elements | Type Key |
 |---|---|---|
@@ -55,6 +55,15 @@ function App() {
 | `HookDocumentLinks` | URL list with add/remove | `DocumentLinks` |
 | `HookStatusDropdown` | `<select>` with status indicator | `StatusDropdown` |
 | `HookDynamicFragment` | `<input type="hidden">` | `DynamicFragment` |
+| `HookRadioGroup` | `<fieldset>` + `<input type="radio">` list | `RadioGroup` |
+| `HookCheckboxGroup` | `<fieldset>` + `<input type="checkbox">` list | `CheckboxGroup` |
+| `HookRating` | `<fieldset>` + radio inputs styled as stars | `Rating` |
+| `HookColorPicker` | `<input type="color">` | `ColorPicker` |
+| `HookAutocomplete` | `<input>` + `<datalist>` | `Autocomplete` |
+| `HookFileUpload` | `<input type="file">` + drag-drop zone | `FileUpload` |
+| `HookDateRange` | Two `<input type="date">` (From / To) | `DateRange` |
+| `HookDateTime` | `<input type="datetime-local">` | `DateTime` |
+| `HookPhoneInput` | `<input type="tel">` with mask | `PhoneInput` |
 
 ### Read-Only Fields (6)
 

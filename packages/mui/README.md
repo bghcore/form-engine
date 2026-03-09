@@ -1,6 +1,6 @@
 # @form-eng/mui
 
-Material UI (MUI) field components for [`@form-eng/core`](https://www.npmjs.com/package/@form-eng/core). Provides 13 editable and 6 read-only field types that plug into the core form engine.
+Material UI (MUI) field components for [`@form-eng/core`](https://www.npmjs.com/package/@form-eng/core). Provides 22 editable and 6 read-only field types that plug into the core form engine.
 
 ## Install
 
@@ -83,6 +83,15 @@ function App() {
 | `DocumentLinks` | `HookDocumentLinks` | `List` + `TextField` + `IconButton` | URL link CRUD |
 | `StatusDropdown` | `HookStatusDropdown` | `Select` with color dots | Dropdown with color status indicator |
 | `DynamicFragment` | `HookFragment` | Hidden input | Hidden field (form state only) |
+| `RadioGroup` | `HookRadioGroup` | `RadioGroup` + `FormControlLabel` | Single-select radio button group |
+| `CheckboxGroup` | `HookCheckboxGroup` | `FormGroup` + `Checkbox` | Multi-select checkbox group (value: `string[]`) |
+| `Rating` | `HookRating` | `Rating` | Star rating input (value: `number`; configurable `max`, `allowHalf`) |
+| `ColorPicker` | `HookColorPicker` | `<input type="color">` | Native color picker returning hex string |
+| `Autocomplete` | `HookAutocomplete` | `Autocomplete` | Searchable single-select with type-ahead |
+| `FileUpload` | `HookFileUpload` | `<input type="file">` + drag zone | File picker (single or multiple); validates size via `config.maxSizeMb` |
+| `DateRange` | `HookDateRange` | Two `TextField` (type=date) | Two date inputs (From / To); value: `{ start, end }` ISO strings |
+| `DateTime` | `HookDateTime` | `TextField` (type=datetime-local) | Combined date+time input; value: ISO datetime-local string |
+| `PhoneInput` | `HookPhoneInput` | `TextField` with mask | Phone input with inline masking (`us`, `international`, `raw` formats) |
 
 ### Read-Only Fields
 
