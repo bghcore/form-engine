@@ -1,13 +1,23 @@
 name: Publish
 
 on:
+  push:
+    branches: [main]
+    tags:
+      - "v*"
+      - "core-v*"
+      - "fluent-v*"
+      - "mui-v*"
+      - "headless-v*"
+      - "designer-v*"
   workflow_dispatch:
     inputs:
       package:
-        description: Package to publish
+        description: Package to publish (or "all" for all changed)
         required: true
         type: choice
         options:
+          - all
           - core
           - fluent
           - mui
@@ -18,21 +28,89 @@ on:
         required: false
         type: boolean
         default: false
-  push:
-    tags:
-      - "v*"
-      - "core-v*"
-      - "fluent-v*"
-      - "mui-v*"
-      - "headless-v*"
-      - "designer-v*"
 
 jobs:
+  detect:
+    runs-on: ubuntu-latest
+    outputs:
+      packages: ${{ steps.detect.outputs.packages }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org
+
+      - name: Detect packages to publish
+        id: detect
+        run: |
+          PKGS=("core" "fluent" "mui" "headless" "designer")
+
+          # For tag pushes, determine from tag
+          if [[ "$GITHUB_REF" == refs/tags/* ]]; then
+            TAG="${GITHUB_REF#refs/tags/}"
+            if [[ "$TAG" == v* ]]; then
+              echo 'packages=["core","fluent","mui","headless","designer"]' >> "$GITHUB_OUTPUT"
+            elif [[ "$TAG" == core-v* ]]; then
+              echo 'packages=["core"]' >> "$GITHUB_OUTPUT"
+            elif [[ "$TAG" == fluent-v* ]]; then
+              echo 'packages=["fluent"]' >> "$GITHUB_OUTPUT"
+            elif [[ "$TAG" == mui-v* ]]; then
+              echo 'packages=["mui"]' >> "$GITHUB_OUTPUT"
+            elif [[ "$TAG" == headless-v* ]]; then
+              echo 'packages=["headless"]' >> "$GITHUB_OUTPUT"
+            elif [[ "$TAG" == designer-v* ]]; then
+              echo 'packages=["designer"]' >> "$GITHUB_OUTPUT"
+            else
+              echo "Unknown tag: $TAG"
+              echo 'packages=[]' >> "$GITHUB_OUTPUT"
+            fi
+            exit 0
+          fi
+
+          # For manual dispatch with specific package
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" && "${{ inputs.package }}" != "all" ]]; then
+            echo 'packages=["${{ inputs.package }}"]' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # For push to main or manual "all": compare local vs npm versions
+          CHANGED="["
+          FIRST=true
+          for PKG in "${PKGS[@]}"; do
+            LOCAL_VERSION=$(node -p "require('./packages/$PKG/package.json').version")
+            NPM_VERSION=$(npm view "@form-eng/$PKG" version 2>/dev/null || echo "0.0.0")
+
+            if [ "$LOCAL_VERSION" != "$NPM_VERSION" ]; then
+              echo "📦 @form-eng/$PKG: $NPM_VERSION -> $LOCAL_VERSION (will publish)"
+              if [ "$FIRST" = true ]; then
+                CHANGED="$CHANGED\"$PKG\""
+                FIRST=false
+              else
+                CHANGED="$CHANGED,\"$PKG\""
+              fi
+            else
+              echo "⏭️  @form-eng/$PKG: $LOCAL_VERSION (up to date)"
+            fi
+          done
+          CHANGED="$CHANGED]"
+
+          echo "packages=$CHANGED" >> "$GITHUB_OUTPUT"
+
   publish:
+    needs: detect
+    if: needs.detect.outputs.packages != '[]'
     runs-on: ubuntu-latest
     permissions:
       contents: write
       id-token: write
+
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        package: ${{ fromJson(needs.detect.outputs.packages) }}
 
     steps:
       - uses: actions/checkout@v4
@@ -52,110 +130,29 @@ jobs:
       - name: Run tests
         run: npm run test
 
-      - name: Determine which package to publish (tag trigger)
-        if: github.event_name == 'push'
-        id: pkg-tag
-        run: |
-          TAG="${GITHUB_REF#refs/tags/}"
-          if [[ "$TAG" == core-v* ]]; then
-            VERSION="${TAG#core-v}"
-            WORKSPACE="packages/core"
-            PKG_NAME="@form-eng/core"
-          elif [[ "$TAG" == fluent-v* ]]; then
-            VERSION="${TAG#fluent-v}"
-            WORKSPACE="packages/fluent"
-            PKG_NAME="@form-eng/fluent"
-          elif [[ "$TAG" == mui-v* ]]; then
-            VERSION="${TAG#mui-v}"
-            WORKSPACE="packages/mui"
-            PKG_NAME="@form-eng/mui"
-          elif [[ "$TAG" == headless-v* ]]; then
-            VERSION="${TAG#headless-v}"
-            WORKSPACE="packages/headless"
-            PKG_NAME="@form-eng/headless"
-          elif [[ "$TAG" == designer-v* ]]; then
-            VERSION="${TAG#designer-v}"
-            WORKSPACE="packages/designer"
-            PKG_NAME="@form-eng/designer"
-          elif [[ "$TAG" == v* ]]; then
-            # v* tag publishes all five packages
-            VERSION="${TAG#v}"
-            WORKSPACE="all"
-            PKG_NAME="all"
-          else
-            echo "Unknown tag format: $TAG"
-            exit 1
-          fi
-          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
-          echo "workspace=$WORKSPACE" >> "$GITHUB_OUTPUT"
-          echo "pkg_name=$PKG_NAME" >> "$GITHUB_OUTPUT"
-          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
-
-      - name: Determine which package to publish (manual trigger)
-        if: github.event_name == 'workflow_dispatch'
-        id: pkg-manual
-        run: |
-          PKG="${{ inputs.package }}"
-          WORKSPACE="packages/$PKG"
-          PKG_NAME="@form-eng/$PKG"
-          VERSION=$(node -p "require('./$WORKSPACE/package.json').version")
-          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
-          echo "workspace=$WORKSPACE" >> "$GITHUB_OUTPUT"
-          echo "pkg_name=$PKG_NAME" >> "$GITHUB_OUTPUT"
-          echo "tag=${PKG}-v${VERSION}" >> "$GITHUB_OUTPUT"
-
-      - name: Set resolved outputs
-        id: pkg
-        run: |
-          if [ "${{ github.event_name }}" = "push" ]; then
-            echo "version=${{ steps.pkg-tag.outputs.version }}" >> "$GITHUB_OUTPUT"
-            echo "workspace=${{ steps.pkg-tag.outputs.workspace }}" >> "$GITHUB_OUTPUT"
-            echo "pkg_name=${{ steps.pkg-tag.outputs.pkg_name }}" >> "$GITHUB_OUTPUT"
-            echo "tag=${{ steps.pkg-tag.outputs.tag }}" >> "$GITHUB_OUTPUT"
-          else
-            echo "version=${{ steps.pkg-manual.outputs.version }}" >> "$GITHUB_OUTPUT"
-            echo "workspace=${{ steps.pkg-manual.outputs.workspace }}" >> "$GITHUB_OUTPUT"
-            echo "pkg_name=${{ steps.pkg-manual.outputs.pkg_name }}" >> "$GITHUB_OUTPUT"
-            echo "tag=${{ steps.pkg-manual.outputs.tag }}" >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: Verify tag matches package version
-        if: steps.pkg.outputs.workspace != 'all'
-        run: |
-          PKG_VERSION=$(node -p "require('./${{ steps.pkg.outputs.workspace }}/package.json').version")
-          if [ "${{ steps.pkg.outputs.version }}" != "$PKG_VERSION" ]; then
-            echo "::error::Tag version (${{ steps.pkg.outputs.version }}) does not match ${{ steps.pkg.outputs.pkg_name }} version ($PKG_VERSION)"
-            exit 1
-          fi
-
       - name: Upgrade npm for OIDC trusted publishing
         run: npm install -g npm@latest
 
-      # Single package publish (tag-based or manual)
-      - name: Publish ${{ steps.pkg.outputs.pkg_name }}
-        if: steps.pkg.outputs.workspace != 'all' && inputs.dry-run != true
-        run: npm publish --workspace ${{ steps.pkg.outputs.workspace }} --access public --provenance
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Publish ${{ steps.pkg.outputs.pkg_name }} (dry run)
-        if: steps.pkg.outputs.workspace != 'all' && inputs.dry-run == true
-        run: npm publish --workspace ${{ steps.pkg.outputs.workspace }} --access public --dry-run
-
-      # Publish all packages (v* tag)
-      - name: Publish all packages
-        if: steps.pkg.outputs.workspace == 'all'
+      - name: Get package info
+        id: info
         run: |
-          npm publish --workspace packages/core --access public --provenance
-          npm publish --workspace packages/fluent --access public --provenance
-          npm publish --workspace packages/mui --access public --provenance
-          npm publish --workspace packages/headless --access public --provenance
-          npm publish --workspace packages/designer --access public --provenance
+          VERSION=$(node -p "require('./packages/${{ matrix.package }}/package.json').version")
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Publish @form-eng/${{ matrix.package }}
+        if: inputs.dry-run != true
+        run: npm publish --workspace packages/${{ matrix.package }} --access public --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish @form-eng/${{ matrix.package }} (dry run)
+        if: inputs.dry-run == true
+        run: npm publish --workspace packages/${{ matrix.package }} --access public --dry-run
 
       - name: Create GitHub Release
-        if: github.event_name == 'push' && inputs.dry-run != true
-        run: gh release create "${{ steps.pkg.outputs.tag }}" --generate-notes --title "${{ steps.pkg.outputs.pkg_name }}@${{ steps.pkg.outputs.version }}"
+        if: inputs.dry-run != true
+        run: |
+          TAG="${{ matrix.package }}-v${{ steps.info.outputs.version }}"
+          gh release create "$TAG" --generate-notes --title "@form-eng/${{ matrix.package }}@${{ steps.info.outputs.version }}" 2>/dev/null || echo "Release $TAG already exists, skipping"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
