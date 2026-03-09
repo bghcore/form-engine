@@ -3,48 +3,44 @@ import type { IFieldConfig } from "@form-eng/core";
 
 export const businessRulesConfig: Dictionary<IFieldConfig> = {
   type: {
-    component: "Dropdown",
+    type: "Dropdown",
     label: "Issue Type",
     required: true,
-    dropdownOptions: [
-      { key: "bug", text: "Bug Report" },
-      { key: "feature", text: "Feature Request" },
-      { key: "question", text: "Question" },
+    options: [
+      { value: "bug", label: "Bug Report" },
+      { value: "feature", label: "Feature Request" },
+      { value: "question", label: "Question" },
     ],
-    dependencies: {
-      bug: {
-        severity: { hidden: false, required: true },
-        steps: { hidden: false, required: true },
-      },
-      feature: {
-        severity: { hidden: true },
-        steps: { hidden: true },
-      },
-      question: {
-        severity: { hidden: true },
-        steps: { hidden: true },
-      },
-    },
   },
   severity: {
-    component: "Dropdown",
+    type: "Dropdown",
     label: "Severity",
     hidden: true,
-    dropdownOptions: [
-      { key: "critical", text: "Critical" },
-      { key: "major", text: "Major" },
-      { key: "minor", text: "Minor" },
+    options: [
+      { value: "critical", label: "Critical" },
+      { value: "major", label: "Major" },
+      { value: "minor", label: "Minor" },
+    ],
+    rules: [
+      { when: { field: "type", operator: "equals", value: "bug" }, then: { hidden: false, required: true } },
     ],
   },
-  steps: { component: "Textarea", label: "Steps to Reproduce", hidden: true },
-  description: { component: "Textbox", label: "Description", required: true },
+  steps: {
+    type: "Textarea",
+    label: "Steps to Reproduce",
+    hidden: true,
+    rules: [
+      { when: { field: "type", operator: "equals", value: "bug" }, then: { hidden: false, required: true } },
+    ],
+  },
+  description: { type: "Textbox", label: "Description", required: true },
   priority: {
-    component: "Dropdown",
+    type: "Dropdown",
     label: "Priority",
-    dropdownOptions: [
-      { key: "high", text: "High" },
-      { key: "medium", text: "Medium" },
-      { key: "low", text: "Low" },
+    options: [
+      { value: "high", label: "High" },
+      { value: "medium", label: "Medium" },
+      { value: "low", label: "Low" },
     ],
   },
 };

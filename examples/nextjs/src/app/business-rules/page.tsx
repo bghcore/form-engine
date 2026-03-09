@@ -6,64 +6,56 @@ import FieldRegistrar from "@/components/FieldRegistrar";
 
 const fieldConfigs = {
   type: {
-    component: "Dropdown",
+    type: "Dropdown",
     label: "Issue Type",
     required: true,
-    dropdownOptions: [
-      { key: "bug", text: "Bug Report" },
-      { key: "feature", text: "Feature Request" },
-      { key: "question", text: "Question" },
+    options: [
+      { value: "bug", label: "Bug Report" },
+      { value: "feature", label: "Feature Request" },
+      { value: "question", label: "Question" },
     ],
-    // When type changes, other fields react
-    dependencies: {
-      bug: {
-        severity: { hidden: false, required: true },
-        stepsToReproduce: { hidden: false, required: true },
-        description: { component: "Textarea" },
-      },
-      feature: {
-        severity: { hidden: true },
-        stepsToReproduce: { hidden: true },
-        description: { component: "Textarea" },
-      },
-      question: {
-        severity: { hidden: true },
-        stepsToReproduce: { hidden: true },
-        description: { component: "Textbox" },
-      },
-    },
   },
   severity: {
-    component: "Dropdown",
+    type: "Dropdown",
     label: "Severity",
     hidden: true,
-    dropdownOptions: [
-      { key: "critical", text: "Critical" },
-      { key: "major", text: "Major" },
-      { key: "minor", text: "Minor" },
+    options: [
+      { value: "critical", label: "Critical" },
+      { value: "major", label: "Major" },
+      { value: "minor", label: "Minor" },
+    ],
+    rules: [
+      { when: { field: "type", operator: "equals", value: "bug" }, then: { hidden: false, required: true } },
     ],
   },
   stepsToReproduce: {
-    component: "Textarea",
+    type: "Textarea",
     label: "Steps to Reproduce",
     hidden: true,
+    rules: [
+      { when: { field: "type", operator: "equals", value: "bug" }, then: { hidden: false, required: true } },
+    ],
   },
   description: {
-    component: "Textbox",
+    type: "Textbox",
     label: "Description",
     required: true,
+    rules: [
+      { when: { field: "type", operator: "equals", value: "bug" }, then: { type: "Textarea" } },
+      { when: { field: "type", operator: "equals", value: "feature" }, then: { type: "Textarea" } },
+    ],
   },
   priority: {
-    component: "Dropdown",
+    type: "Dropdown",
     label: "Priority",
-    dropdownOptions: [
-      { key: "high", text: "High" },
-      { key: "medium", text: "Medium" },
-      { key: "low", text: "Low" },
+    options: [
+      { value: "high", label: "High" },
+      { value: "medium", label: "Medium" },
+      { value: "low", label: "Low" },
     ],
   },
   assignee: {
-    component: "Textbox",
+    type: "Textbox",
     label: "Assignee",
   },
 };

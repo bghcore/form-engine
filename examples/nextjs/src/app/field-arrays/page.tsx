@@ -6,22 +6,22 @@ import FieldRegistrar from "@/components/FieldRegistrar";
 
 const fieldConfigs = {
   teamName: {
-    component: "Textbox",
+    type: "Textbox",
     label: "Team Name",
     required: true,
   },
   teamLead: {
-    component: "Textbox",
+    type: "Textbox",
     label: "Team Lead",
     required: true,
   },
   department: {
-    component: "Dropdown",
+    type: "Dropdown",
     label: "Department",
-    dropdownOptions: [
-      { key: "engineering", text: "Engineering" },
-      { key: "design", text: "Design" },
-      { key: "product", text: "Product" },
+    options: [
+      { value: "engineering", label: "Engineering" },
+      { value: "design", label: "Design" },
+      { value: "product", label: "Product" },
     ],
   },
 };

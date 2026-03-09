@@ -6,33 +6,33 @@ import FieldRegistrar from "@/components/FieldRegistrar";
 
 const fieldConfigs = {
   name: {
-    component: "Textbox",
+    type: "Textbox",
     label: "Full Name",
     required: true,
   },
   email: {
-    component: "Textbox",
+    type: "Textbox",
     label: "Email Address",
     required: true,
-    validations: ["EmailValidation"],
+    validate: [{ name: "EmailValidation" }],
   },
   department: {
-    component: "Dropdown",
+    type: "Dropdown",
     label: "Department",
     required: true,
-    dropdownOptions: [
-      { key: "engineering", text: "Engineering" },
-      { key: "design", text: "Design" },
-      { key: "marketing", text: "Marketing" },
-      { key: "sales", text: "Sales" },
+    options: [
+      { value: "engineering", label: "Engineering" },
+      { value: "design", label: "Design" },
+      { value: "marketing", label: "Marketing" },
+      { value: "sales", label: "Sales" },
     ],
   },
   newsletter: {
-    component: "Toggle",
+    type: "Toggle",
     label: "Subscribe to Newsletter",
   },
   notes: {
-    component: "Textarea",
+    type: "Textarea",
     label: "Additional Notes",
   },
 };

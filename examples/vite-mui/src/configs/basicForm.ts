@@ -2,20 +2,20 @@ import { Dictionary } from "@form-eng/core";
 import type { IFieldConfig } from "@form-eng/core";
 
 export const basicFormConfig: Dictionary<IFieldConfig> = {
-  name: { component: "Textbox", label: "Full Name", required: true },
-  email: { component: "Textbox", label: "Email", required: true, validations: ["EmailValidation"] },
-  phone: { component: "Textbox", label: "Phone", validations: ["PhoneNumberValidation"] },
+  name: { type: "Textbox", label: "Full Name", required: true },
+  email: { type: "Textbox", label: "Email", required: true, validate: [{ name: "EmailValidation" }] },
+  phone: { type: "Textbox", label: "Phone", validate: [{ name: "PhoneNumberValidation" }] },
   department: {
-    component: "Dropdown",
+    type: "Dropdown",
     label: "Department",
     required: true,
-    dropdownOptions: [
-      { key: "engineering", text: "Engineering" },
-      { key: "design", text: "Design" },
-      { key: "marketing", text: "Marketing" },
+    options: [
+      { value: "engineering", label: "Engineering" },
+      { value: "design", label: "Design" },
+      { value: "marketing", label: "Marketing" },
     ],
   },
-  newsletter: { component: "Toggle", label: "Subscribe to Newsletter" },
+  newsletter: { type: "Toggle", label: "Subscribe to Newsletter" },
 };
 
 export const basicDefaults = { name: "", email: "", phone: "", department: "", newsletter: false };
