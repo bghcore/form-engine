@@ -14,8 +14,8 @@ const Autocomplete = (props: IFieldProps<{}>) => {
     setFieldValue(fieldName, data.optionValue ?? "");
   };
 
-  const onInput: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-    if (!event.target.value) {
+  const onInput: React.FormEventHandler<HTMLInputElement> = (event) => {
+    if (!(event.target as HTMLInputElement).value) {
       setFieldValue(fieldName, "");
     }
   };

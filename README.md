@@ -31,9 +31,9 @@ A React library for rendering complex, configuration-driven forms with a built-i
 | Package | Description | Size |
 |---------|-------------|------|
 | [`@form-eng/core`](./packages/core) | UI-agnostic rules engine, form orchestration, validation, analytics, devtools. React + react-hook-form only, no UI library dependency. | ~114 KB ESM |
-| [`@form-eng/fluent`](./packages/fluent) | Fluent UI v9 field components (19 field types). | ~39 KB ESM |
-| [`@form-eng/mui`](./packages/mui) | Material UI field components (19 field types). | ~39 KB ESM |
-| [`@form-eng/headless`](./packages/headless) | Unstyled semantic HTML field components (19 field types). | ~36 KB ESM |
+| [`@form-eng/fluent`](./packages/fluent) | Fluent UI v9 field components (23 field types). | ~39 KB ESM |
+| [`@form-eng/mui`](./packages/mui) | Material UI field components (23 field types). | ~39 KB ESM |
+| [`@form-eng/headless`](./packages/headless) | Unstyled semantic HTML field components (23 field types). | ~36 KB ESM |
 | [`@form-eng/designer`](./packages/designer) | Visual drag-and-drop form builder with rule editor and JSON export. | ~65 KB ESM |
 | [`@form-eng/examples`](./packages/examples) | 3 example apps (login+MFA, checkout wizard, data entry). | -- |
 
@@ -582,7 +582,7 @@ Form-level error banner via `formErrors` prop on `FormEngine`:
 
 ### Headless Adapter
 
-The headless package renders all 19 field types using native HTML elements with `data-field-type` and `data-field-state` attributes for CSS targeting. No UI framework required.
+The headless package renders all 23 field types using native HTML elements with `data-field-type` and `data-field-state` attributes for CSS targeting. No UI framework required.
 
 ```tsx
 import { createHeadlessFieldRegistry } from "@form-eng/headless";
@@ -727,7 +727,7 @@ const lazyFields = createLazyFieldRegistry({
 
 ## Available Field Types
 
-All 24 field types are available in the Fluent UI, MUI, and headless adapters:
+All 28 field types are available in the Fluent UI, MUI, and headless adapters:
 
 ### Editable Fields
 
@@ -752,6 +752,10 @@ All 24 field types are available in the Fluent UI, MUI, and headless adapters:
 | `Rating` | Star rating input (value: `number`; configurable `max`, `allowHalf`) |
 | `ColorPicker` | Native color picker returning hex string |
 | `Autocomplete` | Searchable single-select with type-ahead |
+| `FileUpload` | File picker (single or multiple); validates size via `config.maxSizeMb` |
+| `DateRange` | Two date inputs (From / To); value: `{ start, end }` ISO strings |
+| `DateTime` | Combined date+time input; value: ISO datetime-local string |
+| `PhoneInput` | Phone input with inline masking (`us`, `international`, `raw` formats) |
 
 ### Read-Only Fields
 
