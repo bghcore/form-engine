@@ -1,5 +1,6 @@
 import { IFieldProps } from "@form-eng/core";
 import { Slider as BaseSlider } from "baseui/slider";
+import type { Params as SliderParams } from "baseui/slider";
 import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";
 import { GetFieldDataTestId } from "../helpers";
@@ -13,7 +14,7 @@ interface ISliderProps {
 const Slider = (props: IFieldProps<ISliderProps>) => {
   const { fieldName, programName, entityType, entityId, value, readOnly, config, error, required, setFieldValue } = props;
 
-  const onChange = (params: { value: number[] }) => {
+  const onChange = (params: SliderParams) => {
     setFieldValue(fieldName, params.value[0]);
   };
 

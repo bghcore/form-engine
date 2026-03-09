@@ -1,5 +1,6 @@
 import { IFieldProps } from "@form-eng/core";
 import { Select } from "baseui/select";
+import type { OnChangeParams } from "baseui/select";
 import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";
 import { GetFieldDataTestId } from "../helpers";
@@ -20,7 +21,7 @@ const Dropdown = (props: IFieldProps<IDropdownProps>) => {
 
   const selectedOption = selectOptions.find(o => o.id === String(value));
 
-  const onChange = (params: { value: Array<{ id: string }> }) => {
+  const onChange = (params: OnChangeParams) => {
     if (params.value.length > 0) {
       setFieldValue(fieldName, params.value[0].id);
     } else {

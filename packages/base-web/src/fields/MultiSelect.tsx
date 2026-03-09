@@ -1,5 +1,6 @@
 import { IFieldProps } from "@form-eng/core";
 import { Select } from "baseui/select";
+import type { OnChangeParams } from "baseui/select";
 import React from "react";
 import { GetFieldDataTestId } from "../helpers";
 
@@ -16,7 +17,7 @@ const MultiSelect = (props: IFieldProps<{}>) => {
 
   const selectedOptions = selectOptions.filter(o => selectedValues.includes(o.id));
 
-  const onChange = (params: { value: Array<{ id: string }> }) => {
+  const onChange = (params: OnChangeParams) => {
     setFieldValue(fieldName, params.value.map(o => o.id), false, 1500);
   };
 
