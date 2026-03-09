@@ -30,6 +30,10 @@ export const ComponentTypes = {
   Rating: "Rating",
   ColorPicker: "ColorPicker",
   Autocomplete: "Autocomplete",
+  FileUpload: "FileUpload",
+  DateRange: "DateRange",
+  DateTime: "DateTime",
+  PhoneInput: "PhoneInput",
 } as const;
 
 /** Form-level constants */

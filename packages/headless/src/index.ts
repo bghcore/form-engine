@@ -17,6 +17,10 @@ export { default as CheckboxGroup } from "./fields/CheckboxGroup";
 export { default as Rating } from "./fields/Rating";
 export { default as ColorPicker } from "./fields/ColorPicker";
 export { default as Autocomplete } from "./fields/Autocomplete";
+export { default as FileUpload } from "./fields/FileUpload";
+export { default as DateRange } from "./fields/DateRange";
+export { default as DateTime } from "./fields/DateTime";
+export { default as PhoneInput } from "./fields/PhoneInput";
 
 // Read-only fields
 export { default as ReadOnly } from "./fields/readonly/ReadOnly";

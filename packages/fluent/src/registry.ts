@@ -23,6 +23,10 @@ import CheckboxGroup from "./fields/CheckboxGroup";
 import RatingField from "./fields/Rating";
 import ColorPicker from "./fields/ColorPicker";
 import AutocompleteField from "./fields/Autocomplete";
+import FileUpload from "./fields/FileUpload";
+import DateRange from "./fields/DateRange";
+import DateTimeField from "./fields/DateTime";
+import PhoneInput from "./fields/PhoneInput";
 import React from "react";
 
 /** Creates the default Fluent UI v9 field registry for use with InjectedFieldProvider */
@@ -52,5 +56,9 @@ export function createFluentFieldRegistry(): Dictionary<React.JSX.Element> {
     [ComponentTypes.Rating]: React.createElement(RatingField),
     [ComponentTypes.ColorPicker]: React.createElement(ColorPicker),
     [ComponentTypes.Autocomplete]: React.createElement(AutocompleteField),
+    [ComponentTypes.FileUpload]: React.createElement(FileUpload),
+    [ComponentTypes.DateRange]: React.createElement(DateRange),
+    [ComponentTypes.DateTime]: React.createElement(DateTimeField),
+    [ComponentTypes.PhoneInput]: React.createElement(PhoneInput),
   };
 }
