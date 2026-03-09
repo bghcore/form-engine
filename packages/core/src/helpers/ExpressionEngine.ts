@@ -27,32 +27,22 @@ import { Parser } from "expr-eval";
  *   "round($values.total * 100) / 100"
  */
 
-// The @types/expr-eval package covers the 1.x API; expr-eval 2.x exposes additional
-// mutable properties (binaryOps, functions, consts) that we need to configure.
-// We use a type cast to access them without modifying the upstream type declarations.
-type Parser2 = Parser & {
-  binaryOps: Record<string, (a: unknown, b: unknown) => unknown>;
-  functions: Record<string, (...args: unknown[]) => unknown>;
-  consts: Record<string, unknown>;
+// Singleton CSP-safe parser.
+// expr-eval 2.x exposes binaryOps/consts as plain objects; access via any to avoid
+// augmenting the upstream @types/expr-eval declarations.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const _parser: Parser = new Parser() as any;
+// Override + to handle string concatenation (string + number, number + string).
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const _origAdd = (_parser as any).binaryOps["+"];
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+(_parser as any).binaryOps["+"] = (a: unknown, b: unknown): unknown => {
+  if (typeof a === "string" || typeof b === "string") return String(a) + String(b);
+  return _origAdd(a as number, b as number);
 };
-
-// Singleton CSP-safe parser with string + support
-const _parser: Parser = (() => {
-  const p = new Parser() as Parser2;
-
-  // Override + to support string concatenation in addition to numeric addition
-  const origAdd = p.binaryOps["+"];
-  p.binaryOps["+"] = (a: unknown, b: unknown): unknown => {
-    if (typeof a === "string" || typeof b === "string") return String(a) + String(b);
-    return origAdd(a as number, b as number);
-  };
-
-  // Add NaN as a named constant so that text-substitution of null/undefined → "NaN"
-  // produces valid arithmetic (NaN * x === NaN, preserving backward-compatible behaviour).
-  p.consts["NaN"] = NaN;
-
-  return p as Parser;
-})();
+// Register NaN as a named constant so substituted "NaN" tokens evaluate correctly.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+(_parser as any).consts["NaN"] = NaN;
 
 
 export function evaluateExpression(
