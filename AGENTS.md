@@ -5,7 +5,7 @@
 ```bash
 npm install --legacy-peer-deps
 npm run build          # Build all packages (core, fluent, mui, headless, designer)
-npm run test           # Run 515 tests with Vitest
+npm run test           # Run 709 tests with Vitest
 npm run test:coverage  # Run tests with coverage report
 npm run test:e2e       # Run 54 Playwright E2E tests
 npm run bench          # Run performance benchmarks
@@ -47,9 +47,12 @@ docs/
   value-functions-reference.md -- Value function registry reference
   i18n-reference.md           -- Internationalization guide
   debugging-rules.md          -- Rules engine debugging guide
+  condition-operators.md      -- Condition operator reference
+  new-field-types.md          -- New field type guide
+  rules-engine.md             -- Rules engine architecture
 e2e/                           -- Playwright E2E tests (54 tests, 7 specs)
 benchmarks/                    -- Performance benchmark suite (vitest bench)
-stories/                       -- Storybook stories (64 stories + MDX docs)
+stories/                       -- Storybook stories (64+ stories + MDX docs)
 ```
 
 Build output per package: `dist/index.js` (CJS), `dist/index.mjs` (ESM), `dist/index.d.ts` (types). Built with tsup.
@@ -64,7 +67,7 @@ Build output per package: `dist/index.js` (CJS), `dist/index.mjs` (ESM), `dist/i
 ## Code Style
 
 - Core components: `FormEngine`, `FormFields`, `RenderField`, `FieldWrapper`, `WizardForm`, `FieldArray`
-- Adapter field components: `Textbox`, `Dropdown`, `Toggle`, etc.
+- Adapter field components: `Textbox`, `Dropdown`, `Toggle`, etc. (no `Hook*` prefix)
 - Read-only variants in `fields/readonly/`: `ReadOnly`, `ReadOnlyArray`, etc.
 - Interfaces use `I` prefix: `IFieldConfig`, `IRuntimeFieldState`, `IFieldProps`
 - Providers export both the component and a `Use*Context` hook
@@ -80,7 +83,7 @@ Build output per package: `dist/index.js` (CJS), `dist/index.mjs` (ESM), `dist/i
 
 ## Testing
 
-515 tests using Vitest across 25 test files. 54 Playwright E2E tests across 7 specs. Coverage targets met on all core helpers (80%+, many at 100%).
+709 tests using Vitest across 34 test files. 54 Playwright E2E tests across 7 specs. Coverage targets met on all core helpers (80%+, many at 100%).
 
 ```bash
 npm run test             # Run all tests
@@ -100,13 +103,14 @@ After any code change, verify:
 npm run build && npm run test
 ```
 
-All packages should build cleanly and all 515 tests should pass.
+All packages should build cleanly and all 709 tests should pass.
 
 ## Git Workflow
 
 - Conventional commits: `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`
 - Single `main` branch
-- Per-package tags for publishing: `core-v2.0.1`, `fluent-v2.0.1`, `mui-v2.0.1`, `headless-v1.0.0`, `designer-v1.0.0`
+- Per-package tags for publishing: `core-v1.1.0`, `fluent-v1.1.0`, `mui-v1.1.0`, `headless-v1.1.0`, `designer-v1.1.0`
+- Unified tag for all packages: `v1.1.0`
 - Run `npm run build && npm run test` before committing
 
 ## Boundaries

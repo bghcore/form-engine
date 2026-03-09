@@ -72,19 +72,19 @@ RulesEngineProvider (useReducer for rules engine state)
 | `src/types/IAnalyticsCallbacks.ts` | `IAnalyticsCallbacks` (8 event hooks for analytics/telemetry). |
 | `src/types/TypedFieldConfig.ts` | `defineFormConfig()` type-safe builder. |
 | `src/styles.css` | Optional CSS custom properties for theming: `--fe-error-color`, `--fe-warning-color`, `--fe-saving-color`, `--fe-label-color`, `--fe-required-color`, `--fe-border-radius`, `--fe-field-gap`, `--fe-font-size`. |
-| `src/providers/BusinessRulesProvider.tsx` | RulesEngineProvider (React context provider owning rules engine state via useReducer). |
-| `src/providers/InjectedHookFieldProvider.tsx` | InjectedFieldProvider (React context provider for component injection registry). |
-| `src/reducers/BusinessRulesReducer.ts` | Reducer for rules engine state mutations. |
+| `src/providers/RulesEngineProvider.tsx` | RulesEngineProvider (React context provider owning rules engine state via useReducer). |
+| `src/providers/InjectedFieldProvider.tsx` | InjectedFieldProvider (React context provider for component injection registry). |
+| `src/reducers/RulesEngineReducer.ts` | Reducer for rules engine state mutations. |
 | `src/utils/index.ts` | Local utilities: `isEmpty`, `isNull`, `deepCopy` (structuredClone), `Dictionary<T>`, `IEntityData`, `SubEntityType`, option helpers. |
 | `src/constants.ts` | `ComponentTypes` enum (all component type string keys), `FormConstants`, `FIELD_PARENT_PREFIX`. |
 | `src/strings.ts` | `FormStrings` (i18n-aware, getters over LocaleRegistry). |
 
 ## Testing
 
-- **515 tests** across 25 test files using Vitest
+- **709 tests** across 34 test files using Vitest
 - Run: `npm test` (from monorepo root or `packages/core`)
 - Test files are in `src/__tests__/`
-- Coverage targets: helpers (RuleEngine, ConditionEvaluator, InlineFormHelper, ValidationRegistry, ValueFunctionRegistry, DependencyGraphValidator, ConfigValidator, LocaleRegistry, WizardHelper), reducers (BusinessRulesReducer), hooks (useDraftPersistence, useBeforeUnload, useFormAnalytics), utils (formStateSerialization, jsonSchemaImport, lazyFieldRegistry, zodSchemaImport), components (FormErrorBoundary, FormDevTools)
+- Coverage targets: helpers (RuleEngine, ConditionEvaluator, InlineFormHelper, ValidationRegistry, ValueFunctionRegistry, DependencyGraphValidator, ConfigValidator, LocaleRegistry, WizardHelper), reducers (RulesEngineReducer), hooks (useDraftPersistence, useBeforeUnload, useFormAnalytics), utils (formStateSerialization, jsonSchemaImport, lazyFieldRegistry, zodSchemaImport), components (FormErrorBoundary, FormDevTools)
 - All tests must pass before committing
 
 ## Known Issues
@@ -99,7 +99,7 @@ RulesEngineProvider (useReducer for rules engine state)
 1. Add the effect property to `IFieldEffect` in `src/types/IFieldEffect.ts`
 2. Add evaluation logic in `RuleEngine.ts` (inside `applyRuleEffect` or as a new effect handler)
 3. Update `IRuntimeFieldState` if the effect carries per-field runtime state
-4. If it needs reducer support, add an action to `RulesEngineActionType` and handle in `BusinessRulesReducer`
+4. If it needs reducer support, add an action to `RulesEngineActionType` and handle in `RulesEngineReducer`
 5. Write tests in `src/__tests__/helpers/`
 
 ### Adding a New Condition Operator

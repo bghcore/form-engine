@@ -2,7 +2,7 @@
 
 ## Package Purpose
 
-Fluent UI v9 field component implementations for `@form-eng/core`. Provides 13 editable and 6 read-only field types, plus a one-line registry setup via `createFluentFieldRegistry()`.
+Fluent UI v9 field component implementations for `@form-eng/core`. Provides 22 editable and 6 read-only field types, plus a one-line registry setup via `createFluentFieldRegistry()`.
 
 ## Critical Constraints
 
@@ -18,28 +18,37 @@ Fluent UI v9 field component implementations for `@form-eng/core`. Provides 13 e
 | `src/registry.ts` | `createFluentFieldRegistry()` -- maps `ComponentTypes` string keys to Fluent field JSX elements. Returns `Record<string, React.JSX.Element>` for `InjectedFieldProvider`. |
 | `src/helpers.ts` | Shared field helpers: `FieldClassName()` (CSS class with error state), `GetFieldDataTestId()` (data-testid builder), `formatDateTime()` (date string formatting), `DocumentLinksStrings` (link UI strings). |
 | `src/index.ts` | Public API barrel exports. All field components, supporting components, registry, helpers, and types. |
-| `src/fields/HookTextbox.tsx` | Text input using Fluent `Input`. |
-| `src/fields/HookNumber.tsx` | Numeric input. |
-| `src/fields/HookToggle.tsx` | Boolean toggle switch. |
-| `src/fields/HookDropdown.tsx` | Single-select dropdown. |
-| `src/fields/HookSimpleDropdown.tsx` | Simplified single-select dropdown. |
-| `src/fields/HookMultiSelect.tsx` | Multi-select checkboxes. |
-| `src/fields/HookMultiSelectSearch.tsx` | Multi-select with search/filter. |
-| `src/fields/HookDateControl.tsx` | Date picker. |
-| `src/fields/HookSlider.tsx` | Range slider. |
-| `src/fields/HookFragment.tsx` | Dynamic fragment container. |
-| `src/fields/HookPopOutEditor.tsx` | Expandable text editor / textarea. |
-| `src/fields/HookDocumentLinks.tsx` | URL link CRUD. |
-| `src/fields/HookStatusDropdown.tsx` | Status dropdown with color indicators. |
-| `src/fields/readonly/HookReadOnly.tsx` | Read-only text display. |
-| `src/fields/readonly/HookReadOnlyArray.tsx` | Read-only array/list display. |
-| `src/fields/readonly/HookReadOnlyDateTime.tsx` | Read-only date/time display. |
-| `src/fields/readonly/HookReadOnlyCumulativeNumber.tsx` | Read-only cumulative number. |
-| `src/fields/readonly/HookReadOnlyRichText.tsx` | Read-only rich text/HTML. |
-| `src/fields/readonly/HookReadOnlyWithButton.tsx` | Read-only text with action button. |
+| `src/fields/Textbox.tsx` | Text input using Fluent `Input`. |
+| `src/fields/Number.tsx` | Numeric input. |
+| `src/fields/Toggle.tsx` | Boolean toggle switch. |
+| `src/fields/Dropdown.tsx` | Single-select dropdown. |
+| `src/fields/SimpleDropdown.tsx` | Simplified single-select dropdown. |
+| `src/fields/MultiSelect.tsx` | Multi-select checkboxes. |
+| `src/fields/MultiSelectSearch.tsx` | Multi-select with search/filter. |
+| `src/fields/DateControl.tsx` | Date picker. |
+| `src/fields/Slider.tsx` | Range slider. |
+| `src/fields/DynamicFragment.tsx` | Dynamic fragment container. |
+| `src/fields/PopOutEditor.tsx` | Expandable text editor / textarea. |
+| `src/fields/DocumentLinks.tsx` | URL link CRUD. |
+| `src/fields/StatusDropdown.tsx` | Status dropdown with color indicators. |
+| `src/fields/RadioGroup.tsx` | Radio button group. |
+| `src/fields/CheckboxGroup.tsx` | Checkbox group for multi-select. |
+| `src/fields/Rating.tsx` | Star rating input. |
+| `src/fields/ColorPicker.tsx` | Color picker input. |
+| `src/fields/Autocomplete.tsx` | Autocomplete/typeahead input. |
+| `src/fields/FileUpload.tsx` | File upload with drag-and-drop. |
+| `src/fields/DateRange.tsx` | Date range picker (start + end). |
+| `src/fields/DateTime.tsx` | Combined date and time picker. |
+| `src/fields/PhoneInput.tsx` | Phone number input with formatting. |
+| `src/fields/readonly/ReadOnly.tsx` | Read-only text display. |
+| `src/fields/readonly/ReadOnlyArray.tsx` | Read-only array/list display. |
+| `src/fields/readonly/ReadOnlyDateTime.tsx` | Read-only date/time display. |
+| `src/fields/readonly/ReadOnlyCumulativeNumber.tsx` | Read-only cumulative number. |
+| `src/fields/readonly/ReadOnlyRichText.tsx` | Read-only rich text/HTML. |
+| `src/fields/readonly/ReadOnlyWithButton.tsx` | Read-only text with action button. |
 | `src/components/ReadOnlyText.tsx` | Shared read-only text display component. |
 | `src/components/StatusMessage.tsx` | Error/warning/saving status display. |
-| `src/components/HookFormLoading.tsx` | Shimmer loading state. |
+| `src/components/FormLoading.tsx` | Shimmer loading state. |
 | `src/components/StatusDropdown/StatusColor.tsx` | Status color indicator. |
 | `src/components/StatusDropdown/StatusDropdown.tsx` | Status dropdown supporting component. |
 | `src/components/DocumentLinks/DocumentLink.tsx` | Single document link component. |
@@ -47,8 +56,8 @@ Fluent UI v9 field component implementations for `@form-eng/core`. Provides 13 e
 
 ## Adding a New Field
 
-1. Create `src/fields/HookMyField.tsx` implementing `IFieldProps<T>`
-2. Add `export { default as HookMyField } from "./fields/HookMyField"` to `src/index.ts`
+1. Create `src/fields/MyField.tsx` implementing `IFieldProps<T>`
+2. Add `export { default as MyField } from "./fields/MyField"` to `src/index.ts`
 3. Add the component key to `ComponentTypes` in core's `src/constants.ts`
 4. Register it in `src/registry.ts` inside `createFluentFieldRegistry()`
 
@@ -61,11 +70,11 @@ import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";
 import { FieldClassName, GetFieldDataTestId } from "../helpers";
 
-interface IHookMyFieldProps {
+interface IMyFieldProps {
   customOption?: string;
 }
 
-const HookMyField = (props: IFieldProps<IHookMyFieldProps>) => {
+const MyField = (props: IFieldProps<IMyFieldProps>) => {
   const { fieldName, programName, entityType, entityId, value, readOnly, error, setFieldValue } = props;
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -76,7 +85,7 @@ const HookMyField = (props: IFieldProps<IHookMyFieldProps>) => {
     <ReadOnlyText fieldName={fieldName} value={value as string} />
   ) : (
     <Input
-      className={FieldClassName("hook-my-field", error)}
+      className={FieldClassName("my-field", error)}
       value={(value as string) ?? ""}
       onChange={onChange}
       data-testid={GetFieldDataTestId(fieldName, programName, entityType, entityId)}
@@ -84,7 +93,7 @@ const HookMyField = (props: IFieldProps<IHookMyFieldProps>) => {
   );
 };
 
-export default HookMyField;
+export default MyField;
 ```
 
 Key points:

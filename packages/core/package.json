@@ -50,6 +50,7 @@
     "README.md"
   ],
   "license": "MIT",
+  "author": "bghcore (https://github.com/bghcore)",
   "sideEffects": false,
   "scripts": {
     "build": "tsup",

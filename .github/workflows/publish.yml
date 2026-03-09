@@ -60,23 +60,23 @@ jobs:
           if [[ "$TAG" == core-v* ]]; then
             VERSION="${TAG#core-v}"
             WORKSPACE="packages/core"
-            PKG_NAME="@form-engine/core"
+            PKG_NAME="@form-eng/core"
           elif [[ "$TAG" == fluent-v* ]]; then
             VERSION="${TAG#fluent-v}"
             WORKSPACE="packages/fluent"
-            PKG_NAME="@form-engine/fluent"
+            PKG_NAME="@form-eng/fluent"
           elif [[ "$TAG" == mui-v* ]]; then
             VERSION="${TAG#mui-v}"
             WORKSPACE="packages/mui"
-            PKG_NAME="@form-engine/mui"
+            PKG_NAME="@form-eng/mui"
           elif [[ "$TAG" == headless-v* ]]; then
             VERSION="${TAG#headless-v}"
             WORKSPACE="packages/headless"
-            PKG_NAME="@form-engine/headless"
+            PKG_NAME="@form-eng/headless"
           elif [[ "$TAG" == designer-v* ]]; then
             VERSION="${TAG#designer-v}"
             WORKSPACE="packages/designer"
-            PKG_NAME="@form-engine/designer"
+            PKG_NAME="@form-eng/designer"
           elif [[ "$TAG" == v* ]]; then
             # v* tag publishes all five packages
             VERSION="${TAG#v}"
@@ -97,7 +97,7 @@ jobs:
         run: |
           PKG="${{ inputs.package }}"
           WORKSPACE="packages/$PKG"
-          PKG_NAME="@form-engine/$PKG"
+          PKG_NAME="@form-eng/$PKG"
           VERSION=$(node -p "require('./$WORKSPACE/package.json').version")
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
           echo "workspace=$WORKSPACE" >> "$GITHUB_OUTPUT"
