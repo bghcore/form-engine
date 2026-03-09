@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] - 2026-03-09
+
+### Added
+
+- **Architecture hardening: core subpath exports**
+  - `@form-eng/core/adapter-utils` -- Dedicated subpath export for shared adapter utilities (GetFieldDataTestId, FieldClassName, getFieldState, formatDateTime, formatDateRange, etc.)
+  - `@form-eng/core/testing` -- Contract test infrastructure for adapter packages (runAdapterContractTests, TIER_1_FIELDS, ALL_FIELD_TYPES, VALUE_BY_TYPE)
+- **Enhanced contract test suite** -- Added disabled state, required state, value rendering, and null safety tests to the adapter contract test runner. Added `wrapper` option for provider-requiring adapters.
+- **Contract tests wired for all 9 adapters** -- Every adapter package now has `__tests__/contract.test.ts` validating registry coverage and field rendering across multiple states.
+- **`@form-eng/atlaskit`** -- Atlassian Design System adapter package with 13 Tier 1 field types using semantic HTML elements with Atlaskit-compatible class names.
+- **`@form-eng/base-web`** -- Uber Base Web adapter package with 13 Tier 1 field types using semantic HTML elements for Base Web integration.
+- **`@form-eng/heroui`** -- HeroUI (formerly NextUI) adapter package with 13 Tier 1 field types using semantic HTML elements.
+- **Canonical documentation** -- `docs/canonical-field-contracts.md`, `docs/date-policy.md`, `docs/parity-matrix.md`, `docs/adapter-architecture.md`
+
+### Changed
+
+- All adapter `helpers.ts` files now import from `@form-eng/core/adapter-utils` instead of `@form-eng/core`
+- Adapter field files importing `convertBooleanToYesOrNoText` or `isNull` now import from `@form-eng/core/adapter-utils`
+- CI/CD publish workflow updated to support 11 packages (added atlaskit, base-web, heroui)
+- 1814 tests passing across 46 files (up from 776 tests in v1.2.1)
+
 ## [1.2.1] - 2026-03-09
 
 ### Added

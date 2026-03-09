@@ -13,6 +13,26 @@ Chakra UI v3 field components for `@form-eng/core`. Provides 12 editable and 1 r
 - **Use `React.JSX.Element`** not bare `JSX.Element` for return types.
 - **Use `data-field-type` and `data-field-state` attributes** on field containers for CSS targeting and testing.
 
+## Fallback Status
+
+| Field | Implementation | Status | Notes |
+|---|---|---|---|
+| Textbox | Chakra `Input` | Native | - |
+| Number | `<input type="number">` | Temporary fallback | Chakra `NumberInput` compound component DTS issue |
+| Toggle | `<input type="checkbox" role="switch">` | Temporary fallback | Chakra `Switch` compound component DTS issue |
+| Dropdown | Chakra `NativeSelect` | Native | - |
+| SimpleDropdown | Chakra `NativeSelect` | Native | - |
+| MultiSelect | `<select multiple>` | Temporary fallback | Chakra `Select` compound component DTS issue |
+| DateControl | Chakra `Input` (`type="date"`) | Native | - |
+| Slider | `<input type="range">` | Temporary fallback | Chakra `Slider` compound component DTS issue |
+| RadioGroup | `<fieldset>` + `<input type="radio">` | Temporary fallback | Chakra `RadioGroup` compound component DTS issue |
+| CheckboxGroup | `<fieldset>` + `<input type="checkbox">` | Temporary fallback | Chakra `CheckboxGroup` compound component DTS issue |
+| Textarea | Chakra `Textarea` | Native | - |
+| DynamicFragment | `<input type="hidden">` | Expected | Always native HTML |
+| ReadOnly | `ReadOnlyText` (span) | Expected | Always custom component |
+
+Temporary fallbacks are styled with Chakra CSS variables for visual consistency and will be replaced with native Chakra components when the Ark UI `Assign` type DTS issue is resolved in a future Chakra v3 release.
+
 ## Key Files
 
 | File | Purpose |

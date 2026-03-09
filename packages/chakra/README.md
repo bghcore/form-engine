@@ -37,28 +37,28 @@ function App() {
 
 ### Editable Fields (12)
 
-| Component | Implementation | Type Key |
-|---|---|---|
-| `Textbox` | Chakra `Input` | `Textbox` |
-| `Number` | Chakra `Input` (`type="number"`) | `Number` |
-| `Toggle` | Semantic `<input type="checkbox" role="switch">` * | `Toggle` |
-| `Dropdown` | Chakra `NativeSelect` | `Dropdown` |
-| `SimpleDropdown` | Chakra `NativeSelect` | `SimpleDropdown` |
-| `MultiSelect` | Semantic `<select multiple>` * | `Multiselect` |
-| `DateControl` | Chakra `Input` (`type="date"`) | `DateControl` |
-| `Slider` | Semantic `<input type="range">` * | `Slider` |
-| `RadioGroup` | Semantic `<fieldset>` + `<input type="radio">` * | `RadioGroup` |
-| `CheckboxGroup` | Semantic `<fieldset>` + `<input type="checkbox">` * | `CheckboxGroup` |
-| `Textarea` | Chakra `Textarea` | `Textarea` |
-| `DynamicFragment` | `<input type="hidden">` | `DynamicFragment` |
+| Component | Implementation | Type Key | Status |
+|---|---|---|---|
+| `Textbox` | Chakra `Input` | `Textbox` | Native Chakra |
+| `Number` | Chakra `Input` (`type="number"`) | `Number` | Native Chakra |
+| `Toggle` | Semantic `<input type="checkbox" role="switch">` | `Toggle` | Temporary - awaiting Chakra v3 DTS fix |
+| `Dropdown` | Chakra `NativeSelect` | `Dropdown` | Native Chakra |
+| `SimpleDropdown` | Chakra `NativeSelect` | `SimpleDropdown` | Native Chakra |
+| `MultiSelect` | Semantic `<select multiple>` | `Multiselect` | Temporary - awaiting Chakra v3 DTS fix |
+| `DateControl` | Chakra `Input` (`type="date"`) | `DateControl` | Native Chakra |
+| `Slider` | Semantic `<input type="range">` | `Slider` | Temporary - awaiting Chakra v3 DTS fix |
+| `RadioGroup` | Semantic `<fieldset>` + `<input type="radio">` | `RadioGroup` | Temporary - awaiting Chakra v3 DTS fix |
+| `CheckboxGroup` | Semantic `<fieldset>` + `<input type="checkbox">` | `CheckboxGroup` | Temporary - awaiting Chakra v3 DTS fix |
+| `Textarea` | Chakra `Textarea` | `Textarea` | Native Chakra |
+| `DynamicFragment` | `<input type="hidden">` | `DynamicFragment` | Expected - native HTML |
 
-\* Uses semantic HTML fallback due to Chakra v3 compound component DTS issues with Ark UI's `Assign` type. Styled with Chakra CSS variables for visual consistency.
+Fields with "Temporary" status use semantic HTML fallbacks due to Chakra v3 compound component DTS issues with Ark UI's `Assign` type. They are styled with Chakra CSS variables for visual consistency and will be replaced with native Chakra components when the issue is resolved.
 
 ### Read-Only Fields (1)
 
-| Component | Renders | Type Key |
-|---|---|---|
-| `ReadOnly` | `ReadOnlyText` | `ReadOnly` |
+| Component | Renders | Type Key | Status |
+|---|---|---|---|
+| `ReadOnly` | `ReadOnlyText` | `ReadOnly` | Expected - native HTML |
 
 ## Custom Fields
 

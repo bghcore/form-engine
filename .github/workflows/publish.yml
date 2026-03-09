@@ -12,6 +12,9 @@ on:
       - "antd-v*"
       - "chakra-v*"
       - "mantine-v*"
+      - "atlaskit-v*"
+      - "base-web-v*"
+      - "heroui-v*"
       - "designer-v*"
   workflow_dispatch:
     inputs:
@@ -28,6 +31,9 @@ on:
           - antd
           - chakra
           - mantine
+          - atlaskit
+          - base-web
+          - heroui
           - designer
       dry-run:
         description: Dry run (skip actual publish)
@@ -51,13 +57,13 @@ jobs:
       - name: Detect packages to publish
         id: detect
         run: |
-          PKGS=("core" "fluent" "mui" "headless" "antd" "chakra" "mantine" "designer")
+          PKGS=("core" "fluent" "mui" "headless" "antd" "chakra" "mantine" "atlaskit" "base-web" "heroui" "designer")
 
           # For tag pushes, determine from tag
           if [[ "$GITHUB_REF" == refs/tags/* ]]; then
             TAG="${GITHUB_REF#refs/tags/}"
             if [[ "$TAG" == v* ]]; then
-              echo 'packages=["core","fluent","mui","headless","antd","chakra","mantine","designer"]' >> "$GITHUB_OUTPUT"
+              echo 'packages=["core","fluent","mui","headless","antd","chakra","mantine","atlaskit","base-web","heroui","designer"]' >> "$GITHUB_OUTPUT"
             elif [[ "$TAG" == core-v* ]]; then
               echo 'packages=["core"]' >> "$GITHUB_OUTPUT"
             elif [[ "$TAG" == fluent-v* ]]; then
@@ -72,6 +78,12 @@ jobs:
               echo 'packages=["chakra"]' >> "$GITHUB_OUTPUT"
             elif [[ "$TAG" == mantine-v* ]]; then
               echo 'packages=["mantine"]' >> "$GITHUB_OUTPUT"
+            elif [[ "$TAG" == atlaskit-v* ]]; then
+              echo 'packages=["atlaskit"]' >> "$GITHUB_OUTPUT"
+            elif [[ "$TAG" == base-web-v* ]]; then
+              echo 'packages=["base-web"]' >> "$GITHUB_OUTPUT"
+            elif [[ "$TAG" == heroui-v* ]]; then
+              echo 'packages=["heroui"]' >> "$GITHUB_OUTPUT"
             elif [[ "$TAG" == designer-v* ]]; then
               echo 'packages=["designer"]' >> "$GITHUB_OUTPUT"
             else

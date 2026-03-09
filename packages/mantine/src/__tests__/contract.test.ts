@@ -1,0 +1,38 @@
+import { runAdapterContractTests, TIER_1_FIELDS } from "@form-eng/core/testing";
+import { createMantineFieldRegistry } from "../registry";
+import { MantineProvider } from "@mantine/core";
+import React from "react";
+import { beforeAll } from "vitest";
+
+// Mock browser APIs not available in jsdom that Mantine requires
+beforeAll(() => {
+  Object.defineProperty(window, "matchMedia", {
+    writable: true,
+    value: (query: string) => ({
+      matches: false,
+      media: query,
+      onchange: null,
+      addListener: () => {},
+      removeListener: () => {},
+      addEventListener: () => {},
+      removeEventListener: () => {},
+      dispatchEvent: () => false,
+    }),
+  });
+
+  // ResizeObserver mock for Mantine's Combobox
+  global.ResizeObserver = class ResizeObserver {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  };
+});
+
+const MantineWrapper = ({ children }: { children: React.ReactNode }) =>
+  React.createElement(MantineProvider, { forceColorScheme: "light" }, children);
+
+runAdapterContractTests(createMantineFieldRegistry, {
+  suiteName: "Mantine",
+  onlyTypes: [...TIER_1_FIELDS],
+  wrapper: MantineWrapper,
+});

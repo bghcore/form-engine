@@ -5,7 +5,7 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "npm run build:core && npm run build --workspace=packages/fluent --workspace=packages/mui --workspace=packages/headless --workspace=packages/antd --workspace=packages/chakra --workspace=packages/mantine --workspace=packages/designer && npm run build --workspace=packages/examples",
+    "build": "npm run build:core && npm run build --workspace=packages/fluent --workspace=packages/mui --workspace=packages/headless --workspace=packages/antd --workspace=packages/chakra --workspace=packages/mantine --workspace=packages/atlaskit --workspace=packages/base-web --workspace=packages/heroui --workspace=packages/designer && npm run build --workspace=packages/examples",
     "build:core": "npm run build --workspace=packages/core",
     "build:fluent": "npm run build --workspace=packages/fluent",
     "build:mui": "npm run build --workspace=packages/mui",
@@ -13,6 +13,9 @@
     "build:antd": "npm run build --workspace=packages/antd",
     "build:chakra": "npm run build --workspace=packages/chakra",
     "build:mantine": "npm run build --workspace=packages/mantine",
+    "build:atlaskit": "npm run build --workspace=packages/atlaskit",
+    "build:base-web": "npm run build --workspace=packages/base-web",
+    "build:heroui": "npm run build --workspace=packages/heroui",
     "clean": "rimraf packages/*/dist",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -26,6 +29,7 @@
   "devDependencies": {
     "@fluentui/react-components": "^9.73.2",
     "@fluentui/react-icons": "^2.0.320",
+    "@mantine/hooks": "^8.3.16",
     "@storybook/addon-docs": "^10.2.15",
     "@storybook/addon-links": "^10.2.15",
     "@storybook/react": "^10.2.15",

@@ -1,4 +1,5 @@
-import { IFieldProps, convertBooleanToYesOrNoText } from "@form-eng/core";
+import { IFieldProps } from "@form-eng/core";
+import { convertBooleanToYesOrNoText } from "../helpers";
 import { Switch } from "@mantine/core";
 import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";

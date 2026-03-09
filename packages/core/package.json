@@ -42,6 +42,16 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
+    },
+    "./adapter-utils": {
+      "types": "./dist/adapter-utils.d.ts",
+      "import": "./dist/adapter-utils.mjs",
+      "require": "./dist/adapter-utils.js"
+    },
+    "./testing": {
+      "types": "./dist/testing.d.ts",
+      "import": "./dist/testing.mjs",
+      "require": "./dist/testing.js"
     }
   },
   "files": [
@@ -61,12 +71,15 @@
     "react-hook-form": "^7.0.0"
   },
   "devDependencies": {
+    "@testing-library/react": "^16.3.2",
     "@types/expr-eval": "^1.0.2",
     "@types/react": "^19.2.14",
     "react": "^19.2.4",
+    "react-dom": "^19.2.4",
     "react-hook-form": "^7.71.2",
     "tsup": "^8.5.1",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.18"
   },
   "dependencies": {
     "expr-eval": "^2.0.2"

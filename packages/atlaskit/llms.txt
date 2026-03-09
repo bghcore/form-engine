@@ -1,0 +1,71 @@
+# @form-eng/atlaskit
+
+> Atlassian Design System field components for @form-eng/core. 13 field types using @atlaskit/* packages.
+
+- Docs: [README](https://github.com/bghcore/form-engine/tree/main/packages/atlaskit/README.md)
+- Agent instructions: [AGENTS.md](https://github.com/bghcore/form-engine/tree/main/packages/atlaskit/AGENTS.md)
+- npm: [@form-eng/atlaskit](https://www.npmjs.com/package/@form-eng/atlaskit)
+- License: MIT
+- Peer dependencies: `react`, `react-dom`, `react-hook-form`, `@form-eng/core`, `@atlaskit/textfield`, `@atlaskit/select`, `@atlaskit/toggle`, `@atlaskit/checkbox`, `@atlaskit/radio`, `@atlaskit/textarea`, `@atlaskit/datetime-picker`, `@atlaskit/range`
+
+## API Surface
+
+### Registry
+- `createAtlaskitFieldRegistry()` -- Creates the default Atlassian Design System field registry (`Record<string, React.JSX.Element>`) for use with `InjectedFieldProvider`
+
+### Editable Field Components (12)
+- `Textbox` -- `@atlaskit/textfield`
+- `Number` -- `@atlaskit/textfield` with type=number
+- `Toggle` -- `@atlaskit/toggle`
+- `Dropdown` -- `@atlaskit/select`
+- `SimpleDropdown` -- `@atlaskit/select` for string arrays
+- `MultiSelect` -- `@atlaskit/select` with `isMulti`
+- `DateControl` -- `@atlaskit/datetime-picker`
+- `Slider` -- `@atlaskit/range`
+- `RadioGroup` -- `@atlaskit/radio`
+- `CheckboxGroup` -- `@atlaskit/checkbox`
+- `Textarea` -- `@atlaskit/textarea`
+- `DynamicFragment` -- `<input type="hidden">`
+
+### Read-Only Field Components (1)
+- `ReadOnly` -- `ReadOnlyText`
+
+### Supporting Components
+- `ReadOnlyText` -- Shared read-only text display
+- `StatusMessage` -- Form status display
+- `FormLoading` -- Loading state
+
+### Helpers
+- `FieldClassName()` -- Build CSS class name with error state
+- `GetFieldDataTestId()` -- Build data-testid attribute
+- `formatDateTime()` -- Format date string for display
+- `DocumentLinksStrings` -- Default string literals for document links UI
+
+## Code Example
+
+```tsx
+import { RulesEngineProvider, InjectedFieldProvider, FormEngine } from "@form-eng/core";
+import { createAtlaskitFieldRegistry } from "@form-eng/atlaskit";
+
+const formConfig = {
+  version: 2,
+  fields: {
+    name: { type: "Textbox", label: "Name", required: true },
+    role: { type: "Dropdown", label: "Role", options: [
+      { value: "admin", label: "Admin" },
+      { value: "user", label: "User" },
+    ]},
+  },
+  fieldOrder: ["name", "role"],
+};
+
+function App() {
+  return (
+    <RulesEngineProvider>
+      <InjectedFieldProvider injectedFields={createAtlaskitFieldRegistry()}>
+        <FormEngine formConfig={formConfig} saveData={async (data) => data} />
+      </InjectedFieldProvider>
+    </RulesEngineProvider>
+  );
+}
+```

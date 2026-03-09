@@ -4,7 +4,7 @@
 
 A React library for rendering complex, configuration-driven forms with a built-in rules engine. Forms are defined as a single `IFormConfig` JSON object (field definitions, rules with rich conditions, validation, ordering) and the library handles rendering, validation, auto-save, and field interactions automatically.
 
-Published as nine npm packages:
+Published as twelve npm packages:
 - `@form-eng/core` -- UI-library agnostic rules engine and form orchestration (React + react-hook-form only)
 - `@form-eng/fluent` -- Fluent UI v9 field component implementations
 - `@form-eng/mui` -- Material UI (MUI) field component implementations
@@ -12,6 +12,9 @@ Published as nine npm packages:
 - `@form-eng/antd` -- Ant Design v5 field component implementations
 - `@form-eng/chakra` -- Chakra UI v3 field component implementations
 - `@form-eng/mantine` -- Mantine v7 field component implementations
+- `@form-eng/atlaskit` -- Atlassian Design System field component implementations
+- `@form-eng/base-web` -- Uber Base Web field component implementations
+- `@form-eng/heroui` -- HeroUI (formerly NextUI) field component implementations
 - `@form-eng/designer` -- Visual drag-and-drop form builder that outputs IFormConfig v2
 - `@form-eng/examples` -- 3 example apps (login+MFA, checkout wizard, data entry)
 
@@ -227,6 +230,24 @@ packages/
       components/ (ReadOnlyText, StatusMessage, FormLoading)
       fields/ (13 Tier 1 editable + 1 read-only, Mantine v7 components)
 
+  atlaskit/                      -- @form-eng/atlaskit
+    src/
+      index.ts, registry.ts, helpers.ts
+      components/ (ReadOnlyText, StatusMessage, FormLoading)
+      fields/ (13 Tier 1 editable + 1 read-only, Atlassian Design System components)
+
+  base-web/                      -- @form-eng/base-web
+    src/
+      index.ts, registry.ts, helpers.ts
+      components/ (ReadOnlyText, StatusMessage, FormLoading)
+      fields/ (13 Tier 1 editable + 1 read-only, semantic HTML for Base Web integration)
+
+  heroui/                        -- @form-eng/heroui
+    src/
+      index.ts, registry.ts, helpers.ts
+      components/ (ReadOnlyText, StatusMessage, FormLoading)
+      fields/ (13 Tier 1 editable + 1 read-only, HeroUI components)
+
   designer/                      -- @form-eng/designer
     src/
       types/ (IDesignerState, IDesignerAction)
@@ -257,6 +278,9 @@ npm run build:headless   # Build headless package only
 npm run build:antd       # Build Ant Design package only
 npm run build:chakra     # Build Chakra UI package only
 npm run build:mantine    # Build Mantine package only
+npm run build:atlaskit   # Build Atlaskit package only
+npm run build:base-web   # Build Base Web package only
+npm run build:heroui     # Build HeroUI package only
 npm run clean            # Remove all dist/ directories
 npm run test             # Run all tests (vitest, 745 tests)
 npm run test:watch       # Run tests in watch mode
@@ -269,7 +293,7 @@ npm run build-storybook  # Build static Storybook
 
 **Build output per package:** `dist/index.js` (CJS), `dist/index.mjs` (ESM), `dist/index.d.ts` (types)
 
-**Monorepo:** npm workspaces with `packages/core`, `packages/fluent`, `packages/mui`, `packages/headless`, `packages/antd`, `packages/chakra`, `packages/mantine`, `packages/designer`, `packages/examples`
+**Monorepo:** npm workspaces with `packages/core`, `packages/fluent`, `packages/mui`, `packages/headless`, `packages/antd`, `packages/chakra`, `packages/mantine`, `packages/atlaskit`, `packages/base-web`, `packages/heroui`, `packages/designer`, `packages/examples`
 
 ## Tech Stack
 
