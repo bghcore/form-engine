@@ -1,0 +1,54 @@
+# @form-eng/radix
+
+> Radix UI primitives adapter for @form-eng/core. Provides accessible, unstyled field components using Radix UI primitives for interactive elements and semantic HTML for simple inputs. Ships with no styles -- ideal as the base for Tailwind CSS, shadcn/ui, and custom design systems. No provider wrapper needed.
+
+- Docs: [README](https://github.com/bghcore/form-engine/tree/main/packages/radix/README.md)
+- npm: [@form-eng/radix](https://www.npmjs.com/package/@form-eng/radix)
+- License: MIT
+
+## API Surface
+
+### Registry
+- `createRadixFieldRegistry()` -- Returns `Dictionary<React.JSX.Element>` mapping all 13 Tier 1 field types to Radix/HTML components for use with `InjectedFieldProvider`
+
+### Field Components (13 Tier 1)
+- `Textbox` -- `<input type="text">` (semantic HTML). Props: `IFieldProps<{ ellipsifyTextCharacters?, placeHolder?, multiline? }>`
+- `Number` -- `<input type="number">` (semantic HTML). ReadOnly shows `String(value)`. Props: `IFieldProps<{}>`
+- `Toggle` -- `@radix-ui/react-switch` (Switch.Root + Switch.Thumb). Checked/unchecked state. ReadOnly shows "Yes"/"No". Props: `IFieldProps<{}>`
+- `Dropdown` -- `@radix-ui/react-select` (Select.Root + Trigger + Content + Items). Empty value coerced to `undefined` (DIV-010). Props: `IFieldProps<{ placeHolder?, setDefaultKeyIfOnlyOneOption? }>`
+- `SimpleDropdown` -- `@radix-ui/react-select` with `config.dropdownOptions` string array. Props: `IFieldProps<{ dropdownOptions? }>`
+- `MultiSelect` -- `<select multiple>` (semantic HTML). Value: `string[]`. Props: `IFieldProps<{}>`
+- `DateControl` -- `<input type="date">` (semantic HTML) with clear button. Serializes to ISO string. Props: `IFieldProps<{}>`
+- `Slider` -- `@radix-ui/react-slider` (Slider.Root + Track + Range + Thumb). Value wrapped as `[number]` array (DIV-011). Props: `IFieldProps<{ max?, min?, step? }>`
+- `RadioGroup` -- `@radix-ui/react-radio-group` (Root + Items). ReadOnly shows option label. Props: `IFieldProps<{}>`
+- `CheckboxGroup` -- `@radix-ui/react-checkbox` (Checkbox.Root per option). Value: `string[]`. ReadOnly shows comma-joined labels. Props: `IFieldProps<{}>`
+- `Textarea` -- `<textarea>` (semantic HTML). Props: `IFieldProps<{ placeHolder? }>`
+- `DynamicFragment` -- `<input type="hidden">` for form state. Props: `IFieldProps<{}>`
+- `ReadOnly` -- `<span>` displaying value or "-" sentinel. Props: `IFieldProps<IReadOnlyFieldProps>`
+
+### Supporting Components
+- `ReadOnlyText` -- Shared read-only text display with ellipsification support
+- `StatusMessage` -- Form status message display
+- `FormLoading` -- Loading skeleton display
+
+### Helpers (re-exported from @form-eng/core/adapter-utils)
+- `GetFieldDataTestId(fieldName, programName, entityType, entityId)` -- Generates test ID
+- `getFieldState({ error, required, readOnly })` -- Returns state string for data-field-state
+- `formatDateTime(value, options?)` -- ISO string to localized display
+- `convertBooleanToYesOrNoText(value)` -- Boolean to "Yes"/"No"
+- `isNull(value)` -- Null/undefined check
+
+### Known Divergences
+- DIV-010: Radix Select uses `undefined` (not `""`) for empty/no-selection state
+- DIV-011: Radix Slider uses `number[]` internally, converted to single `number` at boundary
+
+## Styling
+
+No styles included. All fields emit:
+- `data-field-type` attribute (e.g., "Textbox", "Dropdown")
+- `data-field-state` attribute ("error", "required", "readonly")
+- CSS class names prefixed with `df-` (e.g., `df-textbox`, `df-dropdown`)
+
+## shadcn/ui Integration
+
+Recommended base for shadcn/ui projects. Use `createRadixFieldRegistry()` directly or override specific fields with styled wrappers via registry spread pattern. See docs/shadcn-integration.md.

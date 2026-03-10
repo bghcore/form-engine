@@ -22,6 +22,8 @@ import { createMantineFieldRegistry } from "@form-eng/mantine";
 import { createAtlaskitFieldRegistry } from "@form-eng/atlaskit";
 import { createBaseWebFieldRegistry } from "@form-eng/base-web";
 import { createHeroUIFieldRegistry } from "@form-eng/heroui";
+import { createRadixFieldRegistry } from "@form-eng/radix";
+import { createReactAriaFieldRegistry } from "@form-eng/react-aria";
 import { ChakraProvider, defaultSystem } from "@chakra-ui/react";
 import { MantineProvider } from "@mantine/core";
 
@@ -64,6 +66,8 @@ const adapters: AdapterConfig[] = [
   { name: "atlaskit", registry: createAtlaskitFieldRegistry },
   { name: "base-web", registry: createBaseWebFieldRegistry },
   { name: "heroui", registry: createHeroUIFieldRegistry },
+  { name: "radix", registry: createRadixFieldRegistry },
+  { name: "react-aria", registry: createReactAriaFieldRegistry },
 ];
 // Note: fluent and mui are EXCLUDED from edge-case tests that involve Multiselect
 // because their Multiselect requires FormProvider context. Include them only for

@@ -1,0 +1,58 @@
+# @form-eng/react-aria
+
+> React Aria Components adapter for @form-eng/core. Provides accessible field components using React Aria Components for best-in-class ARIA patterns. Highest native Tier 1 coverage among primitives-first adapters (10/13 native). No provider wrapper needed.
+
+- Docs: [README](https://github.com/bghcore/form-engine/tree/main/packages/react-aria/README.md)
+- npm: [@form-eng/react-aria](https://www.npmjs.com/package/@form-eng/react-aria)
+- License: MIT
+
+## API Surface
+
+### Registry
+- `createReactAriaFieldRegistry()` -- Returns `Dictionary<React.JSX.Element>` mapping all 13 Tier 1 field types to React Aria/HTML components for use with `InjectedFieldProvider`
+
+### Field Components (13 Tier 1)
+- `Textbox` -- React Aria `TextField` + `Input`. Props: `IFieldProps<{ ellipsifyTextCharacters?, placeHolder?, multiline? }>`
+- `Number` -- React Aria `NumberField` + `Input`. NaN guard on onChange. ReadOnly shows `String(value)`. Props: `IFieldProps<{}>`
+- `Toggle` -- React Aria `Switch`. Props: `IFieldProps<{}>`
+- `Dropdown` -- React Aria `Select` + `Button` + `Popover` + `ListBox` + `ListBoxItem`. Key type cast via `String(key)` (DIV-012). Props: `IFieldProps<{ placeHolder?, setDefaultKeyIfOnlyOneOption? }>`
+- `SimpleDropdown` -- React Aria `Select` with `config.dropdownOptions` string array. Props: `IFieldProps<{ dropdownOptions? }>`
+- `MultiSelect` -- `<select multiple>` (semantic HTML). Value: `string[]`. Props: `IFieldProps<{}>`
+- `DateControl` -- `<input type="date">` (semantic HTML) with clear button. Serializes to ISO string. Props: `IFieldProps<{}>`
+- `Slider` -- React Aria `Slider` + `SliderTrack` + `SliderThumb`. Props: `IFieldProps<{ max?, min?, step? }>`
+- `RadioGroup` -- React Aria `RadioGroup` + `Radio`. ReadOnly shows option label. Props: `IFieldProps<{}>`
+- `CheckboxGroup` -- React Aria `CheckboxGroup` + `Checkbox`. Value: `string[]`. ReadOnly shows comma-joined labels. Props: `IFieldProps<{}>`
+- `Textarea` -- React Aria `TextField` + `TextArea` (inline) + native `<dialog>` (modal expand). Props: `IFieldProps<{ placeHolder? }>`
+- `DynamicFragment` -- `<input type="hidden">` for form state. Props: `IFieldProps<{}>`
+- `ReadOnly` -- `<span>` displaying value or "-" sentinel. Props: `IFieldProps<IReadOnlyFieldProps>`
+
+### Supporting Components
+- `ReadOnlyText` -- Shared read-only text display with ellipsification support
+- `StatusMessage` -- Form status message display
+- `FormLoading` -- Loading skeleton display
+
+### Helpers (re-exported from @form-eng/core/adapter-utils)
+- `GetFieldDataTestId(fieldName, programName, entityType, entityId)` -- Generates test ID
+- `getFieldState({ error, required, readOnly })` -- Returns state string for data-field-state
+- `formatDateTime(value, options?)` -- ISO string to localized display
+- `convertBooleanToYesOrNoText(value)` -- Boolean to "Yes"/"No"
+- `isNull(value)` -- Null/undefined check
+
+### Known Divergences
+- DIV-012: React Aria Select uses `Key` type (string | number); cast via `String(key)` at boundary
+
+## Styling
+
+No styles included. All fields emit:
+- `data-field-type` attribute (e.g., "Textbox", "Dropdown")
+- `data-field-state` attribute ("error", "required", "readonly")
+- CSS class names prefixed with `df-` (e.g., `df-textbox`, `df-dropdown`)
+- React Aria `data-*` render props for fine-grained state styling
+
+## Accessibility
+
+React Aria Components provide built-in:
+- Keyboard navigation and focus management
+- ARIA roles, states, and properties
+- Screen reader announcements
+- Touch and pointer accessibility

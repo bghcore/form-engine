@@ -29,6 +29,14 @@ const config: StorybookConfig = {
             __dirname_,
             "../packages/fluent/src"
           ),
+          "@form-eng/radix": resolve(
+            __dirname_,
+            "../packages/radix/src"
+          ),
+          "@form-eng/react-aria": resolve(
+            __dirname_,
+            "../packages/react-aria/src"
+          ),
         },
       },
     };

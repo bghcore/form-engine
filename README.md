@@ -839,7 +839,9 @@ npm run build:chakra   # Build Chakra UI package only
 npm run build:mantine  # Build Mantine package only
 npm run build:atlaskit # Build Atlaskit package only
 npm run build:base-web # Build Base Web package only
-npm run build:heroui   # Build HeroUI package only
+npm run build:heroui     # Build HeroUI package only
+npm run build:radix      # Build Radix package only
+npm run build:react-aria # Build React Aria package only
 
 # Run tests
 npm run test
@@ -874,6 +876,8 @@ packages/
   atlaskit/   -- @form-eng/atlaskit (Atlassian Design System adapter, 13 Tier 1 types)
   base-web/   -- @form-eng/base-web (Uber Base Web adapter, 13 Tier 1 types)
   heroui/     -- @form-eng/heroui (HeroUI adapter, 13 Tier 1 types)
+  radix/      -- @form-eng/radix (Radix UI primitives adapter, 13 Tier 1 types)
+  react-aria/ -- @form-eng/react-aria (React Aria Components adapter, 13 Tier 1 types)
   designer/   -- @form-eng/designer (visual form builder)
   examples/   -- 3 example apps (login+MFA, checkout wizard, data entry)
 e2e/          -- Playwright end-to-end tests
@@ -886,6 +890,11 @@ docs/
   field-capability-matrix.md -- Per-field, per-adapter parity matrix
   api-stability.md           -- Public API stability classification
   pre-expansion-summary.md   -- Pre-Tier-2 expansion readiness assessment
+  choosing-an-adapter.md     -- Adapter recommendation guide
+  tier2-feasibility-matrix.md -- Tier 2 field feasibility assessment
+  tier2-handoff.md           -- Pre-Tier-2 handoff document
+  shadcn-integration.md      -- shadcn/ui integration guide
+  divergence-register.md     -- Cross-adapter divergence register
   ssr-guide.md               -- SSR / Next.js integration guide
   ACCESSIBILITY.md           -- Accessibility documentation
 ```

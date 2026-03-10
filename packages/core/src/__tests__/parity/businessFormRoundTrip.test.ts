@@ -20,6 +20,8 @@ import {
 import { createHeadlessFieldRegistry } from "@form-eng/headless";
 import { createAntdFieldRegistry } from "@form-eng/antd";
 import { createMantineFieldRegistry } from "@form-eng/mantine";
+import { createRadixFieldRegistry } from "@form-eng/radix";
+import { createReactAriaFieldRegistry } from "@form-eng/react-aria";
 import { ChakraProvider, defaultSystem } from "@chakra-ui/react";
 import { MantineProvider } from "@mantine/core";
 import { createChakraFieldRegistry } from "@form-eng/chakra";
@@ -69,6 +71,8 @@ const adapters: AdapterConfig[] = [
     wrapper: MantineWrapper,
   },
   { name: "chakra", registry: createChakraFieldRegistry, wrapper: ChakraWrapper },
+  { name: "radix", registry: createRadixFieldRegistry },
+  { name: "react-aria", registry: createReactAriaFieldRegistry },
 ];
 
 const baseProps = {

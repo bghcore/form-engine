@@ -26,6 +26,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Root build command includes radix and react-aria workspaces.
 - CI/CD publish now supports 13 packages (added radix, react-aria).
 
+## [1.5.1] - 2026-03-09
+
+### Added
+
+- **Primitives-first edge-case parity tests** — 21 targeted tests in `primitiveAdapterEdgeCases.test.ts` covering DIV-010 (Radix Select null/undefined boundary), DIV-011 (Radix Slider array conversion), DIV-012 (React Aria Key type cast), React Aria NumberField NaN guard, Radix Checkbox indeterminate boundary, and cross-adapter readOnly sentinel consistency.
+- **Consumer smoke tests** — 36 tests in `consumerSmoke.test.ts` validating all 11 adapter registries: creation, 13 Tier 1 key coverage, cloneElement compatibility, type key consistency, and radix/react-aria import validation.
+- **Radix + react-aria in cross-adapter edge cases** — Both adapters added to `crossAdapterEdgeCases.test.ts` (+66 tests covering Number, Dropdown, MultiSelect, RadioGroup, CheckboxGroup, DateControl, ReadOnly edge cases).
+- **Radix + react-aria in business form round-trip** — Both adapters added to `businessFormRoundTrip.test.ts` (+60 tests covering profile, workflow, and option-heavy form configs).
+- **shadcn reference implementation** — 7 shadcn-style field wrappers + `createShadcnFieldRegistry()` in `stories/examples/shadcn-fields/`, plus `ShadcnReference.stories.tsx` Storybook story with HybridRegistry and Empty variants.
+- **`docs/choosing-an-adapter.md`** — Adapter recommendation guide with quick decision table, classification grid (5 categories), per-adapter cards, and text-based decision flowchart.
+- **`docs/tier2-feasibility-matrix.md`** — 19 candidate Tier 2 fields x 12 targets (11 adapters + shadcn recipe) feasibility assessment with 4-wave rollout plan.
+- **`docs/tier2-handoff.md`** — Pre-Tier-2 handoff document answering 7 decision questions: parity status, primitives-first readiness, shadcn validation, divergence summary, rollout strategy, recommendations, and go/no-go per adapter.
+- **`@form-eng/radix` llms.txt** — LLM-optimized API reference for the Radix UI adapter.
+- **`@form-eng/react-aria` llms.txt** — LLM-optimized API reference for the React Aria adapter.
+
+### Changed
+
+- 4774 tests passing across 55 files (up from 4587 in v1.5.0).
+- Storybook aliases updated: `@form-eng/radix` and `@form-eng/react-aria` now resolve in Storybook.
+- Updated root README.md, llms.txt, and CLAUDE.md with new test counts and documentation links.
+- All packages bumped to 1.5.1.
+
 ## [1.4.1] - 2026-03-09
 
 ### Added
