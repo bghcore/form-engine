@@ -226,6 +226,7 @@ The contract tests verify:
 | Class | Definition |
 |-------|-----------|
 | **Native** | All Tier 1 fields use the UI library's own components. Production-ready for that ecosystem. |
+| **Primitives-first** | Uses UI primitive library components for behavior (accessible interactions, keyboard nav) without styling. Consumer provides all CSS. Ideal for Tailwind/custom design systems. |
 | **Reference** | Pure semantic HTML. Canonical reference implementation. Production-ready for any ecosystem. |
 | **Hybrid** | Mix of native components and semantic HTML fallbacks. Functional but visually inconsistent with the target library for fallback fields. |
 | **Compatibility** | All fields use semantic HTML. Named for ecosystem compatibility but does not use the library's actual components. Suitable for projects that want form-engine integration without adding a UI library runtime dependency. |
@@ -243,6 +244,8 @@ The contract tests verify:
 | base-web | Hybrid | 3/13 | 10/13 | Medium-Low | Conditional | Input, Slider, Checkbox use baseui. Most fields are semantic HTML. Better classified as Compatibility for Tier 1. |
 | atlaskit | Compatibility | 0/13 | 13/13 | Medium | Conditional | All semantic HTML. No Atlassian Design System runtime components used. Suitable for ecosystem integration without atlaskit dependency. |
 | heroui | Compatibility | 0/13 | 13/13 | Medium | Conditional | All semantic HTML. No HeroUI runtime components used. Suitable for ecosystem integration without heroui dependency. |
+| radix | Primitives-first | 7/13 | 6/13 | High | Yes | Toggle, Dropdown, SimpleDropdown, Slider, RadioGroup, CheckboxGroup use Radix UI primitives. Textbox, Number, MultiSelect, DateControl, Textarea, DynamicFragment use semantic HTML. No styling included. Recommended base for shadcn/Tailwind projects. |
+| react-aria | Primitives-first | 10/13 | 3/13 | High | Yes | Textbox, Number, Toggle, Dropdown, SimpleDropdown, Slider, RadioGroup, CheckboxGroup, Textarea use React Aria Components. MultiSelect, DateControl, DynamicFragment use semantic HTML. Highest native Tier 1 coverage among primitives-first adapters. |
 
 ### What "Conditional" production readiness means
 
@@ -269,6 +272,8 @@ Some adapters require a React context provider wrapper to render correctly. This
 | atlaskit | No | — | Pure semantic HTML, no provider needed |
 | base-web | No | — | Semantic HTML fields don't need StyletronProvider; baseui components degrade gracefully |
 | heroui | No | — | Pure semantic HTML, no provider needed |
+| radix | No | — | Radix primitives work without a provider |
+| react-aria | No | — | React Aria Components work without a provider |
 
 ### Is this expected long-term?
 

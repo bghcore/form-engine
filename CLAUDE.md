@@ -4,7 +4,7 @@
 
 A React library for rendering complex, configuration-driven forms with a built-in rules engine. Forms are defined as a single `IFormConfig` JSON object (field definitions, rules with rich conditions, validation, ordering) and the library handles rendering, validation, auto-save, and field interactions automatically.
 
-Published as twelve npm packages:
+Published as fourteen npm packages:
 - `@form-eng/core` -- UI-library agnostic rules engine and form orchestration (React + react-hook-form only)
 - `@form-eng/fluent` -- Fluent UI v9 field component implementations
 - `@form-eng/mui` -- Material UI (MUI) field component implementations
@@ -15,6 +15,8 @@ Published as twelve npm packages:
 - `@form-eng/atlaskit` -- Atlassian Design System field component implementations
 - `@form-eng/base-web` -- Uber Base Web field component implementations
 - `@form-eng/heroui` -- HeroUI (formerly NextUI) field component implementations
+- `@form-eng/radix` -- Radix UI primitives field implementations (unstyled, ideal for Tailwind/shadcn)
+- `@form-eng/react-aria` -- React Aria Components field implementations (accessibility-first)
 - `@form-eng/designer` -- Visual drag-and-drop form builder that outputs IFormConfig v2
 - `@form-eng/examples` -- 3 example apps (login+MFA, checkout wizard, data entry)
 
@@ -248,6 +250,18 @@ packages/
       components/ (ReadOnlyText, StatusMessage, FormLoading)
       fields/ (13 Tier 1 editable + 1 read-only, HeroUI components)
 
+  radix/                         -- @form-eng/radix
+    src/
+      index.ts, registry.ts, helpers.ts
+      components/ (ReadOnlyText, StatusMessage, FormLoading)
+      fields/ (7 Radix UI primitives + 6 semantic HTML, 1 read-only)
+
+  react-aria/                    -- @form-eng/react-aria
+    src/
+      index.ts, registry.ts, helpers.ts
+      components/ (ReadOnlyText, StatusMessage, FormLoading)
+      fields/ (10 React Aria Components + 3 semantic HTML, 1 read-only)
+
   designer/                      -- @form-eng/designer
     src/
       types/ (IDesignerState, IDesignerAction)
@@ -281,8 +295,10 @@ npm run build:mantine    # Build Mantine package only
 npm run build:atlaskit   # Build Atlaskit package only
 npm run build:base-web   # Build Base Web package only
 npm run build:heroui     # Build HeroUI package only
+npm run build:radix      # Build Radix package only
+npm run build:react-aria # Build React Aria package only
 npm run clean            # Remove all dist/ directories
-npm run test             # Run all tests (vitest, 3219 tests)
+npm run test             # Run all tests (vitest, 4587 tests)
 npm run test:watch       # Run tests in watch mode
 npm run test:coverage    # Run tests with coverage report
 npm run test:e2e         # Run Playwright E2E tests (54 tests)
@@ -293,7 +309,7 @@ npm run build-storybook  # Build static Storybook
 
 **Build output per package:** `dist/index.js` (CJS), `dist/index.mjs` (ESM), `dist/index.d.ts` (types)
 
-**Monorepo:** npm workspaces with `packages/core`, `packages/fluent`, `packages/mui`, `packages/headless`, `packages/antd`, `packages/chakra`, `packages/mantine`, `packages/atlaskit`, `packages/base-web`, `packages/heroui`, `packages/designer`, `packages/examples`
+**Monorepo:** npm workspaces with `packages/core`, `packages/fluent`, `packages/mui`, `packages/headless`, `packages/antd`, `packages/chakra`, `packages/mantine`, `packages/atlaskit`, `packages/base-web`, `packages/heroui`, `packages/radix`, `packages/react-aria`, `packages/designer`, `packages/examples`
 
 ## Tech Stack
 
@@ -302,7 +318,7 @@ npm run build-storybook  # Build static Storybook
 - **Fluent UI v9** (`@fluentui/react-components`) for UI components (fluent package)
 - **MUI v5/v6** (`@mui/material`) for UI components (mui package)
 - **TypeScript** with `strict: true`
-- **Vitest** for testing (3219 tests across 50 files)
+- **Vitest** for testing (4587 tests across 53 files)
 - **Playwright** for E2E testing (54 tests across 7 specs)
 - **Storybook 10** for visual component documentation (67+ stories)
 - **tsup** for bundling (CJS + ESM + .d.ts)

@@ -40,6 +40,8 @@ A React library for rendering complex, configuration-driven forms with a built-i
 | [`@form-eng/atlaskit`](./packages/atlaskit) | Atlassian Design System field components (13 Tier 1 field types). | ~16 KB ESM |
 | [`@form-eng/base-web`](./packages/base-web) | Uber Base Web field components (13 Tier 1 field types). | ~16 KB ESM |
 | [`@form-eng/heroui`](./packages/heroui) | HeroUI field components (13 Tier 1 field types). | ~16 KB ESM |
+| [`@form-eng/radix`](./packages/radix) | Radix UI primitives field components (13 Tier 1 field types). Unstyled. | ~26 KB ESM |
+| [`@form-eng/react-aria`](./packages/react-aria) | React Aria Components field components (13 Tier 1 field types). | ~25 KB ESM |
 | [`@form-eng/designer`](./packages/designer) | Visual drag-and-drop form builder with rule editor and JSON export. | ~65 KB ESM |
 | [`@form-eng/examples`](./packages/examples) | 3 example apps (login+MFA, checkout wizard, data entry). | -- |
 
@@ -60,6 +62,12 @@ npm install @form-eng/core @form-eng/antd antd dayjs
 
 # Or with Mantine
 npm install @form-eng/core @form-eng/mantine @mantine/core @mantine/hooks
+
+# Or with Radix UI (unstyled primitives, great for Tailwind/shadcn)
+npm install @form-eng/core @form-eng/radix @radix-ui/react-checkbox @radix-ui/react-radio-group @radix-ui/react-select @radix-ui/react-slider @radix-ui/react-switch
+
+# Or with React Aria (accessibility-first)
+npm install @form-eng/core @form-eng/react-aria react-aria-components
 ```
 
 ```tsx

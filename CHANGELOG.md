@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.0] - 2026-03-09
+
+### Added
+
+- **`@form-eng/radix`** -- New Radix UI primitives adapter package. 7 native Radix fields (Toggle, Dropdown, SimpleDropdown, Slider, RadioGroup, CheckboxGroup via @radix-ui/* packages) + 6 semantic HTML fields (Textbox, Number, MultiSelect, DateControl, Textarea, DynamicFragment). Ships with no styles -- ideal as the base for Tailwind CSS, shadcn/ui, and custom design systems. No provider wrapper needed.
+- **`@form-eng/react-aria`** -- New React Aria Components adapter package. 10 native React Aria fields (Textbox, Number, Toggle, Dropdown, SimpleDropdown, Slider, RadioGroup, CheckboxGroup, Textarea via react-aria-components) + 3 semantic HTML fields (MultiSelect, DateControl, DynamicFragment). Best-in-class ARIA accessibility patterns. Highest native Tier 1 coverage among primitives-first adapters. No provider wrapper needed.
+- **`docs/shadcn-integration.md`** -- Integration guide for shadcn/ui projects: three approaches (use Radix directly, create local wrappers, hybrid overlay), copy-pasteable wrapper examples, registry composition pattern, and Tailwind + data-attribute styling guidance.
+- **"Primitives-first" adapter classification** in `docs/adapter-architecture.md` for adapters that provide accessible behavior without styling (radix, react-aria).
+- **DIV-010, DIV-011, DIV-012** in divergence register: Radix Select empty value handling, Radix Slider array boundary conversion, React Aria Select Key type cast. All classified as "Permanent acceptable".
+- Both new adapters added to cross-adapter parity test suite (11 adapters x 8 fixtures).
+- Contract tests for both adapters (92 tests each).
+
+### Changed
+
+- 4587 tests passing across 53 files (up from 4013 in v1.4.1).
+- Updated field-capability-matrix.md, parity-matrix.md, pre-expansion-summary.md with radix and react-aria columns.
+- Updated README.md and CLAUDE.md with new packages.
+- All packages bumped to 1.5.0.
+- Root build command includes radix and react-aria workspaces.
+- CI/CD publish now supports 13 packages (added radix, react-aria).
+
 ## [1.4.1] - 2026-03-09
 
 ### Added

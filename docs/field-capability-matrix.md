@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document provides a per-field, per-adapter capability matrix for the 13 Tier 1 field types across all 9 form-engine adapter packages. It tracks the support level, implementation strategy, feature parity, and known caveats for each combination.
+This document provides a per-field, per-adapter capability matrix for the 13 Tier 1 field types across all 11 form-engine adapter packages. It tracks the support level, implementation strategy, feature parity, and known caveats for each combination.
 
 **Why this matrix exists:**
 - Helps consumers choose the right adapter for their use case
@@ -33,6 +33,8 @@ This document provides a per-field, per-adapter capability matrix for the 13 Tie
 | atlaskit | full | semantic-html (`<input type="text">`) | yes | yes | yes | yes | conformant | Styled for Atlassian ecosystem |
 | base-web | full | native-component (baseui Input) | yes | yes | yes | yes | conformant | Uses overrides for data-testid |
 | heroui | full | semantic-html (`<input type="text">`) | yes | yes | yes | yes | conformant | Styled for HeroUI ecosystem |
+| radix | full | semantic-html (`<input type="text">`) | yes | yes | yes | yes | conformant | No styling included |
+| react-aria | full | native-component (React Aria TextField + Input) | yes | yes | yes | yes | conformant | |
 
 ### Number
 
@@ -47,6 +49,8 @@ This document provides a per-field, per-adapter capability matrix for the 13 Tie
 | atlaskit | full | semantic-html (`<input type="number">`) | yes | yes | yes | yes | conformant | |
 | base-web | full | native-component (baseui Input type=number) | yes | yes | yes | yes | conformant | |
 | heroui | full | semantic-html (`<input type="number">`) | yes | yes | yes | yes | conformant | |
+| radix | full | semantic-html (`<input type="number">`) | yes | yes | yes | yes | conformant | |
+| react-aria | full | native-component (React Aria NumberField + Input) | yes | yes | yes | yes | conformant | Guard for NaN on clear |
 
 ### Toggle
 
@@ -61,6 +65,8 @@ This document provides a per-field, per-adapter capability matrix for the 13 Tie
 | atlaskit | full | semantic-html (`<input type="checkbox" role="switch">`) | yes | yes | yes | yes | conformant | |
 | base-web | full | native-component (baseui Checkbox toggle) | yes | yes | yes | yes | conformant | Uses `STYLE_TYPE.toggle` |
 | heroui | full | semantic-html (`<input type="checkbox" role="switch">`) | yes | yes | yes | yes | conformant | |
+| radix | full | native-component (@radix-ui/react-switch) | yes | yes | yes | yes | conformant | Switch.Root + Switch.Thumb |
+| react-aria | full | native-component (React Aria Switch) | yes | yes | yes | yes | conformant | |
 
 ### Dropdown
 
@@ -75,6 +81,8 @@ This document provides a per-field, per-adapter capability matrix for the 13 Tie
 | atlaskit | full | semantic-html (`<select>`) | yes | yes | yes | yes | conformant | |
 | base-web | full | native-component (baseui Select) | yes | yes | yes | yes | conformant | Uses baseui Select with clearable |
 | heroui | full | semantic-html (`<select>`) | yes | yes | yes | yes | conformant | |
+| radix | full | native-component (@radix-ui/react-select) | yes | yes | yes | yes | conformant | Select.Root + Trigger + Content + Items |
+| react-aria | full | native-component (React Aria Select + ListBox + Popover) | yes | yes | yes | yes | conformant | selectedKey/onSelectionChange with Key cast |
 
 ### SimpleDropdown
 
@@ -89,6 +97,8 @@ This document provides a per-field, per-adapter capability matrix for the 13 Tie
 | atlaskit | full | semantic-html (`<select>`) | yes | yes | yes | yes | conformant | |
 | base-web | full | native-component (baseui Select) | yes | yes | yes | yes | conformant | |
 | heroui | full | semantic-html (`<select>`) | yes | yes | yes | yes | conformant | |
+| radix | full | native-component (@radix-ui/react-select) | yes | yes | yes | yes | conformant | String array options |
+| react-aria | full | native-component (React Aria Select + ListBox + Popover) | yes | yes | yes | yes | conformant | String array options |
 
 ### MultiSelect
 
@@ -103,6 +113,8 @@ This document provides a per-field, per-adapter capability matrix for the 13 Tie
 | atlaskit | full | semantic-html (`<select multiple>`) | yes | yes | yes | yes | conformant | |
 | base-web | full | native-component (baseui Select multi) | yes | yes | yes | yes | conformant | |
 | heroui | full | semantic-html (`<select multiple>`) | yes | yes | yes | yes | conformant | |
+| radix | full | semantic-html (`<select multiple>`) | yes | yes | yes | yes | conformant | |
+| react-aria | full | semantic-html (`<select multiple>`) | yes | yes | yes | yes | conformant | Semantic HTML fallback |
 
 ### DateControl
 
@@ -117,6 +129,8 @@ This document provides a per-field, per-adapter capability matrix for the 13 Tie
 | atlaskit | full | semantic-html (`<input type="date">`) | yes | yes | yes | yes | conformant | |
 | base-web | full | semantic-html (`<input type="date">`) | yes | yes | yes | yes | conformant | No baseui DatePicker; falls back to native HTML |
 | heroui | full | semantic-html (`<input type="date">`) | yes | yes | yes | yes | conformant | Native HTML date picker |
+| radix | full | semantic-html (`<input type="date">`) | yes | yes | yes | yes | conformant | |
+| react-aria | full | semantic-html (`<input type="date">`) | yes | yes | yes | yes | conformant | CalendarDate conversion deferred to Tier 2 |
 
 ### Slider
 
@@ -131,6 +145,8 @@ This document provides a per-field, per-adapter capability matrix for the 13 Tie
 | atlaskit | full | semantic-html (`<input type="range">`) | yes | yes | yes | yes | conformant | |
 | base-web | full | native-component (baseui Slider) | yes | yes | yes | yes | conformant | |
 | heroui | full | semantic-html (`<input type="range">`) | yes | yes | yes | yes | conformant | |
+| radix | full | native-component (@radix-ui/react-slider) | yes | yes | yes | yes | conformant | number[] ↔ number conversion at boundary |
+| react-aria | full | native-component (React Aria Slider + SliderTrack + SliderThumb) | yes | yes | yes | yes | conformant | |
 
 ### RadioGroup
 
@@ -145,6 +161,8 @@ This document provides a per-field, per-adapter capability matrix for the 13 Tie
 | atlaskit | full | semantic-html (`<input type="radio">`) | yes | yes | yes | yes | conformant | |
 | base-web | full | native-component (baseui RadioGroup) | yes | yes | yes | yes | conformant | |
 | heroui | full | semantic-html (`<input type="radio">`) | yes | yes | yes | yes | conformant | |
+| radix | full | native-component (@radix-ui/react-radio-group) | yes | yes | yes | yes | conformant | Root + Item + Indicator |
+| react-aria | full | native-component (React Aria RadioGroup + Radio) | yes | yes | yes | yes | conformant | |
 
 ### CheckboxGroup
 
@@ -159,6 +177,8 @@ This document provides a per-field, per-adapter capability matrix for the 13 Tie
 | atlaskit | full | semantic-html (`<input type="checkbox">`) | yes | yes | yes | yes | conformant | |
 | base-web | full | native-component (baseui Checkbox) | yes | yes | yes | yes | conformant | |
 | heroui | full | semantic-html (`<input type="checkbox">`) | yes | yes | yes | yes | conformant | |
+| radix | full | native-component (@radix-ui/react-checkbox) | yes | yes | yes | yes | conformant | Composed group with individual Checkbox.Root |
+| react-aria | full | native-component (React Aria CheckboxGroup + Checkbox) | yes | yes | yes | yes | conformant | |
 
 ### Textarea
 
@@ -173,6 +193,8 @@ This document provides a per-field, per-adapter capability matrix for the 13 Tie
 | atlaskit | full | semantic-html (`<textarea>`) | yes | yes | yes | yes | conformant | |
 | base-web | full | native-component (baseui Textarea) | yes | yes | yes | yes | conformant | |
 | heroui | full | semantic-html (`<textarea>`) | yes | yes | yes | yes | conformant | |
+| radix | full | semantic-html (`<textarea>`) | yes | yes | yes | yes | conformant | |
+| react-aria | full | native-component (React Aria TextField + TextArea) | yes | yes | yes | yes | conformant | Inline uses React Aria; modal uses native `<dialog>` |
 
 ### DynamicFragment
 
@@ -187,6 +209,8 @@ This document provides a per-field, per-adapter capability matrix for the 13 Tie
 | atlaskit | full | semantic-html (`<input type="hidden">`) | yes | n/a | n/a | n/a | conformant | |
 | base-web | full | semantic-html (`<input type="hidden">`) | yes | n/a | n/a | n/a | conformant | |
 | heroui | full | semantic-html (`<input type="hidden">`) | yes | n/a | n/a | n/a | conformant | |
+| radix | full | semantic-html (`<input type="hidden">`) | yes | n/a | n/a | n/a | conformant | |
+| react-aria | full | semantic-html (`<input type="hidden">`) | yes | n/a | n/a | n/a | conformant | |
 
 ### ReadOnly
 
@@ -201,6 +225,8 @@ This document provides a per-field, per-adapter capability matrix for the 13 Tie
 | atlaskit | full | ReadOnlyText component | always | n/a | n/a | n/a | n/a | |
 | base-web | full | ReadOnlyText component | always | n/a | n/a | n/a | n/a | |
 | heroui | full | ReadOnlyText component | always | n/a | n/a | n/a | n/a | |
+| radix | full | ReadOnlyText component | always | n/a | n/a | n/a | n/a | |
+| react-aria | full | ReadOnlyText component | always | n/a | n/a | n/a | n/a | |
 
 ---
 
@@ -220,6 +246,10 @@ This document provides a per-field, per-adapter capability matrix for the 13 Tie
 **Hybrid (13 field types, mix of native and semantic HTML):**
 - **chakra** -- Dropdown uses Chakra NativeSelect compound component. Toggle, Number, Slider, DateControl, and several others fall back to semantic HTML due to Ark UI v3 DTS compatibility issues. Includes 1 ReadOnly field.
 - **base-web** -- Textbox, Number, Toggle, Dropdown, SimpleDropdown, MultiSelect, Slider, RadioGroup, CheckboxGroup, and Textarea all use native baseui components. DateControl falls back to native HTML `<input type="date">`. Includes 1 ReadOnly field.
+
+**Primitives-first (13 field types, unstyled behavior primitives):**
+- **radix** -- 7 fields use Radix UI primitives (Toggle, Dropdown, SimpleDropdown, Slider, RadioGroup, CheckboxGroup), 6 use semantic HTML (Textbox, Number, MultiSelect, DateControl, Textarea, DynamicFragment). No styling included — consumer provides all CSS. Recommended base for shadcn/Tailwind projects. Includes 1 ReadOnly field.
+- **react-aria** -- 10 fields use React Aria Components (Textbox, Number, Toggle, Dropdown, SimpleDropdown, Slider, RadioGroup, CheckboxGroup, Textarea), 3 use semantic HTML (MultiSelect, DateControl, DynamicFragment). Highest native Tier 1 coverage among primitives-first adapters. Best-in-class ARIA patterns. Includes 1 ReadOnly field.
 
 **Compatibility (13 field types, semantic HTML throughout):**
 - **atlaskit** -- All fields use semantic HTML styled for Atlassian Design System integration. Uses `ak-*` CSS class prefix. Includes 1 ReadOnly field.
@@ -242,6 +272,8 @@ Ranked by how close each adapter is to supporting all Tier 2 fields:
 2. **mui** -- Full Tier 2 (26+ types registered)
 3. **headless** -- Full Tier 2 (26+ types registered)
 4. **antd** / **mantine** -- Tier 1 only; native components available for most Tier 2 types in the respective UI libraries
-5. **base-web** -- Tier 1 only; baseui has components for some Tier 2 types (FileUploader, DatePicker)
-6. **chakra** -- Tier 1 only; Ark UI DTS issues may complicate Tier 2 expansion
-7. **atlaskit** / **heroui** -- Tier 1 only; semantic HTML approach means Tier 2 expansion is straightforward but won't leverage native library features
+5. **react-aria** -- Tier 1 only; React Aria Components library covers most Tier 2 types natively (DatePicker, ColorField, etc.)
+6. **radix** -- Tier 1 only; Radix primitives available for select Tier 2 types
+7. **base-web** -- Tier 1 only; baseui has components for some Tier 2 types (FileUploader, DatePicker)
+8. **chakra** -- Tier 1 only; Ark UI DTS issues may complicate Tier 2 expansion
+9. **atlaskit** / **heroui** -- Tier 1 only; semantic HTML approach means Tier 2 expansion is straightforward but won't leverage native library features

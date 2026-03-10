@@ -1,0 +1,47 @@
+import { IFieldProps } from "@form-eng/core";
+import React from "react";
+import { ReadOnlyText } from "../components/ReadOnlyText";
+import { GetFieldDataTestId, getFieldState } from "../helpers";
+import * as RadixSlider from "@radix-ui/react-slider";
+
+interface ISliderProps {
+  max?: number;
+  min?: number;
+  step?: number;
+}
+
+const Slider = (props: IFieldProps<ISliderProps>) => {
+  const { fieldName, programName, entityType, entityId, value, readOnly, config, error, required, setFieldValue } = props;
+
+  if (readOnly) {
+    return <ReadOnlyText fieldName={fieldName} value={String(value)} />;
+  }
+
+  return (
+    <div
+      className="df-slider"
+      data-field-type="Slider"
+      data-field-state={getFieldState({ error, required, readOnly })}
+    >
+      <RadixSlider.Root
+        className="df-slider__root"
+        value={[(value as number) ?? 0]}
+        onValueChange={([num]) => setFieldValue(fieldName, num)}
+        max={config?.max}
+        min={config?.min}
+        step={config?.step}
+        aria-invalid={!!error}
+        aria-required={required}
+        data-testid={GetFieldDataTestId(fieldName, programName, entityType, entityId)}
+      >
+        <RadixSlider.Track className="df-slider__track">
+          <RadixSlider.Range className="df-slider__range" />
+        </RadixSlider.Track>
+        <RadixSlider.Thumb className="df-slider__thumb" />
+      </RadixSlider.Root>
+      <output className="df-slider__value">{String(value)}</output>
+    </div>
+  );
+};
+
+export default Slider;

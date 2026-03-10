@@ -19,6 +19,8 @@ import { createMantineFieldRegistry } from "@form-eng/mantine";
 import { createAtlaskitFieldRegistry } from "@form-eng/atlaskit";
 import { createBaseWebFieldRegistry } from "@form-eng/base-web";
 import { createHeroUIFieldRegistry } from "@form-eng/heroui";
+import { createRadixFieldRegistry } from "@form-eng/radix";
+import { createReactAriaFieldRegistry } from "@form-eng/react-aria";
 import { ChakraProvider, defaultSystem } from "@chakra-ui/react";
 import { MantineProvider } from "@mantine/core";
 import React from "react";
@@ -69,6 +71,8 @@ const adapters: IParityAdapterConfig[] = [
   { name: "atlaskit", registry: createAtlaskitFieldRegistry },
   { name: "base-web", registry: createBaseWebFieldRegistry },
   { name: "heroui", registry: createHeroUIFieldRegistry },
+  { name: "radix", registry: createRadixFieldRegistry },
+  { name: "react-aria", registry: createReactAriaFieldRegistry },
 ];
 
 describe("Cross-adapter parity tests", () => {

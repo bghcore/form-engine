@@ -149,3 +149,48 @@ Each entry is classified by severity and recommended action for Tier 2 readiness
 | jsdom-only | No |
 | Category | Permanent acceptable |
 | Recommended action | None. Each adapter uses its ecosystem's date component. The canonical contract only requires ISO string serialization. |
+
+### DIV-010: Radix Select empty value handling
+
+| Property | Value |
+|----------|-------|
+| Affected adapters | radix |
+| Affected fields | Dropdown, SimpleDropdown |
+| Observed behavior | Radix Select.Root does not support `""` as a value; uses `undefined` for no selection. Empty trigger text displayed instead of empty string. |
+| Canonical expectation | Empty string `""` for no selection |
+| Root cause | Radix Select uses `undefined` internally for uncontrolled/empty state; `""` is not a valid value |
+| Severity | Low |
+| User-visible | No — form state ends up equivalent (both represent "no selection") |
+| jsdom-only | No |
+| Category | Permanent acceptable |
+| Recommended action | Accept. The boundary conversion `(value as string) \|\| undefined` handles this cleanly. Form state remains conformant. |
+
+### DIV-011: Radix Slider array boundary conversion
+
+| Property | Value |
+|----------|-------|
+| Affected adapters | radix |
+| Affected fields | Slider |
+| Observed behavior | Radix Slider uses `number[]` for value/onValueChange; form-engine uses single `number` |
+| Canonical expectation | Single number value |
+| Root cause | Radix Slider supports multi-thumb sliders; single-thumb is `[number]` |
+| Severity | None |
+| User-visible | No — conversion is transparent |
+| jsdom-only | No |
+| Category | Permanent acceptable |
+| Recommended action | None. The boundary conversion `value={[num]}` / `onValueChange={([num]) => ...}` is clean and lossless. |
+
+### DIV-012: React Aria Select Key type cast
+
+| Property | Value |
+|----------|-------|
+| Affected adapters | react-aria |
+| Affected fields | Dropdown, SimpleDropdown |
+| Observed behavior | React Aria Select uses `Key` type (string \| number) for selectedKey/onSelectionChange; form-engine uses string |
+| Canonical expectation | String value |
+| Root cause | React Aria's Key type is a union of string and number to support both use cases |
+| Severity | None |
+| User-visible | No — `String(key)` cast is transparent |
+| jsdom-only | No |
+| Category | Permanent acceptable |
+| Recommended action | None. The `String(key)` cast in `onSelectionChange` is clean and lossless. |

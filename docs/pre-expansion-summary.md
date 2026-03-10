@@ -1,4 +1,4 @@
-# Final Pre-Tier-2 Readiness Report (v1.4.1)
+# Final Pre-Tier-2 Readiness Report (v1.5.0)
 
 Decision document for proceeding to Tier 2 field expansion.
 
@@ -6,7 +6,7 @@ Decision document for proceeding to Tier 2 field expansion.
 
 ## 1. Are the current adapters consistent enough to safely expand field coverage?
 
-**Yes.** All 9 adapters pass 4013 tests across 51 test files covering:
+**Yes.** All 11 adapters pass 4587 tests across 53 test files covering:
 
 - Contract tests (registry coverage + multi-state rendering for every Tier 1 type)
 - Cross-adapter parity tests (9 adapters x 8 fixtures = behavioral equivalence)
@@ -15,7 +15,7 @@ Decision document for proceeding to Tier 2 field expansion.
 - Business-form round-trip tests (profile/workflow/option-heavy configs across 4 adapters)
 - Performance sanity checks (render counts, option-heavy rendering, rules overhead)
 
-No adapter produces incorrect form state values. Serialization is conformant across all 9 adapters.
+No adapter produces incorrect form state values. Serialization is conformant across all 11 adapters.
 
 ## 2. Which divergences are acceptable to carry into Tier 2?
 
@@ -54,6 +54,8 @@ DIV-003 is low risk (PopOutEditor is only used in fluent/mui, and FieldWrapper p
 | 7 | atlaskit | Medium | All semantic HTML. Functional but no native component benefit. |
 | 8 | base-web | Medium | 3 native + 10 semantic HTML. Limited native coverage. |
 | 9 | heroui | Medium | All semantic HTML. Same as atlaskit. |
+| 10 | radix | High | 7 native Radix primitives + 6 semantic HTML. All tests pass. No provider needed. |
+| 11 | react-aria | High | 10 native React Aria Components + 3 semantic HTML. All tests pass. No provider needed. |
 
 ## 5. Which fields are most stable and can act as patterns for Tier 2 implementations?
 
@@ -82,10 +84,10 @@ DIV-003 is low risk (PopOutEditor is only used in fluent/mui, and FieldWrapper p
 
 **Yes.** The Tier 1 baseline is trustworthy:
 
-- **4013 tests pass** across 51 files with zero failures
-- **9 adapters** have verified behavioral equivalence for normal and edge cases
+- **4587 tests pass** across 53 files with zero failures
+- **11 adapters** have verified behavioral equivalence for normal and edge cases
 - **3 realistic business forms** validate end-to-end value handling
-- **9 divergences** are documented, classified, and tracked
+- **12 divergences** are documented, classified, and tracked
 - **Adapter confidence levels** are honest and grounded in test evidence
 - **Infrastructure** (harness, fixtures, divergence register) supports incremental Tier 2 expansion
 
@@ -93,8 +95,10 @@ DIV-003 is low risk (PopOutEditor is only used in fluent/mui, and FieldWrapper p
 
 1. **antd** — Highest native component coverage for Tier 2 types. Rating, Autocomplete, DateRange, FileUpload, PhoneInput all have native antd equivalents.
 2. **mantine** — Similar native coverage. Rating, Autocomplete, ColorInput, FileInput, DatePickerInput.
-3. **chakra** — Blocked by Ark UI DTS for compound components. Use semantic HTML for new types.
-4. **base-web / atlaskit / heroui** — Semantic HTML approach. Expand on demand.
+3. **react-aria** — React Aria Components cover most Tier 2 types natively (DatePicker, ColorField, NumberField range, etc.).
+4. **radix** — Radix primitives available for select Tier 2 types.
+5. **chakra** — Blocked by Ark UI DTS for compound components. Use semantic HTML for new types.
+6. **base-web / atlaskit / heroui** — Semantic HTML approach. Expand on demand.
 
 ### How to expand
 

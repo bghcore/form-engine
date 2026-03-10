@@ -10,47 +10,47 @@ Implementation status of all 37 field types across adapter packages.
 
 ## Matrix
 
-| # | ComponentType | Type Key | fluent | mui | headless | antd | chakra | mantine | atlaskit | base-web | heroui |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| | **Tier 1 (Core)** | | | | | | | | | | |
-| 1 | Textbox | `Textbox` | Y | Y | Y | Y | Y | Y | --- | --- | --- |
-| 2 | Number | `Number` | Y | Y | Y | Y | FB | Y | --- | --- | --- |
-| 3 | Toggle | `Toggle` | Y | Y | Y | Y | FB | Y | --- | --- | --- |
-| 4 | Dropdown | `Dropdown` | Y | Y | Y | Y | Y | Y | --- | --- | --- |
-| 5 | SimpleDropdown | `SimpleDropdown` | Y | Y | Y | Y | Y | Y | --- | --- | --- |
-| 6 | Multiselect | `Multiselect` | Y | Y | Y | Y | FB | Y | --- | --- | --- |
-| 7 | DateControl | `DateControl` | Y | Y | Y | Y | Y | Y | --- | --- | --- |
-| 8 | Slider | `Slider` | Y | Y | Y | Y | FB | Y | --- | --- | --- |
-| 9 | RadioGroup | `RadioGroup` | Y | Y | Y | Y | FB | Y | --- | --- | --- |
-| 10 | CheckboxGroup | `CheckboxGroup` | Y | Y | Y | Y | FB | Y | --- | --- | --- |
-| 11 | Textarea | `Textarea` | Y | Y | Y | Y | Y | Y | --- | --- | --- |
-| 12 | DynamicFragment | `DynamicFragment` | Y | Y | Y | Y | Y | Y | --- | --- | --- |
-| 13 | ReadOnly | `ReadOnly` | Y | Y | Y | Y | Y | Y | --- | --- | --- |
-| | **Tier 2 (Extended)** | | | | | | | | | | |
-| 14 | MultiSelectSearch | `MultiSelectSearch` | Y | Y | Y | --- | --- | --- | --- | --- | --- |
-| 15 | PopOutEditor / Textarea | `Textarea`* | Y | Y | Y | --- | --- | --- | --- | --- | --- |
-| 16 | DocumentLinks | `DocumentLinks` | Y | Y | Y | --- | --- | --- | --- | --- | --- |
-| 17 | StatusDropdown | `StatusDropdown` | Y | Y | Y | --- | --- | --- | --- | --- | --- |
-| 18 | Rating | `Rating` | Y | Y | Y | --- | --- | --- | --- | --- | --- |
-| 19 | ColorPicker | `ColorPicker` | Y | Y | Y | --- | --- | --- | --- | --- | --- |
-| 20 | Autocomplete | `Autocomplete` | Y | Y | Y | --- | --- | --- | --- | --- | --- |
-| 21 | FileUpload | `FileUpload` | Y | Y | Y | --- | --- | --- | --- | --- | --- |
-| 22 | DateRange | `DateRange` | Y | Y | Y | --- | --- | --- | --- | --- | --- |
-| 23 | DateTime | `DateTime` | Y | Y | Y | --- | --- | --- | --- | --- | --- |
-| 24 | PhoneInput | `PhoneInput` | Y | Y | Y | --- | --- | --- | --- | --- | --- |
-| 25 | ChoiceSet | `ChoiceSet` | Y | Y | Y | --- | --- | --- | --- | --- | --- |
-| 26 | FieldArray | `FieldArray` | Y | Y | Y | --- | --- | --- | --- | --- | --- |
-| | **Tier 3 (Read-Only)** | | | | | | | | | | |
-| 27 | ReadOnlyArray | `ReadOnlyArray` | Y | Y | Y | --- | --- | --- | --- | --- | --- |
-| 28 | ReadOnlyDateTime | `ReadOnlyDateTime` | Y | Y | Y | --- | --- | --- | --- | --- | --- |
-| 29 | ReadOnlyCumulativeNumber | `ReadOnlyCumulativeNumber` | Y | Y | Y | --- | --- | --- | --- | --- | --- |
-| 30 | ReadOnlyRichText | `ReadOnlyRichText` | Y | Y | Y | --- | --- | --- | --- | --- | --- |
-| 31 | ReadOnlyWithButton | `ReadOnlyWithButton` | Y | Y | Y | --- | --- | --- | --- | --- | --- |
-| 32 | RichText | `RichText` | Y | Y | Y | --- | --- | --- | --- | --- | --- |
+| # | ComponentType | Type Key | fluent | mui | headless | antd | chakra | mantine | atlaskit | base-web | heroui | radix | react-aria |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| | **Tier 1 (Core)** | | | | | | | | | | | | |
+| 1 | Textbox | `Textbox` | Y | Y | Y | Y | Y | Y | --- | --- | --- | FB | Y |
+| 2 | Number | `Number` | Y | Y | Y | Y | FB | Y | --- | --- | --- | FB | Y |
+| 3 | Toggle | `Toggle` | Y | Y | Y | Y | FB | Y | --- | --- | --- | Y | Y |
+| 4 | Dropdown | `Dropdown` | Y | Y | Y | Y | Y | Y | --- | --- | --- | Y | Y |
+| 5 | SimpleDropdown | `SimpleDropdown` | Y | Y | Y | Y | Y | Y | --- | --- | --- | Y | Y |
+| 6 | Multiselect | `Multiselect` | Y | Y | Y | Y | FB | Y | --- | --- | --- | FB | FB |
+| 7 | DateControl | `DateControl` | Y | Y | Y | Y | Y | Y | --- | --- | --- | FB | FB |
+| 8 | Slider | `Slider` | Y | Y | Y | Y | FB | Y | --- | --- | --- | Y | Y |
+| 9 | RadioGroup | `RadioGroup` | Y | Y | Y | Y | FB | Y | --- | --- | --- | Y | Y |
+| 10 | CheckboxGroup | `CheckboxGroup` | Y | Y | Y | Y | FB | Y | --- | --- | --- | Y | Y |
+| 11 | Textarea | `Textarea` | Y | Y | Y | Y | Y | Y | --- | --- | --- | FB | Y |
+| 12 | DynamicFragment | `DynamicFragment` | Y | Y | Y | Y | Y | Y | --- | --- | --- | FB | FB |
+| 13 | ReadOnly | `ReadOnly` | Y | Y | Y | Y | Y | Y | --- | --- | --- | FB | FB |
+| | **Tier 2 (Extended)** | | | | | | | | | | | | |
+| 14 | MultiSelectSearch | `MultiSelectSearch` | Y | Y | Y | --- | --- | --- | --- | --- | --- | --- | --- |
+| 15 | PopOutEditor / Textarea | `Textarea`* | Y | Y | Y | --- | --- | --- | --- | --- | --- | --- | --- |
+| 16 | DocumentLinks | `DocumentLinks` | Y | Y | Y | --- | --- | --- | --- | --- | --- | --- | --- |
+| 17 | StatusDropdown | `StatusDropdown` | Y | Y | Y | --- | --- | --- | --- | --- | --- | --- | --- |
+| 18 | Rating | `Rating` | Y | Y | Y | --- | --- | --- | --- | --- | --- | --- | --- |
+| 19 | ColorPicker | `ColorPicker` | Y | Y | Y | --- | --- | --- | --- | --- | --- | --- | --- |
+| 20 | Autocomplete | `Autocomplete` | Y | Y | Y | --- | --- | --- | --- | --- | --- | --- | --- |
+| 21 | FileUpload | `FileUpload` | Y | Y | Y | --- | --- | --- | --- | --- | --- | --- | --- |
+| 22 | DateRange | `DateRange` | Y | Y | Y | --- | --- | --- | --- | --- | --- | --- | --- |
+| 23 | DateTime | `DateTime` | Y | Y | Y | --- | --- | --- | --- | --- | --- | --- | --- |
+| 24 | PhoneInput | `PhoneInput` | Y | Y | Y | --- | --- | --- | --- | --- | --- | --- | --- |
+| 25 | ChoiceSet | `ChoiceSet` | Y | Y | Y | --- | --- | --- | --- | --- | --- | --- | --- |
+| 26 | FieldArray | `FieldArray` | Y | Y | Y | --- | --- | --- | --- | --- | --- | --- | --- |
+| | **Tier 3 (Read-Only)** | | | | | | | | | | | | |
+| 27 | ReadOnlyArray | `ReadOnlyArray` | Y | Y | Y | --- | --- | --- | --- | --- | --- | --- | --- |
+| 28 | ReadOnlyDateTime | `ReadOnlyDateTime` | Y | Y | Y | --- | --- | --- | --- | --- | --- | --- | --- |
+| 29 | ReadOnlyCumulativeNumber | `ReadOnlyCumulativeNumber` | Y | Y | Y | --- | --- | --- | --- | --- | --- | --- | --- |
+| 30 | ReadOnlyRichText | `ReadOnlyRichText` | Y | Y | Y | --- | --- | --- | --- | --- | --- | --- | --- |
+| 31 | ReadOnlyWithButton | `ReadOnlyWithButton` | Y | Y | Y | --- | --- | --- | --- | --- | --- | --- | --- |
+| 32 | RichText | `RichText` | Y | Y | Y | --- | --- | --- | --- | --- | --- | --- | --- |
 
 \* The `Textarea` type key maps to `PopOutEditor` in the fluent adapter (rich textarea with modal) and to `Textarea` in all other adapters.
 
-**Note:** fluent, mui, and headless register 26 entries each (covering ChoiceSet and FieldArray which are handled at the form engine level). antd, chakra, and mantine register 13 entries each (Tier 1 only). atlaskit, base-web, and heroui are planned adapters targeting 13 Tier 1 entries.
+**Note:** fluent, mui, and headless register 26 entries each (covering ChoiceSet and FieldArray which are handled at the form engine level). antd, chakra, mantine, radix, and react-aria register 13 entries each (Tier 1 only). atlaskit, base-web, and heroui are compatibility adapters targeting 13 Tier 1 entries. Radix uses 7 native Radix UI primitives + 6 semantic HTML; React Aria uses 10 native React Aria Components + 3 semantic HTML.
 
 ## Chakra Fallback Details
 

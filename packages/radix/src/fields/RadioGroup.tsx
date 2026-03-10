@@ -1,0 +1,42 @@
+import { IFieldProps } from "@form-eng/core";
+import React from "react";
+import { ReadOnlyText } from "../components/ReadOnlyText";
+import { GetFieldDataTestId, getFieldState } from "../helpers";
+import * as RadixRadioGroup from "@radix-ui/react-radio-group";
+
+const RadioGroup = (props: IFieldProps<{}>) => {
+  const { fieldName, programName, entityType, entityId, value, readOnly, error, required, options, setFieldValue } = props;
+
+  if (readOnly) {
+    const label = options?.find(o => String(o.value) === String(value))?.label ?? (value as string);
+    return <ReadOnlyText fieldName={fieldName} value={label} />;
+  }
+
+  return (
+    <RadixRadioGroup.Root
+      className="df-radio-group"
+      value={value as string}
+      onValueChange={(val) => setFieldValue(fieldName, val)}
+      aria-invalid={!!error}
+      aria-required={required}
+      data-field-type="RadioGroup"
+      data-field-state={getFieldState({ error, required, readOnly })}
+      data-testid={GetFieldDataTestId(fieldName, programName, entityType, entityId)}
+    >
+      {options?.map(option => (
+        <label key={String(option.value)} className="df-radio-group__option">
+          <RadixRadioGroup.Item
+            className="df-radio-group__input"
+            value={String(option.value)}
+            disabled={option.disabled}
+          >
+            <RadixRadioGroup.Indicator className="df-radio-group__indicator" />
+          </RadixRadioGroup.Item>
+          <span className="df-radio-group__label">{option.label}</span>
+        </label>
+      ))}
+    </RadixRadioGroup.Root>
+  );
+};
+
+export default RadioGroup;
