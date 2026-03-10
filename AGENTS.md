@@ -4,8 +4,8 @@
 
 ```bash
 npm install --legacy-peer-deps
-npm run build          # Build all packages (core, fluent, mui, headless, designer)
-npm run test           # Run 3219 tests with Vitest
+npm run build          # Build all packages
+npm run test           # Run 4774 tests with Vitest
 npm run test:coverage  # Run tests with coverage report
 npm run test:e2e       # Run 54 Playwright E2E tests
 npm run bench          # Run performance benchmarks
@@ -27,11 +27,13 @@ npm run build:mantine  # packages/mantine only
 npm run build:atlaskit # packages/atlaskit only
 npm run build:base-web # packages/base-web only
 npm run build:heroui   # packages/heroui only
+npm run build:radix    # packages/radix only
+npm run build:react-aria # packages/react-aria only
 ```
 
 ## Project Structure
 
-Monorepo using npm workspaces. Twelve packages:
+Monorepo using npm workspaces. Fourteen packages:
 
 ```
 packages/
@@ -45,6 +47,8 @@ packages/
   atlaskit/  -- @form-eng/atlaskit (Atlassian Design System, 13 Tier 1 types)
   base-web/  -- @form-eng/base-web (Uber Base Web, 13 Tier 1 types)
   heroui/    -- @form-eng/heroui (HeroUI, 13 Tier 1 types)
+  radix/     -- @form-eng/radix (Radix UI primitives, 13 Tier 1 types, unstyled)
+  react-aria/ -- @form-eng/react-aria (React Aria Components, 13 Tier 1 types)
   designer/  -- @form-eng/designer (visual drag-and-drop form builder)
   examples/  -- @form-eng/examples (3 example apps)
 docs/
@@ -67,10 +71,15 @@ docs/
   field-capability-matrix.md  -- Per-field, per-adapter parity matrix
   api-stability.md            -- Public API stability classification
   pre-expansion-summary.md    -- Pre-Tier-2 expansion readiness assessment
+  divergence-register.md      -- Cross-adapter divergence register (12 entries)
+  choosing-an-adapter.md      -- Adapter recommendation guide
+  tier2-feasibility-matrix.md -- Tier 2 field feasibility matrix
+  tier2-handoff.md            -- Pre-Tier-2 handoff document
+  shadcn-integration.md       -- shadcn/ui integration guide
   date-policy.md              -- Date handling and serialization policy
 e2e/                           -- Playwright E2E tests (54 tests, 7 specs)
 benchmarks/                    -- Performance benchmark suite (vitest bench)
-stories/                       -- Storybook stories (64+ stories + MDX docs)
+stories/                       -- Storybook stories (67+ stories + MDX docs)
 ```
 
 Build output per package: `dist/index.js` (CJS), `dist/index.mjs` (ESM), `dist/index.d.ts` (types). Built with tsup.
@@ -86,6 +95,8 @@ Build output per package: `dist/index.js` (CJS), `dist/index.mjs` (ESM), `dist/i
 - [packages/atlaskit/AGENTS.md](./packages/atlaskit/AGENTS.md) -- Atlassian adapter patterns
 - [packages/base-web/AGENTS.md](./packages/base-web/AGENTS.md) -- Base Web adapter patterns
 - [packages/heroui/AGENTS.md](./packages/heroui/AGENTS.md) -- HeroUI adapter patterns
+- [packages/radix/AGENTS.md](./packages/radix/AGENTS.md) -- Radix UI adapter patterns
+- [packages/react-aria/AGENTS.md](./packages/react-aria/AGENTS.md) -- React Aria adapter patterns
 - [packages/designer/AGENTS.md](./packages/designer/AGENTS.md) -- Visual form designer architecture
 
 ## Code Style
@@ -107,7 +118,7 @@ Build output per package: `dist/index.js` (CJS), `dist/index.mjs` (ESM), `dist/i
 
 ## Testing
 
-3219 tests using Vitest across 50 test files. 54 Playwright E2E tests across 7 specs. 67+ Storybook stories.
+4774 tests using Vitest across 55 test files. 54 Playwright E2E tests across 7 specs. 67+ Storybook stories.
 
 ```bash
 npm run test             # Run all tests
@@ -127,14 +138,14 @@ After any code change, verify:
 npm run build && npm run test
 ```
 
-All packages should build cleanly and all 3219 tests should pass.
+All packages should build cleanly and all 4774 tests should pass.
 
 ## Git Workflow
 
 - Conventional commits: `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`
 - Single `main` branch
-- Per-package tags for publishing: `core-v1.4.0`, `fluent-v1.4.0`, `mui-v1.4.0`, `headless-v1.4.0`, `antd-v1.4.0`, `chakra-v1.4.0`, `mantine-v1.4.0`, `atlaskit-v1.4.0`, `base-web-v1.4.0`, `heroui-v1.4.0`, `designer-v1.4.0`
-- Unified tag for all packages: `v1.4.0`
+- Per-package tags for publishing: `core-v1.5.1`, `fluent-v1.5.1`, `mui-v1.5.1`, `headless-v1.5.1`, `antd-v1.5.1`, `chakra-v1.5.1`, `mantine-v1.5.1`, `atlaskit-v1.5.1`, `base-web-v1.5.1`, `heroui-v1.5.1`, `radix-v1.5.1`, `react-aria-v1.5.1`, `designer-v1.5.1`
+- Unified tag for all packages: `v1.5.1`
 - Run `npm run build && npm run test` before committing
 
 ## Boundaries
