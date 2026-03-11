@@ -1,8 +1,8 @@
-# AGENTS.md -- @form-eng/mantine
+# AGENTS.md -- @formosaic/mantine
 
 ## Package Purpose
 
-Mantine v7 field components for `@form-eng/core`. Provides 12 editable and 1 read-only field type using **Mantine v7** components with strong 1:1 component mappings.
+Mantine v7 field components for `@formosaic/core`. Provides 12 editable and 1 read-only field type using **Mantine v7** components with strong 1:1 component mappings.
 
 ## Critical Constraints
 
@@ -10,7 +10,7 @@ Mantine v7 field components for `@form-eng/core`. Provides 12 editable and 1 rea
 - **No Mantine form hooks.** Core's `react-hook-form` manages all form state -- do not use `useForm` from `@mantine/form`.
 - **onChange passes values directly, not events.** Most Mantine components pass the value directly to `onChange` (e.g., `Select` passes `string | null`, `NumberInput` passes `number | string`). Handle both patterns.
 - **All field components receive `IFieldProps<T>`** via `React.cloneElement` -- this is the contract with core's `RenderField`.
-- **Import core types from `@form-eng/core`**, not from relative paths into the core package.
+- **Import core types from `@formosaic/core`**, not from relative paths into the core package.
 - **Use `React.JSX.Element`** not bare `JSX.Element` for return types.
 - **Mantine `data` prop.** Mantine `Select` and `MultiSelect` use `data` (not `options`) with `{ value, label }` objects.
 
@@ -50,7 +50,7 @@ Mantine v7 field components for `@form-eng/core`. Provides 12 editable and 1 rea
 ## Field Component Pattern
 
 ```tsx
-import { IFieldProps } from "@form-eng/core";
+import { IFieldProps } from "@formosaic/core";
 import { TextInput } from "@mantine/core";
 import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";

@@ -1,4 +1,4 @@
-import { IFieldProps, FormStrings } from "@form-eng/core";
+import { IFieldProps, FormStrings } from "@formosaic/core";
 import { DatePicker } from "antd";
 import dayjs from "dayjs";
 import React from "react";

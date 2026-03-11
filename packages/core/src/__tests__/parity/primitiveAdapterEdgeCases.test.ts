@@ -1,5 +1,5 @@
 /**
- * Primitive-adapter edge-case tests for @form-eng/radix and @form-eng/react-aria.
+ * Primitive-adapter edge-case tests for @formosaic/radix and @formosaic/react-aria.
  *
  * Covers DIV-010 (Radix Select null/undefined), DIV-011 (Radix Slider array
  * conversion), DIV-012 (React Aria Key type cast), plus primitives-first-specific
@@ -11,8 +11,8 @@ import { render } from "@testing-library/react";
 import React from "react";
 import { ComponentTypes } from "../../constants";
 
-import { createRadixFieldRegistry } from "@form-eng/radix";
-import { createReactAriaFieldRegistry } from "@form-eng/react-aria";
+import { createRadixFieldRegistry } from "@formosaic/radix";
+import { createReactAriaFieldRegistry } from "@formosaic/react-aria";
 
 // Radix Slider uses ResizeObserver internally
 global.ResizeObserver = class {

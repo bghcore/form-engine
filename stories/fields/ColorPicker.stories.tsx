@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import ColorPickerField from "@form-eng/fluent/fields/ColorPicker";
+import ColorPickerField from "@formosaic/fluent/fields/ColorPicker";
 import { FormDecorator, createFieldProps } from "../helpers";
 
 /**

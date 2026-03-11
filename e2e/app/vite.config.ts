@@ -6,8 +6,8 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      "@form-eng/core": path.resolve(__dirname, "../../packages/core/src"),
-      "@form-eng/fluent": path.resolve(__dirname, "../../packages/fluent/src"),
+      "@formosaic/core": path.resolve(__dirname, "../../packages/core/src"),
+      "@formosaic/fluent": path.resolve(__dirname, "../../packages/fluent/src"),
     },
   },
   server: {

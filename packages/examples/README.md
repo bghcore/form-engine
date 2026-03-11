@@ -1,8 +1,8 @@
-# @form-eng/examples
+# @formosaic/examples
 
-Example applications demonstrating `@form-eng/core` and `@form-eng/mui`.
+Example applications demonstrating `@formosaic/core` and `@formosaic/mui`.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/bghcore/form-engine/tree/main/packages/examples?file=src/App.tsx)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/bghcore/formosaic/tree/main/packages/examples?file=src/App.tsx)
 
 ## Getting Started
 
@@ -40,8 +40,8 @@ A purchase order form with repeating line items (FieldArray), computed values (l
 - **React 19** + **TypeScript**
 - **Material UI (MUI)** for field components
 - **Vite** for dev server and build
-- **@form-eng/core** for form orchestration and rules engine
-- **@form-eng/mui** for MUI field implementations
+- **@formosaic/core** for form orchestration and rules engine
+- **@formosaic/mui** for MUI field implementations
 
 ## Project Structure
 

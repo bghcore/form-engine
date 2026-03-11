@@ -1,4 +1,4 @@
-import { IFieldProps } from "@form-eng/core";
+import { IFieldProps } from "@formosaic/core";
 import { Button } from "@mui/material";
 import React from "react";
 import { ReadOnlyText, IReadOnlyFieldProps } from "../../components/ReadOnlyText";

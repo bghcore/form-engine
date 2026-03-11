@@ -1,12 +1,12 @@
 # Adapter Architecture
 
-This document describes the architecture of form-engine adapter packages: how they integrate with core, what contracts they must fulfill, and how to create a new adapter.
+This document describes the architecture of Formosaic adapter packages: how they integrate with core, what contracts they must fulfill, and how to create a new adapter.
 
 ## Package Boundary
 
-### @form-eng/core (main export)
+### @formosaic/core (main export)
 
-The main `@form-eng/core` export provides the form engine, rules engine, providers, types, and all public APIs:
+The main `@formosaic/core` export provides the form engine, rules engine, providers, types, and all public APIs:
 
 ```typescript
 import {
@@ -40,10 +40,10 @@ import {
 
   // Constants
   ComponentTypes, FormConstants,
-} from "@form-eng/core";
+} from "@formosaic/core";
 ```
 
-### @form-eng/core/adapter-utils (subpath export)
+### @formosaic/core/adapter-utils (subpath export)
 
 Shared utilities that adapter packages import for field rendering. This subpath exists to give adapters a focused import surface without pulling in the entire core:
 
@@ -80,10 +80,10 @@ import {
   // Utility functions
   convertBooleanToYesOrNoText,  // boolean -> "Yes" / "No"
   isNull,                        // null/undefined check
-} from "@form-eng/core/adapter-utils";
+} from "@formosaic/core/adapter-utils";
 ```
 
-### @form-eng/core/testing (subpath export)
+### @formosaic/core/testing (subpath export)
 
 Contract test infrastructure for validating adapter registries:
 
@@ -92,7 +92,7 @@ import {
   runAdapterContractTests,  // Generates vitest suite for a registry
   TIER_1_FIELDS,            // string[] of 13 Tier 1 ComponentTypes values
   ALL_FIELD_TYPES,          // string[] of all 37 ComponentTypes values
-} from "@form-eng/core/testing";
+} from "@formosaic/core/testing";
 ```
 
 ## Field Component Pattern
@@ -149,7 +149,7 @@ This means field components are created with no props in the registry and receiv
 Each adapter exports a factory function that returns a `Record<string, React.JSX.Element>` mapping `ComponentTypes` keys to pre-created field elements:
 
 ```typescript
-import { ComponentTypes, Dictionary } from "@form-eng/core";
+import { ComponentTypes, Dictionary } from "@formosaic/core";
 import React from "react";
 import Textbox from "./fields/Textbox";
 import NumberField from "./fields/Number";
@@ -181,8 +181,8 @@ export function createXxxFieldRegistry(): Dictionary<React.JSX.Element> {
 **Usage by consumers:**
 
 ```tsx
-import { FormEngine, RulesEngineProvider, InjectedFieldProvider } from "@form-eng/core";
-import { createXxxFieldRegistry } from "@form-eng/xxx";
+import { FormEngine, RulesEngineProvider, InjectedFieldProvider } from "@formosaic/core";
+import { createXxxFieldRegistry } from "@formosaic/xxx";
 
 const fields = createXxxFieldRegistry();
 
@@ -199,11 +199,11 @@ function App() {
 
 ## Contract Test Requirements
 
-Every adapter package should include contract tests that validate registry completeness and basic rendering. Use the shared test infrastructure from `@form-eng/core/testing`:
+Every adapter package should include contract tests that validate registry completeness and basic rendering. Use the shared test infrastructure from `@formosaic/core/testing`:
 
 ```typescript
 // packages/xxx/src/__tests__/adapter-contract.test.tsx
-import { runAdapterContractTests, TIER_1_FIELDS } from "@form-eng/core/testing";
+import { runAdapterContractTests, TIER_1_FIELDS } from "@formosaic/core/testing";
 import { createXxxFieldRegistry } from "../registry";
 
 runAdapterContractTests(createXxxFieldRegistry, {
@@ -229,7 +229,7 @@ The contract tests verify:
 | **Primitives-first** | Uses UI primitive library components for behavior (accessible interactions, keyboard nav) without styling. Consumer provides all CSS. Ideal for Tailwind/custom design systems. |
 | **Reference** | Pure semantic HTML. Canonical reference implementation. Production-ready for any ecosystem. |
 | **Hybrid** | Mix of native components and semantic HTML fallbacks. Functional but visually inconsistent with the target library for fallback fields. |
-| **Compatibility** | All fields use semantic HTML. Named for ecosystem compatibility but does not use the library's actual components. Suitable for projects that want form-engine integration without adding a UI library runtime dependency. |
+| **Compatibility** | All fields use semantic HTML. Named for ecosystem compatibility but does not use the library's actual components. Suitable for projects that want Formosaic integration without adding a UI library runtime dependency. |
 
 ### Classification Table
 
@@ -252,7 +252,7 @@ The contract tests verify:
 Compatibility and hybrid adapters are functional and pass all contract and parity tests. "Conditional" means:
 - The adapter works correctly for form logic, validation, and rules
 - Visual appearance may not match the target UI library's design system
-- Use when you need form-engine integration in that ecosystem without adding full UI library styling
+- Use when you need Formosaic integration in that ecosystem without adding full UI library styling
 - Not recommended if visual consistency with the target library is a hard requirement
 
 ## Provider Wrapper Requirements
@@ -283,7 +283,7 @@ Yes. Chakra and Mantine's provider requirements are fundamental to their design:
 
 ### Does this affect consumers?
 
-**Yes, for consumer applications.** Any app using `@form-eng/chakra` must wrap with `ChakraProvider`, and any app using `@form-eng/mantine` must wrap with `MantineProvider`. This is documented in each adapter's README.
+**Yes, for consumer applications.** Any app using `@formosaic/chakra` must wrap with `ChakraProvider`, and any app using `@formosaic/mantine` must wrap with `MantineProvider`. This is documented in each adapter's README.
 
 **Yes, for test infrastructure.** Parity and contract tests include wrapper configuration for these adapters. The `IParityAdapterConfig.wrapper` and `IContractTestOptions.wrapper` properties handle this cleanly.
 
@@ -320,7 +320,7 @@ packages/xxx/
   src/
     index.ts              -- Barrel exports (fields, registry, helpers, components)
     registry.ts           -- createXxxFieldRegistry() factory
-    helpers.ts            -- Re-exports from @form-eng/core/adapter-utils
+    helpers.ts            -- Re-exports from @formosaic/core/adapter-utils
     components/
       ReadOnlyText.tsx    -- Shared read-only text display
       StatusMessage.tsx   -- Save/error status indicator
@@ -348,9 +348,9 @@ packages/xxx/
 
 ```json
 {
-  "name": "@form-eng/xxx",
+  "name": "@formosaic/xxx",
   "version": "1.0.0",
-  "description": "Xxx UI field components for @form-eng/core",
+  "description": "Xxx UI field components for @formosaic/core",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -369,13 +369,13 @@ packages/xxx/
     "clean": "rimraf dist"
   },
   "peerDependencies": {
-    "@form-eng/core": "^1.0.0",
+    "@formosaic/core": "^1.0.0",
     "react": "^18.0.0 || ^19.0.0",
     "react-hook-form": "^7.0.0",
     "xxx-ui-library": "^X.0.0"
   },
   "devDependencies": {
-    "@form-eng/core": "workspace:*",
+    "@formosaic/core": "workspace:*",
     "@types/react": "^19.0.0",
     "react": "^19.0.0",
     "react-hook-form": "^7.0.0",
@@ -396,7 +396,7 @@ export default defineConfig({
   dts: true,
   splitting: false,
   clean: true,
-  external: ["react", "react-dom", "react-hook-form", "@form-eng/core"],
+  external: ["react", "react-dom", "react-hook-form", "@formosaic/core"],
 });
 ```
 
@@ -412,7 +412,7 @@ export {
   getFieldState,
   formatDateTime,
   DocumentLinksStrings,
-} from "@form-eng/core/adapter-utils";
+} from "@formosaic/core/adapter-utils";
 ```
 
 ### index.ts Template
@@ -450,7 +450,7 @@ export { GetFieldDataTestId, FieldClassName, getFieldState, formatDateTime, Docu
 
 ## Adapter Helpers Pattern
 
-Adapter `helpers.ts` files re-export utilities from `@form-eng/core/adapter-utils` (or from `@form-eng/core` directly for packages that predate the subpath export). This provides:
+Adapter `helpers.ts` files re-export utilities from `@formosaic/core/adapter-utils` (or from `@formosaic/core` directly for packages that predate the subpath export). This provides:
 
 1. **Single import source** for field components within the adapter
 2. **No utility duplication** across adapter packages

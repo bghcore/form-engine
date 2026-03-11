@@ -1,23 +1,23 @@
-# @form-eng/headless
+# @formosaic/headless
 
-Headless (unstyled) semantic HTML field components for [@form-eng/core](https://www.npmjs.com/package/@form-eng/core).
+Headless (unstyled) semantic HTML field components for [@formosaic/core](https://www.npmjs.com/package/@formosaic/core).
 
 This package renders all 28 field types using **only native HTML elements** -- no UI framework required. Every field outputs semantic HTML with `data-field-type` and `data-field-state` attributes for CSS targeting, ARIA attributes for accessibility, and CSS class names for styling.
 
 ## Installation
 
 ```bash
-npm install @form-eng/headless @form-eng/core react react-dom react-hook-form
+npm install @formosaic/headless @formosaic/core react react-dom react-hook-form
 ```
 
 ## Quick Start
 
 ```tsx
-import { FormEngine, RulesEngineProvider, InjectedFieldProvider } from "@form-eng/core";
-import { createHeadlessFieldRegistry } from "@form-eng/headless";
+import { FormEngine, RulesEngineProvider, InjectedFieldProvider } from "@formosaic/core";
+import { createHeadlessFieldRegistry } from "@formosaic/headless";
 
 // Optional: import the minimal default styles
-import "@form-eng/headless/styles.css";
+import "@formosaic/headless/styles.css";
 
 const fields = createHeadlessFieldRegistry();
 
@@ -139,7 +139,7 @@ The components are fully functional without any CSS. Import nothing, then style 
 You can extend or replace any field in the registry:
 
 ```tsx
-import { createHeadlessFieldRegistry } from "@form-eng/headless";
+import { createHeadlessFieldRegistry } from "@formosaic/headless";
 
 const fields = createHeadlessFieldRegistry();
 

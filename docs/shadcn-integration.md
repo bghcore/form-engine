@@ -1,6 +1,6 @@
 # shadcn/ui Integration Guide
 
-## Why There Is No @form-eng/shadcn Package
+## Why There Is No @formosaic/shadcn Package
 
 shadcn/ui is a **distribution model**, not an npm library. You copy components into your project and own them locally. There is no `shadcn-ui` package to `peerDepend` on, no version to pin, and no import to externalize.
 
@@ -8,17 +8,17 @@ This means a traditional adapter package would have nothing to depend on. Instea
 
 ## Integration Approaches
 
-### Approach A: Use @form-eng/radix directly (Recommended)
+### Approach A: Use @formosaic/radix directly (Recommended)
 
-shadcn/ui components are built on Radix UI primitives. The `@form-eng/radix` adapter uses the same Radix primitives, making it the natural base for shadcn projects.
+shadcn/ui components are built on Radix UI primitives. The `@formosaic/radix` adapter uses the same Radix primitives, making it the natural base for shadcn projects.
 
 ```bash
-npm install @form-eng/core @form-eng/radix
+npm install @formosaic/core @formosaic/radix
 ```
 
 ```tsx
-import { FormEngine, RulesEngineProvider, InjectedFieldProvider } from "@form-eng/core";
-import { createRadixFieldRegistry } from "@form-eng/radix";
+import { FormEngine, RulesEngineProvider, InjectedFieldProvider } from "@formosaic/core";
+import { createRadixFieldRegistry } from "@formosaic/radix";
 
 const fields = createRadixFieldRegistry();
 
@@ -51,13 +51,13 @@ Style the unstyled Radix primitives using Tailwind and the `data-field-type` / `
 
 ### Approach B: Local Wrappers
 
-Wrap your existing shadcn/ui components with the `IFieldProps` interface. This gives you full control over appearance while form-engine handles state, validation, and rules.
+Wrap your existing shadcn/ui components with the `IFieldProps` interface. This gives you full control over appearance while Formosaic handles state, validation, and rules.
 
 #### Example: Textbox wrapper
 
 ```tsx
 // components/form-fields/ShadcnTextbox.tsx
-import { IFieldProps } from "@form-eng/core";
+import { IFieldProps } from "@formosaic/core";
 import { Input } from "@/components/ui/input";
 import React from "react";
 
@@ -87,7 +87,7 @@ export default ShadcnTextbox;
 
 ```tsx
 // components/form-fields/ShadcnToggle.tsx
-import { IFieldProps } from "@form-eng/core";
+import { IFieldProps } from "@formosaic/core";
 import { Switch } from "@/components/ui/switch";
 import React from "react";
 
@@ -116,7 +116,7 @@ export default ShadcnToggle;
 
 ```tsx
 // components/form-fields/ShadcnDropdown.tsx
-import { IFieldProps } from "@form-eng/core";
+import { IFieldProps } from "@formosaic/core";
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from "@/components/ui/select";
@@ -163,7 +163,7 @@ export default ShadcnDropdown;
 
 ```tsx
 // components/form-fields/ShadcnSlider.tsx
-import { IFieldProps } from "@form-eng/core";
+import { IFieldProps } from "@formosaic/core";
 import { Slider } from "@/components/ui/slider";
 import React from "react";
 
@@ -199,8 +199,8 @@ export default ShadcnSlider;
 Start with the Radix registry and override specific fields with your shadcn wrappers:
 
 ```tsx
-import { ComponentTypes } from "@form-eng/core";
-import { createRadixFieldRegistry } from "@form-eng/radix";
+import { ComponentTypes } from "@formosaic/core";
+import { createRadixFieldRegistry } from "@formosaic/radix";
 import ShadcnTextbox from "./form-fields/ShadcnTextbox";
 import ShadcnDropdown from "./form-fields/ShadcnDropdown";
 import ShadcnToggle from "./form-fields/ShadcnToggle";
@@ -237,7 +237,7 @@ When writing local wrappers, ensure they satisfy the `IFieldProps<T>` contract:
 
 ## Tailwind Styling with Data Attributes
 
-All form-engine fields emit `data-field-type` and `data-field-state` attributes. Use these for global styling:
+All Formosaic fields emit `data-field-type` and `data-field-state` attributes. Use these for global styling:
 
 ```css
 /* tailwind.css or global styles */

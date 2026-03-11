@@ -17,14 +17,14 @@ import {
   optionHeavyFormConfig,
 } from "../__fixtures__/businessForms";
 
-import { createHeadlessFieldRegistry } from "@form-eng/headless";
-import { createAntdFieldRegistry } from "@form-eng/antd";
-import { createMantineFieldRegistry } from "@form-eng/mantine";
-import { createRadixFieldRegistry } from "@form-eng/radix";
-import { createReactAriaFieldRegistry } from "@form-eng/react-aria";
+import { createHeadlessFieldRegistry } from "@formosaic/headless";
+import { createAntdFieldRegistry } from "@formosaic/antd";
+import { createMantineFieldRegistry } from "@formosaic/mantine";
+import { createRadixFieldRegistry } from "@formosaic/radix";
+import { createReactAriaFieldRegistry } from "@formosaic/react-aria";
 import { ChakraProvider, defaultSystem } from "@chakra-ui/react";
 import { MantineProvider } from "@mantine/core";
-import { createChakraFieldRegistry } from "@form-eng/chakra";
+import { createChakraFieldRegistry } from "@formosaic/chakra";
 
 // Mantine mocks
 Object.defineProperty(window, "matchMedia", {

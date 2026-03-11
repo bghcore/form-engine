@@ -1,8 +1,8 @@
-# AGENTS.md -- @form-eng/radix
+# AGENTS.md -- @formosaic/radix
 
 ## Package Purpose
 
-Radix UI primitives field components for `@form-eng/core`. Provides 6 native Radix fields (Toggle, Dropdown, SimpleDropdown, Slider, RadioGroup, CheckboxGroup) and 7 semantic HTML fields. Ships with **no styles** -- ideal as the base for Tailwind CSS, shadcn/ui, and custom design systems. No provider wrapper needed.
+Radix UI primitives field components for `@formosaic/core`. Provides 6 native Radix fields (Toggle, Dropdown, SimpleDropdown, Slider, RadioGroup, CheckboxGroup) and 7 semantic HTML fields. Ships with **no styles** -- ideal as the base for Tailwind CSS, shadcn/ui, and custom design systems. No provider wrapper needed.
 
 ## Critical Constraints
 
@@ -10,7 +10,7 @@ Radix UI primitives field components for `@form-eng/core`. Provides 6 native Rad
 - **No styles shipped.** All fields emit `data-field-type`, `data-field-state`, and `df-*` CSS class names for consumer styling.
 - **No provider wrapper needed.** Unlike Chakra/Mantine adapters, this adapter works without any wrapping provider.
 - **All field components receive `IFieldProps<T>`** via `React.cloneElement` -- this is the contract with core's `RenderField`.
-- **Import core types from `@form-eng/core`**, not from relative paths into the core package.
+- **Import core types from `@formosaic/core`**, not from relative paths into the core package.
 - **Use `React.JSX.Element`** not bare `JSX.Element` for return types.
 
 ## Known Divergences
@@ -24,7 +24,7 @@ Radix UI primitives field components for `@form-eng/core`. Provides 6 native Rad
 | File | Purpose |
 |------|---------|
 | `src/registry.ts` | `createRadixFieldRegistry()` -- maps `ComponentTypes` keys to Radix/HTML field JSX elements. Returns `Record<string, React.JSX.Element>` for `InjectedFieldProvider`. |
-| `src/helpers.ts` | Re-exports shared helpers from `@form-eng/core/adapter-utils`: `GetFieldDataTestId()`, `getFieldState()`, `formatDateTime()`, `convertBooleanToYesOrNoText()`, `isNull()`. |
+| `src/helpers.ts` | Re-exports shared helpers from `@formosaic/core/adapter-utils`: `GetFieldDataTestId()`, `getFieldState()`, `formatDateTime()`, `convertBooleanToYesOrNoText()`, `isNull()`. |
 | `src/index.ts` | Public API barrel exports. |
 | `src/fields/Textbox.tsx` | `<input type="text">` (semantic HTML) |
 | `src/fields/Number.tsx` | `<input type="number">` (semantic HTML) |
@@ -53,7 +53,7 @@ Radix UI primitives field components for `@form-eng/core`. Provides 6 native Rad
 ## Field Component Pattern
 
 ```tsx
-import { IFieldProps } from "@form-eng/core";
+import { IFieldProps } from "@formosaic/core";
 import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";
 import { GetFieldDataTestId, getFieldState } from "../helpers";

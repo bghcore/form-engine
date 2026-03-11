@@ -1,18 +1,18 @@
-# @form-eng/react-aria
+# @formosaic/react-aria
 
-React Aria Components adapter for `@form-eng/core`. Provides 28 accessible field components using [React Aria Components](https://react-spectrum.adobe.com/react-aria/) for best-in-class ARIA patterns. Includes 11 native React Aria components and 17 semantic HTML fallbacks.
+React Aria Components adapter for `@formosaic/core`. Provides 28 accessible field components using [React Aria Components](https://react-spectrum.adobe.com/react-aria/) for best-in-class ARIA patterns. Includes 11 native React Aria components and 17 semantic HTML fallbacks.
 
 ## Installation
 
 ```bash
-npm install @form-eng/react-aria @form-eng/core react react-dom react-hook-form react-aria-components
+npm install @formosaic/react-aria @formosaic/core react react-dom react-hook-form react-aria-components
 ```
 
 ## Quick Start
 
 ```tsx
-import { FormEngine, RulesEngineProvider, InjectedFieldProvider } from "@form-eng/core";
-import { createReactAriaFieldRegistry } from "@form-eng/react-aria";
+import { FormEngine, RulesEngineProvider, InjectedFieldProvider } from "@formosaic/core";
+import { createReactAriaFieldRegistry } from "@formosaic/react-aria";
 
 const fields = createReactAriaFieldRegistry();
 

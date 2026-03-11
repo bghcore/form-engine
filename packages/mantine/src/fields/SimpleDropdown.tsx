@@ -1,4 +1,4 @@
-import { IFieldProps } from "@form-eng/core";
+import { IFieldProps } from "@formosaic/core";
 import { NativeSelect } from "@mantine/core";
 import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";

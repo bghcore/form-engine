@@ -1,4 +1,4 @@
-import { IFieldProps, IDateRangeConfig, IDateRangeValue, formatDateRange } from "@form-eng/core";
+import { IFieldProps, IDateRangeConfig, IDateRangeValue, formatDateRange } from "@formosaic/core";
 import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";
 import { GetFieldDataTestId } from "../helpers";

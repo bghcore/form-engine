@@ -1,4 +1,4 @@
-import { IFieldProps, IRatingConfig } from "@form-eng/core";
+import { IFieldProps, IRatingConfig } from "@formosaic/core";
 import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";
 import { GetFieldDataTestId } from "../helpers";

@@ -1,4 +1,4 @@
-import { IFieldProps } from "@form-eng/core";
+import { IFieldProps } from "@formosaic/core";
 import { FormControl, Select, MenuItem, Chip, Box } from "@mui/material";
 import type { SelectChangeEvent } from "@mui/material";
 import React from "react";

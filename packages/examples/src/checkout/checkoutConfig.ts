@@ -1,4 +1,4 @@
-import { IFormConfig } from "@form-eng/core";
+import { IFormConfig } from "@formosaic/core";
 
 /**
  * E-Commerce Checkout Configuration (Wizard Mode)

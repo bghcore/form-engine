@@ -1,8 +1,8 @@
-# AGENTS.md -- @form-eng/antd
+# AGENTS.md -- @formosaic/antd
 
 ## Package Purpose
 
-Ant Design v5 field components for `@form-eng/core`. Provides 12 editable and 1 read-only field type using **antd** components, with `dayjs` for date handling.
+Ant Design v5 field components for `@formosaic/core`. Provides 12 editable and 1 read-only field type using **antd** components, with `dayjs` for date handling.
 
 ## Critical Constraints
 
@@ -10,7 +10,7 @@ Ant Design v5 field components for `@form-eng/core`. Provides 12 editable and 1 
 - **No `Form.Item` wrappers.** Core's `FieldWrapper` handles labels and error display -- antd fields render the bare input component only.
 - **Use `dayjs` for dates.** `DateControl` uses antd's `DatePicker` which requires dayjs, not native Date.
 - **All field components receive `IFieldProps<T>`** via `React.cloneElement` -- this is the contract with core's `RenderField`.
-- **Import core types from `@form-eng/core`**, not from relative paths into the core package.
+- **Import core types from `@formosaic/core`**, not from relative paths into the core package.
 - **Use `React.JSX.Element`** not bare `JSX.Element` for return types.
 
 ## Key Files
@@ -49,7 +49,7 @@ Ant Design v5 field components for `@form-eng/core`. Provides 12 editable and 1 
 ## Field Component Pattern
 
 ```tsx
-import { IFieldProps } from "@form-eng/core";
+import { IFieldProps } from "@formosaic/core";
 import { Input } from "antd";
 import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";

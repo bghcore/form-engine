@@ -1,14 +1,14 @@
-# AGENTS.md -- @form-eng/headless
+# AGENTS.md -- @formosaic/headless
 
 ## Package Purpose
 
-Unstyled, semantic HTML field components for `@form-eng/core`. Provides 22 editable and 6 read-only field types using **only native HTML elements** -- no UI framework dependency. Fields output `data-field-type` and `data-field-state` attributes for CSS targeting and ARIA attributes for accessibility.
+Unstyled, semantic HTML field components for `@formosaic/core`. Provides 22 editable and 6 read-only field types using **only native HTML elements** -- no UI framework dependency. Fields output `data-field-type` and `data-field-state` attributes for CSS targeting and ARIA attributes for accessibility.
 
 ## Critical Constraints
 
 - **No UI library imports allowed.** No `@fluentui/*`, no `@mui/*`, no CSS-in-JS. Native HTML elements only.
 - **All field components receive `IFieldProps<T>`** via `React.cloneElement` -- this is the contract with core's `RenderField`.
-- **Import core types from `@form-eng/core`**, not from relative paths into the core package.
+- **Import core types from `@formosaic/core`**, not from relative paths into the core package.
 - **Use `React.JSX.Element`** not bare `JSX.Element` for return types.
 - **Every field must render `data-field-type` and `data-field-state` attributes.**
 
@@ -64,7 +64,7 @@ Unstyled, semantic HTML field components for `@form-eng/core`. Provides 22 edita
 ## Field Component Pattern
 
 ```tsx
-import { IFieldProps } from "@form-eng/core";
+import { IFieldProps } from "@formosaic/core";
 import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";
 import { GetFieldDataTestId, getFieldState } from "../helpers";

@@ -60,7 +60,7 @@ Implementation status of 32 field types across 11 adapter packages. All adapters
 - heroui uses semantic HTML for all fields (no @heroui/* package imports).
 - radix uses 6 native Radix UI primitives (Toggle, Dropdown, SimpleDropdown, Slider, RadioGroup, CheckboxGroup) + 7 semantic HTML fields (primitives-first, unstyled).
 - react-aria uses 10 native React Aria Components + 3 semantic HTML fields (accessibility-first).
-- shadcn/ui: No dedicated package. Use @form-eng/radix as a base with local Tailwind/shadcn wrappers (see docs/shadcn-integration.md).
+- shadcn/ui: No dedicated package. Use @formosaic/radix as a base with local Tailwind/shadcn wrappers (see docs/shadcn-integration.md).
 
 ## Chakra Fallback Details
 

@@ -13,7 +13,7 @@ export default defineConfig({
     "@mui/material",
     "@emotion/react",
     "@emotion/styled",
-    "@form-eng/core",
+    "@formosaic/core",
   ],
   jsx: "automatic",
 });

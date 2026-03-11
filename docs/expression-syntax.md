@@ -5,7 +5,7 @@ The expression engine evaluates simple expressions against form values at runtim
 **Import:**
 
 ```typescript
-import { evaluateExpression, extractExpressionDependencies } from "@form-eng/core";
+import { evaluateExpression, extractExpressionDependencies } from "@formosaic/core";
 ```
 
 ---
@@ -146,7 +146,7 @@ const fieldConfigs = {
 The `extractExpressionDependencies()` function returns the field names referenced in an expression. This is used internally to auto-detect which fields trigger re-evaluation of computed values.
 
 ```typescript
-import { extractExpressionDependencies } from "@form-eng/core";
+import { extractExpressionDependencies } from "@formosaic/core";
 
 const deps = extractExpressionDependencies("$values.quantity * $values.unitPrice");
 // Returns: ["quantity", "unitPrice"]
@@ -171,7 +171,7 @@ const deps3 = extractExpressionDependencies(
 You can evaluate expressions directly using `evaluateExpression()`:
 
 ```typescript
-import { evaluateExpression } from "@form-eng/core";
+import { evaluateExpression } from "@formosaic/core";
 
 const result = evaluateExpression(
   "$values.quantity * $values.unitPrice",

@@ -1,4 +1,4 @@
-import { IFieldProps } from "@form-eng/core";
+import { IFieldProps } from "@formosaic/core";
 import { Typography } from "@mui/material";
 import React from "react";
 import { formatDateTime } from "../../helpers";

@@ -1,8 +1,8 @@
-# Form Engine -- Full Reference
+# Formosaic -- Full Reference
 
 > A config-driven React form library with a built-in declarative rules engine. Define forms as JSON (`IFormConfig`), swap UI libraries without rewriting logic, and let the engine handle conditional visibility, computed values, validation, and auto-save. 12 UI adapters (Fluent UI, MUI, Ant Design, Mantine, Chakra, Radix, React Aria, headless HTML, and more), a visual drag-and-drop form builder, and 4,700+ tests. MIT licensed. Built on react-hook-form v7.
 
-This is the extended reference for AI models. For the concise version, see [llms.txt](https://github.com/bghcore/form-engine/blob/main/llms.txt).
+This is the extended reference for AI models. For the concise version, see [llms.txt](https://github.com/bghcore/formosaic/blob/main/llms.txt).
 
 ## Architecture
 
@@ -114,7 +114,7 @@ type ICondition = IFieldCondition | ILogicalCondition;
 
 ## Comparison Summary
 
-| Feature | form-engine | RJSF | TanStack Form | Formik | uniforms |
+| Feature | Formosaic | RJSF | TanStack Form | Formik | uniforms |
 |---------|:-----------:|:----:|:-------------:|:------:|:--------:|
 | Config-driven | Yes | Yes | No | No | Yes |
 | Declarative rules engine | Yes (20 ops) | Partial | No | No | No |
@@ -124,11 +124,11 @@ type ICondition = IFieldCondition | ILogicalCondition;
 | Visual form builder | Yes (MIT) | No | No | No | No |
 | Bundle (core) | ~114 KB | ~85 KB | ~12 KB | ~13 KB | ~45 KB |
 
-See [docs/comparison.md](https://github.com/bghcore/form-engine/blob/main/docs/comparison.md) for full comparison with migration paths.
+See [docs/comparison.md](https://github.com/bghcore/formosaic/blob/main/docs/comparison.md) for full comparison with migration paths.
 
 ## Package API Reference
 
-### @form-eng/core
+### @formosaic/core
 
 UI-library agnostic engine built for React. Depends only on `react` and `react-hook-form`.
 
@@ -154,7 +154,7 @@ UI-library agnostic engine built for React. Depends only on `react` and `react-h
 - **Performance**: `RenderTracker` (per-field render count tracking), `EventTimeline` (chronological event log)
 - **Types**: `IFormConfig`, `IFieldConfig`, `IRule`, `ICondition`, `IFieldCondition`, `ILogicalCondition`, `IFieldEffect`, `IFieldProps<T>`, `IOption`, `IValidationRule`, `IRuntimeFieldState`, `IRuntimeFormState`, `IRulesEngineState`, `IRulesEngineAction`, `IWizardConfig`, `IAnalyticsCallbacks`, `ICoreLocaleStrings`, `ComponentTypes`
 
-### @form-eng/fluent
+### @formosaic/fluent
 
 Fluent UI v9 adapter. Provides 28 field components (22 editable + 6 read-only).
 
@@ -162,7 +162,7 @@ Fluent UI v9 adapter. Provides 28 field components (22 editable + 6 read-only).
 - **Editable Fields**: Textbox, Dropdown, Toggle, Number, MultiSelect, DateControl, Slider, SimpleDropdown, MultiSelectSearch, Textarea, DocumentLinks, StatusDropdown, DynamicFragment, RadioGroup, CheckboxGroup, Rating, ColorPicker, Autocomplete, FileUpload, DateRange, DateTime, PhoneInput
 - **Read-Only Fields**: ReadOnly, ReadOnlyArray, ReadOnlyDateTime, ReadOnlyCumulativeNumber, ReadOnlyRichText, ReadOnlyWithButton
 
-### @form-eng/mui
+### @formosaic/mui
 
 Material UI (MUI) adapter. Provides 28 field components (22 editable + 6 read-only).
 
@@ -170,7 +170,7 @@ Material UI (MUI) adapter. Provides 28 field components (22 editable + 6 read-on
 - **Editable Fields**: Same 22 types as fluent adapter, using @mui/material components
 - **Read-Only Fields**: Same 6 types as fluent adapter
 
-### @form-eng/headless
+### @formosaic/headless
 
 Unstyled semantic HTML adapter. No UI framework dependency. Provides 28 field components (22 editable + 6 read-only) using plain HTML elements with data-* attributes and ARIA roles.
 
@@ -179,39 +179,39 @@ Unstyled semantic HTML adapter. No UI framework dependency. Provides 28 field co
 - **Read-Only Fields**: Same 6 types
 - **Optional CSS**: `styles.css` with CSS custom properties for basic styling
 
-### @form-eng/antd
+### @formosaic/antd
 Ant Design v5 adapter. Provides 28 field components (19 native antd + 9 semantic HTML). Native Tier 2: Rate, AutoComplete, DatePicker+showTime, RangePicker, Upload, ColorPicker.
 - **Registry**: `createAntdFieldRegistry()`
 
-### @form-eng/chakra
+### @formosaic/chakra
 Chakra UI v3 adapter. Provides 28 field components (7 native Chakra + 21 semantic HTML fallbacks due to Ark UI DTS issues).
 - **Registry**: `createChakraFieldRegistry()`
 
-### @form-eng/mantine
+### @formosaic/mantine
 Mantine v7 adapter. Provides 28 field components (18 native Mantine + 10 semantic HTML). Native Tier 2: Rating, Autocomplete, DateTimePicker, FileInput, ColorInput.
 - **Registry**: `createMantineFieldRegistry()`
 
-### @form-eng/atlaskit
+### @formosaic/atlaskit
 Atlassian Design System adapter. Provides 28 field components using semantic HTML.
 - **Registry**: `createAtlaskitFieldRegistry()`
 
-### @form-eng/base-web
+### @formosaic/base-web
 Uber Base Web adapter. Provides 28 field components (10 native baseui + 18 semantic HTML).
 - **Registry**: `createBaseWebFieldRegistry()`
 
-### @form-eng/heroui
+### @formosaic/heroui
 HeroUI (formerly NextUI) adapter. Provides 28 field components using semantic HTML.
 - **Registry**: `createHeroUIFieldRegistry()`
 
-### @form-eng/radix
+### @formosaic/radix
 Radix UI primitives adapter. Provides 28 field components (6 Radix UI native + 22 semantic HTML). Ships with no styles, ideal for Tailwind/shadcn. No provider wrapper needed.
 - **Registry**: `createRadixFieldRegistry()`
 
-### @form-eng/react-aria
+### @formosaic/react-aria
 React Aria Components adapter. Provides 28 field components (11 React Aria native + 17 semantic HTML). Native Tier 2: ComboBox for Autocomplete. Best-in-class ARIA accessibility. No provider wrapper needed.
 - **Registry**: `createReactAriaFieldRegistry()`
 
-### @form-eng/designer
+### @formosaic/designer
 
 Visual drag-and-drop form builder that outputs IFormConfig v2 JSON.
 
@@ -219,7 +219,7 @@ Visual drag-and-drop form builder that outputs IFormConfig v2 JSON.
 - **State**: `DesignerProvider`, `useDesigner` hook, `designerReducer`
 - **Types**: `IDesignerState`, `IDesignerAction`
 
-### @form-eng/examples
+### @formosaic/examples
 
 Three example applications demonstrating common form patterns.
 
@@ -232,8 +232,8 @@ Three example applications demonstrating common form patterns.
 ### Minimal Setup (Fluent UI)
 
 ```tsx
-import { RulesEngineProvider, InjectedFieldProvider, UseInjectedFieldContext, FormEngine } from "@form-eng/core";
-import { createFluentFieldRegistry } from "@form-eng/fluent";
+import { RulesEngineProvider, InjectedFieldProvider, UseInjectedFieldContext, FormEngine } from "@formosaic/core";
+import { createFluentFieldRegistry } from "@formosaic/fluent";
 
 function FieldRegistrar({ children }) {
   const { setInjectedFields } = UseInjectedFieldContext();
@@ -267,14 +267,14 @@ const formConfig: IFormConfig = {
 ### Swap to MUI (one import change)
 
 ```tsx
-import { createMuiFieldRegistry } from "@form-eng/mui";
+import { createMuiFieldRegistry } from "@formosaic/mui";
 setInjectedFields(createMuiFieldRegistry()); // that's it
 ```
 
 ### Swap to Headless (one import change)
 
 ```tsx
-import { createHeadlessFieldRegistry } from "@form-eng/headless";
+import { createHeadlessFieldRegistry } from "@formosaic/headless";
 setInjectedFields(createHeadlessFieldRegistry()); // that's it
 ```
 
@@ -349,7 +349,7 @@ fields: {
 ### Validation (Unified Registry)
 
 ```tsx
-import { registerValidators } from "@form-eng/core";
+import { registerValidators } from "@formosaic/core";
 
 registerValidators({
   CheckUniqueEmail: {
@@ -368,14 +368,14 @@ registerValidators({
 ### i18n
 
 ```tsx
-import { registerLocale } from "@form-eng/core";
+import { registerLocale } from "@formosaic/core";
 registerLocale({ required: "Obligatoire", save: "Sauvegarder" });
 ```
 
 ### Wizard
 
 ```tsx
-import { WizardForm } from "@form-eng/core";
+import { WizardForm } from "@formosaic/core";
 
 const formConfig: IFormConfig = {
   version: 2,
@@ -410,7 +410,7 @@ const formConfig: IFormConfig = {
 ### Analytics
 
 ```tsx
-import { useFormAnalytics, IAnalyticsCallbacks } from "@form-eng/core";
+import { useFormAnalytics, IAnalyticsCallbacks } from "@formosaic/core";
 
 const analytics: IAnalyticsCallbacks = {
   onFieldChange: (fieldName, oldValue, newValue) => track("field_change", { fieldName }),
@@ -429,7 +429,7 @@ const formAnalytics = useFormAnalytics(analytics);
 ### RJSF Schema Import
 
 ```tsx
-import { fromRjsfSchema } from "@form-eng/core";
+import { fromRjsfSchema } from "@formosaic/core";
 
 const schema = {
   type: "object",
@@ -456,7 +456,7 @@ const formConfig = fromRjsfSchema(schema, uiSchema, existingFormData);
 ### Zod Schema Import
 
 ```tsx
-import { zodSchemaToFieldConfig } from "@form-eng/core";
+import { zodSchemaToFieldConfig } from "@formosaic/core";
 import { z } from "zod";
 
 const UserSchema = z.object({
@@ -473,8 +473,8 @@ const fieldConfigs = zodSchemaToFieldConfig(UserSchema);
 ### Visual Form Builder
 
 ```tsx
-import { DesignerProvider, FormDesigner } from "@form-eng/designer";
-import "@form-eng/designer/dist/styles.css";
+import { DesignerProvider, FormDesigner } from "@formosaic/designer";
+import "@formosaic/designer/dist/styles.css";
 
 function Builder() {
   return (
@@ -488,7 +488,7 @@ function Builder() {
 ### Lazy Field Registry
 
 ```tsx
-import { createLazyFieldRegistry } from "@form-eng/core";
+import { createLazyFieldRegistry } from "@formosaic/core";
 
 const lazyFields = createLazyFieldRegistry({
   Textbox: () => import("./fields/HookTextbox"),
@@ -542,22 +542,22 @@ const lazyFields = createLazyFieldRegistry({
 
 ## Docs
 
-- [README.md](https://github.com/bghcore/form-engine/blob/main/README.md): Full usage guide with quick start, field types, architecture, and examples
-- [CLAUDE.md](https://github.com/bghcore/form-engine/blob/main/CLAUDE.md): Detailed architecture, rendering pipeline, key directories, coding conventions
-- [docs/comparison.md](https://github.com/bghcore/form-engine/blob/main/docs/comparison.md): Comparison vs RJSF, TanStack Form, Formik, uniforms, SurveyJS, Form.io
-- [docs/choosing-an-adapter.md](https://github.com/bghcore/form-engine/blob/main/docs/choosing-an-adapter.md): Adapter recommendation guide
-- [docs/creating-an-adapter.md](https://github.com/bghcore/form-engine/blob/main/docs/creating-an-adapter.md): Guide for building custom UI library adapters
-- [docs/field-config-reference.md](https://github.com/bghcore/form-engine/blob/main/docs/field-config-reference.md): IFieldConfig v2 reference
-- [docs/rules-engine.md](https://github.com/bghcore/form-engine/blob/main/docs/rules-engine.md): Rules engine lifecycle, dependency graph, evaluation
-- [docs/condition-operators.md](https://github.com/bghcore/form-engine/blob/main/docs/condition-operators.md): All 20 condition operators
-- [docs/expression-syntax.md](https://github.com/bghcore/form-engine/blob/main/docs/expression-syntax.md): Expression syntax ($values, $fn, $parent)
-- [docs/ACCESSIBILITY.md](https://github.com/bghcore/form-engine/blob/main/docs/ACCESSIBILITY.md): Accessibility guide (ARIA, keyboard, screen readers)
-- [docs/ssr-guide.md](https://github.com/bghcore/form-engine/blob/main/docs/ssr-guide.md): Server-side rendering guide
-- [docs/shadcn-integration.md](https://github.com/bghcore/form-engine/blob/main/docs/shadcn-integration.md): shadcn/ui integration guide
-- [docs/analytics-telemetry.md](https://github.com/bghcore/form-engine/blob/main/docs/analytics-telemetry.md): Analytics and telemetry integration
-- [docs/performance-debugging.md](https://github.com/bghcore/form-engine/blob/main/docs/performance-debugging.md): Performance debugging with DevTools
-- [docs/adapter-architecture.md](https://github.com/bghcore/form-engine/blob/main/docs/adapter-architecture.md): Adapter classification and architecture
-- [docs/canonical-field-contracts.md](https://github.com/bghcore/form-engine/blob/main/docs/canonical-field-contracts.md): Canonical field behavior contracts
-- [docs/parity-matrix.md](https://github.com/bghcore/form-engine/blob/main/docs/parity-matrix.md): Per-field, per-adapter parity matrix
-- [docs/api-stability.md](https://github.com/bghcore/form-engine/blob/main/docs/api-stability.md): Public API stability classification
-- [docs/divergence-register.md](https://github.com/bghcore/form-engine/blob/main/docs/divergence-register.md): Cross-adapter divergence register
+- [README.md](https://github.com/bghcore/formosaic/blob/main/README.md): Full usage guide with quick start, field types, architecture, and examples
+- [CLAUDE.md](https://github.com/bghcore/formosaic/blob/main/CLAUDE.md): Detailed architecture, rendering pipeline, key directories, coding conventions
+- [docs/comparison.md](https://github.com/bghcore/formosaic/blob/main/docs/comparison.md): Comparison vs RJSF, TanStack Form, Formik, uniforms, SurveyJS, Form.io
+- [docs/choosing-an-adapter.md](https://github.com/bghcore/formosaic/blob/main/docs/choosing-an-adapter.md): Adapter recommendation guide
+- [docs/creating-an-adapter.md](https://github.com/bghcore/formosaic/blob/main/docs/creating-an-adapter.md): Guide for building custom UI library adapters
+- [docs/field-config-reference.md](https://github.com/bghcore/formosaic/blob/main/docs/field-config-reference.md): IFieldConfig v2 reference
+- [docs/rules-engine.md](https://github.com/bghcore/formosaic/blob/main/docs/rules-engine.md): Rules engine lifecycle, dependency graph, evaluation
+- [docs/condition-operators.md](https://github.com/bghcore/formosaic/blob/main/docs/condition-operators.md): All 20 condition operators
+- [docs/expression-syntax.md](https://github.com/bghcore/formosaic/blob/main/docs/expression-syntax.md): Expression syntax ($values, $fn, $parent)
+- [docs/ACCESSIBILITY.md](https://github.com/bghcore/formosaic/blob/main/docs/ACCESSIBILITY.md): Accessibility guide (ARIA, keyboard, screen readers)
+- [docs/ssr-guide.md](https://github.com/bghcore/formosaic/blob/main/docs/ssr-guide.md): Server-side rendering guide
+- [docs/shadcn-integration.md](https://github.com/bghcore/formosaic/blob/main/docs/shadcn-integration.md): shadcn/ui integration guide
+- [docs/analytics-telemetry.md](https://github.com/bghcore/formosaic/blob/main/docs/analytics-telemetry.md): Analytics and telemetry integration
+- [docs/performance-debugging.md](https://github.com/bghcore/formosaic/blob/main/docs/performance-debugging.md): Performance debugging with DevTools
+- [docs/adapter-architecture.md](https://github.com/bghcore/formosaic/blob/main/docs/adapter-architecture.md): Adapter classification and architecture
+- [docs/canonical-field-contracts.md](https://github.com/bghcore/formosaic/blob/main/docs/canonical-field-contracts.md): Canonical field behavior contracts
+- [docs/parity-matrix.md](https://github.com/bghcore/formosaic/blob/main/docs/parity-matrix.md): Per-field, per-adapter parity matrix
+- [docs/api-stability.md](https://github.com/bghcore/formosaic/blob/main/docs/api-stability.md): Public API stability classification
+- [docs/divergence-register.md](https://github.com/bghcore/formosaic/blob/main/docs/divergence-register.md): Cross-adapter divergence register

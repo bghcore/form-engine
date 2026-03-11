@@ -1,20 +1,20 @@
-# @form-eng/antd
+# @formosaic/antd
 
-Ant Design v5 field components for [@form-eng/core](https://www.npmjs.com/package/@form-eng/core).
+Ant Design v5 field components for [@formosaic/core](https://www.npmjs.com/package/@formosaic/core).
 
-This package provides 28 field types using **Ant Design v5** components, with `dayjs` for date handling. Includes 19 native antd components and 9 semantic HTML fallbacks. All fields integrate with `@form-eng/core`'s rules engine and form orchestration.
+This package provides 28 field types using **Ant Design v5** components, with `dayjs` for date handling. Includes 19 native antd components and 9 semantic HTML fallbacks. All fields integrate with `@formosaic/core`'s rules engine and form orchestration.
 
 ## Installation
 
 ```bash
-npm install @form-eng/antd @form-eng/core antd dayjs react react-dom react-hook-form
+npm install @formosaic/antd @formosaic/core antd dayjs react react-dom react-hook-form
 ```
 
 ## Quick Start
 
 ```tsx
-import { FormEngine, RulesEngineProvider, InjectedFieldProvider } from "@form-eng/core";
-import { createAntdFieldRegistry } from "@form-eng/antd";
+import { FormEngine, RulesEngineProvider, InjectedFieldProvider } from "@formosaic/core";
+import { createAntdFieldRegistry } from "@formosaic/antd";
 
 const fields = createAntdFieldRegistry();
 
@@ -63,7 +63,7 @@ function App() {
 You can extend or replace any field in the registry:
 
 ```tsx
-import { createAntdFieldRegistry } from "@form-eng/antd";
+import { createAntdFieldRegistry } from "@formosaic/antd";
 
 const fields = createAntdFieldRegistry();
 

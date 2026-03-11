@@ -1,7 +1,7 @@
 /**
  * Shared adapter utilities subpath export.
  *
- * Import as: import { ... } from "@form-eng/core/adapter-utils"
+ * Import as: import { ... } from "@formosaic/core/adapter-utils"
  *
  * These utilities are shared across all adapter packages (fluent, mui, headless, etc.)
  * for consistent field rendering, formatting, and test attribute generation.

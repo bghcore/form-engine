@@ -1,4 +1,4 @@
-import { runAdapterContractTests, ALL_FIELD_TYPES } from "@form-eng/core/testing";
+import { runAdapterContractTests, ALL_FIELD_TYPES } from "@formosaic/core/testing";
 import { createMuiFieldRegistry } from "../registry";
 
 // Exclude types not in registry + types requiring useFormContext

@@ -90,7 +90,7 @@ function printBundleSizeReport(): void {
     totalDTS += dts;
 
     console.log(
-      `| @form-eng/${pkg} | ${formatKB(cjs)} | ${formatKB(esm)} | ${formatKB(dts)} |`
+      `| @formosaic/${pkg} | ${formatKB(cjs)} | ${formatKB(esm)} | ${formatKB(dts)} |`
     );
   }
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { IFieldProps } from "@form-eng/core";
+import { IFieldProps } from "@formosaic/core";
 
 const ShadcnReadOnly = (props: IFieldProps<{}>) => {
   const { value } = props;

@@ -1,14 +1,14 @@
-# AGENTS.md -- @form-eng/fluent
+# AGENTS.md -- @formosaic/fluent
 
 ## Package Purpose
 
-Fluent UI v9 field component implementations for `@form-eng/core`. Provides 22 editable and 6 read-only field types, plus a one-line registry setup via `createFluentFieldRegistry()`.
+Fluent UI v9 field component implementations for `@formosaic/core`. Provides 22 editable and 6 read-only field types, plus a one-line registry setup via `createFluentFieldRegistry()`.
 
 ## Critical Constraints
 
 - **Fluent UI v9 only.** Use `@fluentui/react-components` and `@fluentui/react-icons`. Do NOT import from `@fluentui/react` (v8).
 - **All field components receive `IFieldProps<T>`** via `React.cloneElement` -- this is the contract with core's `RenderField`.
-- **Import core types from `@form-eng/core`**, not from relative paths into the core package.
+- **Import core types from `@formosaic/core`**, not from relative paths into the core package.
 - **Use `React.JSX.Element`** not bare `JSX.Element` for return types.
 
 ## Key Files
@@ -64,7 +64,7 @@ Fluent UI v9 field component implementations for `@form-eng/core`. Provides 22 e
 ## Field Component Pattern
 
 ```tsx
-import { IFieldProps } from "@form-eng/core";
+import { IFieldProps } from "@formosaic/core";
 import { Input } from "@fluentui/react-components";
 import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";

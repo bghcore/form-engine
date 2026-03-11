@@ -251,7 +251,7 @@ rules: [
 Validation functions are registered via the pluggable `ValidationRegistry`:
 
 ```typescript
-import { registerValidators } from "@form-eng/core";
+import { registerValidators } from "@formosaic/core";
 
 registerValidators({
   isValidEmail: (value) => {

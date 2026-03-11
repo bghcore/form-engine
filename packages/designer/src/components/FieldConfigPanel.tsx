@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
-import { ComponentTypes, getAllValidatorMetadata, getValidatorRegistry } from "@form-eng/core";
-import type { IOption, IValidationRule } from "@form-eng/core";
+import { ComponentTypes, getAllValidatorMetadata, getValidatorRegistry } from "@formosaic/core";
+import type { IOption, IValidationRule } from "@formosaic/core";
 import { useDesigner } from "../state/useDesigner";
 
 /** All available component types */

@@ -1,7 +1,7 @@
 "use client";
 
 import { Container, Typography, Paper, Box } from "@mui/material";
-import { FormEngine } from "@form-eng/core";
+import { FormEngine } from "@formosaic/core";
 import FieldRegistrar from "@/components/FieldRegistrar";
 
 const fieldConfigs = {

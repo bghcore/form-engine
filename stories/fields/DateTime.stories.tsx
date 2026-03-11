@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import DateTimeField from "@form-eng/fluent/fields/DateTime";
+import DateTimeField from "@formosaic/fluent/fields/DateTime";
 import { FormDecorator, createFieldProps } from "../helpers";
 
 /**

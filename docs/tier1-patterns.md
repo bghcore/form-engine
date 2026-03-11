@@ -289,10 +289,10 @@ const ReadOnlyText = ({ value, fieldName, ellipsifyTextCharacters }) => {
 
 **Reference:** `docs/shadcn-integration.md`
 
-**When to use:** When consumers want to wrap form-engine fields with their own styled components.
+**When to use:** When consumers want to wrap Formosaic fields with their own styled components.
 
 **Approach:**
-1. Start with `@form-eng/radix` (or `@form-eng/headless`) as base
+1. Start with `@formosaic/radix` (or `@formosaic/headless`) as base
 2. Create local wrapper components that spread `IFieldProps` onto styled components
 3. Override specific fields in the registry via spread: `{ ...createRadixFieldRegistry(), Textbox: <StyledTextbox /> }`
 

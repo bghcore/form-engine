@@ -1,4 +1,4 @@
-import { IFieldProps } from "@form-eng/core";
+import { IFieldProps } from "@formosaic/core";
 import { Select } from "baseui/select";
 import type { OnChangeParams } from "baseui/select";
 import React from "react";

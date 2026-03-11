@@ -1,15 +1,15 @@
 {
-  "name": "@form-eng/mui",
-  "version": "1.6.0",
-  "description": "Material UI (MUI) field components for @form-eng/core",
+  "name": "@formosaic/mui",
+  "version": "1.0.0",
+  "description": "Material UI (MUI) field components for @formosaic/core",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bghcore/form-engine.git",
+    "url": "git+https://github.com/bghcore/formosaic.git",
     "directory": "packages/mui"
   },
-  "homepage": "https://github.com/bghcore/form-engine#readme",
+  "homepage": "https://github.com/bghcore/formosaic#readme",
   "bugs": {
-    "url": "https://github.com/bghcore/form-engine/issues"
+    "url": "https://github.com/bghcore/formosaic/issues"
   },
   "keywords": [
     "react",
@@ -28,7 +28,7 @@
     "conditional-fields",
     "form-validation",
     "typescript",
-    "form-engine"
+    "formosaic"
   ],
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -56,7 +56,7 @@
     "react-dom": "^18.0.0 || ^19.0.0",
     "react-hook-form": "^7.0.0",
     "@mui/material": "^5.0.0 || ^6.0.0",
-    "@form-eng/core": "^1.0.0"
+    "@formosaic/core": "^1.0.0"
   },
   "devDependencies": {
     "react": "^19.2.4",
@@ -65,7 +65,7 @@
     "@mui/material": "^6.4.11",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
-    "@form-eng/core": "*",
+    "@formosaic/core": "*",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3",
     "@types/react": "^19.2.14",

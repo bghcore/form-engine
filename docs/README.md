@@ -1,5 +1,11 @@
 # Documentation Index
 
+## Migration
+
+| Document | Purpose |
+|----------|---------|
+| [migrating-to-formosaic.md](./migrating-to-formosaic.md) | Upgrade guide from @form-eng/* to @formosaic/* |
+
 ## For Users Integrating the Library
 
 | Document | Purpose |

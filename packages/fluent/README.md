@@ -1,14 +1,14 @@
-# @form-eng/fluent
+# @formosaic/fluent
 
-Fluent UI v9 field components for [`@form-eng/core`](https://www.npmjs.com/package/@form-eng/core). Provides 22 editable and 6 read-only field types that plug into the core form engine.
+Fluent UI v9 field components for [`@formosaic/core`](https://www.npmjs.com/package/@formosaic/core). Provides 22 editable and 6 read-only field types that plug into the core form engine.
 
 ## Install
 
 ```bash
-npm install @form-eng/core @form-eng/fluent
+npm install @formosaic/core @formosaic/fluent
 ```
 
-Peer dependencies: `react`, `react-dom`, `react-hook-form`, `@fluentui/react-components`, `@form-eng/core`
+Peer dependencies: `react`, `react-dom`, `react-hook-form`, `@fluentui/react-components`, `@formosaic/core`
 
 ## Quick Start
 
@@ -18,8 +18,8 @@ import {
   InjectedFieldProvider,
   UseInjectedFieldContext,
   FormEngine,
-} from "@form-eng/core";
-import { createFluentFieldRegistry } from "@form-eng/fluent";
+} from "@formosaic/core";
+import { createFluentFieldRegistry } from "@formosaic/fluent";
 import { FluentProvider, webLightTheme } from "@fluentui/react-components";
 import { useEffect } from "react";
 
@@ -107,7 +107,7 @@ function App() {
 `createFluentFieldRegistry()` returns a `Dictionary<JSX.Element>` mapping all component keys to their Fluent UI implementations. You can extend or override individual fields:
 
 ```tsx
-import { createFluentFieldRegistry } from "@form-eng/fluent";
+import { createFluentFieldRegistry } from "@formosaic/fluent";
 
 const fields = {
   ...createFluentFieldRegistry(),
@@ -128,7 +128,7 @@ The package also exports supporting components:
 
 ## Works with Core v1.3.0
 
-When paired with `@form-eng/core` v1.3.0+, you automatically get:
+When paired with `@formosaic/core` v1.3.0+, you automatically get:
 
 - **Error boundary** -- each field is individually wrapped in `FormErrorBoundary`, so one crashing field does not take down the form
 - **Save reliability** -- AbortController cancels in-flight saves, configurable timeout and retry with exponential backoff

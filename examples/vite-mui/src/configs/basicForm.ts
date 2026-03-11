@@ -1,5 +1,5 @@
-import { Dictionary } from "@form-eng/core";
-import type { IFieldConfig } from "@form-eng/core";
+import { Dictionary } from "@formosaic/core";
+import type { IFieldConfig } from "@formosaic/core";
 
 export const basicFormConfig: Dictionary<IFieldConfig> = {
   name: { type: "Textbox", label: "Full Name", required: true },

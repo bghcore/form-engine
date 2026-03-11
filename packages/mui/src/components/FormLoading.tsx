@@ -1,4 +1,4 @@
-import { FormConstants } from "@form-eng/core";
+import { FormConstants } from "@formosaic/core";
 import { Skeleton } from "@mui/material";
 import React from "react";
 

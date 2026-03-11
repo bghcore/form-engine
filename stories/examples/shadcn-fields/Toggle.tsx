@@ -1,5 +1,5 @@
 import React from "react";
-import { IFieldProps } from "@form-eng/core";
+import { IFieldProps } from "@formosaic/core";
 import * as Switch from "@radix-ui/react-switch";
 
 const ShadcnToggle = (props: IFieldProps<{}>) => {

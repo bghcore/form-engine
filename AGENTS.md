@@ -37,20 +37,20 @@ Monorepo using npm workspaces. Fourteen packages:
 
 ```
 packages/
-  core/      -- @form-eng/core (React + react-hook-form, NO UI library deps)
-  fluent/    -- @form-eng/fluent (Fluent UI v9 field components, 28 types)
-  mui/       -- @form-eng/mui (Material UI field components, 28 types)
-  headless/  -- @form-eng/headless (unstyled semantic HTML, 28 types)
-  antd/      -- @form-eng/antd (Ant Design v5 field components, 28 types)
-  chakra/    -- @form-eng/chakra (Chakra UI v3 field components, 28 types)
-  mantine/   -- @form-eng/mantine (Mantine v7 field components, 28 types)
-  atlaskit/  -- @form-eng/atlaskit (Atlassian Design System, 28 types)
-  base-web/  -- @form-eng/base-web (Uber Base Web, 28 types)
-  heroui/    -- @form-eng/heroui (HeroUI, 28 types)
-  radix/     -- @form-eng/radix (Radix UI primitives, 28 types, unstyled)
-  react-aria/ -- @form-eng/react-aria (React Aria Components, 28 types)
-  designer/  -- @form-eng/designer (visual drag-and-drop form builder)
-  examples/  -- @form-eng/examples (3 example apps)
+  core/      -- @formosaic/core (React + react-hook-form, NO UI library deps)
+  fluent/    -- @formosaic/fluent (Fluent UI v9 field components, 28 types)
+  mui/       -- @formosaic/mui (Material UI field components, 28 types)
+  headless/  -- @formosaic/headless (unstyled semantic HTML, 28 types)
+  antd/      -- @formosaic/antd (Ant Design v5 field components, 28 types)
+  chakra/    -- @formosaic/chakra (Chakra UI v3 field components, 28 types)
+  mantine/   -- @formosaic/mantine (Mantine v7 field components, 28 types)
+  atlaskit/  -- @formosaic/atlaskit (Atlassian Design System, 28 types)
+  base-web/  -- @formosaic/base-web (Uber Base Web, 28 types)
+  heroui/    -- @formosaic/heroui (HeroUI, 28 types)
+  radix/     -- @formosaic/radix (Radix UI primitives, 28 types, unstyled)
+  react-aria/ -- @formosaic/react-aria (React Aria Components, 28 types)
+  designer/  -- @formosaic/designer (visual drag-and-drop form builder)
+  examples/  -- @formosaic/examples (3 example apps)
 docs/
   creating-an-adapter.md      -- Guide for building custom UI library adapters
   ACCESSIBILITY.md            -- Accessibility guide (ARIA, keyboard, screen readers)
@@ -145,8 +145,8 @@ All packages should build cleanly and all 6296 tests should pass.
 
 - Conventional commits: `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`
 - Single `main` branch
-- Per-package tags for publishing: `core-v1.6.0`, `fluent-v1.6.0`, `mui-v1.6.0`, `headless-v1.6.0`, `antd-v1.6.0`, `chakra-v1.6.0`, `mantine-v1.6.0`, `atlaskit-v1.6.0`, `base-web-v1.6.0`, `heroui-v1.6.0`, `radix-v1.6.0`, `react-aria-v1.6.0`, `designer-v1.6.0`
-- Unified tag for all packages: `v1.6.0`
+- Per-package tags for publishing: `core-v1.0.0`, `fluent-v1.0.0`, `mui-v1.0.0`, `headless-v1.0.0`, `antd-v1.0.0`, `chakra-v1.0.0`, `mantine-v1.0.0`, `atlaskit-v1.0.0`, `base-web-v1.0.0`, `heroui-v1.0.0`, `radix-v1.0.0`, `react-aria-v1.0.0`, `designer-v1.0.0`
+- Unified tag for all packages: `v1.0.0`
 - Run `npm run build && npm run test` before committing
 
 ## Boundaries

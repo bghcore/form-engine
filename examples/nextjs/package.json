@@ -1,5 +1,5 @@
 {
-  "name": "form-engine-nextjs-example",
+  "name": "formosaic-nextjs-example",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,8 +8,8 @@
     "start": "next start"
   },
   "dependencies": {
-    "@form-eng/core": "^1.5.0",
-    "@form-eng/mui": "^1.5.0",
+    "@formosaic/core": "^1.5.0",
+    "@formosaic/mui": "^1.5.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@mui/material": "^6.4.11",

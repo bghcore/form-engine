@@ -1,4 +1,4 @@
-import { IFieldProps } from "@form-eng/core";
+import { IFieldProps } from "@formosaic/core";
 import { convertBooleanToYesOrNoText } from "../helpers";
 import { Checkbox, STYLE_TYPE } from "baseui/checkbox";
 import React from "react";

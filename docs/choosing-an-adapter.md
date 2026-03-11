@@ -1,22 +1,22 @@
 # Choosing an Adapter
 
-form-engine supports 11 UI-library adapters. Each adapter maps the same `IFormConfig` to a different component library, so your form definitions stay portable. This guide helps you pick the right one for your project.
+Formosaic supports 11 UI-library adapters. Each adapter maps the same `IFormConfig` to a different component library, so your form definitions stay portable. This guide helps you pick the right one for your project.
 
 ## Quick Decision Table
 
 | If you're building with... | Use |
 |---|---|
-| Fluent UI v9 | `@form-eng/fluent` |
-| Material UI (MUI) | `@form-eng/mui` |
-| Ant Design v5 | `@form-eng/antd` |
-| Chakra UI v3 | `@form-eng/chakra` |
-| Mantine v7 | `@form-eng/mantine` |
-| Atlassian Design System | `@form-eng/atlaskit` |
-| Uber Base Web | `@form-eng/base-web` |
-| HeroUI (NextUI) | `@form-eng/heroui` |
-| Radix UI / shadcn/ui / Tailwind | `@form-eng/radix` |
-| React Aria / Adobe Spectrum | `@form-eng/react-aria` |
-| No UI library / custom styling | `@form-eng/headless` |
+| Fluent UI v9 | `@formosaic/fluent` |
+| Material UI (MUI) | `@formosaic/mui` |
+| Ant Design v5 | `@formosaic/antd` |
+| Chakra UI v3 | `@formosaic/chakra` |
+| Mantine v7 | `@formosaic/mantine` |
+| Atlassian Design System | `@formosaic/atlaskit` |
+| Uber Base Web | `@formosaic/base-web` |
+| HeroUI (NextUI) | `@formosaic/heroui` |
+| Radix UI / shadcn/ui / Tailwind | `@formosaic/radix` |
+| React Aria / Adobe Spectrum | `@formosaic/react-aria` |
+| No UI library / custom styling | `@formosaic/headless` |
 
 ## Adapter Classification Grid
 
@@ -44,7 +44,7 @@ form-engine supports 11 UI-library adapters. Each adapter maps the same `IFormCo
 
 ## Per-Adapter Details
 
-### @form-eng/fluent
+### @formosaic/fluent
 
 **Best for:** Microsoft-stack applications, Teams apps, SharePoint extensions, and any project already using Fluent UI v9.
 
@@ -63,7 +63,7 @@ form-engine supports 11 UI-library adapters. Each adapter maps the same `IFormCo
 
 ---
 
-### @form-eng/mui
+### @formosaic/mui
 
 **Best for:** Material Design projects, Google-style applications, and teams already invested in the MUI ecosystem.
 
@@ -79,7 +79,7 @@ form-engine supports 11 UI-library adapters. Each adapter maps the same `IFormCo
 
 ---
 
-### @form-eng/headless
+### @formosaic/headless
 
 **Best for:** Projects with fully custom styling, testing environments, or applications that do not use a UI framework.
 
@@ -96,7 +96,7 @@ form-engine supports 11 UI-library adapters. Each adapter maps the same `IFormCo
 
 ---
 
-### @form-eng/antd
+### @formosaic/antd
 
 **Best for:** Ant Design v5 projects, enterprise admin panels, and internal tools.
 
@@ -110,9 +110,9 @@ form-engine supports 11 UI-library adapters. Each adapter maps the same `IFormCo
 
 ---
 
-### @form-eng/chakra
+### @formosaic/chakra
 
-**Best for:** Chakra UI v3 projects that want form-engine integration.
+**Best for:** Chakra UI v3 projects that want Formosaic integration.
 
 **Strengths:**
 - ChakraProvider integration with Chakra CSS variables
@@ -126,7 +126,7 @@ form-engine supports 11 UI-library adapters. Each adapter maps the same `IFormCo
 
 ---
 
-### @form-eng/mantine
+### @formosaic/mantine
 
 **Best for:** Mantine v7 projects.
 
@@ -141,7 +141,7 @@ form-engine supports 11 UI-library adapters. Each adapter maps the same `IFormCo
 
 ---
 
-### @form-eng/atlaskit
+### @formosaic/atlaskit
 
 **Best for:** Projects targeting Atlassian ecosystem compatibility.
 
@@ -155,7 +155,7 @@ form-engine supports 11 UI-library adapters. Each adapter maps the same `IFormCo
 
 ---
 
-### @form-eng/base-web
+### @formosaic/base-web
 
 **Best for:** Uber Base Web projects.
 
@@ -169,7 +169,7 @@ form-engine supports 11 UI-library adapters. Each adapter maps the same `IFormCo
 
 ---
 
-### @form-eng/heroui
+### @formosaic/heroui
 
 **Best for:** HeroUI (formerly NextUI) ecosystem compatibility.
 
@@ -182,7 +182,7 @@ form-engine supports 11 UI-library adapters. Each adapter maps the same `IFormCo
 
 ---
 
-### @form-eng/radix
+### @formosaic/radix
 
 **Best for:** shadcn/ui projects, Tailwind CSS applications, or any project wanting unstyled Radix primitives as a base.
 
@@ -201,7 +201,7 @@ form-engine supports 11 UI-library adapters. Each adapter maps the same `IFormCo
 
 ---
 
-### @form-eng/react-aria
+### @formosaic/react-aria
 
 **Best for:** Accessibility-first projects, Adobe Spectrum ecosystem, and applications built on React Aria Components.
 
@@ -224,14 +224,14 @@ Start
 Already using a UI framework?
   |
   +-- Yes --> Is it one of the 11 supported frameworks? --> Yes --> Use that adapter
-  |                                                     --> No  --> Use @form-eng/headless
+  |                                                     --> No  --> Use @formosaic/headless
   |
   +-- No --> Want unstyled primitives?
               |
-              +-- Yes --> Need best accessibility? --> @form-eng/react-aria
-              |       --> Want shadcn/Radix base?  --> @form-eng/radix
+              +-- Yes --> Need best accessibility? --> @formosaic/react-aria
+              |       --> Want shadcn/Radix base?  --> @formosaic/radix
               |
-              +-- No  --> @form-eng/headless
+              +-- No  --> @formosaic/headless
 ```
 
 ## Related Documentation

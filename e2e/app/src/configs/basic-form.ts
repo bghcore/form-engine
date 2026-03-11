@@ -1,4 +1,4 @@
-import type { IFormConfig } from "@form-eng/core";
+import type { IFormConfig } from "@formosaic/core";
 
 /**
  * Basic form with text, dropdown, toggle, and number fields.

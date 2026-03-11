@@ -1,12 +1,12 @@
-# @form-eng/chakra
+# @formosaic/chakra
 
-> Chakra UI v3 field components for @form-eng/core. 13 field types using Chakra components with semantic HTML fallbacks where needed.
+> Chakra UI v3 field components for @formosaic/core. 13 field types using Chakra components with semantic HTML fallbacks where needed.
 
-- Docs: [README](https://github.com/bghcore/form-engine/tree/main/packages/chakra/README.md)
-- Agent instructions: [AGENTS.md](https://github.com/bghcore/form-engine/tree/main/packages/chakra/AGENTS.md)
-- npm: [@form-eng/chakra](https://www.npmjs.com/package/@form-eng/chakra)
+- Docs: [README](https://github.com/bghcore/formosaic/tree/main/packages/chakra/README.md)
+- Agent instructions: [AGENTS.md](https://github.com/bghcore/formosaic/tree/main/packages/chakra/AGENTS.md)
+- npm: [@formosaic/chakra](https://www.npmjs.com/package/@formosaic/chakra)
 - License: MIT
-- Peer dependencies: `react`, `react-dom`, `react-hook-form`, `@form-eng/core`, `@chakra-ui/react`
+- Peer dependencies: `react`, `react-dom`, `react-hook-form`, `@formosaic/core`, `@chakra-ui/react`
 
 ## API Surface
 
@@ -45,8 +45,8 @@
 ## Code Example
 
 ```tsx
-import { RulesEngineProvider, InjectedFieldProvider, FormEngine } from "@form-eng/core";
-import { createChakraFieldRegistry } from "@form-eng/chakra";
+import { RulesEngineProvider, InjectedFieldProvider, FormEngine } from "@formosaic/core";
+import { createChakraFieldRegistry } from "@formosaic/chakra";
 
 const formConfig = {
   version: 2,

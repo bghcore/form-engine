@@ -1,20 +1,20 @@
-# @form-eng/mantine
+# @formosaic/mantine
 
-Mantine v7 field components for [@form-eng/core](https://www.npmjs.com/package/@form-eng/core).
+Mantine v7 field components for [@formosaic/core](https://www.npmjs.com/package/@formosaic/core).
 
 This package provides 28 field types using **Mantine v7** components. Includes 18 native Mantine components (Rating, Autocomplete, DateTimePicker, FileInput, ColorInput for Tier 2) and 10 semantic HTML fallbacks.
 
 ## Installation
 
 ```bash
-npm install @form-eng/mantine @form-eng/core @mantine/core @mantine/dates react react-dom react-hook-form
+npm install @formosaic/mantine @formosaic/core @mantine/core @mantine/dates react react-dom react-hook-form
 ```
 
 ## Quick Start
 
 ```tsx
-import { FormEngine, RulesEngineProvider, InjectedFieldProvider } from "@form-eng/core";
-import { createMantineFieldRegistry } from "@form-eng/mantine";
+import { FormEngine, RulesEngineProvider, InjectedFieldProvider } from "@formosaic/core";
+import { createMantineFieldRegistry } from "@formosaic/mantine";
 
 // Required: import Mantine's core styles
 import "@mantine/core/styles.css";
@@ -66,7 +66,7 @@ function App() {
 You can extend or replace any field in the registry:
 
 ```tsx
-import { createMantineFieldRegistry } from "@form-eng/mantine";
+import { createMantineFieldRegistry } from "@formosaic/mantine";
 
 const fields = createMantineFieldRegistry();
 

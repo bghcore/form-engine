@@ -1,4 +1,4 @@
-import { IFieldProps, FormStrings } from "@form-eng/core";
+import { IFieldProps, FormStrings } from "@formosaic/core";
 import { TextField, IconButton } from "@mui/material";
 import React from "react";
 import { FieldClassName, GetFieldDataTestId, formatDateTime } from "../helpers";

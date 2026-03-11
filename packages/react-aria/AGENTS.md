@@ -1,8 +1,8 @@
-# AGENTS.md -- @form-eng/react-aria
+# AGENTS.md -- @formosaic/react-aria
 
 ## Package Purpose
 
-React Aria Components field components for `@form-eng/core`. Provides 10 native React Aria fields and 3 semantic HTML fields. Best-in-class ARIA accessibility patterns. Highest native Tier 1 coverage among primitives-first adapters (10/13). No provider wrapper needed.
+React Aria Components field components for `@formosaic/core`. Provides 10 native React Aria fields and 3 semantic HTML fields. Best-in-class ARIA accessibility patterns. Highest native Tier 1 coverage among primitives-first adapters (10/13). No provider wrapper needed.
 
 ## Critical Constraints
 
@@ -10,7 +10,7 @@ React Aria Components field components for `@form-eng/core`. Provides 10 native 
 - **No styles shipped.** All fields emit `data-field-type`, `data-field-state`, and `df-*` CSS class names. React Aria also exposes `data-*` render props for fine-grained state styling.
 - **No provider wrapper needed.** Unlike Chakra/Mantine adapters, this adapter works without any wrapping provider.
 - **All field components receive `IFieldProps<T>`** via `React.cloneElement` -- this is the contract with core's `RenderField`.
-- **Import core types from `@form-eng/core`**, not from relative paths into the core package.
+- **Import core types from `@formosaic/core`**, not from relative paths into the core package.
 - **Use `React.JSX.Element`** not bare `JSX.Element` for return types.
 
 ## Known Divergences
@@ -22,7 +22,7 @@ React Aria Components field components for `@form-eng/core`. Provides 10 native 
 | File | Purpose |
 |------|---------|
 | `src/registry.ts` | `createReactAriaFieldRegistry()` -- maps `ComponentTypes` keys to React Aria/HTML field JSX elements. Returns `Record<string, React.JSX.Element>` for `InjectedFieldProvider`. |
-| `src/helpers.ts` | Re-exports shared helpers from `@form-eng/core/adapter-utils`: `GetFieldDataTestId()`, `getFieldState()`, `formatDateTime()`, `convertBooleanToYesOrNoText()`, `isNull()`. |
+| `src/helpers.ts` | Re-exports shared helpers from `@formosaic/core/adapter-utils`: `GetFieldDataTestId()`, `getFieldState()`, `formatDateTime()`, `convertBooleanToYesOrNoText()`, `isNull()`. |
 | `src/index.ts` | Public API barrel exports. |
 | `src/fields/Textbox.tsx` | React Aria `TextField` + `Input` |
 | `src/fields/Number.tsx` | React Aria `NumberField` + `Input` (NaN guard on onChange) |
@@ -52,7 +52,7 @@ React Aria Components field components for `@form-eng/core`. Provides 10 native 
 ## Field Component Pattern
 
 ```tsx
-import { IFieldProps } from "@form-eng/core";
+import { IFieldProps } from "@formosaic/core";
 import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";
 import { GetFieldDataTestId, getFieldState } from "../helpers";

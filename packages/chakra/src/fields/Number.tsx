@@ -1,4 +1,4 @@
-import { IFieldProps } from "@form-eng/core";
+import { IFieldProps } from "@formosaic/core";
 import { isNull } from "../helpers";
 import { Input } from "@chakra-ui/react";
 import React from "react";

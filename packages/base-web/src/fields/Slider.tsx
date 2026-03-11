@@ -1,4 +1,4 @@
-import { IFieldProps } from "@form-eng/core";
+import { IFieldProps } from "@formosaic/core";
 import { Slider as BaseSlider } from "baseui/slider";
 import type { Params as SliderParams } from "baseui/slider";
 import React from "react";

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import DateControl from "@form-eng/fluent/fields/DateControl";
+import DateControl from "@formosaic/fluent/fields/DateControl";
 import { FormDecorator, createFieldProps } from "../helpers";
 
 /**

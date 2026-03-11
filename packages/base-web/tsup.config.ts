@@ -10,7 +10,7 @@ export default defineConfig({
     "react",
     "react-dom",
     "react-hook-form",
-    "@form-eng/core",
+    "@formosaic/core",
     "baseui",
     "styletron-engine-monolithic",
     "styletron-react",

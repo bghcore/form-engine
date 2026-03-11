@@ -1,11 +1,11 @@
-# @form-eng/radix
+# @formosaic/radix
 
-Radix UI primitives adapter for `@form-eng/core`. Provides 28 accessible, unstyled field components using [Radix UI](https://www.radix-ui.com/) primitives (6 native) and semantic HTML (22 fallbacks). Ideal for Tailwind CSS and shadcn/ui projects.
+Radix UI primitives adapter for `@formosaic/core`. Provides 28 accessible, unstyled field components using [Radix UI](https://www.radix-ui.com/) primitives (6 native) and semantic HTML (22 fallbacks). Ideal for Tailwind CSS and shadcn/ui projects.
 
 ## Installation
 
 ```bash
-npm install @form-eng/radix @form-eng/core react react-dom react-hook-form \
+npm install @formosaic/radix @formosaic/core react react-dom react-hook-form \
   @radix-ui/react-checkbox @radix-ui/react-radio-group @radix-ui/react-select \
   @radix-ui/react-slider @radix-ui/react-switch
 ```
@@ -13,8 +13,8 @@ npm install @form-eng/radix @form-eng/core react react-dom react-hook-form \
 ## Quick Start
 
 ```tsx
-import { FormEngine, RulesEngineProvider, InjectedFieldProvider } from "@form-eng/core";
-import { createRadixFieldRegistry } from "@form-eng/radix";
+import { FormEngine, RulesEngineProvider, InjectedFieldProvider } from "@formosaic/core";
+import { createRadixFieldRegistry } from "@formosaic/radix";
 
 const fields = createRadixFieldRegistry();
 

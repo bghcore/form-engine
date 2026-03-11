@@ -34,7 +34,7 @@ function getBundleInfo(packageName: string): BundleInfo {
   const dtsBytes = getFileSize(path.join(distDir, "index.d.ts"));
 
   return {
-    name: `@form-eng/${packageName}`,
+    name: `@formosaic/${packageName}`,
     cjsBytes,
     esmBytes,
     dtsBytes,

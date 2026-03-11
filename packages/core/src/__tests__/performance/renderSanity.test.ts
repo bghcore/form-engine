@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render } from "@testing-library/react";
 import React from "react";
-import { createHeadlessFieldRegistry } from "@form-eng/headless";
+import { createHeadlessFieldRegistry } from "@formosaic/headless";
 import { ComponentTypes } from "../../constants";
 import { resetRenderTracker } from "../../helpers/RenderTracker";
 import type { IFormConfig } from "../../types/IFormConfig";

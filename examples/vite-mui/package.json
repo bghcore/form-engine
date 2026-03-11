@@ -1,5 +1,5 @@
 {
-  "name": "form-engine-vite-mui-example",
+  "name": "formosaic-vite-mui-example",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -9,8 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@form-eng/core": "^1.5.0",
-    "@form-eng/mui": "^1.5.0",
+    "@formosaic/core": "^1.5.0",
+    "@formosaic/mui": "^1.5.0",
     "@mui/material": "^6.4.11",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",

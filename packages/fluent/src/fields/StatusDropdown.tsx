@@ -1,4 +1,4 @@
-import { IFieldProps, Dictionary } from "@form-eng/core";
+import { IFieldProps, Dictionary } from "@formosaic/core";
 import { Dropdown, Option } from "@fluentui/react-components";
 import type { OptionOnSelectData } from "@fluentui/react-components";
 import React from "react";

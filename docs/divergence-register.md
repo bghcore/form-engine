@@ -1,6 +1,6 @@
 # Divergence Register
 
-Structured tracking of all known behavioral differences across form-engine adapters.
+Structured tracking of all known behavioral differences across Formosaic adapters.
 Each entry is classified by severity and recommended action for Tier 2 readiness.
 
 ## Classification Key
@@ -171,7 +171,7 @@ Each entry is classified by severity and recommended action for Tier 2 readiness
 |----------|-------|
 | Affected adapters | radix |
 | Affected fields | Slider |
-| Observed behavior | Radix Slider uses `number[]` for value/onValueChange; form-engine uses single `number` |
+| Observed behavior | Radix Slider uses `number[]` for value/onValueChange; Formosaic uses single `number` |
 | Canonical expectation | Single number value |
 | Root cause | Radix Slider supports multi-thumb sliders; single-thumb is `[number]` |
 | Severity | None |
@@ -186,7 +186,7 @@ Each entry is classified by severity and recommended action for Tier 2 readiness
 |----------|-------|
 | Affected adapters | react-aria |
 | Affected fields | Dropdown, SimpleDropdown |
-| Observed behavior | React Aria Select uses `Key` type (string \| number) for selectedKey/onSelectionChange; form-engine uses string |
+| Observed behavior | React Aria Select uses `Key` type (string \| number) for selectedKey/onSelectionChange; Formosaic uses string |
 | Canonical expectation | String value |
 | Root cause | React Aria's Key type is a union of string and number to support both use cases |
 | Severity | None |

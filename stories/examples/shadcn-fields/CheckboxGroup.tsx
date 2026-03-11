@@ -1,5 +1,5 @@
 import React from "react";
-import { IFieldProps } from "@form-eng/core";
+import { IFieldProps } from "@formosaic/core";
 import * as Checkbox from "@radix-ui/react-checkbox";
 
 const ShadcnCheckboxGroup = (props: IFieldProps<{}>) => {

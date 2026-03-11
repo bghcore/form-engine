@@ -1,15 +1,15 @@
 {
-  "name": "@form-eng/heroui",
-  "version": "1.6.0",
-  "description": "HeroUI field components for @form-eng/core",
+  "name": "@formosaic/heroui",
+  "version": "1.0.0",
+  "description": "HeroUI field components for @formosaic/core",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bghcore/form-engine.git",
+    "url": "git+https://github.com/bghcore/formosaic.git",
     "directory": "packages/heroui"
   },
-  "homepage": "https://github.com/bghcore/form-engine#readme",
+  "homepage": "https://github.com/bghcore/formosaic#readme",
   "bugs": {
-    "url": "https://github.com/bghcore/form-engine/issues"
+    "url": "https://github.com/bghcore/formosaic/issues"
   },
   "keywords": [
     "react",
@@ -26,7 +26,7 @@
     "conditional-fields",
     "form-validation",
     "typescript",
-    "form-engine"
+    "formosaic"
   ],
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -53,7 +53,7 @@
     "react": "^18.0.0 || ^19.0.0",
     "react-dom": "^18.0.0 || ^19.0.0",
     "react-hook-form": "^7.0.0",
-    "@form-eng/core": "^1.0.0",
+    "@formosaic/core": "^1.0.0",
     "@heroui/react": "^2.0.0",
     "@internationalized/date": "^3.0.0"
   },
@@ -61,7 +61,7 @@
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-hook-form": "^7.71.2",
-    "@form-eng/core": "*",
+    "@formosaic/core": "*",
     "@heroui/react": "^2.7.6",
     "@internationalized/date": "^3.8.1",
     "tsup": "^8.5.1",

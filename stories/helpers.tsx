@@ -3,8 +3,8 @@ import { FormProvider, useForm } from "react-hook-form";
 import {
   UseInjectedFieldContext,
   IFieldProps,
-} from "@form-eng/core";
-import { createFluentFieldRegistry } from "@form-eng/fluent";
+} from "@formosaic/core";
+import { createFluentFieldRegistry } from "@formosaic/fluent";
 
 /**
  * Wraps a story in react-hook-form's FormProvider and registers the

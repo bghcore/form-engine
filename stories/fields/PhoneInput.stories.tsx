@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import PhoneInputField from "@form-eng/fluent/fields/PhoneInput";
+import PhoneInputField from "@formosaic/fluent/fields/PhoneInput";
 import { FormDecorator, createFieldProps } from "../helpers";
 
 /**

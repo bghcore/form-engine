@@ -1,4 +1,4 @@
-import { IFieldProps, FormStrings } from "@form-eng/core";
+import { IFieldProps, FormStrings } from "@formosaic/core";
 import { Textarea as ChakraTextarea } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";

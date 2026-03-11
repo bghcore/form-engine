@@ -1,20 +1,20 @@
-# @form-eng/chakra
+# @formosaic/chakra
 
-Chakra UI v3 field components for [@form-eng/core](https://www.npmjs.com/package/@form-eng/core).
+Chakra UI v3 field components for [@formosaic/core](https://www.npmjs.com/package/@formosaic/core).
 
 This package provides 28 field types using **Chakra UI v3** components. Includes 7 native Chakra components and 21 semantic HTML fallbacks (due to Ark UI DTS compatibility issues with compound components).
 
 ## Installation
 
 ```bash
-npm install @form-eng/chakra @form-eng/core @chakra-ui/react react react-dom react-hook-form
+npm install @formosaic/chakra @formosaic/core @chakra-ui/react react react-dom react-hook-form
 ```
 
 ## Quick Start
 
 ```tsx
-import { FormEngine, RulesEngineProvider, InjectedFieldProvider } from "@form-eng/core";
-import { createChakraFieldRegistry } from "@form-eng/chakra";
+import { FormEngine, RulesEngineProvider, InjectedFieldProvider } from "@formosaic/core";
+import { createChakraFieldRegistry } from "@formosaic/chakra";
 
 const fields = createChakraFieldRegistry();
 
@@ -65,7 +65,7 @@ Fields with "Temporary" status use semantic HTML fallbacks due to Chakra v3 comp
 You can extend or replace any field in the registry:
 
 ```tsx
-import { createChakraFieldRegistry } from "@form-eng/chakra";
+import { createChakraFieldRegistry } from "@formosaic/chakra";
 
 const fields = createChakraFieldRegistry();
 

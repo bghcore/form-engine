@@ -1,14 +1,14 @@
-# @form-eng/mui
+# @formosaic/mui
 
-Material UI (MUI) field components for [`@form-eng/core`](https://www.npmjs.com/package/@form-eng/core). Provides 22 editable and 6 read-only field types that plug into the core form engine.
+Material UI (MUI) field components for [`@formosaic/core`](https://www.npmjs.com/package/@formosaic/core). Provides 22 editable and 6 read-only field types that plug into the core form engine.
 
 ## Install
 
 ```bash
-npm install @form-eng/core @form-eng/mui @mui/material @emotion/react @emotion/styled
+npm install @formosaic/core @formosaic/mui @mui/material @emotion/react @emotion/styled
 ```
 
-Peer dependencies: `react`, `react-dom`, `react-hook-form`, `@mui/material`, `@form-eng/core`
+Peer dependencies: `react`, `react-dom`, `react-hook-form`, `@mui/material`, `@formosaic/core`
 
 ## Quick Start
 
@@ -18,8 +18,8 @@ import {
   InjectedFieldProvider,
   UseInjectedFieldContext,
   FormEngine,
-} from "@form-eng/core";
-import { createMuiFieldRegistry } from "@form-eng/mui";
+} from "@formosaic/core";
+import { createMuiFieldRegistry } from "@formosaic/mui";
 import { ThemeProvider, createTheme } from "@mui/material";
 import { useEffect } from "react";
 
@@ -109,7 +109,7 @@ function App() {
 `createMuiFieldRegistry()` returns a `Dictionary<JSX.Element>` mapping all component keys to their MUI implementations. You can extend or override individual fields:
 
 ```tsx
-import { createMuiFieldRegistry } from "@form-eng/mui";
+import { createMuiFieldRegistry } from "@formosaic/mui";
 
 const fields = {
   ...createMuiFieldRegistry(),
@@ -130,7 +130,7 @@ The package also exports supporting components:
 
 ## Works with Core v1.3.0
 
-When paired with `@form-eng/core` v1.3.0+, you automatically get:
+When paired with `@formosaic/core` v1.3.0+, you automatically get:
 
 - **Error boundary** -- each field is individually wrapped in `FormErrorBoundary`, so one crashing field does not take down the form
 - **Save reliability** -- AbortController cancels in-flight saves, configurable timeout and retry with exponential backoff

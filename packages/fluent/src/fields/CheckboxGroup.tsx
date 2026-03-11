@@ -1,4 +1,4 @@
-import { IFieldProps } from "@form-eng/core";
+import { IFieldProps } from "@formosaic/core";
 import { Checkbox } from "@fluentui/react-components";
 import type { CheckboxOnChangeData } from "@fluentui/react-components";
 import React from "react";

@@ -1,22 +1,22 @@
-# @form-eng/heroui
+# @formosaic/heroui
 
-HeroUI field components for [@form-eng/core](https://www.npmjs.com/package/@form-eng/core).
+HeroUI field components for [@formosaic/core](https://www.npmjs.com/package/@formosaic/core).
 
-This package provides 28 field types using **HeroUI**-styled semantic HTML components. All fields integrate with `@form-eng/core`'s rules engine and form orchestration.
+This package provides 28 field types using **HeroUI**-styled semantic HTML components. All fields integrate with `@formosaic/core`'s rules engine and form orchestration.
 
 > **Implementation note:** Field components use semantic HTML elements with appropriate ARIA attributes rather than `@heroui/react` components directly. This ensures compatibility across all environments including SSR and test runners (jsdom). In production, you can wrap the form in a `HeroUIProvider` for theme integration.
 
 ## Installation
 
 ```bash
-npm install @form-eng/heroui @form-eng/core @heroui/react @internationalized/date react react-dom react-hook-form
+npm install @formosaic/heroui @formosaic/core @heroui/react @internationalized/date react react-dom react-hook-form
 ```
 
 ## Quick Start
 
 ```tsx
-import { FormEngine, RulesEngineProvider, InjectedFieldProvider } from "@form-eng/core";
-import { createHeroUIFieldRegistry } from "@form-eng/heroui";
+import { FormEngine, RulesEngineProvider, InjectedFieldProvider } from "@formosaic/core";
+import { createHeroUIFieldRegistry } from "@formosaic/heroui";
 
 const fields = createHeroUIFieldRegistry();
 
@@ -65,7 +65,7 @@ function App() {
 You can extend or replace any field in the registry:
 
 ```tsx
-import { createHeroUIFieldRegistry } from "@form-eng/heroui";
+import { createHeroUIFieldRegistry } from "@formosaic/heroui";
 
 const fields = createHeroUIFieldRegistry();
 

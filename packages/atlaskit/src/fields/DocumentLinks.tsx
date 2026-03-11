@@ -1,4 +1,4 @@
-import { IFieldProps } from "@form-eng/core";
+import { IFieldProps } from "@formosaic/core";
 import React, { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { GetFieldDataTestId, getFieldState, DocumentLinksStrings } from "../helpers";

@@ -1,4 +1,4 @@
-# AGENTS.md -- @form-eng/core
+# AGENTS.md -- @formosaic/core
 
 ## Package Purpose
 
@@ -111,7 +111,7 @@ RulesEngineProvider (useReducer for rules engine state)
 ### Adding a New Validation
 
 ```ts
-import { registerValidators } from "@form-eng/core";
+import { registerValidators } from "@formosaic/core";
 
 registerValidators({
   ZipCodeValidation: (value, entityData) => {
@@ -124,7 +124,7 @@ registerValidators({
 ### Adding a New Value Function
 
 ```ts
-import { registerValueFunctions } from "@form-eng/core";
+import { registerValueFunctions } from "@formosaic/core";
 
 registerValueFunctions({
   setDefaultPriority: ({ parentEntity }) => parentEntity?.defaultPriority ?? "Medium",
@@ -134,7 +134,7 @@ registerValueFunctions({
 ### Adding a New Locale
 
 ```ts
-import { registerLocale } from "@form-eng/core";
+import { registerLocale } from "@formosaic/core";
 
 registerLocale({
   saving: "Guardando...",

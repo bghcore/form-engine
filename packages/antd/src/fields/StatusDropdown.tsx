@@ -1,4 +1,4 @@
-import { IFieldProps, Dictionary } from "@form-eng/core";
+import { IFieldProps, Dictionary } from "@formosaic/core";
 import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";
 import { GetFieldDataTestId } from "../helpers";

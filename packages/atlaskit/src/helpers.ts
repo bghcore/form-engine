@@ -6,4 +6,4 @@ export {
   DocumentLinksStrings,
   convertBooleanToYesOrNoText,
   isNull,
-} from "@form-eng/core/adapter-utils";
+} from "@formosaic/core/adapter-utils";

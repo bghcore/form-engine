@@ -1,12 +1,12 @@
-# @form-eng/antd
+# @formosaic/antd
 
-> Ant Design v5 field components for @form-eng/core. 13 field types using antd components with dayjs for date handling.
+> Ant Design v5 field components for @formosaic/core. 13 field types using antd components with dayjs for date handling.
 
-- Docs: [README](https://github.com/bghcore/form-engine/tree/main/packages/antd/README.md)
-- Agent instructions: [AGENTS.md](https://github.com/bghcore/form-engine/tree/main/packages/antd/AGENTS.md)
-- npm: [@form-eng/antd](https://www.npmjs.com/package/@form-eng/antd)
+- Docs: [README](https://github.com/bghcore/formosaic/tree/main/packages/antd/README.md)
+- Agent instructions: [AGENTS.md](https://github.com/bghcore/formosaic/tree/main/packages/antd/AGENTS.md)
+- npm: [@formosaic/antd](https://www.npmjs.com/package/@formosaic/antd)
 - License: MIT
-- Peer dependencies: `react`, `react-dom`, `react-hook-form`, `@form-eng/core`, `antd`
+- Peer dependencies: `react`, `react-dom`, `react-hook-form`, `@formosaic/core`, `antd`
 
 ## API Surface
 
@@ -44,8 +44,8 @@
 ## Code Example
 
 ```tsx
-import { RulesEngineProvider, InjectedFieldProvider, FormEngine } from "@form-eng/core";
-import { createAntdFieldRegistry } from "@form-eng/antd";
+import { RulesEngineProvider, InjectedFieldProvider, FormEngine } from "@formosaic/core";
+import { createAntdFieldRegistry } from "@formosaic/antd";
 
 const formConfig = {
   version: 2,

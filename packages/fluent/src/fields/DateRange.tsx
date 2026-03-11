@@ -1,4 +1,4 @@
-import { IFieldProps, IDateRangeConfig, IDateRangeValue, formatDateRange } from "@form-eng/core";
+import { IFieldProps, IDateRangeConfig, IDateRangeValue, formatDateRange } from "@formosaic/core";
 import React from "react";
 import { Label } from "@fluentui/react-components";
 import { ReadOnlyText } from "../components/ReadOnlyText";

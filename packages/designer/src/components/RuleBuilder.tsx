@@ -5,7 +5,7 @@ import type {
   IFieldCondition,
   ILogicalCondition,
   IFieldEffect,
-} from "@form-eng/core";
+} from "@formosaic/core";
 import { useDesigner } from "../state/useDesigner";
 
 /** All field condition operators */

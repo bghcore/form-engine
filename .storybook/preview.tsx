@@ -8,7 +8,7 @@ import {
 import {
   RulesEngineProvider,
   InjectedFieldProvider,
-} from "@form-eng/core";
+} from "@formosaic/core";
 
 /** Wraps every story with Fluent UI theming + the required library providers */
 const withProviders: Decorator = (Story, context) => {

@@ -1,4 +1,4 @@
-import { IFieldProps, IPhoneInputConfig, extractDigits, formatPhone } from "@form-eng/core";
+import { IFieldProps, IPhoneInputConfig, extractDigits, formatPhone } from "@formosaic/core";
 import React from "react";
 import { TextField } from "@mui/material";
 import { ReadOnlyText } from "../components/ReadOnlyText";

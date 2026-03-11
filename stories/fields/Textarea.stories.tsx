@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import PopOutEditor from "@form-eng/fluent/fields/PopOutEditor";
+import PopOutEditor from "@formosaic/fluent/fields/PopOutEditor";
 import { FormDecorator, createFieldProps } from "../helpers";
 
 /**

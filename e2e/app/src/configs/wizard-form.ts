@@ -1,4 +1,4 @@
-import type { IFormConfig } from "@form-eng/core";
+import type { IFormConfig } from "@formosaic/core";
 
 /**
  * Multi-step wizard form:
