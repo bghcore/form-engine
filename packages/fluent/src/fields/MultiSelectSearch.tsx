@@ -1,4 +1,4 @@
-import { IFieldProps } from "@formosaic/core";
+import { IFieldProps } from "@form-eng/core";
 import { Combobox, Option } from "@fluentui/react-components";
 import type { ComboboxProps } from "@fluentui/react-components";
 import React from "react";

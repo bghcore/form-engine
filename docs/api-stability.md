@@ -1,6 +1,6 @@
 # API Stability
 
-This document classifies every public export from the `@formosaic/*` packages by stability level and intended audience. Use this guide to understand which APIs are safe to depend on and which are internal implementation details.
+This document classifies every public export from the `@form-eng/*` packages by stability level and intended audience. Use this guide to understand which APIs are safe to depend on and which are internal implementation details.
 
 ## Stability Levels
 
@@ -9,7 +9,7 @@ This document classifies every public export from the `@formosaic/*` packages by
 
 ## Audience Categories
 
-- **All consumers**: Anyone using Formosaic to render forms.
+- **All consumers**: Anyone using form-engine to render forms.
 - **Advanced**: Consumers who need direct access to the rules engine or dependency graph.
 - **Extension authors**: Developers registering custom validators, value functions, or locales.
 - **Adapter authors**: Developers building or maintaining adapter packages.
@@ -25,114 +25,114 @@ This document classifies every public export from the `@formosaic/*` packages by
 
 | Export | Path | Stability | Audience |
 |--------|------|-----------|----------|
-| `IFormConfig` | `@formosaic/core` | Stable | All consumers |
-| `IFieldConfig` | `@formosaic/core` | Stable | All consumers |
-| `IFieldProps` | `@formosaic/core` | Stable | All consumers |
-| `IRule` | `@formosaic/core` | Stable | All consumers |
-| `ICondition` | `@formosaic/core` | Stable | All consumers |
-| `IOption` | `@formosaic/core` | Stable | All consumers |
-| `IRuntimeFieldState` | `@formosaic/core` | Stable | All consumers |
-| `IRuntimeFormState` | `@formosaic/core` | Stable | All consumers |
-| `IWizardConfig` | `@formosaic/core` | Stable | All consumers |
+| `IFormConfig` | `@form-eng/core` | Stable | All consumers |
+| `IFieldConfig` | `@form-eng/core` | Stable | All consumers |
+| `IFieldProps` | `@form-eng/core` | Stable | All consumers |
+| `IRule` | `@form-eng/core` | Stable | All consumers |
+| `ICondition` | `@form-eng/core` | Stable | All consumers |
+| `IOption` | `@form-eng/core` | Stable | All consumers |
+| `IRuntimeFieldState` | `@form-eng/core` | Stable | All consumers |
+| `IRuntimeFormState` | `@form-eng/core` | Stable | All consumers |
+| `IWizardConfig` | `@form-eng/core` | Stable | All consumers |
 
 ### Components
 
 | Export | Path | Stability | Audience |
 |--------|------|-----------|----------|
-| `FormEngine` | `@formosaic/core` | Stable | All consumers |
-| `FormFields` | `@formosaic/core` | Stable | All consumers |
-| `FieldWrapper` | `@formosaic/core` | Stable | All consumers |
-| `WizardForm` | `@formosaic/core` | Stable | All consumers |
-| `FieldArray` | `@formosaic/core` | Stable | All consumers |
-| `ConfirmInputsModal` | `@formosaic/core` | Stable | All consumers |
-| `FormErrorBoundary` | `@formosaic/core` | Stable | All consumers |
-| `FormDevTools` | `@formosaic/core` | Internal | DevTools only |
+| `FormEngine` | `@form-eng/core` | Stable | All consumers |
+| `FormFields` | `@form-eng/core` | Stable | All consumers |
+| `FieldWrapper` | `@form-eng/core` | Stable | All consumers |
+| `WizardForm` | `@form-eng/core` | Stable | All consumers |
+| `FieldArray` | `@form-eng/core` | Stable | All consumers |
+| `ConfirmInputsModal` | `@form-eng/core` | Stable | All consumers |
+| `FormErrorBoundary` | `@form-eng/core` | Stable | All consumers |
+| `FormDevTools` | `@form-eng/core` | Internal | DevTools only |
 
 ### Providers and Context
 
 | Export | Path | Stability | Audience |
 |--------|------|-----------|----------|
-| `RulesEngineProvider` | `@formosaic/core` | Stable | All consumers |
-| `InjectedFieldProvider` | `@formosaic/core` | Stable | All consumers |
-| `UseRulesEngineContext` | `@formosaic/core` | Stable | All consumers |
-| `UseInjectedFieldContext` | `@formosaic/core` | Stable | All consumers |
+| `RulesEngineProvider` | `@form-eng/core` | Stable | All consumers |
+| `InjectedFieldProvider` | `@form-eng/core` | Stable | All consumers |
+| `UseRulesEngineContext` | `@form-eng/core` | Stable | All consumers |
+| `UseInjectedFieldContext` | `@form-eng/core` | Stable | All consumers |
 
 ### Constants
 
 | Export | Path | Stability | Audience |
 |--------|------|-----------|----------|
-| `ComponentTypes` | `@formosaic/core` | Stable | All consumers |
-| `FormConstants` | `@formosaic/core` | Stable | All consumers |
+| `ComponentTypes` | `@form-eng/core` | Stable | All consumers |
+| `FormConstants` | `@form-eng/core` | Stable | All consumers |
 
 ### Hooks
 
 | Export | Path | Stability | Audience |
 |--------|------|-----------|----------|
-| `useDraftPersistence` | `@formosaic/core` | Stable | All consumers |
-| `useBeforeUnload` | `@formosaic/core` | Stable | All consumers |
-| `useFormAnalytics` | `@formosaic/core` | Stable | All consumers |
+| `useDraftPersistence` | `@form-eng/core` | Stable | All consumers |
+| `useBeforeUnload` | `@form-eng/core` | Stable | All consumers |
+| `useFormAnalytics` | `@form-eng/core` | Stable | All consumers |
 
 ### Rules Engine (Advanced)
 
 | Export | Path | Stability | Audience |
 |--------|------|-----------|----------|
-| `evaluateAllRules` | `@formosaic/core` | Stable | Advanced |
-| `evaluateAffectedFields` | `@formosaic/core` | Stable | Advanced |
-| `buildDependencyGraph` | `@formosaic/core` | Stable | Advanced |
-| `evaluateCondition` | `@formosaic/core` | Stable | Advanced |
-| `topologicalSort` | `@formosaic/core` | Stable | Advanced |
+| `evaluateAllRules` | `@form-eng/core` | Stable | Advanced |
+| `evaluateAffectedFields` | `@form-eng/core` | Stable | Advanced |
+| `buildDependencyGraph` | `@form-eng/core` | Stable | Advanced |
+| `evaluateCondition` | `@form-eng/core` | Stable | Advanced |
+| `topologicalSort` | `@form-eng/core` | Stable | Advanced |
 
 ### Registries (Extension Authors)
 
 | Export | Path | Stability | Audience |
 |--------|------|-----------|----------|
-| `registerValidators` | `@formosaic/core` | Stable | Extension authors |
-| `registerValueFunctions` | `@formosaic/core` | Stable | Extension authors |
-| `registerLocale` | `@formosaic/core` | Stable | Extension authors |
-| `getLocaleString` | `@formosaic/core` | Stable | Extension authors |
-| `resetLocale` | `@formosaic/core` | Stable | Extension authors |
+| `registerValidators` | `@form-eng/core` | Stable | Extension authors |
+| `registerValueFunctions` | `@form-eng/core` | Stable | Extension authors |
+| `registerLocale` | `@form-eng/core` | Stable | Extension authors |
+| `getLocaleString` | `@form-eng/core` | Stable | Extension authors |
+| `resetLocale` | `@form-eng/core` | Stable | Extension authors |
 
 ### Adapter Utilities
 
 | Export | Path | Stability | Audience |
 |--------|------|-----------|----------|
-| `GetFieldDataTestId` | `@formosaic/core/adapter-utils` | Stable | Adapter authors |
-| `FieldClassName` | `@formosaic/core/adapter-utils` | Stable | Adapter authors |
-| `getFieldState` | `@formosaic/core/adapter-utils` | Stable | Adapter authors |
-| `formatDateTime` | `@formosaic/core/adapter-utils` | Stable | Adapter authors |
-| `convertBooleanToYesOrNoText` | `@formosaic/core/adapter-utils` | Stable | Adapter authors |
-| `isNull` | `@formosaic/core/adapter-utils` | Stable | Adapter authors |
+| `GetFieldDataTestId` | `@form-eng/core/adapter-utils` | Stable | Adapter authors |
+| `FieldClassName` | `@form-eng/core/adapter-utils` | Stable | Adapter authors |
+| `getFieldState` | `@form-eng/core/adapter-utils` | Stable | Adapter authors |
+| `formatDateTime` | `@form-eng/core/adapter-utils` | Stable | Adapter authors |
+| `convertBooleanToYesOrNoText` | `@form-eng/core/adapter-utils` | Stable | Adapter authors |
+| `isNull` | `@form-eng/core/adapter-utils` | Stable | Adapter authors |
 
 ### Contract Test Infrastructure
 
 | Export | Path | Stability | Audience |
 |--------|------|-----------|----------|
-| `runAdapterContractTests` | `@formosaic/core/testing` | Stable | Adapter + CI |
-| `TIER_1_FIELDS` | `@formosaic/core/testing` | Stable | Adapter + CI |
-| `ALL_FIELD_TYPES` | `@formosaic/core/testing` | Stable | Adapter + CI |
-| `runParityTests` | `@formosaic/core/testing` | Stable | Adapter + CI |
+| `runAdapterContractTests` | `@form-eng/core/testing` | Stable | Adapter + CI |
+| `TIER_1_FIELDS` | `@form-eng/core/testing` | Stable | Adapter + CI |
+| `ALL_FIELD_TYPES` | `@form-eng/core/testing` | Stable | Adapter + CI |
+| `runParityTests` | `@form-eng/core/testing` | Stable | Adapter + CI |
 
 ### Schema Import/Export
 
 | Export | Path | Stability | Audience |
 |--------|------|-----------|----------|
-| `fromRjsfSchema` | `@formosaic/core` | Stable | Schema importers |
-| `toRjsfSchema` | `@formosaic/core` | Stable | Schema importers |
-| `fromZodSchema` | `@formosaic/core` | Stable | Schema importers |
+| `fromRjsfSchema` | `@form-eng/core` | Stable | Schema importers |
+| `toRjsfSchema` | `@form-eng/core` | Stable | Schema importers |
+| `fromZodSchema` | `@form-eng/core` | Stable | Schema importers |
 
 ### Internal / DevTools
 
 | Export | Path | Stability | Audience |
 |--------|------|-----------|----------|
-| `RenderTracker` | `@formosaic/core` | Internal | DevTools only |
-| `EventTimeline` | `@formosaic/core` | Internal | DevTools only |
-| `FormDevTools` | `@formosaic/core` | Internal | DevTools only |
-| `RuleTracer` | `@formosaic/core` | Internal | DevTools only |
+| `RenderTracker` | `@form-eng/core` | Internal | DevTools only |
+| `EventTimeline` | `@form-eng/core` | Internal | DevTools only |
+| `FormDevTools` | `@form-eng/core` | Internal | DevTools only |
+| `RuleTracer` | `@form-eng/core` | Internal | DevTools only |
 
 ---
 
 ## Notes
 
 - Internal exports are tree-shakeable and will not appear in production bundles when unused.
-- The `@formosaic/core/adapter-utils` and `@formosaic/core/testing` subpath exports are separate entry points to keep adapter and test dependencies isolated from the main bundle.
+- The `@form-eng/core/adapter-utils` and `@form-eng/core/testing` subpath exports are separate entry points to keep adapter and test dependencies isolated from the main bundle.
 - Adapter package exports (e.g., `createFluentFieldRegistry`, `createMuiFieldRegistry`) follow the same Stable/All consumers classification.

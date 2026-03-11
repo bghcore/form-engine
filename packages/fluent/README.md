@@ -1,14 +1,18 @@
-# @formosaic/fluent
+> **DEPRECATED:** This package has been renamed to [`@formosaic/fluent`](https://www.npmjs.com/package/@formosaic/fluent). Please install `@formosaic/fluent` instead. This package will no longer receive updates.
+>
+> **New repo:** [github.com/bghcore/formosaic](https://github.com/bghcore/formosaic)
 
-Fluent UI v9 field components for [`@formosaic/core`](https://www.npmjs.com/package/@formosaic/core). Provides 22 editable and 6 read-only field types that plug into the core form engine.
+# @form-eng/fluent
+
+Fluent UI v9 field components for [`@form-eng/core`](https://www.npmjs.com/package/@form-eng/core). Provides 22 editable and 6 read-only field types that plug into the core form engine.
 
 ## Install
 
 ```bash
-npm install @formosaic/core @formosaic/fluent
+npm install @form-eng/core @form-eng/fluent
 ```
 
-Peer dependencies: `react`, `react-dom`, `react-hook-form`, `@fluentui/react-components`, `@formosaic/core`
+Peer dependencies: `react`, `react-dom`, `react-hook-form`, `@fluentui/react-components`, `@form-eng/core`
 
 ## Quick Start
 
@@ -18,8 +22,8 @@ import {
   InjectedFieldProvider,
   UseInjectedFieldContext,
   FormEngine,
-} from "@formosaic/core";
-import { createFluentFieldRegistry } from "@formosaic/fluent";
+} from "@form-eng/core";
+import { createFluentFieldRegistry } from "@form-eng/fluent";
 import { FluentProvider, webLightTheme } from "@fluentui/react-components";
 import { useEffect } from "react";
 
@@ -107,7 +111,7 @@ function App() {
 `createFluentFieldRegistry()` returns a `Dictionary<JSX.Element>` mapping all component keys to their Fluent UI implementations. You can extend or override individual fields:
 
 ```tsx
-import { createFluentFieldRegistry } from "@formosaic/fluent";
+import { createFluentFieldRegistry } from "@form-eng/fluent";
 
 const fields = {
   ...createFluentFieldRegistry(),
@@ -128,7 +132,7 @@ The package also exports supporting components:
 
 ## Works with Core v1.3.0
 
-When paired with `@formosaic/core` v1.3.0+, you automatically get:
+When paired with `@form-eng/core` v1.3.0+, you automatically get:
 
 - **Error boundary** -- each field is individually wrapped in `FormErrorBoundary`, so one crashing field does not take down the form
 - **Save reliability** -- AbortController cancels in-flight saves, configurable timeout and retry with exponential backoff

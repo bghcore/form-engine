@@ -1,4 +1,4 @@
-import { IFieldProps } from "@formosaic/core";
+import { IFieldProps } from "@form-eng/core";
 import { Slider as AntSlider } from "antd";
 import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";

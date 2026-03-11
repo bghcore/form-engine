@@ -1,7 +1,7 @@
 import { describe, bench } from "vitest";
 import { render } from "@testing-library/react";
 import React from "react";
-import { createHeadlessFieldRegistry } from "@formosaic/headless";
+import { createHeadlessFieldRegistry } from "@form-eng/headless";
 import { generateFormConfig, generateEntityData } from "../generators/generateFormConfig";
 import { ComponentTypes } from "../../packages/core/src/constants";
 

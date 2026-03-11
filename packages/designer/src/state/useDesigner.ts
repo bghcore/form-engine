@@ -9,7 +9,7 @@ import type {
   IFormSettings,
   IRule,
   IWizardConfig,
-} from "@formosaic/core";
+} from "@form-eng/core";
 
 export interface IUseDesigner {
   state: IDesignerState;

@@ -5,9 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0.0] - 2026-03-11 (Formosaic)
+## [1.6.1] - 2026-03-11
 
-Fresh 1.0.0 release under the **Formosaic** brand. All packages renamed from `@form-eng/*` to `@formosaic/*`. Repository moved to `bghcore/formosaic`. No API, type, or behavioral changes from the prior `@form-eng/core@1.6.0`. See [migrating-to-formosaic.md](./docs/migrating-to-formosaic.md) for upgrade instructions from the old scope.
+### Deprecated
+
+- **All `@form-eng/*` packages are now deprecated.** This library has been renamed to **Formosaic** and published under the `@formosaic/*` npm scope. All future development will happen in the new repository.
+  - New repo: [github.com/bghcore/formosaic](https://github.com/bghcore/formosaic)
+  - New packages: [`@formosaic/core`](https://www.npmjs.com/package/@formosaic/core), [`@formosaic/fluent`](https://www.npmjs.com/package/@formosaic/fluent), [`@formosaic/mui`](https://www.npmjs.com/package/@formosaic/mui), [`@formosaic/headless`](https://www.npmjs.com/package/@formosaic/headless), [`@formosaic/antd`](https://www.npmjs.com/package/@formosaic/antd), [`@formosaic/chakra`](https://www.npmjs.com/package/@formosaic/chakra), [`@formosaic/mantine`](https://www.npmjs.com/package/@formosaic/mantine), [`@formosaic/atlaskit`](https://www.npmjs.com/package/@formosaic/atlaskit), [`@formosaic/base-web`](https://www.npmjs.com/package/@formosaic/base-web), [`@formosaic/heroui`](https://www.npmjs.com/package/@formosaic/heroui), [`@formosaic/radix`](https://www.npmjs.com/package/@formosaic/radix), [`@formosaic/react-aria`](https://www.npmjs.com/package/@formosaic/react-aria), [`@formosaic/designer`](https://www.npmjs.com/package/@formosaic/designer)
+  - To migrate: replace `@form-eng/` with `@formosaic/` in your package.json and imports. The API is identical.
+
+## [1.6.0] - 2026-03-11
 
 ### Added
 
@@ -43,7 +50,7 @@ Fresh 1.0.0 release under the **Formosaic** brand. All packages renamed from `@f
 
 - **`docs/comparison.md`** -- Honest feature comparison against 7 alternatives (RJSF, TanStack Form, Formik, react-final-form, uniforms, SurveyJS, Form.io) with summary table, per-alternative analysis, and migration paths.
 - **`llms-full.txt`** -- Extended LLM reference (~560 lines) with architecture, rules engine deep-dive, full API surface, all code examples, and configuration schema. Replaces the previous monolithic llms.txt content.
-- **Feature comparison table in README.md** -- Compact Formosaic vs RJSF vs TanStack Form vs Formik vs uniforms table after "When to Use" section with link to full comparison doc.
+- **Feature comparison table in README.md** -- Compact form-engine vs RJSF vs TanStack Form vs Formik vs uniforms table after "When to Use" section with link to full comparison doc.
 - **"Architecture at a Glance" paragraph in README.md** -- Three-sentence summary of the config-vs-UI separation before the detailed architecture diagram.
 
 ### Changed
@@ -87,13 +94,13 @@ Fresh 1.0.0 release under the **Formosaic** brand. All packages renamed from `@f
 - **`docs/choosing-an-adapter.md`** — Adapter recommendation guide with quick decision table, classification grid (5 categories), per-adapter cards, and text-based decision flowchart.
 - **`docs/tier2-feasibility-matrix.md`** — 19 candidate Tier 2 fields x 12 targets (11 adapters + shadcn recipe) feasibility assessment with 4-wave rollout plan.
 - **`docs/tier2-handoff.md`** — Pre-Tier-2 handoff document answering 7 decision questions: parity status, primitives-first readiness, shadcn validation, divergence summary, rollout strategy, recommendations, and go/no-go per adapter.
-- **`@formosaic/radix` llms.txt and AGENTS.md** — LLM-optimized API reference and agent instructions for the Radix UI adapter.
-- **`@formosaic/react-aria` llms.txt and AGENTS.md** — LLM-optimized API reference and agent instructions for the React Aria adapter.
+- **`@form-eng/radix` llms.txt and AGENTS.md** — LLM-optimized API reference and agent instructions for the Radix UI adapter.
+- **`@form-eng/react-aria` llms.txt and AGENTS.md** — LLM-optimized API reference and agent instructions for the React Aria adapter.
 
 ### Changed
 
 - 4774 tests passing across 55 files (up from 4587 in v1.5.0).
-- Storybook aliases updated: `@formosaic/radix` and `@formosaic/react-aria` now resolve in Storybook.
+- Storybook aliases updated: `@form-eng/radix` and `@form-eng/react-aria` now resolve in Storybook.
 - Updated root README.md, llms.txt, CLAUDE.md, and AGENTS.md with new test counts, packages, and documentation links.
 - All packages bumped to 1.5.1.
 
@@ -101,8 +108,8 @@ Fresh 1.0.0 release under the **Formosaic** brand. All packages renamed from `@f
 
 ### Added
 
-- **`@formosaic/radix`** -- New Radix UI primitives adapter package. 7 native Radix fields (Toggle, Dropdown, SimpleDropdown, Slider, RadioGroup, CheckboxGroup via @radix-ui/* packages) + 6 semantic HTML fields (Textbox, Number, MultiSelect, DateControl, Textarea, DynamicFragment). Ships with no styles -- ideal as the base for Tailwind CSS, shadcn/ui, and custom design systems. No provider wrapper needed.
-- **`@formosaic/react-aria`** -- New React Aria Components adapter package. 10 native React Aria fields (Textbox, Number, Toggle, Dropdown, SimpleDropdown, Slider, RadioGroup, CheckboxGroup, Textarea via react-aria-components) + 3 semantic HTML fields (MultiSelect, DateControl, DynamicFragment). Best-in-class ARIA accessibility patterns. Highest native Tier 1 coverage among primitives-first adapters. No provider wrapper needed.
+- **`@form-eng/radix`** -- New Radix UI primitives adapter package. 7 native Radix fields (Toggle, Dropdown, SimpleDropdown, Slider, RadioGroup, CheckboxGroup via @radix-ui/* packages) + 6 semantic HTML fields (Textbox, Number, MultiSelect, DateControl, Textarea, DynamicFragment). Ships with no styles -- ideal as the base for Tailwind CSS, shadcn/ui, and custom design systems. No provider wrapper needed.
+- **`@form-eng/react-aria`** -- New React Aria Components adapter package. 10 native React Aria fields (Textbox, Number, Toggle, Dropdown, SimpleDropdown, Slider, RadioGroup, CheckboxGroup, Textarea via react-aria-components) + 3 semantic HTML fields (MultiSelect, DateControl, DynamicFragment). Best-in-class ARIA accessibility patterns. Highest native Tier 1 coverage among primitives-first adapters. No provider wrapper needed.
 - **`docs/shadcn-integration.md`** -- Integration guide for shadcn/ui projects: three approaches (use Radix directly, create local wrappers, hybrid overlay), copy-pasteable wrapper examples, registry composition pattern, and Tailwind + data-attribute styling guidance.
 - **"Primitives-first" adapter classification** in `docs/adapter-architecture.md` for adapters that provide accessible behavior without styling (radix, react-aria).
 - **DIV-010, DIV-011, DIV-012** in divergence register: Radix Select empty value handling, Radix Slider array boundary conversion, React Aria Select Key type cast. All classified as "Permanent acceptable".
@@ -140,9 +147,9 @@ Fresh 1.0.0 release under the **Formosaic** brand. All packages renamed from `@f
 
 ### Added
 
-- **Cross-adapter parity test harness** -- `runParityTests()` in `@formosaic/core/testing` renders the same `IFormConfig` through multiple adapter registries and asserts engine-level equivalence: initial render, readOnly mode (no editable inputs), value hydration, required indicators, and empty-display sentinel (`"-"`).
+- **Cross-adapter parity test harness** -- `runParityTests()` in `@form-eng/core/testing` renders the same `IFormConfig` through multiple adapter registries and asserts engine-level equivalence: initial render, readOnly mode (no editable inputs), value hydration, required indicators, and empty-display sentinel (`"-"`).
   - `IParityAdapterConfig` interface with `name`, `registry`, optional `wrapper` (for provider-requiring adapters), `contextDependentFields`, and `skipRequiredCheck` for documenting known adapter gaps.
-  - 8 parity fixtures exported from `@formosaic/core/testing`: `PARITY_TEXT_FORM`, `PARITY_NUMBER_FORM`, `PARITY_BOOLEAN_FORM`, `PARITY_SELECT_FORM`, `PARITY_DATE_FORM`, `PARITY_CHOICE_FORM`, `PARITY_MIXED_FORM`, `PARITY_READONLY_FORM`.
+  - 8 parity fixtures exported from `@form-eng/core/testing`: `PARITY_TEXT_FORM`, `PARITY_NUMBER_FORM`, `PARITY_BOOLEAN_FORM`, `PARITY_SELECT_FORM`, `PARITY_DATE_FORM`, `PARITY_CHOICE_FORM`, `PARITY_MIXED_FORM`, `PARITY_READONLY_FORM`.
 - **Cross-adapter parity test suite** -- 7 adapters x 8 fixtures = ~1331 parity tests validating behavioral equivalence across fluent, mui, headless, antd, atlaskit, base-web, and heroui adapters. Chakra and mantine documented as requiring provider wrappers.
 - **Edge-case canonical value tests** -- ~100+ edge-case assertions using the headless adapter covering `undefined`, `null`, `""`, `0`, `-1`, whitespace, unknown values, and readOnly sentinel behavior for all 13 Tier 1 field types.
 - **Performance/render sanity tests** -- Baseline render count checks, option-heavy rendering (200 options), and rules overhead comparison using the headless adapter.
@@ -150,15 +157,15 @@ Fresh 1.0.0 release under the **Formosaic** brand. All packages renamed from `@f
 - **Business form test fixtures** -- 3 realistic `IFormConfig` fixtures (`profileFormConfig`, `workflowFormConfig`, `optionHeavyFormConfig`) with cross-field rules, validation, and 100+ option lists.
 - **Storybook example stories** -- 3 new stories: `ProfileForm`, `WorkflowForm`, `OptionHeavyForm` demonstrating realistic business form patterns with the Fluent UI adapter.
 - **`docs/field-capability-matrix.md`** -- Per-field, per-adapter capability matrix documenting support level, implementation strategy, readOnly/disabled/required support, serialization conformance, and parity caveats for all 13 Tier 1 fields x 9 adapters.
-- **`docs/api-stability.md`** -- Public API stability classification (Stable, Extension, Adapter, Internal) for all `@formosaic/core`, `@formosaic/core/adapter-utils`, and `@formosaic/core/testing` exports.
+- **`docs/api-stability.md`** -- Public API stability classification (Stable, Extension, Adapter, Internal) for all `@form-eng/core`, `@form-eng/core/adapter-utils`, and `@form-eng/core/testing` exports.
 - **`docs/pre-expansion-summary.md`** -- Pre-Tier-2 expansion readiness assessment with adapter rankings, known divergences (accepted vs must-monitor), and infrastructure readiness checklist.
 - **ReadOnly contract** in `docs/canonical-field-contracts.md` -- Formalized readOnly rendering requirements: no editable inputs, `"-"` sentinel for empty values, option labels (not values) for selects, `formatDateTime()` for dates, hidden input for DynamicFragment.
 - **Adapter classification** in `docs/adapter-architecture.md` -- Classification table for all 9 adapters: Native (fluent, mui, antd, mantine), Reference (headless), Hybrid (chakra, base-web), Compatibility (atlaskit, heroui).
 
 ### Changed
 
-- `@formosaic/core` package.json now includes all 9 adapter packages as devDependencies for parity test imports.
-- `@formosaic/core/testing` exports expanded with `runParityTests`, `IParityAdapterConfig`, `IParityTestOptions`, and all 8 `PARITY_*_FORM` fixtures.
+- `@form-eng/core` package.json now includes all 9 adapter packages as devDependencies for parity test imports.
+- `@form-eng/core/testing` exports expanded with `runParityTests`, `IParityAdapterConfig`, `IParityTestOptions`, and all 8 `PARITY_*_FORM` fixtures.
 - 3219 tests passing across 50 files (up from 1814 tests in v1.3.0).
 - 67+ Storybook stories (up from 64 in v1.3.0).
 - 6 benchmark suites (up from 5 in v1.3.0).
@@ -176,19 +183,19 @@ Fresh 1.0.0 release under the **Formosaic** brand. All packages renamed from `@f
 ### Added
 
 - **Architecture hardening: core subpath exports**
-  - `@formosaic/core/adapter-utils` -- Dedicated subpath export for shared adapter utilities (GetFieldDataTestId, FieldClassName, getFieldState, formatDateTime, formatDateRange, etc.)
-  - `@formosaic/core/testing` -- Contract test infrastructure for adapter packages (runAdapterContractTests, TIER_1_FIELDS, ALL_FIELD_TYPES, VALUE_BY_TYPE)
+  - `@form-eng/core/adapter-utils` -- Dedicated subpath export for shared adapter utilities (GetFieldDataTestId, FieldClassName, getFieldState, formatDateTime, formatDateRange, etc.)
+  - `@form-eng/core/testing` -- Contract test infrastructure for adapter packages (runAdapterContractTests, TIER_1_FIELDS, ALL_FIELD_TYPES, VALUE_BY_TYPE)
 - **Enhanced contract test suite** -- Added disabled state, required state, value rendering, and null safety tests to the adapter contract test runner. Added `wrapper` option for provider-requiring adapters.
 - **Contract tests wired for all 9 adapters** -- Every adapter package now has `__tests__/contract.test.ts` validating registry coverage and field rendering across multiple states.
-- **`@formosaic/atlaskit`** -- Atlassian Design System adapter package with 13 Tier 1 field types using semantic HTML elements with Atlaskit-compatible class names.
-- **`@formosaic/base-web`** -- Uber Base Web adapter package with 13 Tier 1 field types using semantic HTML elements for Base Web integration.
-- **`@formosaic/heroui`** -- HeroUI (formerly NextUI) adapter package with 13 Tier 1 field types using semantic HTML elements.
+- **`@form-eng/atlaskit`** -- Atlassian Design System adapter package with 13 Tier 1 field types using semantic HTML elements with Atlaskit-compatible class names.
+- **`@form-eng/base-web`** -- Uber Base Web adapter package with 13 Tier 1 field types using semantic HTML elements for Base Web integration.
+- **`@form-eng/heroui`** -- HeroUI (formerly NextUI) adapter package with 13 Tier 1 field types using semantic HTML elements.
 - **Canonical documentation** -- `docs/canonical-field-contracts.md`, `docs/date-policy.md`, `docs/parity-matrix.md`, `docs/adapter-architecture.md`
 
 ### Changed
 
-- All adapter `helpers.ts` files now import from `@formosaic/core/adapter-utils` instead of `@formosaic/core`
-- Adapter field files importing `convertBooleanToYesOrNoText` or `isNull` now import from `@formosaic/core/adapter-utils`
+- All adapter `helpers.ts` files now import from `@form-eng/core/adapter-utils` instead of `@form-eng/core`
+- Adapter field files importing `convertBooleanToYesOrNoText` or `isNull` now import from `@form-eng/core/adapter-utils`
 - CI/CD publish workflow updated to support 11 packages (added atlaskit, base-web, heroui)
 - 1814 tests passing across 46 files (up from 776 tests in v1.2.1)
 
@@ -206,9 +213,9 @@ Fresh 1.0.0 release under the **Formosaic** brand. All packages renamed from `@f
 
 ### Added
 
-- **`@formosaic/antd` documentation** -- README.md, llms.txt, and AGENTS.md for the Ant Design v5 adapter package.
-- **`@formosaic/chakra` documentation** -- README.md, llms.txt, and AGENTS.md for the Chakra UI v3 adapter package.
-- **`@formosaic/mantine` documentation** -- README.md, llms.txt, and AGENTS.md for the Mantine v7 adapter package.
+- **`@form-eng/antd` documentation** -- README.md, llms.txt, and AGENTS.md for the Ant Design v5 adapter package.
+- **`@form-eng/chakra` documentation** -- README.md, llms.txt, and AGENTS.md for the Chakra UI v3 adapter package.
+- **`@form-eng/mantine` documentation** -- README.md, llms.txt, and AGENTS.md for the Mantine v7 adapter package.
 - **CSP-safe expression engine** -- `ExpressionEngine` now uses `expr-eval` instead of `new Function()` for Content Security Policy compliance. No `unsafe-eval` required.
 - **Async options loading** -- Select, radio, and checkbox fields support `asyncOptions` on `IFieldConfig` for server-driven option loading.
 - **Server-side field errors** -- `fieldErrors` prop on `FormEngine` allows injecting server-side validation errors that display inline alongside client-side errors.
@@ -226,9 +233,9 @@ Fresh 1.0.0 release under the **Formosaic** brand. All packages renamed from `@f
 
 ### Added
 
-- **`@formosaic/antd`** -- New Ant Design v5 adapter package with 12 editable + 1 read-only field types. Uses antd `Input`, `InputNumber`, `Switch`, `Select`, `DatePicker` (dayjs), `Slider`, `Radio.Group`, `Checkbox.Group`, `Input.TextArea`.
-- **`@formosaic/chakra`** -- New Chakra UI v3 adapter package with 12 editable + 1 read-only field types. Uses Chakra `Input`, `NativeSelect`, `Textarea` with semantic HTML fallbacks for compound components (Switch, NumberInput, Slider, RadioGroup, CheckboxGroup) due to Ark UI DTS issues.
-- **`@formosaic/mantine`** -- New Mantine v7 adapter package with 12 editable + 1 read-only field types. Uses Mantine `TextInput`, `NumberInput`, `Switch`, `Select`, `MultiSelect`, `Slider`, `Radio.Group`, `Checkbox.Group`, `Textarea`.
+- **`@form-eng/antd`** -- New Ant Design v5 adapter package with 12 editable + 1 read-only field types. Uses antd `Input`, `InputNumber`, `Switch`, `Select`, `DatePicker` (dayjs), `Slider`, `Radio.Group`, `Checkbox.Group`, `Input.TextArea`.
+- **`@form-eng/chakra`** -- New Chakra UI v3 adapter package with 12 editable + 1 read-only field types. Uses Chakra `Input`, `NativeSelect`, `Textarea` with semantic HTML fallbacks for compound components (Switch, NumberInput, Slider, RadioGroup, CheckboxGroup) due to Ark UI DTS issues.
+- **`@form-eng/mantine`** -- New Mantine v7 adapter package with 12 editable + 1 read-only field types. Uses Mantine `TextInput`, `NumberInput`, `Switch`, `Select`, `MultiSelect`, `Slider`, `Radio.Group`, `Checkbox.Group`, `Textarea`.
 - **Shared adapter utilities in core** -- `FieldUtils.ts` and `IFieldConfigs.ts` extracted to core so all adapters re-export from a single source (no code duplication).
 - **Contract test infrastructure** -- `runAdapterContractTests()` in core for verifying adapter compliance.
 - **Auto-publish CI** -- `publish.yml` supports all 8 publishable packages with tag triggers and manual dispatch.
@@ -254,7 +261,7 @@ Fresh 1.0.0 release under the **Formosaic** brand. All packages renamed from `@f
 - **PhoneInput / MaskedInput field type** -- Phone number input with inline masking; supports `us`, `international`, and `raw` formats via `config`. Available in Fluent, MUI, and Headless adapters.
 - **`setValue` rule effect** -- `IFieldEffect` now supports `setValue` to programmatically set a field's value when a rule fires.
 - **Array condition operators** -- Three new condition operators for array-valued fields: `arrayContains`, `arrayNotContains`, `arrayLength`. Brings the total to 18 condition operators.
-- **`registerValidatorMetadata()`** -- New `ValidationRegistry` API for registering human-readable metadata (label, description, paramSchema) alongside validators. Used by `@formosaic/designer` to populate the RuleBuilder UI with friendly validator names and parameter forms.
+- **`registerValidatorMetadata()`** -- New `ValidationRegistry` API for registering human-readable metadata (label, description, paramSchema) alongside validators. Used by `@form-eng/designer` to populate the RuleBuilder UI with friendly validator names and parameter forms.
 
 ### Changed
 
@@ -280,7 +287,7 @@ First release under the `@form-eng` npm scope. Complete rebrand from legacy nami
 - Main component: `FormEngine` (was `DynamicForm`)
 - CSS custom properties: `--fe-*` prefix (was `--hook-form-*`)
 - CSS classes: `fe-*` prefix (was `hook-form-*` and `dynamic-form-*`)
-- Removed all deprecated `Hook*` aliases from adapter packages (`@formosaic/fluent`, `@formosaic/mui`, `@formosaic/headless`)
+- Removed all deprecated `Hook*` aliases from adapter packages (`@form-eng/fluent`, `@form-eng/mui`, `@form-eng/headless`)
 
 **Internal naming cleanup:**
 - Core component files renamed: `InlineForm.tsx`, `FieldWrapper.tsx`, `RenderField.tsx`, `ConfirmInputsModal.tsx`, `WizardForm.tsx`, `FieldArray.tsx`, `FormErrorBoundary.tsx`, `FormDevTools.tsx`, `InlineFormFields.tsx` (all removed `Hook` prefix)
@@ -311,14 +318,14 @@ First release under the `@form-eng` npm scope. Complete rebrand from legacy nami
 
 ### Changed
 
-- **Package scope** -- All packages renamed from `@bghcore/dynamic-forms-*` to `@formosaic/*`:
-  - `@formosaic/core` (was `@bghcore/dynamic-forms-core`)
-  - `@formosaic/fluent` (was `@bghcore/dynamic-forms-fluent`)
-  - `@formosaic/mui` (was `@bghcore/dynamic-forms-mui`)
-  - `@formosaic/headless` (was `@bghcore/dynamic-forms-headless`)
-  - `@formosaic/designer` (was `@bghcore/dynamic-forms-designer`)
-  - `@formosaic/examples` (was `@bghcore/dynamic-forms-examples`)
-- **Repository** -- Moved to [github.com/bghcore/formosaic](https://github.com/bghcore/formosaic)
+- **Package scope** -- All packages renamed from `@bghcore/dynamic-forms-*` to `@form-eng/*`:
+  - `@form-eng/core` (was `@bghcore/dynamic-forms-core`)
+  - `@form-eng/fluent` (was `@bghcore/dynamic-forms-fluent`)
+  - `@form-eng/mui` (was `@bghcore/dynamic-forms-mui`)
+  - `@form-eng/headless` (was `@bghcore/dynamic-forms-headless`)
+  - `@form-eng/designer` (was `@bghcore/dynamic-forms-designer`)
+  - `@form-eng/examples` (was `@bghcore/dynamic-forms-examples`)
+- **Repository** -- Moved to [github.com/bghcore/form-engine](https://github.com/bghcore/form-engine)
 - **Version reset** -- Reset to 1.0.0 for the new scope (see pre-rebrand history below)
 
 ### Removed
@@ -389,9 +396,9 @@ Major release: new packages, tooling, and ecosystem expansion.
 
 ### Added
 
-- **`@formosaic/headless`** -- New unstyled adapter with all 19 field types using semantic HTML only. No UI framework dependency. `data-field-type` and `data-field-state` attributes for CSS targeting. Includes optional CSS custom properties and Tailwind CSS integration guide. (~36KB ESM)
-- **`@formosaic/designer`** -- Visual drag-and-drop form builder that outputs `IFormConfig` v2 JSON. Components: FieldPalette, FormCanvas, FieldConfigPanel, RuleBuilder (all 15 operators + AND/OR/NOT), WizardConfigurator, ConfigPreview, ImportExport. Undo/redo with 50-snapshot stack. HTML5 native drag-and-drop. (~65KB ESM)
-- **`@formosaic/examples`** -- Three complete example apps: Login+MFA (conditional visibility, dynamic labels), E-Commerce Checkout (wizard, dropdown dependencies, payment branching), Data Entry (field arrays, computed values, cross-field validation). Vite + React 19 + MUI.
+- **`@form-eng/headless`** -- New unstyled adapter with all 19 field types using semantic HTML only. No UI framework dependency. `data-field-type` and `data-field-state` attributes for CSS targeting. Includes optional CSS custom properties and Tailwind CSS integration guide. (~36KB ESM)
+- **`@form-eng/designer`** -- Visual drag-and-drop form builder that outputs `IFormConfig` v2 JSON. Components: FieldPalette, FormCanvas, FieldConfigPanel, RuleBuilder (all 15 operators + AND/OR/NOT), WizardConfigurator, ConfigPreview, ImportExport. Undo/redo with 50-snapshot stack. HTML5 native drag-and-drop. (~65KB ESM)
+- **`@form-eng/examples`** -- Three complete example apps: Login+MFA (conditional visibility, dynamic labels), E-Commerce Checkout (wizard, dropdown dependencies, payment branching), Data Entry (field arrays, computed values, cross-field validation). Vite + React 19 + MUI.
 - **Form analytics/telemetry** -- `IAnalyticsCallbacks` interface with 8 optional lifecycle callbacks (onFieldFocus, onFieldBlur, onFieldChange, onValidationError, onFormSubmit, onFormAbandonment, onWizardStepChange, onRuleTriggered). `useFormAnalytics` hook with memoized wrappers, focus time tracking, and form duration calculation. Zero overhead when not configured.
 - **FormDevTools: Performance tab** -- Per-field render count tracking via `RenderTracker` helper. Highlights "hot" fields rendering >1.5x average. Reset and refresh controls.
 - **FormDevTools: Dependency Graph tab** -- Visual adjacency table showing field dependencies. Color-coded by effect type (hidden/required/readOnly/options). Sortable by name or dependency count. Cycle detection.
@@ -525,7 +532,7 @@ TypeScript strict mode and MUI adapter.
 
 ### Added
 
-- **`@formosaic/mui`** — new package with 19 MUI field components (13 editable + 6 read-only), `createMuiFieldRegistry()`, supporting components, shared helpers.
+- **`@form-eng/mui`** — new package with 19 MUI field components (13 editable + 6 read-only), `createMuiFieldRegistry()`, supporting components, shared helpers.
 - **`normalizeFieldConfig()`** — maps deprecated `isReadonly` to `readOnly` with dev-mode console warning.
 - **`docs/creating-an-adapter.md`** — complete guide for building custom UI library adapters.
 - Better error messages: missing component lists available types, missing provider shows required hierarchy.
@@ -582,7 +589,7 @@ an internal monorepo) into two independent, publishable packages.
 ### Added
 
 - **Monorepo structure** with npm workspaces (`packages/core`, `packages/fluent`)
-- **`@formosaic/core`** -- UI-library agnostic business rules engine (React only, no UI library deps)
+- **`@form-eng/core`** -- UI-library agnostic business rules engine (React only, no UI library deps)
   - `BusinessRulesProvider` and `InjectedHookFieldProvider` React context providers
   - `ProcessAllBusinessRules`, `ProcessFieldBusinessRule`, and full rule evaluation pipeline
   - `HookInlineForm` component with auto-save, expand/collapse, and confirm-input modal
@@ -595,7 +602,7 @@ an internal monorepo) into two independent, publishable packages.
   - All TypeScript interfaces exported (`IFieldConfig`, `IBusinessRule`, `IHookFieldSharedProps`, etc.)
   - Local utility types replacing external dependencies (`Dictionary<T>`, `IEntityData`, `SubEntityType`)
   - Local utility functions (`isEmpty`, `isNull`, `deepCopy`, `sortDropdownOptions`, etc.)
-- **`@formosaic/fluent`** -- Fluent UI v8 field components
+- **`@form-eng/fluent`** -- Fluent UI v8 field components
   - 13 editable field components: Textbox, Number, Toggle, Dropdown, MultiSelect, DateControl, Slider, Fragment, SimpleDropdown, MultiSelectSearch, PopOutEditor, DocumentLinks, StatusDropdown
   - 6 read-only field components: ReadOnly, ReadOnlyArray, ReadOnlyDateTime, ReadOnlyCumulativeNumber, ReadOnlyRichText, ReadOnlyWithButton
   - Supporting components: ReadOnlyText, StatusMessage, HookFormLoading (Shimmer), StatusColor, StatusDropdown, DocumentLink, DocumentLinks
@@ -632,7 +639,7 @@ an internal monorepo) into two independent, publishable packages.
 - **Host-app coupled components**: HookInlineFormWrapper (data fetching), HookFormPanel (slide-out panel), HookFormBoundary (error boundary with hardcoded internal link)
 - **Panel system**: HookInlineFormPanelProvider, IHookFormPanelActionProps, IHookPanelConfig
 - **Domain-specific helpers**: People picker rendering, product taxonomy API, work item creation, block status change processing, customer resolution
-- `InjectComponents.tsx` (replaced by `@formosaic/fluent` `createFluentFieldRegistry()`)
+- `InjectComponents.tsx` (replaced by `@form-eng/fluent` `createFluentFieldRegistry()`)
 - `HookInlineForm.scss` (broken -- used undefined SCSS variables)
 - `rollup.config.js` (replaced by tsup)
 - Domain-specific strings and constants

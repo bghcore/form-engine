@@ -1,4 +1,4 @@
-import { IFieldProps } from "@formosaic/core";
+import { IFieldProps } from "@form-eng/core";
 import { MultiSelect as MantineMultiSelect } from "@mantine/core";
 import React from "react";
 import { FieldClassName, GetFieldDataTestId } from "../helpers";

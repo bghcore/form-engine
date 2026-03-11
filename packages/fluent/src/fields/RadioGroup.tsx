@@ -1,4 +1,4 @@
-import { IFieldProps } from "@formosaic/core";
+import { IFieldProps } from "@form-eng/core";
 import { Radio, RadioGroup as FluentRadioGroup } from "@fluentui/react-components";
 import type { RadioGroupOnChangeData } from "@fluentui/react-components";
 import React from "react";

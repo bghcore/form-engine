@@ -1,4 +1,4 @@
-import { IFieldProps } from "@formosaic/core";
+import { IFieldProps } from "@form-eng/core";
 import { Textarea as MantineTextarea } from "@mantine/core";
 import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";

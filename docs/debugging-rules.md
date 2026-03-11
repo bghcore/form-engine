@@ -63,7 +63,7 @@ import {
   disableRuleTracing,
   getRuleTraceLog,
   clearRuleTraceLog,
-} from "@formosaic/core";
+} from "@form-eng/core";
 
 // Enable tracing (starts recording all rule events)
 enableRuleTracing();
@@ -123,7 +123,7 @@ enableRuleTracing((event) => {
 ### Checking Tracing Status
 
 ```typescript
-import { isRuleTracingEnabled } from "@formosaic/core";
+import { isRuleTracingEnabled } from "@form-eng/core";
 
 if (isRuleTracingEnabled()) {
   console.log("Tracing is active");
@@ -139,7 +139,7 @@ The built-in DevTools panel provides a visual inspector for business rules, form
 ### Usage
 
 ```typescript
-import { FormDevTools } from "@formosaic/core";
+import { FormDevTools } from "@form-eng/core";
 
 function MyForm() {
   // Inside your form component, after useForm() and business rules init:
@@ -192,7 +192,7 @@ The `validateFieldConfigs()` function checks field configurations for common iss
 ### Usage
 
 ```typescript
-import { validateFieldConfigs } from "@formosaic/core";
+import { validateFieldConfigs } from "@form-eng/core";
 
 const errors = validateFieldConfigs(fieldConfigs, registeredComponents);
 
@@ -233,7 +233,7 @@ interface IConfigValidationError {
 The dependency graph is automatically validated for cycles in dev mode when `buildDefaultFieldStates()` is called (which happens during form initialization). If cycles are detected, warnings are logged to the console:
 
 ```
-[Formosaic] Circular dependency detected among fields: fieldA, fieldB, fieldC
+[form-engine] Circular dependency detected among fields: fieldA, fieldB, fieldC
 ```
 
 This uses `validateDependencyGraph()` internally, which runs:
@@ -282,7 +282,7 @@ enableRuleTracing((event) => {
 The engine detects cycles at initialization time and logs a warning. To identify the cycle:
 
 ```typescript
-import { validateFieldConfigs } from "@formosaic/core";
+import { validateFieldConfigs } from "@form-eng/core";
 
 const errors = validateFieldConfigs(fieldConfigs);
 const cycles = errors.filter(e => e.type === "circular_dependency");

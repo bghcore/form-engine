@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import FileUploadField from "@formosaic/fluent/fields/FileUpload";
+import FileUploadField from "@form-eng/fluent/fields/FileUpload";
 import { FormDecorator, createFieldProps } from "../helpers";
 
 /**

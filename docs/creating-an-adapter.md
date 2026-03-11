@@ -1,13 +1,13 @@
 # Creating a Custom UI Adapter Package
 
-Guide for building a new adapter package for `@formosaic/core`. An adapter maps the core library's abstract field types to concrete UI components from a specific design system.
+Guide for building a new adapter package for `@form-eng/core`. An adapter maps the core library's abstract field types to concrete UI components from a specific design system.
 
 For architecture context, see [adapter-architecture.md](./adapter-architecture.md). For choosing between existing adapters, see [choosing-an-adapter.md](./choosing-an-adapter.md).
 
 ## Architecture
 
 ```
-@formosaic/core
+@form-eng/core
   -> RenderField looks up injectedFields[componentType]
   -> React.cloneElement(element, IFieldProps)
   -> Your field component receives props and renders UI
@@ -30,7 +30,7 @@ packages/my-adapter/
   src/
     index.ts           # Barrel exports
     registry.ts        # createMyAdapterFieldRegistry()
-    helpers.ts         # Re-exports from @formosaic/core/adapter-utils
+    helpers.ts         # Re-exports from @form-eng/core/adapter-utils
     fields/
       Textbox.tsx
       Dropdown.tsx
@@ -58,14 +58,14 @@ packages/my-adapter/
 
 ```json
 {
-  "name": "@formosaic/my-adapter",
+  "name": "@form-eng/my-adapter",
   "version": "1.5.2",
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0",
     "react-dom": "^18.0.0 || ^19.0.0",
     "react-hook-form": "^7.0.0",
     "my-ui-library": "^X.0.0",
-    "@formosaic/core": "^1.5.0"
+    "@form-eng/core": "^1.5.0"
   }
 }
 ```
@@ -86,7 +86,7 @@ export default defineConfig({
     "react-dom",
     "react-hook-form",
     "my-ui-library",
-    "@formosaic/core",
+    "@form-eng/core",
   ],
   jsx: "automatic",
 });
@@ -94,7 +94,7 @@ export default defineConfig({
 
 ### 4. Understand IFieldProps
 
-Every field component receives these props (from `@formosaic/core`):
+Every field component receives these props (from `@form-eng/core`):
 
 ```ts
 interface IFieldProps<T> {
@@ -121,7 +121,7 @@ interface IFieldProps<T> {
 Field components do NOT use a `Hook*` prefix. Use bare names: `Textbox`, `Dropdown`, `Toggle`, etc.
 
 ```tsx
-import { IFieldProps } from "@formosaic/core";
+import { IFieldProps } from "@form-eng/core";
 import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";
 import { GetFieldDataTestId, getFieldState } from "../helpers";
@@ -161,7 +161,7 @@ export default Textbox;
 ### 6. Implement the Registry
 
 ```tsx
-import { ComponentTypes, Dictionary } from "@formosaic/core";
+import { ComponentTypes, Dictionary } from "@form-eng/core";
 import React from "react";
 
 export function createMyAdapterFieldRegistry(): Dictionary<React.JSX.Element> {
@@ -207,11 +207,11 @@ See [canonical-field-contracts.md](./canonical-field-contracts.md) for value sem
 
 ### 8. Helpers
 
-Re-export shared helpers from `@formosaic/core/adapter-utils`:
+Re-export shared helpers from `@form-eng/core/adapter-utils`:
 
 ```ts
 // helpers.ts
-export { GetFieldDataTestId, FieldClassName, getFieldState, formatDateTime, convertBooleanToYesOrNoText, isNull } from "@formosaic/core/adapter-utils";
+export { GetFieldDataTestId, FieldClassName, getFieldState, formatDateTime, convertBooleanToYesOrNoText, isNull } from "@form-eng/core/adapter-utils";
 ```
 
 ### 9. Contract Tests
@@ -219,7 +219,7 @@ export { GetFieldDataTestId, FieldClassName, getFieldState, formatDateTime, conv
 Add `src/__tests__/contract.test.ts` using the shared test infrastructure:
 
 ```ts
-import { runAdapterContractTests } from "@formosaic/core/testing";
+import { runAdapterContractTests } from "@form-eng/core/testing";
 import { createMyAdapterFieldRegistry } from "../registry";
 
 runAdapterContractTests("my-adapter", createMyAdapterFieldRegistry());

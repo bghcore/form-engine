@@ -1,4 +1,4 @@
-import { runAdapterContractTests, TIER_1_FIELDS } from "@formosaic/core/testing";
+import { runAdapterContractTests, TIER_1_FIELDS } from "@form-eng/core/testing";
 import { createMantineFieldRegistry } from "../registry";
 import { MantineProvider } from "@mantine/core";
 import React from "react";

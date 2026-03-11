@@ -10,7 +10,7 @@ export default defineConfig({
     "react",
     "react-dom",
     "react-hook-form",
-    "@formosaic/core",
+    "@form-eng/core",
     "@radix-ui/react-checkbox",
     "@radix-ui/react-radio-group",
     "@radix-ui/react-select",

@@ -1,4 +1,4 @@
-import { IFieldProps, IFileUploadConfig, MAX_FILE_SIZE_MB_DEFAULT, getFileNames } from "@formosaic/core";
+import { IFieldProps, IFileUploadConfig, MAX_FILE_SIZE_MB_DEFAULT, getFileNames } from "@form-eng/core";
 import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";
 import { GetFieldDataTestId } from "../helpers";

@@ -1,18 +1,22 @@
-# @formosaic/designer
+> **DEPRECATED:** This package has been renamed to [`@formosaic/designer`](https://www.npmjs.com/package/@formosaic/designer). Please install `@formosaic/designer` instead. This package will no longer receive updates.
+>
+> **New repo:** [github.com/bghcore/formosaic](https://github.com/bghcore/formosaic)
 
-Visual form builder for `@formosaic/core`. Drag-and-drop fields, configure properties, build rules, and export valid `IFormConfig` v2 JSON.
+# @form-eng/designer
+
+Visual form builder for `@form-eng/core`. Drag-and-drop fields, configure properties, build rules, and export valid `IFormConfig` v2 JSON.
 
 ## Installation
 
 ```bash
-npm install @formosaic/designer @formosaic/core react react-dom
+npm install @form-eng/designer @form-eng/core react react-dom
 ```
 
 ## Usage
 
 ```tsx
-import { DesignerProvider, FormDesigner } from "@formosaic/designer";
-import "@formosaic/designer/dist/styles.css"; // or import in your CSS
+import { DesignerProvider, FormDesigner } from "@form-eng/designer";
+import "@form-eng/designer/dist/styles.css"; // or import in your CSS
 
 function App() {
   return (
@@ -39,7 +43,7 @@ function App() {
 The designer produces a standard `IFormConfig` v2 object:
 
 ```tsx
-import { useDesigner } from "@formosaic/designer";
+import { useDesigner } from "@form-eng/designer";
 
 function SaveButton() {
   const { exportConfig } = useDesigner();

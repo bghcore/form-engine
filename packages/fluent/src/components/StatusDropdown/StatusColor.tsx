@@ -1,4 +1,4 @@
-import { Dictionary } from "@formosaic/core";
+import { Dictionary } from "@form-eng/core";
 import React from "react";
 
 interface IStatusColorProps {

@@ -1,5 +1,5 @@
 import React from "react";
-import { IFieldProps } from "@formosaic/core";
+import { IFieldProps } from "@form-eng/core";
 import * as Select from "@radix-ui/react-select";
 
 interface IDropdownProps {

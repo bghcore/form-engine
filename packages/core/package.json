@@ -1,15 +1,15 @@
 {
-  "name": "@formosaic/core",
-  "version": "1.0.0",
+  "name": "@form-eng/core",
+  "version": "1.6.1",
   "description": "Core business rules engine and form orchestration for dynamic React forms",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bghcore/formosaic.git",
+    "url": "git+https://github.com/bghcore/form-engine.git",
     "directory": "packages/core"
   },
-  "homepage": "https://github.com/bghcore/formosaic#readme",
+  "homepage": "https://github.com/bghcore/form-engine#readme",
   "bugs": {
-    "url": "https://github.com/bghcore/formosaic/issues"
+    "url": "https://github.com/bghcore/form-engine/issues"
   },
   "keywords": [
     "react",
@@ -22,7 +22,7 @@
     "declarative-forms",
     "json-forms",
     "schema-forms",
-    "formosaic",
+    "form-engine",
     "conditional-logic",
     "field-dependencies",
     "form-validation",
@@ -80,17 +80,17 @@
     "react-hook-form": "^7.0.0"
   },
   "devDependencies": {
-    "@formosaic/antd": "*",
-    "@formosaic/atlaskit": "*",
-    "@formosaic/base-web": "*",
-    "@formosaic/chakra": "*",
-    "@formosaic/fluent": "*",
-    "@formosaic/headless": "*",
-    "@formosaic/heroui": "*",
-    "@formosaic/mantine": "*",
-    "@formosaic/mui": "*",
-    "@formosaic/radix": "*",
-    "@formosaic/react-aria": "*",
+    "@form-eng/antd": "*",
+    "@form-eng/atlaskit": "*",
+    "@form-eng/base-web": "*",
+    "@form-eng/chakra": "*",
+    "@form-eng/fluent": "*",
+    "@form-eng/headless": "*",
+    "@form-eng/heroui": "*",
+    "@form-eng/mantine": "*",
+    "@form-eng/mui": "*",
+    "@form-eng/radix": "*",
+    "@form-eng/react-aria": "*",
     "@testing-library/react": "^16.3.2",
     "@types/expr-eval": "^1.0.2",
     "@types/react": "^19.2.14",
@@ -103,5 +103,6 @@
   },
   "dependencies": {
     "expr-eval": "^2.0.2"
-  }
+  },
+  "deprecated": "This package has been renamed to @formosaic/core. Install @formosaic/core instead. See https://github.com/bghcore/formosaic"
 }

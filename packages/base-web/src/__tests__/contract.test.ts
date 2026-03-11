@@ -1,4 +1,4 @@
-import { runAdapterContractTests, TIER_1_FIELDS } from "@formosaic/core/testing";
+import { runAdapterContractTests, TIER_1_FIELDS } from "@form-eng/core/testing";
 import { createBaseWebFieldRegistry } from "../registry";
 import { Client as Styletron } from "styletron-engine-monolithic";
 import { Provider as StyletronProvider } from "styletron-react";

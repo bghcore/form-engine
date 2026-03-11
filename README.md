@@ -1,13 +1,19 @@
-# Formosaic
+> **DEPRECATED:** This project has been renamed to **Formosaic**. All `@form-eng/*` packages are deprecated and will no longer receive updates.
+>
+> **New packages:** [`@formosaic/*` on npm](https://www.npmjs.com/package/@formosaic/core)
+>
+> **New repo:** [github.com/bghcore/formosaic](https://github.com/bghcore/formosaic)
 
-[![npm core](https://img.shields.io/npm/v/@formosaic/core?label=core)](https://www.npmjs.com/package/@formosaic/core)
-[![npm fluent](https://img.shields.io/npm/v/@formosaic/fluent?label=fluent)](https://www.npmjs.com/package/@formosaic/fluent)
-[![npm mui](https://img.shields.io/npm/v/@formosaic/mui?label=mui)](https://www.npmjs.com/package/@formosaic/mui)
-[![npm headless](https://img.shields.io/npm/v/@formosaic/headless?label=headless)](https://www.npmjs.com/package/@formosaic/headless)
-[![npm designer](https://img.shields.io/npm/v/@formosaic/designer?label=designer)](https://www.npmjs.com/package/@formosaic/designer)
-[![CI](https://github.com/bghcore/formosaic/actions/workflows/ci.yml/badge.svg)](https://github.com/bghcore/formosaic/actions/workflows/ci.yml)
+# Form Engine
 
-[Storybook](https://bghcore.github.io/formosaic/storybook/) | [Designer Demo](https://bghcore.github.io/formosaic/designer/) | [npm](https://www.npmjs.com/org/formosaic)
+[![npm core](https://img.shields.io/npm/v/@form-eng/core?label=core)](https://www.npmjs.com/package/@form-eng/core)
+[![npm fluent](https://img.shields.io/npm/v/@form-eng/fluent?label=fluent)](https://www.npmjs.com/package/@form-eng/fluent)
+[![npm mui](https://img.shields.io/npm/v/@form-eng/mui?label=mui)](https://www.npmjs.com/package/@form-eng/mui)
+[![npm headless](https://img.shields.io/npm/v/@form-eng/headless?label=headless)](https://www.npmjs.com/package/@form-eng/headless)
+[![npm designer](https://img.shields.io/npm/v/@form-eng/designer?label=designer)](https://www.npmjs.com/package/@form-eng/designer)
+[![CI](https://github.com/bghcore/form-engine/actions/workflows/ci.yml/badge.svg)](https://github.com/bghcore/form-engine/actions/workflows/ci.yml)
+
+[Storybook](https://bghcore.github.io/form-engine/storybook/) | [Designer Demo](https://bghcore.github.io/form-engine/designer/) | [npm](https://www.npmjs.com/org/form-engine)
 
 A React library for rendering complex, configuration-driven forms with a built-in rules engine. Define your forms as a single `IFormConfig` JSON object -- field definitions, declarative rules with rich conditions, validation, ordering -- and the library handles rendering, validation, auto-save, and field interactions automatically.
 
@@ -30,7 +36,7 @@ See [docs/comparison.md](./docs/comparison.md) for a detailed comparison with mi
 
 ### Feature Comparison
 
-| Feature | Formosaic | FormEngine.io | RJSF | TanStack Form | uniforms |
+| Feature | form-engine | FormEngine.io | RJSF | TanStack Form | uniforms |
 |---------|:-----------:|:-------------:|:----:|:-------------:|:--------:|
 | Config-driven (JSON/data) | Yes | Yes | Yes | No | Yes |
 | Declarative rules engine | Yes (20 ops) | Partial | Partial | No | No |
@@ -47,44 +53,44 @@ See [docs/comparison.md](./docs/comparison.md) for a detailed comparison with mi
 
 | Package | Description | Size |
 |---------|-------------|------|
-| [`@formosaic/core`](./packages/core) | UI-agnostic rules engine, form orchestration, validation, analytics, devtools. React + react-hook-form only, no UI library dependency. | ~114 KB ESM |
-| [`@formosaic/fluent`](./packages/fluent) | Fluent UI v9 field components (28 field types). | ~39 KB ESM |
-| [`@formosaic/mui`](./packages/mui) | Material UI field components (28 field types). | ~39 KB ESM |
-| [`@formosaic/headless`](./packages/headless) | Unstyled semantic HTML field components (28 field types). | ~36 KB ESM |
-| [`@formosaic/antd`](./packages/antd) | Ant Design v5 field components (28 field types). | ~24 KB ESM |
-| [`@formosaic/chakra`](./packages/chakra) | Chakra UI v3 field components (28 field types). | ~24 KB ESM |
-| [`@formosaic/mantine`](./packages/mantine) | Mantine v7 field components (28 field types). | ~24 KB ESM |
-| [`@formosaic/atlaskit`](./packages/atlaskit) | Atlassian Design System field components (28 field types). | ~22 KB ESM |
-| [`@formosaic/base-web`](./packages/base-web) | Uber Base Web field components (28 field types). | ~22 KB ESM |
-| [`@formosaic/heroui`](./packages/heroui) | HeroUI field components (28 field types). | ~22 KB ESM |
-| [`@formosaic/radix`](./packages/radix) | Radix UI primitives field components (28 field types). Unstyled. | ~32 KB ESM |
-| [`@formosaic/react-aria`](./packages/react-aria) | React Aria Components field components (28 field types). | ~31 KB ESM |
-| [`@formosaic/designer`](./packages/designer) | Visual drag-and-drop form builder with rule editor and JSON export. | ~65 KB ESM |
-| [`@formosaic/examples`](./packages/examples) | 3 example apps (login+MFA, checkout wizard, data entry). | -- |
+| [`@form-eng/core`](./packages/core) | UI-agnostic rules engine, form orchestration, validation, analytics, devtools. React + react-hook-form only, no UI library dependency. | ~114 KB ESM |
+| [`@form-eng/fluent`](./packages/fluent) | Fluent UI v9 field components (28 field types). | ~39 KB ESM |
+| [`@form-eng/mui`](./packages/mui) | Material UI field components (28 field types). | ~39 KB ESM |
+| [`@form-eng/headless`](./packages/headless) | Unstyled semantic HTML field components (28 field types). | ~36 KB ESM |
+| [`@form-eng/antd`](./packages/antd) | Ant Design v5 field components (28 field types). | ~24 KB ESM |
+| [`@form-eng/chakra`](./packages/chakra) | Chakra UI v3 field components (28 field types). | ~24 KB ESM |
+| [`@form-eng/mantine`](./packages/mantine) | Mantine v7 field components (28 field types). | ~24 KB ESM |
+| [`@form-eng/atlaskit`](./packages/atlaskit) | Atlassian Design System field components (28 field types). | ~22 KB ESM |
+| [`@form-eng/base-web`](./packages/base-web) | Uber Base Web field components (28 field types). | ~22 KB ESM |
+| [`@form-eng/heroui`](./packages/heroui) | HeroUI field components (28 field types). | ~22 KB ESM |
+| [`@form-eng/radix`](./packages/radix) | Radix UI primitives field components (28 field types). Unstyled. | ~32 KB ESM |
+| [`@form-eng/react-aria`](./packages/react-aria) | React Aria Components field components (28 field types). | ~31 KB ESM |
+| [`@form-eng/designer`](./packages/designer) | Visual drag-and-drop form builder with rule editor and JSON export. | ~65 KB ESM |
+| [`@form-eng/examples`](./packages/examples) | 3 example apps (login+MFA, checkout wizard, data entry). | -- |
 
 ## Quick Start
 
 ```bash
 # With Fluent UI
-npm install @formosaic/core @formosaic/fluent
+npm install @form-eng/core @form-eng/fluent
 
 # Or with MUI
-npm install @formosaic/core @formosaic/mui @mui/material @emotion/react @emotion/styled
+npm install @form-eng/core @form-eng/mui @mui/material @emotion/react @emotion/styled
 
 # Or headless (no UI framework)
-npm install @formosaic/core @formosaic/headless
+npm install @form-eng/core @form-eng/headless
 
 # Or with Ant Design
-npm install @formosaic/core @formosaic/antd antd dayjs
+npm install @form-eng/core @form-eng/antd antd dayjs
 
 # Or with Mantine
-npm install @formosaic/core @formosaic/mantine @mantine/core @mantine/hooks
+npm install @form-eng/core @form-eng/mantine @mantine/core @mantine/hooks
 
 # Or with Radix UI (unstyled primitives, great for Tailwind/shadcn)
-npm install @formosaic/core @formosaic/radix @radix-ui/react-checkbox @radix-ui/react-radio-group @radix-ui/react-select @radix-ui/react-slider @radix-ui/react-switch
+npm install @form-eng/core @form-eng/radix @radix-ui/react-checkbox @radix-ui/react-radio-group @radix-ui/react-select @radix-ui/react-slider @radix-ui/react-switch
 
 # Or with React Aria (accessibility-first)
-npm install @formosaic/core @formosaic/react-aria react-aria-components
+npm install @form-eng/core @form-eng/react-aria react-aria-components
 ```
 
 ```tsx
@@ -92,10 +98,10 @@ import {
   RulesEngineProvider,
   InjectedFieldProvider,
   FormEngine,
-} from "@formosaic/core";
-import { createFluentFieldRegistry } from "@formosaic/fluent";
-// Or: import { createMuiFieldRegistry } from "@formosaic/mui";
-// Or: import { createHeadlessFieldRegistry } from "@formosaic/headless";
+} from "@form-eng/core";
+import { createFluentFieldRegistry } from "@form-eng/fluent";
+// Or: import { createMuiFieldRegistry } from "@form-eng/mui";
+// Or: import { createHeadlessFieldRegistry } from "@form-eng/headless";
 
 const formConfig = {
   version: 2 as const,
@@ -247,7 +253,7 @@ fields: {
 Split forms into wizard steps with conditional visibility and per-step validation:
 
 ```tsx
-import { WizardForm } from "@formosaic/core";
+import { WizardForm } from "@form-eng/core";
 
 const formConfig = {
   version: 2 as const,
@@ -287,7 +293,7 @@ All fields stay in a single `react-hook-form` context. Steps control which field
 Add "add another" patterns for addresses, line items, etc.:
 
 ```tsx
-import { FieldArray } from "@formosaic/core";
+import { FieldArray } from "@form-eng/core";
 
 <FieldArray
   fieldName="contacts"
@@ -319,13 +325,13 @@ The library uses a component injection system for field rendering. Core provides
 
 ```tsx
 // Use built-in Fluent UI fields
-import { createFluentFieldRegistry } from "@formosaic/fluent";
+import { createFluentFieldRegistry } from "@form-eng/fluent";
 
 // Or use MUI fields (swap with one line)
-import { createMuiFieldRegistry } from "@formosaic/mui";
+import { createMuiFieldRegistry } from "@form-eng/mui";
 
 // Or use headless semantic HTML fields
-import { createHeadlessFieldRegistry } from "@formosaic/headless";
+import { createHeadlessFieldRegistry } from "@form-eng/headless";
 
 // Pass via the injectedFields prop
 <InjectedFieldProvider injectedFields={createFluentFieldRegistry()}>
@@ -346,7 +352,7 @@ import {
   registerValidators,
   createMinLengthValidation,
   createPatternValidation,
-} from "@formosaic/core";
+} from "@form-eng/core";
 
 // Register built-in factory validators
 registerValidators({
@@ -392,7 +398,7 @@ Built-in validators: `EmailValidation`, `PhoneNumberValidation`, `YearValidation
 Use `registerValidatorMetadata()` to attach human-readable metadata (label, description, parameter schema) to validators for use in the visual form designer's RuleBuilder UI:
 
 ```tsx
-import { registerValidatorMetadata } from "@formosaic/core";
+import { registerValidatorMetadata } from "@form-eng/core";
 
 registerValidatorMetadata("CheckUniqueEmail", {
   label: "Unique Email",
@@ -405,7 +411,7 @@ registerValidatorMetadata("CheckUniqueEmail", {
 All user-facing strings are localizable:
 
 ```tsx
-import { registerLocale } from "@formosaic/core";
+import { registerLocale } from "@form-eng/core";
 
 registerLocale({
   required: "Obligatoire",
@@ -457,7 +463,7 @@ A collapsible dev-only panel with 7 tabs for debugging form state at runtime:
 | **Timeline** | Chronological event log with filtering (via `EventTimeline`) |
 
 ```tsx
-import { FormDevTools } from "@formosaic/core";
+import { FormDevTools } from "@form-eng/core";
 
 <FormDevTools
   configName="myForm"
@@ -474,7 +480,7 @@ import { FormDevTools } from "@formosaic/core";
 Catch configuration errors early:
 
 ```tsx
-import { validateFieldConfigs } from "@formosaic/core";
+import { validateFieldConfigs } from "@form-eng/core";
 
 const errors = validateFieldConfigs(fieldConfigs, registeredComponentTypes);
 // Returns: missing dependency targets, unregistered components,
@@ -486,7 +492,7 @@ const errors = validateFieldConfigs(fieldConfigs, registeredComponentTypes);
 Each field is individually wrapped in a `FormErrorBoundary` so a single field crash does not take down the entire form:
 
 ```tsx
-import { FormErrorBoundary } from "@formosaic/core";
+import { FormErrorBoundary } from "@form-eng/core";
 
 <FormErrorBoundary
   fallback={(error, resetErrorBoundary) => (
@@ -568,7 +574,7 @@ Built-in accessibility features:
 Auto-save form state to localStorage for recovery after accidental page closures:
 
 ```tsx
-import { useDraftPersistence, useBeforeUnload } from "@formosaic/core";
+import { useDraftPersistence, useBeforeUnload } from "@form-eng/core";
 
 function MyForm() {
   const { isDirty, formValues } = useFormState();
@@ -633,8 +639,8 @@ Form-level error banner via `formErrors` prop on `FormEngine`:
 The headless package renders all 28 field types using native HTML elements with `data-field-type` and `data-field-state` attributes for CSS targeting. No UI framework required.
 
 ```tsx
-import { createHeadlessFieldRegistry } from "@formosaic/headless";
-import "@formosaic/headless/styles.css"; // optional minimal styles
+import { createHeadlessFieldRegistry } from "@form-eng/headless";
+import "@form-eng/headless/styles.css"; // optional minimal styles
 
 <InjectedFieldProvider injectedFields={createHeadlessFieldRegistry()}>
 ```
@@ -659,8 +665,8 @@ See the [headless package README](./packages/headless/README.md) for full detail
 The designer package provides a drag-and-drop form builder that exports valid `IFormConfig` v2 JSON:
 
 ```tsx
-import { DesignerProvider, FormDesigner } from "@formosaic/designer";
-import "@formosaic/designer/dist/styles.css";
+import { DesignerProvider, FormDesigner } from "@form-eng/designer";
+import "@form-eng/designer/dist/styles.css";
 
 function Builder() {
   return (
@@ -688,7 +694,7 @@ See the [SSR / Next.js integration guide](./docs/ssr-guide.md) for full setup in
 Migrate from [react-jsonschema-form](https://github.com/rjsf-team/react-jsonschema-form) with zero rewrite. Bring your existing `schema` + `uiSchema` + `formData` and get a full `IFormConfig` with our rules engine layered on top. JSON Schema `dependencies` and `if/then/else` are auto-converted to `IRule[]`.
 
 ```tsx
-import { fromRjsfSchema } from "@formosaic/core";
+import { fromRjsfSchema } from "@form-eng/core";
 
 // Your existing RJSF schema
 const schema = {
@@ -736,7 +742,7 @@ Also exports `toRjsfSchema(config)` for converting back to JSON Schema + uiSchem
 Convert Zod object schemas to field configs without adding zod as a dependency:
 
 ```tsx
-import { zodSchemaToFieldConfig } from "@formosaic/core";
+import { zodSchemaToFieldConfig } from "@form-eng/core";
 import { z } from "zod";
 
 const UserSchema = z.object({
@@ -762,7 +768,7 @@ No `zod` peer dependency is required. If you do not use Zod, this function is tr
 Load field components on demand using React.lazy for bundle optimization:
 
 ```tsx
-import { createLazyFieldRegistry } from "@formosaic/core";
+import { createLazyFieldRegistry } from "@form-eng/core";
 
 const lazyFields = createLazyFieldRegistry({
   Textbox: () => import("./fields/HookTextbox"),
@@ -885,19 +891,19 @@ npm run clean
 
 ```
 packages/
-  core/       -- @formosaic/core (React + react-hook-form only)
-  fluent/     -- @formosaic/fluent (Fluent UI v9 adapter, 28 field types)
-  mui/        -- @formosaic/mui (Material UI adapter, 28 field types)
-  headless/   -- @formosaic/headless (semantic HTML adapter, 28 field types)
-  antd/       -- @formosaic/antd (Ant Design v5 adapter, 28 field types)
-  chakra/     -- @formosaic/chakra (Chakra UI v3 adapter, 28 field types)
-  mantine/    -- @formosaic/mantine (Mantine v7 adapter, 28 field types)
-  atlaskit/   -- @formosaic/atlaskit (Atlassian Design System adapter, 28 field types)
-  base-web/   -- @formosaic/base-web (Uber Base Web adapter, 28 field types)
-  heroui/     -- @formosaic/heroui (HeroUI adapter, 28 field types)
-  radix/      -- @formosaic/radix (Radix UI primitives adapter, 28 field types)
-  react-aria/ -- @formosaic/react-aria (React Aria Components adapter, 28 field types)
-  designer/   -- @formosaic/designer (visual form builder)
+  core/       -- @form-eng/core (React + react-hook-form only)
+  fluent/     -- @form-eng/fluent (Fluent UI v9 adapter, 28 field types)
+  mui/        -- @form-eng/mui (Material UI adapter, 28 field types)
+  headless/   -- @form-eng/headless (semantic HTML adapter, 28 field types)
+  antd/       -- @form-eng/antd (Ant Design v5 adapter, 28 field types)
+  chakra/     -- @form-eng/chakra (Chakra UI v3 adapter, 28 field types)
+  mantine/    -- @form-eng/mantine (Mantine v7 adapter, 28 field types)
+  atlaskit/   -- @form-eng/atlaskit (Atlassian Design System adapter, 28 field types)
+  base-web/   -- @form-eng/base-web (Uber Base Web adapter, 28 field types)
+  heroui/     -- @form-eng/heroui (HeroUI adapter, 28 field types)
+  radix/      -- @form-eng/radix (Radix UI primitives adapter, 28 field types)
+  react-aria/ -- @form-eng/react-aria (React Aria Components adapter, 28 field types)
+  designer/   -- @form-eng/designer (visual form builder)
   examples/   -- 3 example apps (login+MFA, checkout wizard, data entry)
 e2e/          -- Playwright end-to-end tests
 benchmarks/   -- Vitest benchmarks for rules engine performance

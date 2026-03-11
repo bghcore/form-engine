@@ -1,4 +1,4 @@
-import { IFieldProps, IFileUploadConfig, MAX_FILE_SIZE_MB_DEFAULT, getFileNames } from "@formosaic/core";
+import { IFieldProps, IFileUploadConfig, MAX_FILE_SIZE_MB_DEFAULT, getFileNames } from "@form-eng/core";
 import React, { useRef } from "react";
 import { Button } from "@fluentui/react-components";
 import { ReadOnlyText } from "../components/ReadOnlyText";

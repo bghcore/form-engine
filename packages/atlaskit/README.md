@@ -1,20 +1,24 @@
-# @formosaic/atlaskit
+> **DEPRECATED:** This package has been renamed to [`@formosaic/atlaskit`](https://www.npmjs.com/package/@formosaic/atlaskit). Please install `@formosaic/atlaskit` instead. This package will no longer receive updates.
+>
+> **New repo:** [github.com/bghcore/formosaic](https://github.com/bghcore/formosaic)
 
-Atlassian Design System compatible field components for [@formosaic/core](https://www.npmjs.com/package/@formosaic/core).
+# @form-eng/atlaskit
 
-This package provides 28 field types using **semantic HTML elements** with Atlassian Design System compatible CSS class names (prefixed `ak-`). All fields integrate with `@formosaic/core`'s rules engine and form orchestration. No `@atlaskit/*` packages are required -- fields render native HTML with `data-field-type` and `data-field-state` attributes for CSS targeting and ARIA attributes for accessibility.
+Atlassian Design System compatible field components for [@form-eng/core](https://www.npmjs.com/package/@form-eng/core).
+
+This package provides 28 field types using **semantic HTML elements** with Atlassian Design System compatible CSS class names (prefixed `ak-`). All fields integrate with `@form-eng/core`'s rules engine and form orchestration. No `@atlaskit/*` packages are required -- fields render native HTML with `data-field-type` and `data-field-state` attributes for CSS targeting and ARIA attributes for accessibility.
 
 ## Installation
 
 ```bash
-npm install @formosaic/atlaskit @formosaic/core react react-dom react-hook-form
+npm install @form-eng/atlaskit @form-eng/core react react-dom react-hook-form
 ```
 
 ## Quick Start
 
 ```tsx
-import { FormEngine, RulesEngineProvider, InjectedFieldProvider } from "@formosaic/core";
-import { createAtlaskitFieldRegistry } from "@formosaic/atlaskit";
+import { FormEngine, RulesEngineProvider, InjectedFieldProvider } from "@form-eng/core";
+import { createAtlaskitFieldRegistry } from "@form-eng/atlaskit";
 
 const fields = createAtlaskitFieldRegistry();
 
@@ -98,7 +102,7 @@ All CSS class names use the `ak-` prefix for Atlassian Design System compatibili
 You can extend or replace any field in the registry:
 
 ```tsx
-import { createAtlaskitFieldRegistry } from "@formosaic/atlaskit";
+import { createAtlaskitFieldRegistry } from "@form-eng/atlaskit";
 
 const fields = createAtlaskitFieldRegistry();
 

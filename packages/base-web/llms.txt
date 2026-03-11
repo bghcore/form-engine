@@ -1,12 +1,12 @@
-# @formosaic/base-web
+# @form-eng/base-web
 
-> Base Web (Uber) field components for @formosaic/core. 13 field types using baseui components with Styletron CSS-in-JS styling.
+> Base Web (Uber) field components for @form-eng/core. 13 field types using baseui components with Styletron CSS-in-JS styling.
 
-- Docs: [README](https://github.com/bghcore/formosaic/tree/main/packages/base-web/README.md)
-- Agent instructions: [AGENTS.md](https://github.com/bghcore/formosaic/tree/main/packages/base-web/AGENTS.md)
-- npm: [@formosaic/base-web](https://www.npmjs.com/package/@formosaic/base-web)
+- Docs: [README](https://github.com/bghcore/form-engine/tree/main/packages/base-web/README.md)
+- Agent instructions: [AGENTS.md](https://github.com/bghcore/form-engine/tree/main/packages/base-web/AGENTS.md)
+- npm: [@form-eng/base-web](https://www.npmjs.com/package/@form-eng/base-web)
 - License: MIT
-- Peer dependencies: `react`, `react-dom`, `react-hook-form`, `@formosaic/core`, `baseui`, `styletron-engine-monolithic`, `styletron-react`
+- Peer dependencies: `react`, `react-dom`, `react-hook-form`, `@form-eng/core`, `baseui`, `styletron-engine-monolithic`, `styletron-react`
 
 ## API Surface
 
@@ -44,8 +44,8 @@
 ## Code Example
 
 ```tsx
-import { RulesEngineProvider, InjectedFieldProvider, FormEngine } from "@formosaic/core";
-import { createBaseWebFieldRegistry } from "@formosaic/base-web";
+import { RulesEngineProvider, InjectedFieldProvider, FormEngine } from "@form-eng/core";
+import { createBaseWebFieldRegistry } from "@form-eng/base-web";
 import { Client as Styletron } from "styletron-engine-monolithic";
 import { Provider as StyletronProvider } from "styletron-react";
 import { LightTheme, BaseProvider } from "baseui";

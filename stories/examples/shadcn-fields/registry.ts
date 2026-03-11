@@ -1,5 +1,5 @@
-import { ComponentTypes, Dictionary } from "@formosaic/core";
-import { createRadixFieldRegistry } from "@formosaic/radix";
+import { ComponentTypes, Dictionary } from "@form-eng/core";
+import { createRadixFieldRegistry } from "@form-eng/radix";
 import React from "react";
 
 import ShadcnTextbox from "./Textbox";

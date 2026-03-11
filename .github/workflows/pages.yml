@@ -34,7 +34,7 @@ jobs:
       - name: Build Storybook
         run: npx storybook build -o _site/storybook
         env:
-          STORYBOOK_BASE: /formosaic/storybook/
+          STORYBOOK_BASE: /form-engine/storybook/
 
       - name: Create designer demo page
         run: |
@@ -57,7 +57,7 @@ jobs:
             <script type="module">
               import React from 'https://esm.sh/react@19?bundle';
               import ReactDOM from 'https://esm.sh/react-dom@19/client?bundle';
-              import { DesignerProvider, FormDesigner } from 'https://esm.sh/@formosaic/designer@1?bundle&external=react,react-dom&deps=react@19,react-dom@19';
+              import { DesignerProvider, FormDesigner } from 'https://esm.sh/@form-eng/designer@1?bundle&external=react,react-dom&deps=react@19,react-dom@19';
 
               const root = ReactDOM.createRoot(document.getElementById('root'));
               root.render(
@@ -98,11 +98,11 @@ jobs:
               <h1>Form Engine</h1>
               <p class="subtitle">Configuration-driven forms with a built-in rules engine</p>
               <div class="badges">
-                <a href="https://www.npmjs.com/package/@formosaic/core"><img src="https://img.shields.io/npm/v/@formosaic/core?label=core" alt="npm core"></a>
-                <a href="https://www.npmjs.com/package/@formosaic/fluent"><img src="https://img.shields.io/npm/v/@formosaic/fluent?label=fluent" alt="npm fluent"></a>
-                <a href="https://www.npmjs.com/package/@formosaic/mui"><img src="https://img.shields.io/npm/v/@formosaic/mui?label=mui" alt="npm mui"></a>
-                <a href="https://www.npmjs.com/package/@formosaic/headless"><img src="https://img.shields.io/npm/v/@formosaic/headless?label=headless" alt="npm headless"></a>
-                <a href="https://www.npmjs.com/package/@formosaic/designer"><img src="https://img.shields.io/npm/v/@formosaic/designer?label=designer" alt="npm designer"></a>
+                <a href="https://www.npmjs.com/package/@form-eng/core"><img src="https://img.shields.io/npm/v/@form-eng/core?label=core" alt="npm core"></a>
+                <a href="https://www.npmjs.com/package/@form-eng/fluent"><img src="https://img.shields.io/npm/v/@form-eng/fluent?label=fluent" alt="npm fluent"></a>
+                <a href="https://www.npmjs.com/package/@form-eng/mui"><img src="https://img.shields.io/npm/v/@form-eng/mui?label=mui" alt="npm mui"></a>
+                <a href="https://www.npmjs.com/package/@form-eng/headless"><img src="https://img.shields.io/npm/v/@form-eng/headless?label=headless" alt="npm headless"></a>
+                <a href="https://www.npmjs.com/package/@form-eng/designer"><img src="https://img.shields.io/npm/v/@form-eng/designer?label=designer" alt="npm designer"></a>
               </div>
               <div class="cards">
                 <a class="card" href="./storybook/">
@@ -113,13 +113,13 @@ jobs:
                   <h2>Form Designer Demo</h2>
                   <p>Drag-and-drop form builder. Create forms visually and export IFormConfig JSON.</p>
                 </a>
-                <a class="card" href="https://github.com/bghcore/formosaic">
+                <a class="card" href="https://github.com/bghcore/form-engine">
                   <h2>GitHub Repository</h2>
                   <p>Source code, documentation, examples, and contribution guide.</p>
                 </a>
-                <a class="card" href="https://www.npmjs.com/package/@formosaic/core">
+                <a class="card" href="https://www.npmjs.com/package/@form-eng/core">
                   <h2>npm Packages</h2>
-                  <p>Install: npm install @formosaic/core</p>
+                  <p>Install: npm install @form-eng/core</p>
                 </a>
               </div>
             </div>

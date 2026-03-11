@@ -1,4 +1,4 @@
-import { IFieldProps } from "@formosaic/core";
+import { IFieldProps } from "@form-eng/core";
 import { isNull } from "../helpers";
 import { Input } from "@fluentui/react-components";
 import React from "react";

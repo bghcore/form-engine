@@ -1,4 +1,4 @@
-import { IFieldProps } from "@formosaic/core";
+import { IFieldProps } from "@form-eng/core";
 import { RadioGroup as BaseRadioGroup, Radio } from "baseui/radio";
 import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";

@@ -15,9 +15,9 @@ import {
   FormEngine,
   WizardForm,
   UseRulesEngineContext,
-} from "@formosaic/core";
-import type { IWizardNavigationProps } from "@formosaic/core";
-import { createMuiFieldRegistry } from "@formosaic/mui";
+} from "@form-eng/core";
+import type { IWizardNavigationProps } from "@form-eng/core";
+import { createMuiFieldRegistry } from "@form-eng/mui";
 import { checkoutFormConfig } from "./checkoutConfig";
 
 /**

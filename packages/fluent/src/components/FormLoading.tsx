@@ -1,4 +1,4 @@
-import { FormConstants } from "@formosaic/core";
+import { FormConstants } from "@form-eng/core";
 import { Skeleton, SkeletonItem } from "@fluentui/react-components";
 import React from "react";
 

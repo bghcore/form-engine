@@ -1,4 +1,4 @@
-import { runAdapterContractTests, ALL_FIELD_TYPES } from "@formosaic/core/testing";
+import { runAdapterContractTests, ALL_FIELD_TYPES } from "@form-eng/core/testing";
 import { createReactAriaFieldRegistry } from "../registry";
 
 // Only test Tier 1 fields present in the React Aria registry

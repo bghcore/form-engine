@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git revert:*)",
+      "Bash(node -p:*)",
+      "Bash(npm ls:*)",
+      "Bash(npm test:*)"
+    ]
+  }
+}

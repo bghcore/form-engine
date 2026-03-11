@@ -1,8 +1,8 @@
-# AGENTS.md -- @formosaic/base-web
+# AGENTS.md -- @form-eng/base-web
 
 ## Package Purpose
 
-Base Web (Uber) field components for `@formosaic/core`. Provides 12 editable and 1 read-only field type using **baseui** components with Styletron for CSS-in-JS styling.
+Base Web (Uber) field components for `@form-eng/core`. Provides 12 editable and 1 read-only field type using **baseui** components with Styletron for CSS-in-JS styling.
 
 ## Critical Constraints
 
@@ -13,8 +13,8 @@ Base Web (Uber) field components for `@formosaic/core`. Provides 12 editable and
 - **Toggle uses Checkbox with `STYLE_TYPE.toggle`.** Import `{ Checkbox, STYLE_TYPE }` from `baseui/checkbox`.
 - **No `Form.Item` wrappers.** Core's `FieldWrapper` handles labels and error display -- fields render the bare input component only.
 - **All field components receive `IFieldProps<T>`** via `React.cloneElement` -- this is the contract with core's `RenderField`.
-- **Import core types from `@formosaic/core`**, not from relative paths into the core package.
-- **Import adapter utilities from `@formosaic/core/adapter-utils`** (e.g., `isNull`, `convertBooleanToYesOrNoText`).
+- **Import core types from `@form-eng/core`**, not from relative paths into the core package.
+- **Import adapter utilities from `@form-eng/core/adapter-utils`** (e.g., `isNull`, `convertBooleanToYesOrNoText`).
 - **Use `React.JSX.Element`** not bare `JSX.Element` for return types.
 
 ## Key Files
@@ -54,7 +54,7 @@ Base Web (Uber) field components for `@formosaic/core`. Provides 12 editable and
 ## Field Component Pattern
 
 ```tsx
-import { IFieldProps } from "@formosaic/core";
+import { IFieldProps } from "@form-eng/core";
 import { Input } from "baseui/input";
 import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";

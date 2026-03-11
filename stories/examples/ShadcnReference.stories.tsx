@@ -4,7 +4,7 @@ import {
   FormEngine,
   RulesEngineProvider,
   InjectedFieldProvider,
-} from "@formosaic/core";
+} from "@form-eng/core";
 import { createShadcnFieldRegistry } from "./shadcn-fields/registry";
 import { profileFormConfig } from "../../packages/core/src/__tests__/__fixtures__/businessForms";
 

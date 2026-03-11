@@ -1,4 +1,4 @@
-import { IFieldProps } from "@formosaic/core";
+import { IFieldProps } from "@form-eng/core";
 import { Radio } from "antd";
 import type { RadioChangeEvent } from "antd";
 import React from "react";

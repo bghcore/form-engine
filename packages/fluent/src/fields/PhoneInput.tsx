@@ -1,4 +1,4 @@
-import { IFieldProps, IPhoneInputConfig, extractDigits, formatPhone } from "@formosaic/core";
+import { IFieldProps, IPhoneInputConfig, extractDigits, formatPhone } from "@form-eng/core";
 import React from "react";
 import { Input } from "@fluentui/react-components";
 import { ReadOnlyText } from "../components/ReadOnlyText";

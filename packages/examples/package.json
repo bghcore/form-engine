@@ -1,8 +1,8 @@
 {
-  "name": "@formosaic/examples",
-  "version": "1.0.0",
+  "name": "@form-eng/examples",
+  "version": "1.6.1",
   "private": true,
-  "description": "Example apps demonstrating @formosaic/core",
+  "description": "Example apps demonstrating @form-eng/core",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -12,8 +12,8 @@
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-hook-form": "^7.71.2",
-    "@formosaic/core": "*",
-    "@formosaic/mui": "*",
+    "@form-eng/core": "*",
+    "@form-eng/mui": "*",
     "@mui/material": "^6.4.11",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0"
@@ -24,5 +24,6 @@
     "@vitejs/plugin-react": "^4.5.2",
     "typescript": "^5.9.3",
     "vite": "^6.3.5"
-  }
+  },
+  "deprecated": "This package has been renamed to @formosaic/examples. Install @formosaic/examples instead. See https://github.com/bghcore/formosaic"
 }

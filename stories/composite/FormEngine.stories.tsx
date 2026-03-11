@@ -4,8 +4,8 @@ import {
   FormEngine,
   UseInjectedFieldContext,
   IFormConfig,
-} from "@formosaic/core";
-import { createFluentFieldRegistry } from "@formosaic/fluent";
+} from "@form-eng/core";
+import { createFluentFieldRegistry } from "@form-eng/fluent";
 
 /**
  * **FormEngine** is the main form component. It accepts an `IFormConfig`

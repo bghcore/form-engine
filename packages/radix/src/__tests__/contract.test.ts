@@ -1,4 +1,4 @@
-import { runAdapterContractTests, ALL_FIELD_TYPES } from "@formosaic/core/testing";
+import { runAdapterContractTests, ALL_FIELD_TYPES } from "@form-eng/core/testing";
 import { createRadixFieldRegistry } from "../registry";
 
 // Radix Slider uses @radix-ui/react-use-size which requires ResizeObserver

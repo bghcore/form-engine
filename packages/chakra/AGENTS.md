@@ -1,15 +1,15 @@
-# AGENTS.md -- @formosaic/chakra
+# AGENTS.md -- @form-eng/chakra
 
 ## Package Purpose
 
-Chakra UI v3 field components for `@formosaic/core`. Provides 12 editable and 1 read-only field type using **Chakra UI v3** components, with semantic HTML fallbacks where Chakra's compound components have TypeScript DTS issues.
+Chakra UI v3 field components for `@form-eng/core`. Provides 12 editable and 1 read-only field type using **Chakra UI v3** components, with semantic HTML fallbacks where Chakra's compound components have TypeScript DTS issues.
 
 ## Critical Constraints
 
 - **Chakra UI v3 only.** Do not use Chakra v2 APIs.
 - **Compound components have DTS issues.** Chakra v3 compound components (Switch, NumberInput, Slider, RadioGroup, CheckboxGroup) rely on Ark UI's `Assign` type which causes TypeScript declaration file errors. Use semantic HTML fallbacks styled with Chakra CSS variables instead.
 - **All field components receive `IFieldProps<T>`** via `React.cloneElement` -- this is the contract with core's `RenderField`.
-- **Import core types from `@formosaic/core`**, not from relative paths into the core package.
+- **Import core types from `@form-eng/core`**, not from relative paths into the core package.
 - **Use `React.JSX.Element`** not bare `JSX.Element` for return types.
 - **Use `data-field-type` and `data-field-state` attributes** on field containers for CSS targeting and testing.
 
@@ -68,7 +68,7 @@ Temporary fallbacks are styled with Chakra CSS variables for visual consistency 
 ## Field Component Pattern
 
 ```tsx
-import { IFieldProps } from "@formosaic/core";
+import { IFieldProps } from "@form-eng/core";
 import { Input } from "@chakra-ui/react";
 import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";

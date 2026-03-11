@@ -1,24 +1,24 @@
-# Formosaic
+# form-engine
 
 ## Project Overview
 
 A React library for rendering complex, configuration-driven forms with a built-in rules engine. Forms are defined as a single `IFormConfig` JSON object (field definitions, rules with rich conditions, validation, ordering) and the library handles rendering, validation, auto-save, and field interactions automatically.
 
 Published as fourteen npm packages:
-- `@formosaic/core` -- UI-library agnostic rules engine and form orchestration (React + react-hook-form only)
-- `@formosaic/fluent` -- Fluent UI v9 field component implementations
-- `@formosaic/mui` -- Material UI (MUI) field component implementations
-- `@formosaic/headless` -- Unstyled semantic HTML field implementations (no UI framework dependency)
-- `@formosaic/antd` -- Ant Design v5 field component implementations
-- `@formosaic/chakra` -- Chakra UI v3 field component implementations
-- `@formosaic/mantine` -- Mantine v7 field component implementations
-- `@formosaic/atlaskit` -- Atlassian Design System field component implementations
-- `@formosaic/base-web` -- Uber Base Web field component implementations
-- `@formosaic/heroui` -- HeroUI (formerly NextUI) field component implementations
-- `@formosaic/radix` -- Radix UI primitives field implementations (unstyled, ideal for Tailwind/shadcn)
-- `@formosaic/react-aria` -- React Aria Components field implementations (accessibility-first)
-- `@formosaic/designer` -- Visual drag-and-drop form builder that outputs IFormConfig v2
-- `@formosaic/examples` -- 3 example apps (login+MFA, checkout wizard, data entry)
+- `@form-eng/core` -- UI-library agnostic rules engine and form orchestration (React + react-hook-form only)
+- `@form-eng/fluent` -- Fluent UI v9 field component implementations
+- `@form-eng/mui` -- Material UI (MUI) field component implementations
+- `@form-eng/headless` -- Unstyled semantic HTML field implementations (no UI framework dependency)
+- `@form-eng/antd` -- Ant Design v5 field component implementations
+- `@form-eng/chakra` -- Chakra UI v3 field component implementations
+- `@form-eng/mantine` -- Mantine v7 field component implementations
+- `@form-eng/atlaskit` -- Atlassian Design System field component implementations
+- `@form-eng/base-web` -- Uber Base Web field component implementations
+- `@form-eng/heroui` -- HeroUI (formerly NextUI) field component implementations
+- `@form-eng/radix` -- Radix UI primitives field implementations (unstyled, ideal for Tailwind/shadcn)
+- `@form-eng/react-aria` -- React Aria Components field implementations (accessibility-first)
+- `@form-eng/designer` -- Visual drag-and-drop form builder that outputs IFormConfig v2
+- `@form-eng/examples` -- 3 example apps (login+MFA, checkout wizard, data entry)
 
 ## Architecture
 
@@ -123,7 +123,7 @@ type ICondition = IFieldCondition | ILogicalCondition;
 
 ```
 packages/
-  core/                          -- @formosaic/core
+  core/                          -- @form-eng/core
     src/
       index.ts                   -- Public API barrel exports
       constants.ts               -- ComponentTypes, FormConstants
@@ -195,74 +195,74 @@ packages/
       __tests__/                 -- Vitest tests (616 tests, 29 files)
         __fixtures__/            -- Shared test configs and entity data (v2 format)
 
-  fluent/                        -- @formosaic/fluent
+  fluent/                        -- @form-eng/fluent
     src/
       index.ts, registry.ts, helpers.ts
       components/ (ReadOnlyText, StatusMessage, HookFormLoading, StatusDropdown/, DocumentLinks/)
       fields/ (13 editable + 6 read-only, accept IFieldProps)
 
-  mui/                           -- @formosaic/mui
+  mui/                           -- @form-eng/mui
     src/
       index.ts, registry.ts, helpers.ts
       components/ (ReadOnlyText, StatusMessage, HookFormLoading)
       fields/ (13 editable + 6 read-only, accept IFieldProps, using @mui/material)
 
-  headless/                      -- @formosaic/headless
+  headless/                      -- @form-eng/headless
     src/
       index.ts, registry.ts, helpers.ts
       components/ (ReadOnlyText, StatusMessage, HookFormLoading)
       fields/ (13 editable + 6 read-only, semantic HTML, data-* attributes, ARIA)
       styles.css (optional CSS custom properties)
 
-  antd/                          -- @formosaic/antd
+  antd/                          -- @form-eng/antd
     src/
       index.ts, registry.ts, helpers.ts
       components/ (ReadOnlyText, StatusMessage, FormLoading)
       fields/ (22 editable + 6 read-only, Ant Design v5 components)
 
-  chakra/                        -- @formosaic/chakra
+  chakra/                        -- @form-eng/chakra
     src/
       index.ts, registry.ts, helpers.ts
       components/ (ReadOnlyText, StatusMessage, FormLoading)
       fields/ (22 editable + 6 read-only, Chakra UI v3 + semantic HTML)
 
-  mantine/                       -- @formosaic/mantine
+  mantine/                       -- @form-eng/mantine
     src/
       index.ts, registry.ts, helpers.ts
       components/ (ReadOnlyText, StatusMessage, FormLoading)
       fields/ (22 editable + 6 read-only, Mantine v7 components)
 
-  atlaskit/                      -- @formosaic/atlaskit
+  atlaskit/                      -- @form-eng/atlaskit
     src/
       index.ts, registry.ts, helpers.ts
       components/ (ReadOnlyText, StatusMessage, FormLoading)
       fields/ (22 editable + 6 read-only, Atlassian Design System components)
 
-  base-web/                      -- @formosaic/base-web
+  base-web/                      -- @form-eng/base-web
     src/
       index.ts, registry.ts, helpers.ts
       components/ (ReadOnlyText, StatusMessage, FormLoading)
       fields/ (22 editable + 6 read-only, semantic HTML for Base Web integration)
 
-  heroui/                        -- @formosaic/heroui
+  heroui/                        -- @form-eng/heroui
     src/
       index.ts, registry.ts, helpers.ts
       components/ (ReadOnlyText, StatusMessage, FormLoading)
       fields/ (22 editable + 6 read-only, HeroUI components)
 
-  radix/                         -- @formosaic/radix
+  radix/                         -- @form-eng/radix
     src/
       index.ts, registry.ts, helpers.ts
       components/ (ReadOnlyText, StatusMessage, FormLoading)
       fields/ (6 Radix UI primitives + 22 semantic HTML)
 
-  react-aria/                    -- @formosaic/react-aria
+  react-aria/                    -- @form-eng/react-aria
     src/
       index.ts, registry.ts, helpers.ts
       components/ (ReadOnlyText, StatusMessage, FormLoading)
       fields/ (11 React Aria Components + 17 semantic HTML)
 
-  designer/                      -- @formosaic/designer
+  designer/                      -- @form-eng/designer
     src/
       types/ (IDesignerState, IDesignerAction)
       state/ (designerReducer, DesignerProvider, useDesigner)
@@ -270,7 +270,7 @@ packages/
                    RuleBuilder, ConfigPreview, WizardConfigurator, ImportExport)
       styles.css
 
-  examples/                      -- @formosaic/examples
+  examples/                      -- @form-eng/examples
     src/
       login-mfa/ (conditional MFA fields, dynamic labels)
       checkout/ (wizard, dropdown dependencies, payment branching)

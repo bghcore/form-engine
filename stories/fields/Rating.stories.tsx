@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import RatingField from "@formosaic/fluent/fields/Rating";
+import RatingField from "@form-eng/fluent/fields/Rating";
 import { FormDecorator, createFieldProps } from "../helpers";
 
 /**

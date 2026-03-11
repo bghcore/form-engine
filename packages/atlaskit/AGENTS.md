@@ -1,8 +1,8 @@
-# AGENTS.md -- @formosaic/atlaskit
+# AGENTS.md -- @form-eng/atlaskit
 
 ## Package Purpose
 
-Atlassian Design System compatible field components for `@formosaic/core`. Provides 12 editable and 1 read-only field type using **semantic HTML** with `ak-` CSS class prefix. No `@atlaskit/*` runtime dependencies -- fields render native HTML elements with data attributes and ARIA for accessibility.
+Atlassian Design System compatible field components for `@form-eng/core`. Provides 12 editable and 1 read-only field type using **semantic HTML** with `ak-` CSS class prefix. No `@atlaskit/*` runtime dependencies -- fields render native HTML elements with data attributes and ARIA for accessibility.
 
 ## Critical Constraints
 
@@ -11,9 +11,9 @@ Atlassian Design System compatible field components for `@formosaic/core`. Provi
 - **All fields emit `data-field-type` and `data-field-state` attributes** for CSS targeting and testing.
 - **No `Form` wrappers.** Core's `FieldWrapper` handles labels and error display -- fields render the bare input component only.
 - **All field components receive `IFieldProps<T>`** via `React.cloneElement` -- this is the contract with core's `RenderField`.
-- **Import core types from `@formosaic/core`**, not from relative paths into the core package.
-- **Import adapter utilities** from `@formosaic/core/adapter-utils` (e.g., `isNull`, `convertBooleanToYesOrNoText`).
-- **Import helpers** from local `../helpers` which re-exports from `@formosaic/core/adapter-utils`.
+- **Import core types from `@form-eng/core`**, not from relative paths into the core package.
+- **Import adapter utilities** from `@form-eng/core/adapter-utils` (e.g., `isNull`, `convertBooleanToYesOrNoText`).
+- **Import helpers** from local `../helpers` which re-exports from `@form-eng/core/adapter-utils`.
 
 ## Key Files
 
@@ -52,7 +52,7 @@ Atlassian Design System compatible field components for `@formosaic/core`. Provi
 ## Field Component Pattern
 
 ```tsx
-import { IFieldProps } from "@formosaic/core";
+import { IFieldProps } from "@form-eng/core";
 import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";
 import { GetFieldDataTestId, getFieldState } from "../helpers";

@@ -1,7 +1,7 @@
 /**
  * Testing utilities subpath export.
  *
- * Import as: import { ... } from "@formosaic/core/testing"
+ * Import as: import { ... } from "@form-eng/core/testing"
  *
  * Provides contract test infrastructure for adapter packages to validate
  * their field registries conform to the adapter contract.

@@ -1,4 +1,4 @@
-import { IFieldProps } from "@formosaic/core";
+import { IFieldProps } from "@form-eng/core";
 import { Select } from "antd";
 import React from "react";
 import { FieldClassName, GetFieldDataTestId } from "../helpers";

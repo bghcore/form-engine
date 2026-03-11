@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import CheckboxGroupField from "@formosaic/fluent/fields/CheckboxGroup";
+import CheckboxGroupField from "@form-eng/fluent/fields/CheckboxGroup";
 import { FormDecorator, createFieldProps } from "../helpers";
 
 /**

@@ -1,20 +1,24 @@
-# @formosaic/base-web
+> **DEPRECATED:** This package has been renamed to [`@formosaic/base-web`](https://www.npmjs.com/package/@formosaic/base-web). Please install `@formosaic/base-web` instead. This package will no longer receive updates.
+>
+> **New repo:** [github.com/bghcore/formosaic](https://github.com/bghcore/formosaic)
 
-Base Web (Uber) field components for [@formosaic/core](https://www.npmjs.com/package/@formosaic/core).
+# @form-eng/base-web
 
-This package provides 28 field types using **Base Web (baseui)** components. Includes 10 native baseui components and 18 semantic HTML fallbacks. All fields integrate with `@formosaic/core`'s rules engine and form orchestration.
+Base Web (Uber) field components for [@form-eng/core](https://www.npmjs.com/package/@form-eng/core).
+
+This package provides 28 field types using **Base Web (baseui)** components. Includes 10 native baseui components and 18 semantic HTML fallbacks. All fields integrate with `@form-eng/core`'s rules engine and form orchestration.
 
 ## Installation
 
 ```bash
-npm install @formosaic/base-web @formosaic/core baseui styletron-engine-monolithic styletron-react react react-dom react-hook-form
+npm install @form-eng/base-web @form-eng/core baseui styletron-engine-monolithic styletron-react react react-dom react-hook-form
 ```
 
 ## Quick Start
 
 ```tsx
-import { FormEngine, RulesEngineProvider, InjectedFieldProvider } from "@formosaic/core";
-import { createBaseWebFieldRegistry } from "@formosaic/base-web";
+import { FormEngine, RulesEngineProvider, InjectedFieldProvider } from "@form-eng/core";
+import { createBaseWebFieldRegistry } from "@form-eng/base-web";
 import { Client as Styletron } from "styletron-engine-monolithic";
 import { Provider as StyletronProvider } from "styletron-react";
 import { LightTheme, BaseProvider } from "baseui";
@@ -75,7 +79,7 @@ Base Web components are styled via Styletron. You must wrap your application in 
 You can extend or replace any field in the registry:
 
 ```tsx
-import { createBaseWebFieldRegistry } from "@formosaic/base-web";
+import { createBaseWebFieldRegistry } from "@form-eng/base-web";
 
 const fields = createBaseWebFieldRegistry();
 

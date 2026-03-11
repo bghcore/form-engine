@@ -1,4 +1,4 @@
-import { IFieldProps } from "@formosaic/core";
+import { IFieldProps } from "@form-eng/core";
 import { FormControl, FormControlLabel, Radio, RadioGroup as MuiRadioGroup } from "@mui/material";
 import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";

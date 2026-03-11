@@ -1,4 +1,4 @@
-import { IFieldProps } from "@formosaic/core";
+import { IFieldProps } from "@form-eng/core";
 import { convertBooleanToYesOrNoText } from "../helpers";
 import { Switch } from "@mantine/core";
 import React from "react";

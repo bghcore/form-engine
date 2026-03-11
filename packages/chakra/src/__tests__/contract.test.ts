@@ -1,4 +1,4 @@
-import { runAdapterContractTests, TIER_1_FIELDS } from "@formosaic/core/testing";
+import { runAdapterContractTests, TIER_1_FIELDS } from "@form-eng/core/testing";
 import { createChakraFieldRegistry } from "../registry";
 import { ChakraProvider, defaultSystem } from "@chakra-ui/react";
 import React from "react";

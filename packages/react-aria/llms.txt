@@ -1,9 +1,9 @@
-# @formosaic/react-aria
+# @form-eng/react-aria
 
-> React Aria Components adapter for @formosaic/core. Provides accessible field components using React Aria Components for best-in-class ARIA patterns. Highest native Tier 1 coverage among primitives-first adapters (10/13 native). No provider wrapper needed.
+> React Aria Components adapter for @form-eng/core. Provides accessible field components using React Aria Components for best-in-class ARIA patterns. Highest native Tier 1 coverage among primitives-first adapters (10/13 native). No provider wrapper needed.
 
-- Docs: [README](https://github.com/bghcore/formosaic/tree/main/packages/react-aria/README.md)
-- npm: [@formosaic/react-aria](https://www.npmjs.com/package/@formosaic/react-aria)
+- Docs: [README](https://github.com/bghcore/form-engine/tree/main/packages/react-aria/README.md)
+- npm: [@form-eng/react-aria](https://www.npmjs.com/package/@form-eng/react-aria)
 - License: MIT
 
 ## API Surface
@@ -31,7 +31,7 @@
 - `StatusMessage` -- Form status message display
 - `FormLoading` -- Loading skeleton display
 
-### Helpers (re-exported from @formosaic/core/adapter-utils)
+### Helpers (re-exported from @form-eng/core/adapter-utils)
 - `GetFieldDataTestId(fieldName, programName, entityType, entityId)` -- Generates test ID
 - `getFieldState({ error, required, readOnly })` -- Returns state string for data-field-state
 - `formatDateTime(value, options?)` -- ISO string to localized display

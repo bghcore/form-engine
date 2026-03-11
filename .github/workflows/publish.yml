@@ -112,10 +112,10 @@ jobs:
           FIRST=true
           for PKG in "${PKGS[@]}"; do
             LOCAL_VERSION=$(node -p "require('./packages/$PKG/package.json').version")
-            NPM_VERSION=$(npm view "@formosaic/$PKG" version 2>/dev/null || echo "0.0.0")
+            NPM_VERSION=$(npm view "@form-eng/$PKG" version 2>/dev/null || echo "0.0.0")
 
             if [ "$LOCAL_VERSION" != "$NPM_VERSION" ]; then
-              echo "📦 @formosaic/$PKG: $NPM_VERSION -> $LOCAL_VERSION (will publish)"
+              echo "📦 @form-eng/$PKG: $NPM_VERSION -> $LOCAL_VERSION (will publish)"
               if [ "$FIRST" = true ]; then
                 CHANGED="$CHANGED\"$PKG\""
                 FIRST=false
@@ -123,7 +123,7 @@ jobs:
                 CHANGED="$CHANGED,\"$PKG\""
               fi
             else
-              echo "⏭️  @formosaic/$PKG: $LOCAL_VERSION (up to date)"
+              echo "⏭️  @form-eng/$PKG: $LOCAL_VERSION (up to date)"
             fi
           done
           CHANGED="$CHANGED]"
@@ -171,13 +171,13 @@ jobs:
           VERSION=$(node -p "require('./packages/${{ matrix.package }}/package.json').version")
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
-      - name: Publish @formosaic/${{ matrix.package }}
+      - name: Publish @form-eng/${{ matrix.package }}
         if: inputs.dry-run != true
         run: npm publish --workspace packages/${{ matrix.package }} --access public --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Publish @formosaic/${{ matrix.package }} (dry run)
+      - name: Publish @form-eng/${{ matrix.package }} (dry run)
         if: inputs.dry-run == true
         run: npm publish --workspace packages/${{ matrix.package }} --access public --dry-run
 
@@ -185,6 +185,6 @@ jobs:
         if: inputs.dry-run != true
         run: |
           TAG="${{ matrix.package }}-v${{ steps.info.outputs.version }}"
-          gh release create "$TAG" --generate-notes --title "@formosaic/${{ matrix.package }}@${{ steps.info.outputs.version }}" 2>/dev/null || echo "Release $TAG already exists, skipping"
+          gh release create "$TAG" --generate-notes --title "@form-eng/${{ matrix.package }}@${{ steps.info.outputs.version }}" 2>/dev/null || echo "Release $TAG already exists, skipping"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

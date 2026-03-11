@@ -4,8 +4,8 @@ import {
   FormEngine,
   RulesEngineProvider,
   InjectedFieldProvider,
-} from "@formosaic/core";
-import { createFluentFieldRegistry } from "@formosaic/fluent";
+} from "@form-eng/core";
+import { createFluentFieldRegistry } from "@form-eng/fluent";
 import { profileFormConfig } from "../../packages/core/src/__tests__/__fixtures__/businessForms";
 
 const registry = createFluentFieldRegistry();

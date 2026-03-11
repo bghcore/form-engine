@@ -1,5 +1,5 @@
 import React from "react";
-import { IFieldProps } from "@formosaic/core";
+import { IFieldProps } from "@form-eng/core";
 
 const ShadcnTextbox = (props: IFieldProps<{}>) => {
   const { fieldName, value, readOnly, error, required, placeholder, setFieldValue } = props;

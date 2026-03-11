@@ -21,19 +21,19 @@ const config: StorybookConfig = {
         ...config.resolve,
         alias: {
           ...config.resolve?.alias,
-          "@formosaic/core": resolve(
+          "@form-eng/core": resolve(
             __dirname_,
             "../packages/core/src"
           ),
-          "@formosaic/fluent": resolve(
+          "@form-eng/fluent": resolve(
             __dirname_,
             "../packages/fluent/src"
           ),
-          "@formosaic/radix": resolve(
+          "@form-eng/radix": resolve(
             __dirname_,
             "../packages/radix/src"
           ),
-          "@formosaic/react-aria": resolve(
+          "@form-eng/react-aria": resolve(
             __dirname_,
             "../packages/react-aria/src"
           ),

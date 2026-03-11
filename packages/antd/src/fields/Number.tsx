@@ -1,4 +1,4 @@
-import { IFieldProps } from "@formosaic/core";
+import { IFieldProps } from "@form-eng/core";
 import { isNull } from "../helpers";
 import { InputNumber } from "antd";
 import React from "react";

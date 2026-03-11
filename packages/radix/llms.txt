@@ -1,9 +1,9 @@
-# @formosaic/radix
+# @form-eng/radix
 
-> Radix UI primitives adapter for @formosaic/core. Provides accessible, unstyled field components using Radix UI primitives for interactive elements and semantic HTML for simple inputs. Ships with no styles -- ideal as the base for Tailwind CSS, shadcn/ui, and custom design systems. No provider wrapper needed.
+> Radix UI primitives adapter for @form-eng/core. Provides accessible, unstyled field components using Radix UI primitives for interactive elements and semantic HTML for simple inputs. Ships with no styles -- ideal as the base for Tailwind CSS, shadcn/ui, and custom design systems. No provider wrapper needed.
 
-- Docs: [README](https://github.com/bghcore/formosaic/tree/main/packages/radix/README.md)
-- npm: [@formosaic/radix](https://www.npmjs.com/package/@formosaic/radix)
+- Docs: [README](https://github.com/bghcore/form-engine/tree/main/packages/radix/README.md)
+- npm: [@form-eng/radix](https://www.npmjs.com/package/@form-eng/radix)
 - License: MIT
 
 ## API Surface
@@ -31,7 +31,7 @@
 - `StatusMessage` -- Form status message display
 - `FormLoading` -- Loading skeleton display
 
-### Helpers (re-exported from @formosaic/core/adapter-utils)
+### Helpers (re-exported from @form-eng/core/adapter-utils)
 - `GetFieldDataTestId(fieldName, programName, entityType, entityId)` -- Generates test ID
 - `getFieldState({ error, required, readOnly })` -- Returns state string for data-field-state
 - `formatDateTime(value, options?)` -- ISO string to localized display

@@ -1,4 +1,4 @@
-import { FormConstants } from "@formosaic/core";
+import { FormConstants } from "@form-eng/core";
 import { Skeleton } from "antd";
 import React from "react";
 

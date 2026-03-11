@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect } from "react";
-import { UseInjectedFieldContext } from "@formosaic/core";
-import { createMuiFieldRegistry } from "@formosaic/mui";
+import { UseInjectedFieldContext } from "@form-eng/core";
+import { createMuiFieldRegistry } from "@form-eng/mui";
 
 export default function FieldRegistrar({ children }: { children: React.ReactNode }) {
   const { setInjectedFields } = UseInjectedFieldContext();

@@ -1,6 +1,6 @@
 # Contributing a New UI Adapter Package
 
-This guide walks through creating a new adapter package for `@formosaic/core`. An adapter maps the core form engine's field model to a specific UI library's components.
+This guide walks through creating a new adapter package for `@form-eng/core`. An adapter maps the core form engine's field model to a specific UI library's components.
 
 ## Quick Start
 
@@ -19,7 +19,7 @@ packages/{your-lib}/
   src/
     index.ts          # Barrel exports
     registry.ts       # createXxxFieldRegistry()
-    helpers.ts        # Re-exports from @formosaic/core
+    helpers.ts        # Re-exports from @form-eng/core
     components/
       ReadOnlyText.tsx
       StatusMessage.tsx
@@ -82,7 +82,7 @@ interface IFieldProps<T = Record<string, unknown>> {
 
 ## Shared Utilities
 
-Import shared helpers from `@formosaic/core` rather than reimplementing:
+Import shared helpers from `@form-eng/core` rather than reimplementing:
 
 ```typescript
 // In your helpers.ts
@@ -91,7 +91,7 @@ export {
   GetFieldDataTestId,   // data-testid generation
   formatDateTime,       // Date string formatting
   DocumentLinksStrings, // i18n strings for DocumentLinks
-} from "@formosaic/core";
+} from "@form-eng/core";
 ```
 
 Shared config interfaces (import directly in field files):
@@ -110,13 +110,13 @@ import {
   extractDigits,
   formatPhone,
   MAX_FILE_SIZE_MB_DEFAULT,
-} from "@formosaic/core";
+} from "@form-eng/core";
 ```
 
 ## Registry Pattern
 
 ```typescript
-import { ComponentTypes, Dictionary } from "@formosaic/core";
+import { ComponentTypes, Dictionary } from "@form-eng/core";
 import React from "react";
 
 export function createYourLibFieldRegistry(): Dictionary<React.JSX.Element> {
@@ -155,7 +155,7 @@ export default defineConfig({
   clean: true,
   external: [
     "react", "react-dom", "react-hook-form",
-    "@formosaic/core",
+    "@form-eng/core",
     "your-ui-library",  // Add your UI library as external
   ],
   jsx: "automatic",

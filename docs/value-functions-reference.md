@@ -1,6 +1,6 @@
 # Value Functions Reference
 
-This document covers value functions in `Formosaic` -- imperative, named functions that compute or set field values at specific lifecycle moments. It also covers how value functions differ from computed values (`computedValue`).
+This document covers value functions in `form-engine` -- imperative, named functions that compute or set field values at specific lifecycle moments. It also covers how value functions differ from computed values (`computedValue`).
 
 All value function infrastructure is in `packages/core/src/helpers/ValueFunctionRegistry.ts`.
 
@@ -203,7 +203,7 @@ If the named function is not found in the registry, it returns `undefined`.
 Use `registerValueFunctions()` to add custom value functions:
 
 ```typescript
-import { registerValueFunctions, ValueFunction } from "@formosaic/core";
+import { registerValueFunctions, ValueFunction } from "@form-eng/core";
 
 const calculateFullName: ValueFunction = ({ fieldName, fieldValue, parentEntity, currentUserId }) => {
   // Access other entity values through parentEntity or use your own logic
@@ -241,7 +241,7 @@ type ValueFunction = (context: {
 ### Example: Custom Computed Value
 
 ```typescript
-import { registerValueFunctions, ValueFunction } from "@formosaic/core";
+import { registerValueFunctions, ValueFunction } from "@form-eng/core";
 
 const calculateEndDate: ValueFunction = ({ fieldValue, parentEntity }) => {
   const startDate = parentEntity?.["startDate"] as string;
@@ -304,7 +304,7 @@ function executeValueFunction(
 
 ## Value Functions vs Computed Values (computedValue)
 
-`Formosaic` has two mechanisms for deriving field values: **value functions** (imperative, via `$fn.` prefix) and **computed values** (declarative, via `$values.` expressions). They serve different purposes and have different execution models.
+`form-engine` has two mechanisms for deriving field values: **value functions** (imperative, via `$fn.` prefix) and **computed values** (declarative, via `$values.` expressions). They serve different purposes and have different execution models.
 
 ### Comparison Table
 

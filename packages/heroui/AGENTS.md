@@ -1,8 +1,8 @@
-# AGENTS.md -- @formosaic/heroui
+# AGENTS.md -- @form-eng/heroui
 
 ## Package Purpose
 
-HeroUI field components for `@formosaic/core`. Provides 12 editable and 1 read-only field type using semantic HTML elements styled for HeroUI compatibility.
+HeroUI field components for `@form-eng/core`. Provides 12 editable and 1 read-only field type using semantic HTML elements styled for HeroUI compatibility.
 
 ## Critical Constraints
 
@@ -10,7 +10,7 @@ HeroUI field components for `@formosaic/core`. Provides 12 editable and 1 read-o
 - **No `Form.Item` wrappers.** Core's `FieldWrapper` handles labels and error display -- fields render the bare input component only.
 - **Native dates.** `DateControl` uses `<input type="date">` with native Date, not `@internationalized/date` CalendarDate.
 - **All field components receive `IFieldProps<T>`** via `React.cloneElement` -- this is the contract with core's `RenderField`.
-- **Import core types from `@formosaic/core`**, not from relative paths into the core package.
+- **Import core types from `@form-eng/core`**, not from relative paths into the core package.
 - **Use `React.JSX.Element`** not bare `JSX.Element` for return types.
 
 ## Key Files
@@ -49,7 +49,7 @@ HeroUI field components for `@formosaic/core`. Provides 12 editable and 1 read-o
 ## Field Component Pattern
 
 ```tsx
-import { IFieldProps } from "@formosaic/core";
+import { IFieldProps } from "@form-eng/core";
 import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";
 import { FieldClassName, GetFieldDataTestId } from "../helpers";

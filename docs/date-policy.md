@@ -1,6 +1,6 @@
 # Date Policy
 
-This document defines the canonical date handling contract for all Formosaic adapter packages.
+This document defines the canonical date handling contract for all form-engine adapter packages.
 
 ## Core Contract
 
@@ -31,7 +31,7 @@ All parsing assumes the input is a valid ISO 8601 string. Invalid strings should
 
 ## Display Formatting
 
-The shared `formatDateTime()` utility from `@formosaic/core/adapter-utils` handles display formatting using `Intl.DateTimeFormat`:
+The shared `formatDateTime()` utility from `@form-eng/core/adapter-utils` handles display formatting using `Intl.DateTimeFormat`:
 
 ```typescript
 // Date only (e.g., "Jan 15, 2024")
@@ -89,4 +89,4 @@ The function respects the user's locale via `Intl.DateTimeFormat` (no explicit l
 
 4. **Validate before storing.** Before calling `setFieldValue`, verify the date is valid (`!isNaN(date.getTime())` or `dayjsObj.isValid()`). Invalid dates should not be stored.
 
-5. **dayjs is an adapter dependency, not a core dependency.** Only `@formosaic/antd` depends on dayjs. Core and all other adapters use native `Date`.
+5. **dayjs is an adapter dependency, not a core dependency.** Only `@form-eng/antd` depends on dayjs. Core and all other adapters use native `Date`.

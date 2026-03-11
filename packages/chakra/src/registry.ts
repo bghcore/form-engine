@@ -1,4 +1,4 @@
-import { ComponentTypes, Dictionary } from "@formosaic/core";
+import { ComponentTypes, Dictionary } from "@form-eng/core";
 import React from "react";
 import Textbox from "./fields/Textbox";
 import NumberField from "./fields/Number";

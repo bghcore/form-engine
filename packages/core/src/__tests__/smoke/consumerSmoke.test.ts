@@ -8,17 +8,17 @@ import { describe, it, expect, vi } from "vitest";
 import React from "react";
 import { ComponentTypes } from "../../constants";
 
-import { createFluentFieldRegistry } from "@formosaic/fluent";
-import { createMuiFieldRegistry } from "@formosaic/mui";
-import { createHeadlessFieldRegistry } from "@formosaic/headless";
-import { createAntdFieldRegistry } from "@formosaic/antd";
-import { createChakraFieldRegistry } from "@formosaic/chakra";
-import { createMantineFieldRegistry } from "@formosaic/mantine";
-import { createAtlaskitFieldRegistry } from "@formosaic/atlaskit";
-import { createBaseWebFieldRegistry } from "@formosaic/base-web";
-import { createHeroUIFieldRegistry } from "@formosaic/heroui";
-import { createRadixFieldRegistry } from "@formosaic/radix";
-import { createReactAriaFieldRegistry } from "@formosaic/react-aria";
+import { createFluentFieldRegistry } from "@form-eng/fluent";
+import { createMuiFieldRegistry } from "@form-eng/mui";
+import { createHeadlessFieldRegistry } from "@form-eng/headless";
+import { createAntdFieldRegistry } from "@form-eng/antd";
+import { createChakraFieldRegistry } from "@form-eng/chakra";
+import { createMantineFieldRegistry } from "@form-eng/mantine";
+import { createAtlaskitFieldRegistry } from "@form-eng/atlaskit";
+import { createBaseWebFieldRegistry } from "@form-eng/base-web";
+import { createHeroUIFieldRegistry } from "@form-eng/heroui";
+import { createRadixFieldRegistry } from "@form-eng/radix";
+import { createReactAriaFieldRegistry } from "@form-eng/react-aria";
 
 // Mocks required for Mantine and Radix in jsdom
 Object.defineProperty(window, "matchMedia", {

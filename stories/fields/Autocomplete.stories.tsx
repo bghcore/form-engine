@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import AutocompleteField from "@formosaic/fluent/fields/Autocomplete";
+import AutocompleteField from "@form-eng/fluent/fields/Autocomplete";
 import { FormDecorator, createFieldProps } from "../helpers";
 
 /**

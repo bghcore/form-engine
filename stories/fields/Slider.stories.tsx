@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import SliderField from "@formosaic/fluent/fields/Slider";
+import SliderField from "@form-eng/fluent/fields/Slider";
 import { FormDecorator, createFieldProps } from "../helpers";
 
 /**

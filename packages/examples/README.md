@@ -1,8 +1,12 @@
-# @formosaic/examples
+> **DEPRECATED:** This package has been renamed to [`@formosaic/examples`](https://www.npmjs.com/package/@formosaic/examples). Please install `@formosaic/examples` instead. This package will no longer receive updates.
+>
+> **New repo:** [github.com/bghcore/formosaic](https://github.com/bghcore/formosaic)
 
-Example applications demonstrating `@formosaic/core` and `@formosaic/mui`.
+# @form-eng/examples
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/bghcore/formosaic/tree/main/packages/examples?file=src/App.tsx)
+Example applications demonstrating `@form-eng/core` and `@form-eng/mui`.
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/bghcore/form-engine/tree/main/packages/examples?file=src/App.tsx)
 
 ## Getting Started
 
@@ -40,8 +44,8 @@ A purchase order form with repeating line items (FieldArray), computed values (l
 - **React 19** + **TypeScript**
 - **Material UI (MUI)** for field components
 - **Vite** for dev server and build
-- **@formosaic/core** for form orchestration and rules engine
-- **@formosaic/mui** for MUI field implementations
+- **@form-eng/core** for form orchestration and rules engine
+- **@form-eng/mui** for MUI field implementations
 
 ## Project Structure
 

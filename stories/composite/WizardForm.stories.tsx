@@ -5,12 +5,12 @@ import {
   FormEngine,
   UseInjectedFieldContext,
   IFormConfig,
-} from "@formosaic/core";
+} from "@form-eng/core";
 import type {
   IWizardNavigationProps,
   IWizardStepHeaderProps,
-} from "@formosaic/core";
-import { createFluentFieldRegistry } from "@formosaic/fluent";
+} from "@form-eng/core";
+import { createFluentFieldRegistry } from "@form-eng/fluent";
 import { Button } from "@fluentui/react-components";
 
 /**

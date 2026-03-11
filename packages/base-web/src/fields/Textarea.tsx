@@ -1,4 +1,4 @@
-import { IFieldProps } from "@formosaic/core";
+import { IFieldProps } from "@form-eng/core";
 import { Textarea as BaseTextarea } from "baseui/textarea";
 import React from "react";
 import { ReadOnlyText } from "../components/ReadOnlyText";
