@@ -1,6 +1,6 @@
 {
   "name": "@form-eng/core",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "Core business rules engine and form orchestration for dynamic React forms",
   "repository": {
     "type": "git",
@@ -32,7 +32,16 @@
     "field-array",
     "i18n-forms",
     "zod",
-    "json-schema"
+    "json-schema",
+    "rules-engine",
+    "config-driven",
+    "conditional-fields",
+    "typescript",
+    "computed-fields",
+    "form-state-management",
+    "form-orchestration",
+    "UI-agnostic",
+    "accessibility"
   ],
   "main": "dist/index.js",
   "module": "dist/index.mjs",

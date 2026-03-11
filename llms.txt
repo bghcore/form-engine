@@ -1,305 +1,105 @@
 # Form Engine
 
-> A React library for rendering complex, configuration-driven forms with a built-in rules engine. Define forms as JSON configurations (IFormConfig v2) and the library handles rendering, validation, auto-save, and field interactions automatically. UI-library agnostic -- works with Fluent UI, MUI, headless HTML, or any React component library. Published as fourteen npm packages: `@form-eng/core` (engine + orchestration), `@form-eng/fluent` (Fluent UI v9 adapter), `@form-eng/mui` (Material UI adapter), `@form-eng/headless` (unstyled semantic HTML adapter), `@form-eng/antd` (Ant Design v5 adapter), `@form-eng/chakra` (Chakra UI v3 adapter), `@form-eng/mantine` (Mantine v7 adapter), `@form-eng/atlaskit` (Atlassian Design System adapter), `@form-eng/base-web` (Uber Base Web adapter), `@form-eng/heroui` (HeroUI adapter), `@form-eng/radix` (Radix UI primitives adapter), `@form-eng/react-aria` (React Aria Components adapter), `@form-eng/designer` (visual drag-and-drop form builder), and `@form-eng/examples` (3 example apps).
+> A config-driven React form library with a built-in declarative rules engine. Define forms as JSON (`IFormConfig`), swap UI libraries without rewriting logic, and let the engine handle conditional visibility, computed values, validation, and auto-save. 12 UI adapters (Fluent UI, MUI, Ant Design, Mantine, Chakra, Radix, React Aria, headless HTML, and more), a visual drag-and-drop form builder, and 4,700+ tests. MIT licensed. Built on react-hook-form v7.
 
-The library centers on four key concepts: a **declarative rules engine** that evaluates field dependencies, visibility, required state, and computed values from declarative `IRule[]` definitions with rich conditions (20 operators + AND/OR/NOT); a **component injection system** where UI field implementations are registered by string key and rendered via `React.cloneElement`; **pluggable registries** for custom sync/async validation and value functions referenced by name in field configs; and **i18n support** via a locale registry with partial overrides and English fallback. v2.0 adds the unified rules engine (IRule/ICondition/IFieldEffect), per-field error boundaries, save reliability (AbortController + retry), accessibility (focus trap, ARIA live regions, focus-to-first-error), draft persistence to localStorage, theming via CSS custom properties and render props, a DevTools panel (Rules, Values, Errors, Graph, Perf, Deps, Timeline tabs), JSON Schema import, Zod Schema import, lazy field registry for code splitting, analytics/telemetry (IAnalyticsCallbacks, useFormAnalytics), and performance debugging helpers (RenderTracker, EventTimeline). v1.1.0 adds 9 new field types (RadioGroup, CheckboxGroup, Rating, ColorPicker, Autocomplete, FileUpload, DateRange, DateTime, PhoneInput), the `setValue` rule effect, three array condition operators (arrayContains, arrayNotContains, arrayLength), and `registerValidatorMetadata()` for designer integration.
+## Key Capabilities
 
-## Docs
+- **Declarative rules engine** -- 20 condition operators, AND/OR/NOT logic, priority-based conflict resolution, cross-field effects
+- **Config-driven** -- forms defined as JSON data, not JSX; store in a database, generate from a builder, or configure at runtime
+- **12 UI adapters** -- swap between Fluent UI, MUI, Ant Design, Mantine, Chakra, Radix, React Aria, headless HTML, Base Web, Atlaskit, HeroUI with one import change
+- **Computed values** -- `$values.qty * $values.price`, custom `$fn.name()` functions, `$parent` references
+- **Wizard forms** -- multi-step with conditional step visibility, per-step validation, cross-step rules
+- **Validation registry** -- 14 built-in validators + custom sync/async/cross-field; debounce, AbortController, conditional `when`
+- **Visual form builder** -- `@form-eng/designer` outputs IFormConfig JSON; drag-and-drop, rule builder, wizard configurator
+- **Schema import** -- `fromRjsfSchema()` for JSON Schema migration, `zodSchemaToFieldConfig()` for Zod, `toRjsfSchema()` for export
+- **i18n, accessibility, analytics** -- locale registry, ARIA live regions, focus-to-first-error, telemetry callbacks
 
-- [README.md](https://github.com/bghcore/form-engine/blob/main/README.md): Full usage guide with quick start, field types, architecture diagram, and examples
-- [CLAUDE.md](https://github.com/bghcore/form-engine/blob/main/CLAUDE.md): Detailed architecture, rendering pipeline, key directories, and coding conventions
-- [docs/creating-an-adapter.md](https://github.com/bghcore/form-engine/blob/main/docs/creating-an-adapter.md): Guide for building custom UI library adapters
-- [docs/ACCESSIBILITY.md](https://github.com/bghcore/form-engine/blob/main/docs/ACCESSIBILITY.md): Accessibility guide (ARIA, keyboard, screen readers)
-- [docs/ssr-guide.md](https://github.com/bghcore/form-engine/blob/main/docs/ssr-guide.md): Server-side rendering guide
-- [docs/analytics-telemetry.md](https://github.com/bghcore/form-engine/blob/main/docs/analytics-telemetry.md): Analytics and telemetry integration
-- [docs/performance-debugging.md](https://github.com/bghcore/form-engine/blob/main/docs/performance-debugging.md): Performance debugging with DevTools
-- [docs/field-config-reference.md](https://github.com/bghcore/form-engine/blob/main/docs/field-config-reference.md): IFieldConfig v2 reference
-- [docs/expression-syntax.md](https://github.com/bghcore/form-engine/blob/main/docs/expression-syntax.md): Expression syntax ($values, $fn, $parent)
-- [docs/adapter-architecture.md](https://github.com/bghcore/form-engine/blob/main/docs/adapter-architecture.md): Adapter classification and architecture
-- [docs/canonical-field-contracts.md](https://github.com/bghcore/form-engine/blob/main/docs/canonical-field-contracts.md): Canonical field behavior contracts
-- [docs/parity-matrix.md](https://github.com/bghcore/form-engine/blob/main/docs/parity-matrix.md): Per-field, per-adapter parity matrix
-- [docs/api-stability.md](https://github.com/bghcore/form-engine/blob/main/docs/api-stability.md): Public API stability classification
-- [docs/tier1-baseline-report.md](https://github.com/bghcore/form-engine/blob/main/docs/tier1-baseline-report.md): Tier 1 stabilization assessment
-- [docs/choosing-an-adapter.md](https://github.com/bghcore/form-engine/blob/main/docs/choosing-an-adapter.md): Adapter recommendation guide
-- [docs/tier1-patterns.md](https://github.com/bghcore/form-engine/blob/main/docs/tier1-patterns.md): Implementation patterns for Tier 2
-- [docs/tier2-handoff.md](https://github.com/bghcore/form-engine/blob/main/docs/tier2-handoff.md): Pre-Tier-2 handoff document
-- [docs/shadcn-integration.md](https://github.com/bghcore/form-engine/blob/main/docs/shadcn-integration.md): shadcn/ui integration guide
-- [docs/divergence-register.md](https://github.com/bghcore/form-engine/blob/main/docs/divergence-register.md): Cross-adapter divergence register
-- [docs/date-policy.md](https://github.com/bghcore/form-engine/blob/main/docs/date-policy.md): Date handling policy
-- [packages/core/llms.txt](https://github.com/bghcore/form-engine/blob/main/packages/core/llms.txt): Core package API reference for LLMs
-- [packages/fluent/llms.txt](https://github.com/bghcore/form-engine/blob/main/packages/fluent/llms.txt): Fluent UI adapter API reference for LLMs
-- [packages/mui/llms.txt](https://github.com/bghcore/form-engine/blob/main/packages/mui/llms.txt): MUI adapter API reference for LLMs
-- [packages/headless/llms.txt](https://github.com/bghcore/form-engine/blob/main/packages/headless/llms.txt): Headless adapter API reference for LLMs
-- [packages/antd/llms.txt](https://github.com/bghcore/form-engine/blob/main/packages/antd/llms.txt): Ant Design adapter API reference for LLMs
-- [packages/chakra/llms.txt](https://github.com/bghcore/form-engine/blob/main/packages/chakra/llms.txt): Chakra UI adapter API reference for LLMs
-- [packages/mantine/llms.txt](https://github.com/bghcore/form-engine/blob/main/packages/mantine/llms.txt): Mantine adapter API reference for LLMs
-- [packages/atlaskit/llms.txt](https://github.com/bghcore/form-engine/blob/main/packages/atlaskit/llms.txt): Atlassian adapter API reference for LLMs
-- [packages/base-web/llms.txt](https://github.com/bghcore/form-engine/blob/main/packages/base-web/llms.txt): Base Web adapter API reference for LLMs
-- [packages/heroui/llms.txt](https://github.com/bghcore/form-engine/blob/main/packages/heroui/llms.txt): HeroUI adapter API reference for LLMs
-- [packages/radix/llms.txt](https://github.com/bghcore/form-engine/blob/main/packages/radix/llms.txt): Radix UI adapter API reference for LLMs
-- [packages/react-aria/llms.txt](https://github.com/bghcore/form-engine/blob/main/packages/react-aria/llms.txt): React Aria adapter API reference for LLMs
-- [packages/designer/llms.txt](https://github.com/bghcore/form-engine/blob/main/packages/designer/llms.txt): Designer API reference for LLMs
+## When to Use
 
-## Packages
+**Use form-engine when:**
+- Forms are data-driven -- stored in a database, generated by a builder, or configured by non-developers
+- Field A changing to value X should make field B required, field C hidden, and field D's options change -- declared, not coded
+- You need to swap UI libraries without rewriting form logic
+- You want a visual builder for non-technical users
 
-### @form-eng/core
+**Use something else when:**
+- Simple forms with 3-5 static fields -- use react-hook-form directly
+- You need JSON Schema rendering without a rules engine -- use [RJSF](https://github.com/rjsf-team/react-jsonschema-form)
+- You want headless form state with zero rendering opinions -- use [TanStack Form](https://tanstack.com/form)
+- You need the smallest possible bundle (~12 KB) -- use TanStack Form or react-hook-form
 
-UI-library agnostic engine built for React. Depends only on `react` and `react-hook-form`.
-
-- **Providers**: `RulesEngineProvider`, `InjectedFieldProvider` -- React context providers that must wrap the form tree (memoized)
-- **Components**: `FormEngine` (entry point, save with AbortController/retry/timeout), `FormFields`, `RenderField` (useMemo, async validation wired), `FieldWrapper` (React.memo, render props for theming), `ConfirmInputsModal` (focus trap), `WizardForm` (multi-step wizard, step announcements), `FieldArray` (repeating sections), `FormErrorBoundary` (per-field crash isolation), `FormDevTools` (dev-only debugging panel with Rules, Values, Errors, Graph, Perf, Deps, Timeline tabs)
-- **Rules Engine**: `buildDependencyGraph`, `evaluateAllRules`, `evaluateAffectedFields`, `processFieldChange`, `topologicalSort`, `evaluateCondition` (20 operators + AND/OR/NOT), priority-based conflict resolution. Rule effects: required, hidden, readOnly, component swap, options, validate, computedValue, setValue, fieldOrder. Array operators: `arrayContains`, `arrayNotContains`, `arrayLength`.
-- **Validation**: 14 built-in validators + `registerValidators()` for custom sync/async/cross-field. Per-rule `when` condition, `debounceMs`, `async` flag. Factory functions: `createMinLengthValidation`, `createMaxLengthValidation`, `createNumericRangeValidation`, `createPatternValidation`, `createRequiredIfValidation`. `registerValidatorMetadata()` for attaching label/description/paramSchema to validators (used by designer RuleBuilder).
-- **Config Validation**: `validateFieldConfigs()` -- dev-mode checks for missing deps, unregistered components/validators, circular deps
-- **Cycle Detection**: `validateDependencyGraph()` -- Kahn's algorithm on dependency graphs
-- **i18n**: `registerLocale()`, `getLocaleString()`, `resetLocale()` -- partial locale overrides with English fallback
-- **Wizard**: `getVisibleSteps()`, `getStepFields()`, `validateStepFields()`, `isStepValid()`, `getStepIndex()`
-- **Registries**: `registerValidators()` (unified sync+async), `registerValueFunctions()` -- plug in custom functions by name
-- **Hooks**: `useDraftPersistence()` (auto-save to localStorage, recover on mount), `useBeforeUnload()` (browser warning on unsaved changes), `useFormAnalytics()` (analytics callback wrapper)
-- **Serialization**: `serializeFormState()`, `deserializeFormState()` -- Date-safe JSON round-trip
-- **Schema Import**: `jsonSchemaToFieldConfig()` -- convert JSON Schema to `Record<string, IFieldConfig>`
-- **Zod Import**: `zodSchemaToFieldConfig()` -- convert Zod object schemas to `Record<string, IFieldConfig>` (no zod dependency). Maps ZodString->Textbox, ZodNumber->Number, ZodBoolean->Toggle, ZodEnum->Dropdown, ZodDate->DateControl, ZodArray->Multiselect
-- **Type Safety**: `defineFormConfig()` -- zero-cost TypeScript utility for type-safe form configs
-- **JSON Schemas**: `schemas/field-config.schema.json` and `schemas/wizard-config.schema.json` for IDE autocompletion
-- **Lazy Loading**: `createLazyFieldRegistry()` -- React.lazy field registry for code splitting
-- **Theming**: CSS custom properties (`--fe-error-color`, etc.) via optional `styles.css`, render props on `FieldWrapper`
-- **Accessibility**: Focus trap in modals, focus-to-first-error, ARIA live regions, wizard step announcements
-- **Analytics**: `IAnalyticsCallbacks` (8 event hooks), `useFormAnalytics()` hook
-- **Performance**: `RenderTracker` (per-field render count tracking), `EventTimeline` (chronological event log)
-- **Types**: `IFormConfig`, `IFieldConfig`, `IRule`, `ICondition`, `IFieldCondition`, `ILogicalCondition`, `IFieldEffect`, `IFieldProps<T>`, `IOption`, `IValidationRule`, `IRuntimeFieldState`, `IRuntimeFormState`, `IRulesEngineState`, `IRulesEngineAction`, `IWizardConfig`, `IAnalyticsCallbacks`, `ICoreLocaleStrings`, `ComponentTypes`
-
-### @form-eng/fluent
-
-Fluent UI v9 adapter. Provides 28 field components (22 editable + 6 read-only).
-
-- **Registry**: `createFluentFieldRegistry()` -- returns a complete field map for `InjectedFieldProvider`
-- **Editable Fields**: HookTextbox, HookDropdown, HookToggle, HookNumber, HookMultiSelect, HookDateControl, HookSlider, HookSimpleDropdown, HookMultiSelectSearch, HookPopOutEditor, HookDocumentLinks, HookStatusDropdown, HookFragment, HookRadioGroup, HookCheckboxGroup, HookRating, HookColorPicker, HookAutocomplete, HookFileUpload, HookDateRange, HookDateTime, HookPhoneInput
-- **Read-Only Fields**: HookReadOnly, HookReadOnlyArray, HookReadOnlyDateTime, HookReadOnlyCumulativeNumber, HookReadOnlyRichText, HookReadOnlyWithButton
-
-### @form-eng/mui
-
-Material UI (MUI) adapter. Provides 28 field components (22 editable + 6 read-only).
-
-- **Registry**: `createMuiFieldRegistry()` -- returns a complete field map for `InjectedFieldProvider`
-- **Editable Fields**: HookTextbox, HookDropdown, HookToggle, HookNumber, HookMultiSelect, HookDateControl, HookSlider, HookSimpleDropdown, HookMultiSelectSearch, HookPopOutEditor, HookDocumentLinks, HookStatusDropdown, HookFragment, HookRadioGroup, HookCheckboxGroup, HookRating, HookColorPicker, HookAutocomplete, HookFileUpload, HookDateRange, HookDateTime, HookPhoneInput
-- **Read-Only Fields**: HookReadOnly, HookReadOnlyArray, HookReadOnlyDateTime, HookReadOnlyCumulativeNumber, HookReadOnlyRichText, HookReadOnlyWithButton
-
-### @form-eng/headless
-
-Unstyled semantic HTML adapter. No UI framework dependency. Provides 28 field components (22 editable + 6 read-only) using plain HTML elements with data-* attributes and ARIA roles.
-
-- **Registry**: `createHeadlessFieldRegistry()` -- returns a complete field map for `InjectedFieldProvider`
-- **Editable Fields**: HookTextbox, HookDropdown, HookToggle, HookNumber, HookMultiSelect, HookDateControl, HookSlider, HookSimpleDropdown, HookMultiSelectSearch, HookPopOutEditor, HookDocumentLinks, HookStatusDropdown, HookFragment, HookRadioGroup, HookCheckboxGroup, HookRating, HookColorPicker, HookAutocomplete, HookFileUpload, HookDateRange, HookDateTime, HookPhoneInput
-- **Read-Only Fields**: HookReadOnly, HookReadOnlyArray, HookReadOnlyDateTime, HookReadOnlyCumulativeNumber, HookReadOnlyRichText, HookReadOnlyWithButton
-- **Optional CSS**: `styles.css` with CSS custom properties for basic styling
-
-### @form-eng/antd
-Ant Design v5 adapter. Provides 13 Tier 1 field components using antd components.
-- **Registry**: `createAntdFieldRegistry()`
-
-### @form-eng/chakra
-Chakra UI v3 adapter. Provides 13 Tier 1 field components (7 native Chakra + 6 semantic HTML fallbacks due to Ark UI DTS issues).
-- **Registry**: `createChakraFieldRegistry()`
-
-### @form-eng/mantine
-Mantine v7 adapter. Provides 13 Tier 1 field components using Mantine components.
-- **Registry**: `createMantineFieldRegistry()`
-
-### @form-eng/atlaskit
-Atlassian Design System adapter. Provides 13 Tier 1 field components using semantic HTML.
-- **Registry**: `createAtlaskitFieldRegistry()`
-
-### @form-eng/base-web
-Uber Base Web adapter. Provides 13 Tier 1 field components (mix of baseui components and semantic HTML).
-- **Registry**: `createBaseWebFieldRegistry()`
-
-### @form-eng/heroui
-HeroUI (formerly NextUI) adapter. Provides 13 Tier 1 field components using semantic HTML.
-- **Registry**: `createHeroUIFieldRegistry()`
-
-### @form-eng/radix
-Radix UI primitives adapter. Provides 13 Tier 1 field components (6 Radix UI native + 7 semantic HTML). Ships with no styles, ideal for Tailwind/shadcn. No provider wrapper needed.
-- **Registry**: `createRadixFieldRegistry()`
-
-### @form-eng/react-aria
-React Aria Components adapter. Provides 13 Tier 1 field components (10 React Aria native + 3 semantic HTML). Best-in-class ARIA accessibility. No provider wrapper needed.
-- **Registry**: `createReactAriaFieldRegistry()`
-
-### @form-eng/designer
-
-Visual drag-and-drop form builder that outputs IFormConfig v2 JSON.
-
-- **Components**: `FormDesigner` (main entry), `FieldPalette` (drag source), `FormCanvas` (drop target), `FieldConfigPanel` (field property editor), `RuleBuilder` (visual rule editor), `ConfigPreview` (live JSON preview), `WizardConfigurator` (step editor), `ImportExport` (JSON import/export)
-- **State**: `DesignerProvider`, `useDesigner` hook, `designerReducer`
-- **Types**: `IDesignerState`, `IDesignerAction`
-
-### @form-eng/examples
-
-Three example applications demonstrating common form patterns.
-
-- **login-mfa**: Conditional MFA fields, dynamic labels
-- **checkout**: Wizard form, dropdown dependencies, payment branching
-- **data-entry**: Field arrays, computed values, cross-field validation
-
-## Examples
-
-### Minimal Setup (Fluent UI)
+## Quick Start
 
 ```tsx
-import { RulesEngineProvider, InjectedFieldProvider, UseInjectedFieldContext, FormEngine } from "@form-eng/core";
+import { RulesEngineProvider, InjectedFieldProvider, FormEngine } from "@form-eng/core";
 import { createFluentFieldRegistry } from "@form-eng/fluent";
+// Or: createMuiFieldRegistry, createHeadlessFieldRegistry, createAntdFieldRegistry, etc.
 
-function FieldRegistrar({ children }) {
-  const { setInjectedFields } = UseInjectedFieldContext();
-  useEffect(() => setInjectedFields(createFluentFieldRegistry()), []);
-  return <>{children}</>;
-}
-
-const formConfig: IFormConfig = {
-  version: 2,
+const formConfig = {
+  version: 2 as const,
   fields: {
     name: { type: "Textbox", label: "Name", required: true },
+    role: {
+      type: "Dropdown", label: "Role",
+      options: [{ value: "admin", label: "Admin" }, { value: "user", label: "User" }],
+    },
+    adminCode: {
+      type: "Textbox", label: "Admin Code", hidden: true,
+      rules: [{
+        when: { field: "role", operator: "equals", value: "admin" },
+        then: { hidden: false, required: true },
+        else: { hidden: true },
+      }],
+    },
   },
-  fieldOrder: ["name"],
+  fieldOrder: ["name", "role", "adminCode"],
 };
 
 <RulesEngineProvider>
-  <InjectedFieldProvider>
-    <FieldRegistrar>
-      <FormEngine
-        configName="myForm"
-        programName="myApp"
-        formConfig={formConfig}
-        defaultValues={{ name: "" }}
-        saveData={async (data) => data}
-      />
-    </FieldRegistrar>
+  <InjectedFieldProvider injectedFields={createFluentFieldRegistry()}>
+    <FormEngine
+      configName="myForm" programName="myApp"
+      formConfig={formConfig} defaultValues={{ name: "", role: "" }}
+      saveData={async (data) => data}
+    />
   </InjectedFieldProvider>
 </RulesEngineProvider>
 ```
 
-### Swap to MUI (one import change)
+## Docs
 
-```tsx
-import { createMuiFieldRegistry } from "@form-eng/mui";
-setInjectedFields(createMuiFieldRegistry()); // that's it
-```
+- [README](https://github.com/bghcore/form-engine/blob/main/README.md): Full usage guide, field types, architecture, examples
+- [Comparison](https://github.com/bghcore/form-engine/blob/main/docs/comparison.md): Honest comparison vs RJSF, TanStack Form, Formik, uniforms, SurveyJS, Form.io
+- [Choosing an Adapter](https://github.com/bghcore/form-engine/blob/main/docs/choosing-an-adapter.md): Which adapter for your UI framework
+- [Field Config Reference](https://github.com/bghcore/form-engine/blob/main/docs/field-config-reference.md): IFieldConfig v2 properties
+- [Rules Engine](https://github.com/bghcore/form-engine/blob/main/docs/rules-engine.md): Lifecycle, dependency graph, evaluation
+- [Expression Syntax](https://github.com/bghcore/form-engine/blob/main/docs/expression-syntax.md): $values, $fn, $parent expressions
+- [Condition Operators](https://github.com/bghcore/form-engine/blob/main/docs/condition-operators.md): All 20 operators
+- [Accessibility](https://github.com/bghcore/form-engine/blob/main/docs/ACCESSIBILITY.md): WCAG 2.1 AA, ARIA, keyboard
+- [SSR / Next.js](https://github.com/bghcore/form-engine/blob/main/docs/ssr-guide.md): App Router, Pages Router, lazy loading
+- [shadcn Integration](https://github.com/bghcore/form-engine/blob/main/docs/shadcn-integration.md): Radix + Tailwind setup
+- [Creating an Adapter](https://github.com/bghcore/form-engine/blob/main/docs/creating-an-adapter.md): Build a custom UI adapter
+- [Documentation Index](https://github.com/bghcore/form-engine/blob/main/docs/README.md): Full doc listing
 
-### Swap to Headless (one import change)
+## Packages
 
-```tsx
-import { createHeadlessFieldRegistry } from "@form-eng/headless";
-setInjectedFields(createHeadlessFieldRegistry()); // that's it
-```
+- [`@form-eng/core`](https://github.com/bghcore/form-engine/tree/main/packages/core): Rules engine, form orchestration, validation, analytics, devtools (~114 KB ESM)
+- [`@form-eng/fluent`](https://github.com/bghcore/form-engine/tree/main/packages/fluent): Fluent UI v9 adapter (28 field types, ~39 KB)
+- [`@form-eng/mui`](https://github.com/bghcore/form-engine/tree/main/packages/mui): Material UI adapter (28 field types, ~39 KB)
+- [`@form-eng/headless`](https://github.com/bghcore/form-engine/tree/main/packages/headless): Unstyled semantic HTML (28 field types, ~36 KB)
+- [`@form-eng/antd`](https://github.com/bghcore/form-engine/tree/main/packages/antd): Ant Design v5 adapter (13 field types, ~18 KB)
+- [`@form-eng/chakra`](https://github.com/bghcore/form-engine/tree/main/packages/chakra): Chakra UI v3 adapter (13 field types, ~18 KB)
+- [`@form-eng/mantine`](https://github.com/bghcore/form-engine/tree/main/packages/mantine): Mantine v7 adapter (13 field types, ~18 KB)
+- [`@form-eng/atlaskit`](https://github.com/bghcore/form-engine/tree/main/packages/atlaskit): Atlassian Design System adapter (13 field types, ~16 KB)
+- [`@form-eng/base-web`](https://github.com/bghcore/form-engine/tree/main/packages/base-web): Uber Base Web adapter (13 field types, ~16 KB)
+- [`@form-eng/heroui`](https://github.com/bghcore/form-engine/tree/main/packages/heroui): HeroUI adapter (13 field types, ~16 KB)
+- [`@form-eng/radix`](https://github.com/bghcore/form-engine/tree/main/packages/radix): Radix UI primitives, unstyled (13 field types, ~26 KB)
+- [`@form-eng/react-aria`](https://github.com/bghcore/form-engine/tree/main/packages/react-aria): React Aria Components, accessibility-first (13 field types, ~25 KB)
+- [`@form-eng/designer`](https://github.com/bghcore/form-engine/tree/main/packages/designer): Visual drag-and-drop form builder (~65 KB)
+- [`@form-eng/examples`](https://github.com/bghcore/form-engine/tree/main/packages/examples): 3 example apps (login+MFA, checkout wizard, data entry)
 
-### Rules Engine (v2 Declarative Rules)
+## Optional
 
-```tsx
-const formConfig: IFormConfig = {
-  version: 2,
-  fields: {
-    type: {
-      type: "Dropdown",
-      label: "Type",
-      options: [
-        { value: "bug", label: "Bug" },
-        { value: "feature", label: "Feature" },
-      ],
-    },
-    severity: {
-      type: "Dropdown",
-      label: "Severity",
-      hidden: true,
-      rules: [
-        {
-          when: { field: "type", operator: "equals", value: "bug" },
-          then: { required: true, hidden: false },
-          else: { hidden: true },
-          priority: 1,
-        },
-      ],
-    },
-  },
-  fieldOrder: ["type", "severity"],
-};
-```
-
-### Validation (Unified Registry)
-
-```tsx
-import { registerValidators } from "@form-eng/core";
-
-registerValidators({
-  CheckUniqueEmail: {
-    fn: async (value, entityData, signal) => {
-      const res = await fetch(`/api/check?email=${value}`, { signal });
-      const { exists } = await res.json();
-      return exists ? "Already in use" : undefined;
-    },
-    async: true,
-  },
-});
-
-// In field config: validate: [{ name: "CheckUniqueEmail", async: true, debounceMs: 500 }]
-```
-
-### i18n
-
-```tsx
-import { registerLocale } from "@form-eng/core";
-registerLocale({ required: "Obligatoire", save: "Sauvegarder" });
-```
-
-### Wizard
-
-```tsx
-import { WizardForm } from "@form-eng/core";
-
-const formConfig: IFormConfig = {
-  version: 2,
-  fields: { /* ... */ },
-  wizard: {
-    steps: [
-      { id: "basics", title: "Basics", fields: ["name", "type"] },
-      {
-        id: "details",
-        title: "Details",
-        fields: ["description"],
-        visibleWhen: { field: "type", operator: "equals", value: "bug" },
-      },
-    ],
-    validateOnStepChange: true,
-  },
-};
-
-<WizardForm
-  formConfig={formConfig}
-  entityData={formValues}
-  renderStepContent={(fields) => <FieldRenderer fields={fields} />}
-  renderStepNavigation={({ goNext, goPrev, canGoNext, canGoPrev }) => (
-    <nav>
-      <button onClick={goPrev} disabled={!canGoPrev}>Back</button>
-      <button onClick={goNext} disabled={!canGoNext}>Next</button>
-    </nav>
-  )}
-/>
-```
-
-### Analytics
-
-```tsx
-import { useFormAnalytics, IAnalyticsCallbacks } from "@form-eng/core";
-
-const analytics: IAnalyticsCallbacks = {
-  onFieldChange: (fieldName, oldValue, newValue) => track("field_change", { fieldName }),
-  onSaveStart: () => track("save_start"),
-  onSaveSuccess: (duration) => track("save_success", { duration }),
-  onSaveError: (error) => track("save_error", { error: error.message }),
-  onRuleEvaluated: (rule, result) => track("rule_evaluated", { rule: rule.id }),
-  onValidationError: (fieldName, errors) => track("validation_error", { fieldName }),
-  onStepChange: (fromStep, toStep) => track("step_change", { fromStep, toStep }),
-  onFormMount: (config) => track("form_mount", { config: config.configName }),
-};
-
-const formAnalytics = useFormAnalytics(analytics);
-```
+- [llms-full.txt](https://github.com/bghcore/form-engine/blob/main/llms-full.txt): Extended reference with architecture, full API surface, all code examples
+- [CLAUDE.md](https://github.com/bghcore/form-engine/blob/main/CLAUDE.md): Detailed architecture, rendering pipeline, key directories
+- Per-package LLM references: [core](https://github.com/bghcore/form-engine/blob/main/packages/core/llms.txt), [fluent](https://github.com/bghcore/form-engine/blob/main/packages/fluent/llms.txt), [mui](https://github.com/bghcore/form-engine/blob/main/packages/mui/llms.txt), [headless](https://github.com/bghcore/form-engine/blob/main/packages/headless/llms.txt), [antd](https://github.com/bghcore/form-engine/blob/main/packages/antd/llms.txt), [chakra](https://github.com/bghcore/form-engine/blob/main/packages/chakra/llms.txt), [mantine](https://github.com/bghcore/form-engine/blob/main/packages/mantine/llms.txt), [atlaskit](https://github.com/bghcore/form-engine/blob/main/packages/atlaskit/llms.txt), [base-web](https://github.com/bghcore/form-engine/blob/main/packages/base-web/llms.txt), [heroui](https://github.com/bghcore/form-engine/blob/main/packages/heroui/llms.txt), [radix](https://github.com/bghcore/form-engine/blob/main/packages/radix/llms.txt), [react-aria](https://github.com/bghcore/form-engine/blob/main/packages/react-aria/llms.txt), [designer](https://github.com/bghcore/form-engine/blob/main/packages/designer/llms.txt)

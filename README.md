@@ -26,6 +26,21 @@ A React library for rendering complex, configuration-driven forms with a built-i
 - Pure JSON Schema rendering with no rules engine -- use [RJSF](https://github.com/rjsf-team/react-jsonschema-form) (but if you want RJSF's schema format with our rules engine, use `fromRjsfSchema()` to migrate)
 - Headless form state with zero opinions -- use [TanStack Form](https://tanstack.com/form)
 
+See [docs/comparison.md](./docs/comparison.md) for a detailed comparison with migration paths.
+
+### Feature Comparison
+
+| Feature | form-engine | RJSF | TanStack Form | Formik | uniforms |
+|---------|:-----------:|:----:|:-------------:|:------:|:--------:|
+| Config-driven (JSON/data) | Yes | Yes | No | No | Yes |
+| Declarative rules engine | Yes (20 ops) | Partial | No | No | No |
+| UI adapter system | 12 adapters | 5 themes | Headless | N/A | 6 bridges |
+| Computed values | `$values`, `$fn` | No | No | No | No |
+| Wizard / multi-step | Built-in | Add-on | Manual | Manual | No |
+| Visual form builder | Yes (MIT) | No | No | No | No |
+| Schema import (JSON/Zod) | Both | JSON Schema | No | No | JSON Schema |
+| Bundle (core) | ~114 KB | ~85 KB | ~12 KB | ~13 KB | ~45 KB |
+
 ## Packages
 
 | Package | Description | Size |
@@ -800,6 +815,8 @@ All 28 field types (22 editable + 6 read-only) are available in the Fluent UI, M
 | `ReadOnlyWithButton` | Text with action button |
 
 ## Architecture
+
+Form-engine separates **what** a form contains (the `IFormConfig` JSON object) from **how** it renders (UI adapter packages). The core package owns form state (via react-hook-form), evaluates declarative rules to compute field visibility/required/readOnly state, and delegates rendering to pluggable field components registered through the component injection system. This means you can swap your entire UI layer -- from Fluent UI to MUI to headless HTML -- by changing one import.
 
 ```
 <RulesEngineProvider>           -- Owns rule state via useReducer (memoized)

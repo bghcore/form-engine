@@ -1,6 +1,6 @@
 {
   "name": "@form-eng/mui",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "Material UI (MUI) field components for @form-eng/core",
   "repository": {
     "type": "git",
@@ -22,7 +22,13 @@
     "form-builder",
     "field-components",
     "mui-forms",
-    "business-forms"
+    "business-forms",
+    "rules-engine",
+    "config-driven",
+    "conditional-fields",
+    "form-validation",
+    "typescript",
+    "form-engine"
   ],
   "main": "dist/index.js",
   "module": "dist/index.mjs",

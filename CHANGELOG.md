@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.3] - 2026-03-10
+
+### Added
+
+- **`docs/comparison.md`** -- Honest feature comparison against 7 alternatives (RJSF, TanStack Form, Formik, react-final-form, uniforms, SurveyJS, Form.io) with summary table, per-alternative analysis, and migration paths.
+- **`llms-full.txt`** -- Extended LLM reference (~560 lines) with architecture, rules engine deep-dive, full API surface, all code examples, and configuration schema. Replaces the previous monolithic llms.txt content.
+- **Feature comparison table in README.md** -- Compact form-engine vs RJSF vs TanStack Form vs Formik vs uniforms table after "When to Use" section with link to full comparison doc.
+- **"Architecture at a Glance" paragraph in README.md** -- Three-sentence summary of the config-vs-UI separation before the detailed architecture diagram.
+
+### Changed
+
+- **`llms.txt` restructured** -- Rewritten from 306-line API dump to ~105-line positioning document following the [llmstxt.org](https://llmstxt.org/) spec. Focuses on "what/why/when" with links to deeper references. Previous API content moved to `llms-full.txt`.
+- **npm keywords enriched across all 13 packages** -- Added `rules-engine`, `config-driven`, `conditional-fields`, `form-validation`, `typescript`, `form-engine` to all adapter packages. Additional targeted keywords: `shadcn`/`tailwind-css` for headless and radix, `shadcn-ui` for radix, `wai-aria` for react-aria, `form-generator`/`conditional-logic`/`json-config`/`wysiwyg`/`form-configuration` for designer. Core added `computed-fields`, `form-state-management`, `form-orchestration`, `UI-agnostic`, `accessibility`.
+- `docs/README.md` updated with comparison.md entry in the integration docs section.
+- All packages bumped to 1.5.3.
+
 ## [1.5.2] - 2026-03-09
 
 ### Fixed

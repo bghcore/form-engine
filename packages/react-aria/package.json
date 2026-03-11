@@ -1,6 +1,6 @@
 {
   "name": "@form-eng/react-aria",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "React Aria Components field implementations for @form-eng/core",
   "repository": {
     "type": "git",
@@ -22,7 +22,14 @@
     "react-hook-form",
     "form-builder",
     "field-components",
-    "business-forms"
+    "business-forms",
+    "rules-engine",
+    "config-driven",
+    "conditional-fields",
+    "form-validation",
+    "typescript",
+    "form-engine",
+    "wai-aria"
   ],
   "main": "dist/index.js",
   "module": "dist/index.mjs",

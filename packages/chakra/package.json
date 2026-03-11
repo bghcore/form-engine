@@ -1,6 +1,6 @@
 {
   "name": "@form-eng/chakra",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "Chakra UI v3 field components for @form-eng/core",
   "repository": {
     "type": "git",
@@ -19,7 +19,13 @@
     "react-hook-form",
     "form-builder",
     "field-components",
-    "business-forms"
+    "business-forms",
+    "rules-engine",
+    "config-driven",
+    "conditional-fields",
+    "form-validation",
+    "typescript",
+    "form-engine"
   ],
   "main": "dist/index.js",
   "module": "dist/index.mjs",

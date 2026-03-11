@@ -1,0 +1,563 @@
+# Form Engine -- Full Reference
+
+> A config-driven React form library with a built-in declarative rules engine. Define forms as JSON (`IFormConfig`), swap UI libraries without rewriting logic, and let the engine handle conditional visibility, computed values, validation, and auto-save. 12 UI adapters (Fluent UI, MUI, Ant Design, Mantine, Chakra, Radix, React Aria, headless HTML, and more), a visual drag-and-drop form builder, and 4,700+ tests. MIT licensed. Built on react-hook-form v7.
+
+This is the extended reference for AI models. For the concise version, see [llms.txt](https://github.com/bghcore/form-engine/blob/main/llms.txt).
+
+## Architecture
+
+### Rendering Pipeline
+
+```
+IFormConfig (v2)
+  -> FormEngine (form state via react-hook-form, save with AbortController/retry)
+    -> evaluateAllRules() -> IRuntimeFormState
+    -> FormFields (ordered field list)
+      -> FormErrorBoundary (per-field crash isolation)
+        -> RenderField (per field, useMemo for component resolution)
+          -> Looks up injectedFields[type] from context
+          -> Controller (react-hook-form integration, unified validation)
+          -> FieldWrapper (label, error, status chrome, render props for theming)
+            -> React.cloneElement(InjectedFieldComponent, IFieldProps)
+```
+
+### Provider Hierarchy
+
+Two React context providers must wrap the form tree (both memoized via useMemo):
+
+```
+<RulesEngineProvider>          -- Owns rule state via useReducer (memoized context value)
+  <InjectedFieldProvider>      -- Component injection registry (memoized context value)
+    <FormEngine>              -- Entry point
+```
+
+### Component Injection System
+
+Fields are registered as a `Record<string, JSX.Element>` via `InjectedFieldProvider`. `RenderField` looks up the component by `type` string key and uses `React.cloneElement()` to pass standardized `IFieldProps`. Consumers can override any built-in field or add custom ones.
+
+## Rules Engine (v2)
+
+Rules are **declarative** -- defined as `IRule[]` on each field config with rich conditions and effects.
+
+### Condition Operators (20)
+
+`equals`, `notEquals`, `greaterThan`, `lessThan`, `greaterThanOrEqual`, `lessThanOrEqual`, `contains`, `notContains`, `startsWith`, `endsWith`, `in`, `notIn`, `isEmpty`, `isNotEmpty`, `matches`, `arrayContains`, `arrayNotContains`, `arrayLengthEquals`, `arrayLengthGreaterThan`, `arrayLengthLessThan`
+
+### Logical Operators
+
+`and`, `or`, `not` (composable condition trees)
+
+### Lifecycle
+
+1. **Init**: `IFormConfig` + entity data -> `evaluateAllRules()` -> builds dependency graph via topological sort + evaluates all rules
+2. **Validate**: `validateDependencyGraph()` checks for circular/self dependencies via Kahn's algorithm
+3. **Trigger**: Field value change -> `processFieldChange()`
+4. **Evaluate**: `evaluateAffectedFields()` -- only re-evaluates transitively affected fields (incremental)
+5. **Resolve**: Priority-based conflict resolution (higher priority rule wins)
+6. **Apply**: Dispatch to reducer -> React re-render -> fields read updated `IRuntimeFieldState`
+
+### Rule Effects
+
+- Required/Hidden/ReadOnly toggle
+- Component type swap
+- Validation rule replacement
+- Computed value expressions ($values.field, $fn.name(), $parent.field)
+- Dropdown option filtering/replacement
+- Field ordering
+- Cross-field effects (one rule can affect multiple fields)
+- Conditional validation (validate only when condition met)
+- Confirm input modal trigger
+- setValue (set a field's value directly)
+
+## Configuration Schema
+
+### Key Types
+
+```typescript
+interface IFormConfig {
+  version: 2;
+  fields: Record<string, IFieldConfig>;
+  fieldOrder?: string[];
+  wizard?: IWizardConfig;
+  settings?: IFormSettings;
+}
+
+interface IFieldConfig {
+  type: string;            // "Textbox", "Dropdown", "Toggle", etc.
+  label: string;
+  required?: boolean;
+  hidden?: boolean;
+  readOnly?: boolean;
+  defaultValue?: unknown;
+  computedValue?: string;  // "$values.qty * $values.price" or "$fn.setDate()"
+  options?: IOption[];      // { value, label, disabled?, group?, icon?, color? }
+  validate?: IValidationRule[];  // { name, params?, message?, async?, debounceMs?, when? }
+  rules?: IRule[];          // { when: ICondition, then: IFieldEffect, else?, priority? }
+  items?: Record<string, IFieldConfig>;  // field array items (full config)
+  config?: Record<string, unknown>;      // arbitrary metadata for field component
+}
+
+type ICondition = IFieldCondition | ILogicalCondition;
+// IFieldCondition: { field, operator, value? }
+// ILogicalCondition: { operator: "and"|"or"|"not", conditions: ICondition[] }
+```
+
+## Pluggable Registries
+
+- `ValidationRegistry` -- Unified `ValidatorFn` for sync, async, and cross-field validation. 14 built-in validators + `registerValidators()` for custom. Per-rule `when` condition, `debounceMs`, `async` flag.
+- `ValueFunctionRegistry` -- Value functions via `$fn.name()` syntax in computed expressions. `registerValueFunctions()` for custom.
+- `LocaleRegistry` -- i18n support via `registerLocale()` with partial overrides and English fallback
+- `formStateSerialization` -- Date-safe JSON round-trip for draft persistence
+- `rjsf/` -- RJSF-compatible schema import: `fromRjsfSchema()` converts JSON Schema + uiSchema + formData to `IFormConfig` with auto-generated `IRule[]` from dependencies/if-then-else/oneOf. `toRjsfSchema()` for reverse export.
+- `zodSchemaImport` -- Convert Zod schema to `Record<string, IFieldConfig>` (no zod dependency)
+- `lazyFieldRegistry` -- Create field registries with React.lazy for on-demand loading
+
+## Comparison Summary
+
+| Feature | form-engine | RJSF | TanStack Form | Formik | uniforms |
+|---------|:-----------:|:----:|:-------------:|:------:|:--------:|
+| Config-driven | Yes | Yes | No | No | Yes |
+| Declarative rules engine | Yes (20 ops) | Partial | No | No | No |
+| UI adapter system | 12 adapters | 5 themes | Headless | N/A | 6 bridges |
+| Computed values | `$values`, `$fn` | No | No | No | No |
+| Wizard / multi-step | Built-in | Add-on | Manual | Manual | No |
+| Visual form builder | Yes (MIT) | No | No | No | No |
+| Bundle (core) | ~114 KB | ~85 KB | ~12 KB | ~13 KB | ~45 KB |
+
+See [docs/comparison.md](https://github.com/bghcore/form-engine/blob/main/docs/comparison.md) for full comparison with migration paths.
+
+## Package API Reference
+
+### @form-eng/core
+
+UI-library agnostic engine built for React. Depends only on `react` and `react-hook-form`.
+
+- **Providers**: `RulesEngineProvider`, `InjectedFieldProvider` -- React context providers that must wrap the form tree (memoized)
+- **Components**: `FormEngine` (entry point, save with AbortController/retry/timeout), `FormFields`, `RenderField` (useMemo, async validation wired), `FieldWrapper` (React.memo, render props for theming), `ConfirmInputsModal` (focus trap), `WizardForm` (multi-step wizard, step announcements), `FieldArray` (repeating sections), `FormErrorBoundary` (per-field crash isolation), `FormDevTools` (dev-only debugging panel with Rules, Values, Errors, Graph, Perf, Deps, Timeline tabs)
+- **Rules Engine**: `buildDependencyGraph`, `evaluateAllRules`, `evaluateAffectedFields`, `processFieldChange`, `topologicalSort`, `evaluateCondition` (20 operators + AND/OR/NOT), priority-based conflict resolution. Rule effects: required, hidden, readOnly, component swap, options, validate, computedValue, setValue, fieldOrder. Array operators: `arrayContains`, `arrayNotContains`, `arrayLength`.
+- **Validation**: 14 built-in validators + `registerValidators()` for custom sync/async/cross-field. Per-rule `when` condition, `debounceMs`, `async` flag. Factory functions: `createMinLengthValidation`, `createMaxLengthValidation`, `createNumericRangeValidation`, `createPatternValidation`, `createRequiredIfValidation`. `registerValidatorMetadata()` for attaching label/description/paramSchema to validators (used by designer RuleBuilder).
+- **Config Validation**: `validateFieldConfigs()` -- dev-mode checks for missing deps, unregistered components/validators, circular deps
+- **Cycle Detection**: `validateDependencyGraph()` -- Kahn's algorithm on dependency graphs
+- **i18n**: `registerLocale()`, `getLocaleString()`, `resetLocale()` -- partial locale overrides with English fallback
+- **Wizard**: `getVisibleSteps()`, `getStepFields()`, `validateStepFields()`, `isStepValid()`, `getStepIndex()`
+- **Registries**: `registerValidators()` (unified sync+async), `registerValueFunctions()` -- plug in custom functions by name
+- **Hooks**: `useDraftPersistence()` (auto-save to localStorage, recover on mount), `useBeforeUnload()` (browser warning on unsaved changes), `useFormAnalytics()` (analytics callback wrapper)
+- **Serialization**: `serializeFormState()`, `deserializeFormState()` -- Date-safe JSON round-trip
+- **Schema Import**: `jsonSchemaToFieldConfig()` -- convert JSON Schema to `Record<string, IFieldConfig>`
+- **Zod Import**: `zodSchemaToFieldConfig()` -- convert Zod object schemas to `Record<string, IFieldConfig>` (no zod dependency). Maps ZodString->Textbox, ZodNumber->Number, ZodBoolean->Toggle, ZodEnum->Dropdown, ZodDate->DateControl, ZodArray->Multiselect
+- **Type Safety**: `defineFormConfig()` -- zero-cost TypeScript utility for type-safe form configs
+- **JSON Schemas**: `schemas/field-config.schema.json` and `schemas/wizard-config.schema.json` for IDE autocompletion
+- **Lazy Loading**: `createLazyFieldRegistry()` -- React.lazy field registry for code splitting
+- **Theming**: CSS custom properties (`--fe-error-color`, etc.) via optional `styles.css`, render props on `FieldWrapper`
+- **Accessibility**: Focus trap in modals, focus-to-first-error, ARIA live regions, wizard step announcements
+- **Analytics**: `IAnalyticsCallbacks` (8 event hooks), `useFormAnalytics()` hook
+- **Performance**: `RenderTracker` (per-field render count tracking), `EventTimeline` (chronological event log)
+- **Types**: `IFormConfig`, `IFieldConfig`, `IRule`, `ICondition`, `IFieldCondition`, `ILogicalCondition`, `IFieldEffect`, `IFieldProps<T>`, `IOption`, `IValidationRule`, `IRuntimeFieldState`, `IRuntimeFormState`, `IRulesEngineState`, `IRulesEngineAction`, `IWizardConfig`, `IAnalyticsCallbacks`, `ICoreLocaleStrings`, `ComponentTypes`
+
+### @form-eng/fluent
+
+Fluent UI v9 adapter. Provides 28 field components (22 editable + 6 read-only).
+
+- **Registry**: `createFluentFieldRegistry()` -- returns a complete field map for `InjectedFieldProvider`
+- **Editable Fields**: Textbox, Dropdown, Toggle, Number, MultiSelect, DateControl, Slider, SimpleDropdown, MultiSelectSearch, Textarea, DocumentLinks, StatusDropdown, DynamicFragment, RadioGroup, CheckboxGroup, Rating, ColorPicker, Autocomplete, FileUpload, DateRange, DateTime, PhoneInput
+- **Read-Only Fields**: ReadOnly, ReadOnlyArray, ReadOnlyDateTime, ReadOnlyCumulativeNumber, ReadOnlyRichText, ReadOnlyWithButton
+
+### @form-eng/mui
+
+Material UI (MUI) adapter. Provides 28 field components (22 editable + 6 read-only).
+
+- **Registry**: `createMuiFieldRegistry()` -- returns a complete field map for `InjectedFieldProvider`
+- **Editable Fields**: Same 22 types as fluent adapter, using @mui/material components
+- **Read-Only Fields**: Same 6 types as fluent adapter
+
+### @form-eng/headless
+
+Unstyled semantic HTML adapter. No UI framework dependency. Provides 28 field components (22 editable + 6 read-only) using plain HTML elements with data-* attributes and ARIA roles.
+
+- **Registry**: `createHeadlessFieldRegistry()` -- returns a complete field map for `InjectedFieldProvider`
+- **Editable Fields**: Same 22 types, semantic HTML elements
+- **Read-Only Fields**: Same 6 types
+- **Optional CSS**: `styles.css` with CSS custom properties for basic styling
+
+### @form-eng/antd
+Ant Design v5 adapter. Provides 13 Tier 1 field components using antd components.
+- **Registry**: `createAntdFieldRegistry()`
+
+### @form-eng/chakra
+Chakra UI v3 adapter. Provides 13 Tier 1 field components (7 native Chakra + 6 semantic HTML fallbacks due to Ark UI DTS issues).
+- **Registry**: `createChakraFieldRegistry()`
+
+### @form-eng/mantine
+Mantine v7 adapter. Provides 13 Tier 1 field components using Mantine components.
+- **Registry**: `createMantineFieldRegistry()`
+
+### @form-eng/atlaskit
+Atlassian Design System adapter. Provides 13 Tier 1 field components using semantic HTML.
+- **Registry**: `createAtlaskitFieldRegistry()`
+
+### @form-eng/base-web
+Uber Base Web adapter. Provides 13 Tier 1 field components (mix of baseui components and semantic HTML).
+- **Registry**: `createBaseWebFieldRegistry()`
+
+### @form-eng/heroui
+HeroUI (formerly NextUI) adapter. Provides 13 Tier 1 field components using semantic HTML.
+- **Registry**: `createHeroUIFieldRegistry()`
+
+### @form-eng/radix
+Radix UI primitives adapter. Provides 13 Tier 1 field components (6 Radix UI native + 7 semantic HTML). Ships with no styles, ideal for Tailwind/shadcn. No provider wrapper needed.
+- **Registry**: `createRadixFieldRegistry()`
+
+### @form-eng/react-aria
+React Aria Components adapter. Provides 13 Tier 1 field components (10 React Aria native + 3 semantic HTML). Best-in-class ARIA accessibility. No provider wrapper needed.
+- **Registry**: `createReactAriaFieldRegistry()`
+
+### @form-eng/designer
+
+Visual drag-and-drop form builder that outputs IFormConfig v2 JSON.
+
+- **Components**: `FormDesigner` (main entry), `FieldPalette` (drag source), `FormCanvas` (drop target), `FieldConfigPanel` (field property editor), `RuleBuilder` (visual rule editor), `ConfigPreview` (live JSON preview), `WizardConfigurator` (step editor), `ImportExport` (JSON import/export)
+- **State**: `DesignerProvider`, `useDesigner` hook, `designerReducer`
+- **Types**: `IDesignerState`, `IDesignerAction`
+
+### @form-eng/examples
+
+Three example applications demonstrating common form patterns.
+
+- **login-mfa**: Conditional MFA fields, dynamic labels
+- **checkout**: Wizard form, dropdown dependencies, payment branching
+- **data-entry**: Field arrays, computed values, cross-field validation
+
+## Code Examples
+
+### Minimal Setup (Fluent UI)
+
+```tsx
+import { RulesEngineProvider, InjectedFieldProvider, UseInjectedFieldContext, FormEngine } from "@form-eng/core";
+import { createFluentFieldRegistry } from "@form-eng/fluent";
+
+function FieldRegistrar({ children }) {
+  const { setInjectedFields } = UseInjectedFieldContext();
+  useEffect(() => setInjectedFields(createFluentFieldRegistry()), []);
+  return <>{children}</>;
+}
+
+const formConfig: IFormConfig = {
+  version: 2,
+  fields: {
+    name: { type: "Textbox", label: "Name", required: true },
+  },
+  fieldOrder: ["name"],
+};
+
+<RulesEngineProvider>
+  <InjectedFieldProvider>
+    <FieldRegistrar>
+      <FormEngine
+        configName="myForm"
+        programName="myApp"
+        formConfig={formConfig}
+        defaultValues={{ name: "" }}
+        saveData={async (data) => data}
+      />
+    </FieldRegistrar>
+  </InjectedFieldProvider>
+</RulesEngineProvider>
+```
+
+### Swap to MUI (one import change)
+
+```tsx
+import { createMuiFieldRegistry } from "@form-eng/mui";
+setInjectedFields(createMuiFieldRegistry()); // that's it
+```
+
+### Swap to Headless (one import change)
+
+```tsx
+import { createHeadlessFieldRegistry } from "@form-eng/headless";
+setInjectedFields(createHeadlessFieldRegistry()); // that's it
+```
+
+### Rules Engine (v2 Declarative Rules)
+
+```tsx
+const formConfig: IFormConfig = {
+  version: 2,
+  fields: {
+    type: {
+      type: "Dropdown",
+      label: "Type",
+      options: [
+        { value: "bug", label: "Bug" },
+        { value: "feature", label: "Feature" },
+      ],
+    },
+    severity: {
+      type: "Dropdown",
+      label: "Severity",
+      hidden: true,
+      rules: [
+        {
+          when: { field: "type", operator: "equals", value: "bug" },
+          then: { required: true, hidden: false },
+          else: { hidden: true },
+          priority: 1,
+        },
+      ],
+    },
+  },
+  fieldOrder: ["type", "severity"],
+};
+```
+
+### Compound Conditions
+
+```tsx
+rules: [
+  {
+    when: {
+      operator: "and",
+      conditions: [
+        { field: "type", operator: "equals", value: "bug" },
+        { field: "priority", operator: "greaterThanOrEqual", value: 3 },
+      ],
+    },
+    then: { assignee: { required: true } },
+  },
+]
+```
+
+### Computed Values
+
+```tsx
+fields: {
+  qty: { type: "Number", label: "Quantity" },
+  price: { type: "Number", label: "Unit Price" },
+  total: {
+    type: "ReadOnly",
+    label: "Total",
+    computedValue: "$values.qty * $values.price",
+  },
+  createdDate: {
+    type: "ReadOnly",
+    label: "Created",
+    computedValue: "$fn.setDate()",
+  },
+}
+```
+
+### Validation (Unified Registry)
+
+```tsx
+import { registerValidators } from "@form-eng/core";
+
+registerValidators({
+  CheckUniqueEmail: {
+    fn: async (value, entityData, signal) => {
+      const res = await fetch(`/api/check?email=${value}`, { signal });
+      const { exists } = await res.json();
+      return exists ? "Already in use" : undefined;
+    },
+    async: true,
+  },
+});
+
+// In field config: validate: [{ name: "CheckUniqueEmail", async: true, debounceMs: 500 }]
+```
+
+### i18n
+
+```tsx
+import { registerLocale } from "@form-eng/core";
+registerLocale({ required: "Obligatoire", save: "Sauvegarder" });
+```
+
+### Wizard
+
+```tsx
+import { WizardForm } from "@form-eng/core";
+
+const formConfig: IFormConfig = {
+  version: 2,
+  fields: { /* ... */ },
+  wizard: {
+    steps: [
+      { id: "basics", title: "Basics", fields: ["name", "type"] },
+      {
+        id: "details",
+        title: "Details",
+        fields: ["description"],
+        visibleWhen: { field: "type", operator: "equals", value: "bug" },
+      },
+    ],
+    validateOnStepChange: true,
+  },
+};
+
+<WizardForm
+  formConfig={formConfig}
+  entityData={formValues}
+  renderStepContent={(fields) => <FieldRenderer fields={fields} />}
+  renderStepNavigation={({ goNext, goPrev, canGoNext, canGoPrev }) => (
+    <nav>
+      <button onClick={goPrev} disabled={!canGoPrev}>Back</button>
+      <button onClick={goNext} disabled={!canGoNext}>Next</button>
+    </nav>
+  )}
+/>
+```
+
+### Analytics
+
+```tsx
+import { useFormAnalytics, IAnalyticsCallbacks } from "@form-eng/core";
+
+const analytics: IAnalyticsCallbacks = {
+  onFieldChange: (fieldName, oldValue, newValue) => track("field_change", { fieldName }),
+  onSaveStart: () => track("save_start"),
+  onSaveSuccess: (duration) => track("save_success", { duration }),
+  onSaveError: (error) => track("save_error", { error: error.message }),
+  onRuleEvaluated: (rule, result) => track("rule_evaluated", { rule: rule.id }),
+  onValidationError: (fieldName, errors) => track("validation_error", { fieldName }),
+  onStepChange: (fromStep, toStep) => track("step_change", { fromStep, toStep }),
+  onFormMount: (config) => track("form_mount", { config: config.configName }),
+};
+
+const formAnalytics = useFormAnalytics(analytics);
+```
+
+### RJSF Schema Import
+
+```tsx
+import { fromRjsfSchema } from "@form-eng/core";
+
+const schema = {
+  type: "object",
+  properties: {
+    name: { type: "string", title: "Name" },
+    role: { type: "string", enum: ["admin", "user"] },
+  },
+  dependencies: {
+    role: {
+      oneOf: [
+        {
+          properties: { role: { const: "admin" }, adminCode: { type: "string", title: "Admin Code" } },
+          required: ["adminCode"],
+        },
+      ],
+    },
+  },
+};
+
+// dependencies become IRule[] automatically
+const formConfig = fromRjsfSchema(schema, uiSchema, existingFormData);
+```
+
+### Zod Schema Import
+
+```tsx
+import { zodSchemaToFieldConfig } from "@form-eng/core";
+import { z } from "zod";
+
+const UserSchema = z.object({
+  name: z.string().min(1),
+  age: z.number().min(0),
+  active: z.boolean(),
+  role: z.enum(["admin", "user", "guest"]),
+});
+
+const fieldConfigs = zodSchemaToFieldConfig(UserSchema);
+// ZodString->Textbox, ZodNumber->Number, ZodBoolean->Toggle, ZodEnum->Dropdown
+```
+
+### Visual Form Builder
+
+```tsx
+import { DesignerProvider, FormDesigner } from "@form-eng/designer";
+import "@form-eng/designer/dist/styles.css";
+
+function Builder() {
+  return (
+    <DesignerProvider>
+      <FormDesigner style={{ height: "100vh" }} />
+    </DesignerProvider>
+  );
+}
+```
+
+### Lazy Field Registry
+
+```tsx
+import { createLazyFieldRegistry } from "@form-eng/core";
+
+const lazyFields = createLazyFieldRegistry({
+  Textbox: () => import("./fields/HookTextbox"),
+  Dropdown: () => import("./fields/HookDropdown"),
+});
+
+<InjectedFieldProvider injectedFields={lazyFields}>
+```
+
+## Available Field Types
+
+22 editable + 6 read-only field types. All 28 are available in fluent, mui, and headless adapters. Tier 2 adapters (antd, chakra, mantine, atlaskit, base-web, heroui, radix, react-aria) support the 13 Tier 1 types.
+
+### Editable Fields
+
+| Component Key | Description |
+|---------------|-------------|
+| `Textbox` | Single-line text input |
+| `Number` | Numeric input with validation |
+| `Toggle` | Boolean toggle switch |
+| `Dropdown` | Single-select dropdown |
+| `Multiselect` | Multi-select dropdown |
+| `DateControl` | Date picker with clear button |
+| `Slider` | Numeric slider |
+| `SimpleDropdown` | Dropdown from string array in config |
+| `MultiSelectSearch` | Searchable multi-select |
+| `Textarea` | Multiline text with expand-to-modal |
+| `DocumentLinks` | URL link CRUD |
+| `StatusDropdown` | Dropdown with color status indicator |
+| `DynamicFragment` | Hidden field (form state only) |
+| `RadioGroup` | Single-select radio button group |
+| `CheckboxGroup` | Multi-select checkbox group (value: `string[]`) |
+| `Rating` | Star rating input (configurable `max`, `allowHalf`) |
+| `ColorPicker` | Native color picker returning hex string |
+| `Autocomplete` | Searchable single-select with type-ahead |
+| `FileUpload` | File picker (single or multiple) |
+| `DateRange` | Two date inputs (From / To) |
+| `DateTime` | Combined date+time input |
+| `PhoneInput` | Phone input with inline masking |
+
+### Read-Only Fields
+
+| Component Key | Description |
+|---------------|-------------|
+| `ReadOnly` | Plain text display |
+| `ReadOnlyArray` | Array of strings |
+| `ReadOnlyDateTime` | Formatted date/time |
+| `ReadOnlyCumulativeNumber` | Computed sum of other fields |
+| `ReadOnlyRichText` | Rendered HTML |
+| `ReadOnlyWithButton` | Text with action button |
+
+## Docs
+
+- [README.md](https://github.com/bghcore/form-engine/blob/main/README.md): Full usage guide with quick start, field types, architecture, and examples
+- [CLAUDE.md](https://github.com/bghcore/form-engine/blob/main/CLAUDE.md): Detailed architecture, rendering pipeline, key directories, coding conventions
+- [docs/comparison.md](https://github.com/bghcore/form-engine/blob/main/docs/comparison.md): Comparison vs RJSF, TanStack Form, Formik, uniforms, SurveyJS, Form.io
+- [docs/choosing-an-adapter.md](https://github.com/bghcore/form-engine/blob/main/docs/choosing-an-adapter.md): Adapter recommendation guide
+- [docs/creating-an-adapter.md](https://github.com/bghcore/form-engine/blob/main/docs/creating-an-adapter.md): Guide for building custom UI library adapters
+- [docs/field-config-reference.md](https://github.com/bghcore/form-engine/blob/main/docs/field-config-reference.md): IFieldConfig v2 reference
+- [docs/rules-engine.md](https://github.com/bghcore/form-engine/blob/main/docs/rules-engine.md): Rules engine lifecycle, dependency graph, evaluation
+- [docs/condition-operators.md](https://github.com/bghcore/form-engine/blob/main/docs/condition-operators.md): All 20 condition operators
+- [docs/expression-syntax.md](https://github.com/bghcore/form-engine/blob/main/docs/expression-syntax.md): Expression syntax ($values, $fn, $parent)
+- [docs/ACCESSIBILITY.md](https://github.com/bghcore/form-engine/blob/main/docs/ACCESSIBILITY.md): Accessibility guide (ARIA, keyboard, screen readers)
+- [docs/ssr-guide.md](https://github.com/bghcore/form-engine/blob/main/docs/ssr-guide.md): Server-side rendering guide
+- [docs/shadcn-integration.md](https://github.com/bghcore/form-engine/blob/main/docs/shadcn-integration.md): shadcn/ui integration guide
+- [docs/analytics-telemetry.md](https://github.com/bghcore/form-engine/blob/main/docs/analytics-telemetry.md): Analytics and telemetry integration
+- [docs/performance-debugging.md](https://github.com/bghcore/form-engine/blob/main/docs/performance-debugging.md): Performance debugging with DevTools
+- [docs/adapter-architecture.md](https://github.com/bghcore/form-engine/blob/main/docs/adapter-architecture.md): Adapter classification and architecture
+- [docs/canonical-field-contracts.md](https://github.com/bghcore/form-engine/blob/main/docs/canonical-field-contracts.md): Canonical field behavior contracts
+- [docs/parity-matrix.md](https://github.com/bghcore/form-engine/blob/main/docs/parity-matrix.md): Per-field, per-adapter parity matrix
+- [docs/api-stability.md](https://github.com/bghcore/form-engine/blob/main/docs/api-stability.md): Public API stability classification
+- [docs/divergence-register.md](https://github.com/bghcore/form-engine/blob/main/docs/divergence-register.md): Cross-adapter divergence register

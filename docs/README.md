@@ -4,6 +4,7 @@
 
 | Document | Purpose |
 |----------|---------|
+| [comparison.md](./comparison.md) | Honest comparison vs RJSF, TanStack Form, Formik, uniforms, SurveyJS, Form.io |
 | [choosing-an-adapter.md](./choosing-an-adapter.md) | Pick the right adapter for your UI framework |
 | [shadcn-integration.md](./shadcn-integration.md) | shadcn/ui + Tailwind integration guide |
 | [ssr-guide.md](./ssr-guide.md) | Server-side rendering / Next.js guide |

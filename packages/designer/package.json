@@ -1,6 +1,6 @@
 {
   "name": "@form-eng/designer",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "Visual form builder for @form-eng/core",
   "repository": {
     "type": "git",
@@ -20,7 +20,18 @@
     "visual-builder",
     "drag-and-drop",
     "no-code",
-    "low-code"
+    "low-code",
+    "rules-engine",
+    "config-driven",
+    "conditional-fields",
+    "form-validation",
+    "typescript",
+    "form-engine",
+    "form-generator",
+    "conditional-logic",
+    "json-config",
+    "wysiwyg",
+    "form-configuration"
   ],
   "main": "dist/index.js",
   "module": "dist/index.mjs",
