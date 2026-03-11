@@ -30,16 +30,18 @@ See [docs/comparison.md](./docs/comparison.md) for a detailed comparison with mi
 
 ### Feature Comparison
 
-| Feature | form-engine | RJSF | TanStack Form | Formik | uniforms |
-|---------|:-----------:|:----:|:-------------:|:------:|:--------:|
-| Config-driven (JSON/data) | Yes | Yes | No | No | Yes |
-| Declarative rules engine | Yes (20 ops) | Partial | No | No | No |
-| UI adapter system | 12 adapters | 5 themes | Headless | N/A | 6 bridges |
-| Computed values | `$values`, `$fn` | No | No | No | No |
-| Wizard / multi-step | Built-in | Add-on | Manual | Manual | No |
-| Visual form builder | Yes (MIT) | No | No | No | No |
-| Schema import (JSON/Zod) | Both | JSON Schema | No | No | JSON Schema |
-| Bundle (core) | ~114 KB | ~85 KB | ~12 KB | ~13 KB | ~45 KB |
+| Feature | form-engine | FormEngine.io | RJSF | TanStack Form | uniforms |
+|---------|:-----------:|:-------------:|:----:|:-------------:|:--------:|
+| Config-driven (JSON/data) | Yes | Yes | Yes | No | Yes |
+| Declarative rules engine | Yes (20 ops) | Partial | Partial | No | No |
+| UI adapter system | 11 adapters | 4 adapters | 5 themes | Headless | 6 bridges |
+| Computed values | `$values`, `$fn` | MobX-based | No | No | No |
+| Wizard / multi-step | Built-in | Layout-based | Add-on | Manual | No |
+| Visual form builder | Yes (MIT) | Yes (paid) | No | No | No |
+| AI form generation | No | ChatGPT GPT | No | No | No |
+| Schema import (JSON/Zod) | Both | Proprietary | JSON Schema | No | JSON Schema |
+| License | MIT (all) | MIT core / Paid builder | Apache 2.0 | MIT | MIT |
+| Bundle (core) | ~114 KB | ~189 KB | ~85 KB | ~12 KB | ~45 KB |
 
 ## Packages
 

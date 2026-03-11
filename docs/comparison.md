@@ -6,23 +6,26 @@ How does form-engine compare to other React form libraries? This guide provides 
 
 ## Summary Table
 
-| Feature | form-engine | RJSF | TanStack Form | Formik | react-final-form | uniforms | surveyjs | formio |
-|---------|:-----------:|:----:|:-------------:|:------:|:----------------:|:--------:|:--------:|:------:|
-| Config-driven (JSON/data) | Yes | Yes | No | No | No | Yes | Yes | Yes |
-| Rules engine (declarative) | Yes (20 ops) | Partial | No | No | No | No | Partial | Partial |
-| UI adapter system | 12 adapters | 5 themes | N/A (headless) | N/A | N/A | 6 bridges | Built-in | Built-in |
-| Conditional field visibility | Declarative | JSON Schema | Code | Code | Code | JSON Schema | JSON | JSON |
-| Computed values | `$values`, `$fn` | No | No | No | No | No | Expressions | Calculated |
-| Wizard / multi-step | Built-in | Add-on | Manual | Manual | Manual | No | Built-in | Built-in |
-| Visual form builder | Yes | No | No | No | No | No | Yes (paid) | Yes (paid) |
-| Async validation | Debounced | No | Yes | Yes | Yes | Yes | Yes | Yes |
-| Field arrays | Built-in | Built-in | Built-in | FieldArray | FieldArray | ListField | Matrix | DataGrid |
-| i18n | Locale registry | React-intl | Manual | Manual | Manual | Manual | Built-in | Built-in |
-| TypeScript | Strict | Partial | Strict | Yes | Yes | Yes | Yes | Yes |
-| Schema import (JSON Schema) | `fromRjsfSchema()` | Native | No | No | No | Native | Proprietary | Proprietary |
-| Zod import | `zodSchemaToFieldConfig()` | No | Adapter | Adapter | No | No | No | No |
-| License | MIT | Apache 2.0 | MIT | Apache 2.0 | MIT | MIT | Mixed | Mixed |
-| Core bundle (approx.) | ~114 KB | ~85 KB | ~12 KB | ~13 KB | ~8 KB | ~45 KB | ~200 KB+ | ~250 KB+ |
+| Feature | form-engine | FormEngine.io | RJSF | TanStack Form | Formik | uniforms | surveyjs | formio |
+|---------|:-----------:|:-------------:|:----:|:-------------:|:------:|:--------:|:--------:|:------:|
+| Config-driven (JSON/data) | Yes | Yes | Yes | No | No | Yes | Yes | Yes |
+| Rules engine (declarative) | Yes (20 ops) | Partial | Partial | No | No | No | Partial | Partial |
+| UI adapter system | 11 adapters | 4 adapters | 5 themes | N/A (headless) | N/A | 6 bridges | Built-in | Built-in |
+| Conditional field visibility | Declarative | JSON-based | JSON Schema | Code | Code | JSON Schema | JSON | JSON |
+| Computed values | `$values`, `$fn` | MobX-based | No | No | No | No | Expressions | Calculated |
+| Wizard / multi-step | Built-in | Layout-based | Add-on | Manual | Manual | No | Built-in | Built-in |
+| Visual form builder | Yes (MIT) | Yes (paid) | No | No | No | No | Yes (paid) | Yes (paid) |
+| AI form generation | No | ChatGPT custom GPT | No | No | No | No | No | No |
+| Async validation | Debounced | Zod/Yup/AJV | No | Yes | Yes | Yes | Yes | Yes |
+| Field arrays / repeaters | Built-in | Repeater component | Built-in | Built-in | FieldArray | ListField | Matrix | DataGrid |
+| i18n / localization | Locale registry | Fluent.js | React-intl | Manual | Manual | Manual | Built-in | Built-in |
+| Custom components | cloneElement injection | Fluent builder API | Widgets | N/A | N/A | Fields | Built-in | Built-in |
+| Embedded forms / templates | No | Yes | No | No | No | No | No | Partial |
+| TypeScript | Strict | Yes | Partial | Strict | Yes | Yes | Yes | Yes |
+| Schema import | JSON Schema + Zod | Proprietary JSON | Native JSON Schema | No | No | JSON Schema | Proprietary | Proprietary |
+| React framework support | React only | React + Next.js + Remix | React | React/Vue/Angular/Solid | React | React | Multi-framework | Multi-framework |
+| License | MIT (all) | MIT core / Paid builder | Apache 2.0 | MIT | Apache 2.0 | MIT | Mixed | Mixed |
+| Core bundle (approx.) | ~114 KB | ~189 KB (gzip) | ~85 KB | ~12 KB | ~13 KB | ~45 KB | ~200 KB+ | ~250 KB+ |
 
 ## Detailed Comparisons
 
@@ -41,13 +44,56 @@ How does form-engine compare to other React form libraries? This guide provides 
 - **Rules engine**: form-engine has a purpose-built declarative rules engine with 20 condition operators, priority-based conflict resolution, computed values, and cross-field effects. RJSF relies on JSON Schema `dependencies` and `if/then/else`, which are powerful but limited to visibility and required toggling.
 - **Computed values**: form-engine supports `$values.qty * $values.price` expressions and custom `$fn` functions. RJSF has no built-in computed value system.
 - **Visual builder**: form-engine includes `@form-eng/designer`. RJSF has community playground tools but no official builder.
-- **UI adapters**: form-engine has 12 first-party adapters. RJSF has 5 official themes (antd, chakra, fluent, mui, semantic).
+- **UI adapters**: form-engine has 11 first-party adapters with 28 field types each. RJSF has 5 official themes (antd, chakra, fluent, mui, semantic).
 - **Schema interop**: form-engine can import RJSF schemas via `fromRjsfSchema()` and export via `toRjsfSchema()`, so migration is straightforward.
 - **Community**: RJSF has a much larger community (~14k GitHub stars) and longer track record.
 
 **Choose RJSF when:** you already have JSON Schemas, need the largest community and ecosystem, or want schema-first development where the form schema is also used for API validation.
 
 **Choose form-engine when:** you need a declarative rules engine with computed values, cross-field effects, and priority-based conflict resolution that goes beyond what JSON Schema conditionals can express.
+
+---
+
+### FormEngine.io
+
+**Closest name, different product.** [FormEngine.io](https://formengine.io/) (package: `@react-form-builder/core`) is a JSON-driven React form engine with a commercial drag-and-drop designer. Despite the similar name, the products differ significantly in architecture and strengths.
+
+**What they share:**
+- JSON-driven form rendering
+- Visual drag-and-drop form builder
+- Conditional field visibility from config
+- Custom component registration
+- Multi-UI-library support (MUI, Mantine, etc.)
+- TypeScript support
+- i18n / localization support
+
+**Where we lead:**
+- **Rules engine**: form-engine has a purpose-built declarative rules engine with 20 condition operators, dependency graph evaluation, priority-based conflict resolution, computed values with `$values`/`$fn` expressions, and cross-field effects. FormEngine.io uses MobX-based dynamic properties -- more flexible for simple cases but lacks declarative semantics, priority resolution, and tracing/debugging tools.
+- **UI adapter count**: 11 first-party adapters (fluent, mui, headless, antd, chakra, mantine, atlaskit, base-web, heroui, radix, react-aria) with 28 field types each. FormEngine.io ships 4 adapters (MUI, Mantine, React Suite, shadcn/ui) with others listed as "coming soon."
+- **Accessibility-first adapters**: form-engine has dedicated radix (unstyled primitives) and react-aria (ARIA-first) adapters. FormEngine.io has no accessibility-specialized adapter.
+- **Open-source designer**: form-engine's `@form-eng/designer` is MIT-licensed. FormEngine.io's designer is commercial ($1,299-$5,999 perpetual license).
+- **Contract-tested parity**: All 11 adapters run the same contract + parity test suite (6,296 tests). FormEngine.io's adapter parity is not publicly documented.
+- **Schema interop**: form-engine imports JSON Schema (via `fromRjsfSchema()`) and Zod schemas. FormEngine.io uses a proprietary JSON format with no documented import from standard schemas.
+- **DevTools**: form-engine includes FormDevTools for runtime rule tracing, value inspection, and performance tracking. FormEngine.io has no equivalent.
+
+**Where they lead:**
+- **AI form generation**: FormEngine.io offers a custom ChatGPT GPT that converts screenshots, PDFs, or text descriptions into their JSON schema. form-engine has no AI generation story.
+- **Embedded forms / templates**: FormEngine.io supports forms-within-forms and reusable template components. form-engine has no template/embedding system beyond field arrays.
+- **Specialized components**: FormEngine.io offers premium components (data grid with inline editing, signature capture, QR codes, Google Maps, rich text editor). form-engine focuses on standard form fields.
+- **Validation library choice**: FormEngine.io integrates Zod, Yup, AJV, Superstruct, and Joi out of the box. form-engine has its own validation registry (14 built-in validators + custom) but no direct Zod/Yup runtime integration.
+- **Workflow integration**: FormEngine.io is part of the Optimajet ecosystem (Workflow Engine, Workflow Server), enabling form-to-workflow pipelines. form-engine is standalone.
+- **Layout system**: FormEngine.io has built-in responsive grid layouts, columns, and nested sections. form-engine delegates layout to the consuming application.
+- **Enterprise logos**: FormEngine.io claims Bosch, Philips, Dell, Acer, Novartis adoption.
+
+**Roughly at parity:**
+- Computed/dynamic properties (different approaches, similar capability)
+- Custom component registration (different APIs, similar extensibility)
+- i18n support (form-engine: LocaleRegistry, FormEngine.io: Fluent.js)
+- Multi-step / wizard forms
+
+**Choose FormEngine.io when:** you want a commercial-grade visual designer with AI generation, need specialized components like data grids or signature capture, or are in the Optimajet workflow ecosystem.
+
+**Choose form-engine when:** you need a declarative rules engine with formal semantics, want the widest UI adapter ecosystem (11 adapters, 28 fields each), need accessibility-first adapters (radix, react-aria), want everything MIT-licensed including the designer, or need contract-tested cross-adapter parity.
 
 ---
 
@@ -132,7 +178,7 @@ How does form-engine compare to other React form libraries? This guide provides 
 - **Computed values**: form-engine supports computed expressions. uniforms does not.
 - **Visual builder**: form-engine includes `@form-eng/designer`. uniforms has no visual builder.
 - **Schema sources**: uniforms supports JSON Schema, GraphQL, and SimpleSchema. form-engine uses its own IFormConfig format but can import JSON Schema and Zod schemas.
-- **Adapter count**: form-engine has 12 adapters. uniforms has 6 bridges.
+- **Adapter count**: form-engine has 11 adapters with 28 field types each. uniforms has 6 bridges.
 - **Wizard**: form-engine has built-in wizard support with conditional step visibility. uniforms requires custom implementation.
 
 **Choose uniforms when:** you use GraphQL schemas or SimpleSchema and want auto-generated forms from those formats, or you prefer the uniforms bridge API.
