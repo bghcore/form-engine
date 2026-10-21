@@ -62,7 +62,7 @@
     "react-dom": "^19.2.4",
     "react-hook-form": "^7.71.2",
     "@form-eng/core": "*",
-    "@heroui/react": "^2.7.6",
+    "@heroui/react": "^3.2.6",
     "@internationalized/date": "^3.8.1",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3",
